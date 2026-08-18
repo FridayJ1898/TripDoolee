@@ -48,8 +48,8 @@
 <body class="min-h-screen flex flex-col antialiased pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-8">
 
   <!-- Chosen Palette: Warm Neutrals with Amber, Terracotta, Sage Green, and Slate -->
-  <!-- Application Structure Plan: Mobile-first responsive structure optimized for one-handed mobile use. Features a mobile fixed bottom navigation bar (App-like UX) and top sticky header. Day selectors use smooth horizontal swipable pills instead of cramped grids. Touch targets are scaled to min-44px height for effortless taps while traveling with kids. Tab sections: 1. Master Schedule (Day 1-11 filterable timeline), 2. Attractions Directory (Search & Category filter), 3. Transit & ORCA Guide, 4. Tip & Tax Calculator (Large keypad/preset buttons), 5. Interactive Checklist. -->
-  <!-- Visualization & Content Choices: 1. Overview Doughnut Chart (Chart.js) -> Shows 3-night Olympia vs 7-night Seattle split. 2. Tax Comparison Bar Chart (Chart.js) -> Visualizes Oregon 0% tax savings vs Seattle 10.55%. Height responsive so it never overflows small phone viewports. NO SVG/Mermaid JS used. -->
+  <!-- Application Structure Plan: Mobile-first responsive structure optimized for one-handed mobile use with exact address data & direct Google Maps routing buttons. Features mobile fixed bottom navigation bar and top sticky header. Interactive components: 1. Schedule with local persistence, accurate addresses & Google Maps button for every stop, 2. Attractions Directory with precise street address, parking tips, and one-tap navigation, 3. Transit & ORCA guide with 2026 youth exceptions, 4. Tip/Tax Calculator with quick budget buttons, 5. Stateful Checklist. -->
+  <!-- Visualization & Content Choices: 1. Overview Doughnut Chart (Chart.js) -> Visualizes 3-night Olympia vs 7-night Seattle split. 2. Tax Comparison Bar Chart (Chart.js) -> Visualizes tax rates. NO SVG/Mermaid JS used. -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
   <!-- Top Header -->
@@ -65,7 +65,7 @@
       <!-- Desktop Navigation Links -->
       <div class="hidden md:flex space-x-1 text-sm font-medium">
         <button onclick="switchTab('tab-schedule')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-schedule">📅 마스터 일정</button>
-        <button onclick="switchTab('tab-attractions')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-attractions">📍 주요 명소</button>
+        <button onclick="switchTab('tab-attractions')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-attractions">📍 주요 명소 & 주소</button>
         <button onclick="switchTab('tab-transit')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-transit">🚘 교통 & ORCA</button>
         <button onclick="switchTab('tab-dining')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-dining">💳 팁 & 세금 계산기</button>
         <button onclick="switchTab('tab-checklist')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-checklist">🎒 준비물</button>
@@ -81,7 +81,7 @@
     </button>
     <button onclick="switchTab('tab-attractions')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-attractions">
       <span class="text-lg">📍</span>
-      <span class="text-[10px] font-medium mt-0.5">명소</span>
+      <span class="text-[10px] font-medium mt-0.5">명소&주소</span>
     </button>
     <button onclick="switchTab('tab-transit')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-transit">
       <span class="text-lg">🚘</span>
@@ -106,11 +106,11 @@
           <div class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-900">
             🍁 2026.09.30(수) ~ 10.10(토) [10박 11일]
           </div>
-          <h2 class="text-10xl sm:text-2xl font-bold text-stone-800 leading-snug">
-            두 딸과 함께 만드는 시애틀·올림피아 가을 여행
+          <h2 class="text-xl sm:text-2xl font-bold text-stone-800 leading-snug">
+            정확한 주소 기반 시애틀·올림피아 가을 여행 노트
           </h2>
           <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
-            전투기/항공 박물관 등 하드 관람을 배제하고, 넓은 공원, 어린이 박물관, 펌킨 패치 호박 농장, 수변 시장, 오레곤주 0% 면세 쇼핑으로 채운 힐링 일정입니다.
+            모든 방문지의 영문 도로명 주소와 우편번호, 주차 정보가 내장되어 있으며 원터치 구글 맵 네비게이션 연결 및 LocalStorage 자동 정보 저장 기능이 제공됩니다.
           </p>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center text-xs">
             <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
@@ -149,7 +149,7 @@
       <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
         <div class="mb-3">
           <h3 class="text-lg sm:text-xl font-bold text-stone-800">📅 10박 11일 마스터 일정</h3>
-          <p class="text-xs text-stone-500 mt-0.5">날짜 버튼을 스와이프하여 터치하시면 세부 이동 경로와 시간대별 일정을 확인하실 수 있습니다.</p>
+          <p class="text-xs text-stone-500 mt-0.5">날짜를 선택하시면 세부 경로 및 해당 장소의 정확한 주소와 지도 버튼이 표시됩니다.</p>
         </div>
 
         <!-- Filter Buttons -->
@@ -173,12 +173,12 @@
     <section id="tab-attractions" class="tab-content hidden space-y-4">
       <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
         <div class="mb-4">
-          <h3 class="text-lg sm:text-xl font-bold text-stone-800">📍 주요 방문지 종합 디렉토리</h3>
-          <p class="text-xs text-stone-500 mt-0.5">휴무일, 운영시간, 입장료 및 아이 맞춤 포인트를 실시간으로 검색하세요.</p>
+          <h3 class="text-lg sm:text-xl font-bold text-stone-800">📍 주요 방문지 주소 & 주차 디렉토리</h3>
+          <p class="text-xs text-stone-500 mt-0.5">정확한 도로명 주소, 주차 팁 및 1-터치 구글 맵 연결 버튼을 이용하세요.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
-          <input type="text" id="attract-search" oninput="renderAttractions()" placeholder="명소 명칭 검색 (예: 동물원, 마켓...)" class="w-full px-3.5 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target">
+          <input type="text" id="attract-search" oninput="renderAttractions()" placeholder="명소 명칭/주소 검색 (예: 5th Ave, 동물원...)" class="w-full px-3.5 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target">
           <select id="attract-category" onchange="renderAttractions()" class="w-full px-3.5 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target bg-white">
             <option value="all">전체 카테고리</option>
             <option value="museum">어린이 박물관/실내</option>
@@ -197,7 +197,7 @@
     <section id="tab-transit" class="tab-content hidden space-y-4">
       <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
         <h3 class="text-lg sm:text-xl font-bold text-stone-800 mb-1">🚘 교통, 카시트 & 대중교통(ORCA) 가이드</h3>
-        <p class="text-xs text-stone-500 mb-4">아이 무료 탑승 제도 및 컨택트리스 신용카드 직접 결제 가이드입니다.</p>
+        <p class="text-xs text-stone-500 mb-4">아이 무료 탑승 제도 및 네비게이션 주소 입력 가이드입니다.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div class="bg-amber-50/80 rounded-xl p-4 border border-amber-200 space-y-2.5">
@@ -233,19 +233,22 @@
         </div>
 
         <div class="bg-white rounded-xl p-4 border border-stone-200 space-y-3">
-          <h4 class="font-bold text-stone-800 text-xs sm:text-sm">🚗 렌터카 운영 & 카시트 안전 수칙</h4>
+          <h4 class="font-bold text-stone-800 text-xs sm:text-sm">🚗 렌터카 주요 거점 정확한 네비 주소</h4>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
-              <p class="font-semibold text-stone-800">픽업 (9/30 수 13:00)</p>
-              <p class="text-stone-500 mt-1">시애틀 타코마 공항(SEA) 렌터카 센터. 중형 SUV 수령 후 트렁크 적재공간 확보.</p>
+            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
+              <p class="font-semibold text-stone-800">공항 렌터카 센터 (픽업)</p>
+              <p class="text-amber-900 font-mono text-[11px]">3150 S 160th St, SeaTac, WA 98188</p>
+              <p class="text-stone-500 text-[10px]">공항 도착 후 Rental Car Shuttle 버스 탑승</p>
             </div>
-            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
-              <p class="font-semibold text-stone-800">반납 (10/4 일 09:30)</p>
-              <p class="text-stone-500 mt-1">다운타운 지점(Avis 5th Ave 등). 일요일 영업시간 단축(오전 마감) 고려 오전에 완료.</p>
+            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
+              <p class="font-semibold text-stone-800">다운타운 Avis 반납 지점</p>
+              <p class="text-amber-900 font-mono text-[11px]">1909 5th Ave, Seattle, WA 98101</p>
+              <p class="text-stone-500 text-[10px]">10/4(일) 오전 일찍 반납 (영업시간 마감 주의)</p>
             </div>
-            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
-              <p class="font-semibold text-stone-800">카시트 규정</p>
-              <p class="text-stone-500 mt-1">4세 딸: 5점식 하네스 카시트 필수.<br>7세 딸: 부스터 시트 필수.</p>
+            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
+              <p class="font-semibold text-stone-800">타코마 코스트코 (1일차 장보기)</p>
+              <p class="text-amber-900 font-mono text-[11px]">3701 S 37th St, Tacoma, WA 98409</p>
+              <p class="text-stone-500 text-[10px]">I-5 출구 직결, 소고기/과일/생수 구매</p>
             </div>
           </div>
         </div>
@@ -369,13 +372,13 @@
         region: "olympia",
         title: "미국 입성 & 올림피아 잔디마당 첫날",
         summary: "공항 착륙 후 중형 SUV 렌터카 수령, 코스트코 장보기 후 올림피아 잔디 독채 체크인 및 바비큐",
-        transit: "🚗 렌터카 중형 SUV (카시트 2개 장착)",
+        transit: "🚗 렌터카 중형 SUV",
         timeline: [
-          { time: "11:40 - 13:00", text: "시애틀 타코마 공항(SEA) 착륙, 입국 심사 및 수하물 찾기", tag: "공항" },
-          { time: "13:00 - 13:40", text: "공항 렌터카 센터 이동 및 중형 SUV 차량 픽업", tag: "이동" },
-          { time: "13:40 - 14:40", text: "타코마 코스트코(Costco Wholesale) 이동", tag: "쇼핑" },
-          { time: "14:40 - 15:30", text: "소고기 스테이크, 생수, 과일, 아이들 아침거리 장보기", tag: "쇼핑" },
-          { time: "15:30 - 16:20", text: "웨스트 올림피아 독채 에어비앤비 도착 및 체크인", tag: "숙소" },
+          { time: "11:40 - 13:00", text: "시애틀 타코마 공항(SEA) 착륙, 입국 심사 및 수하물 찾기", tag: "공항", address: "17801 International Blvd, SeaTac, WA 98158" },
+          { time: "13:00 - 13:40", text: "공항 렌터카 센터 이동 및 중형 SUV 차량 픽업", tag: "이동", address: "3150 S 160th St, SeaTac, WA 98188" },
+          { time: "13:40 - 14:40", text: "타코마 코스트코(Costco Wholesale) 이동", tag: "쇼핑", address: "3701 S 37th St, Tacoma, WA 98409" },
+          { time: "14:40 - 15:30", text: "소고기 스테이크, 생수, 과일, 아이들 아침거리 장보기", tag: "쇼핑", address: "3701 S 37th St, Tacoma, WA 98409" },
+          { time: "15:30 - 16:20", text: "웨스트 올림피아 독채 에어비앤비 도착 및 체크인", tag: "숙소", address: "West Olympia, WA 98502" },
           { time: "16:20 - 17:30", text: "넓은 울타리 잔디 마당에서 비눗방울 놀이 & 비행 피로 풀기", tag: "휴식" },
           { time: "17:30 - 19:00", text: "아빠표 마당 소고기 바비큐 저녁 식사", tag: "식사" },
           { time: "19:00 - 20:30", text: "아이들 목욕 및 시차 적응을 위한 조기 취침", tag: "휴식" }
@@ -390,11 +393,11 @@
         transit: "🚗 렌터카 이동",
         timeline: [
           { time: "08:00 - 09:30", text: "숙소 아침 식사 및 앞마당 햇살 산책", tag: "휴식" },
-          { time: "09:30 - 12:00", text: "더 에버그린 주립대 Red Square 및 유기농 농장 숲길 산책", tag: "명소" },
-          { time: "12:00 - 13:00", text: "올림피아 다운타운 브런치 식사", tag: "식사" },
-          { time: "13:00 - 15:30", text: "핸즈 온 어린이 박물관 (워싱턴주 최대 규모, 자갈 굴착 & 진흙 놀이)", tag: "체험" },
-          { time: "15:30 - 17:00", text: "퍼시벌 랜딩 공원 수변 데크길 산책 & 요트 구경", tag: "공원" },
-          { time: "17:00 - 18:30", text: "Anthony's Hearthfire Grill에서 연어 구이 디너 외식", tag: "식사" },
+          { time: "09:30 - 12:00", text: "더 에버그린 주립대 Red Square 및 유기농 농장 숲길 산책", tag: "명소", address: "2700 Evergreen Pkwy NW, Olympia, WA 98505" },
+          { time: "12:00 - 13:00", text: "올림피아 다운타운 브런치 식사", tag: "식사", address: "Downtown Olympia, WA 98501" },
+          { time: "13:00 - 15:30", text: "핸즈 온 어린이 박물관 (워싱턴주 최대 규모, 자갈 굴착 & 진흙 놀이)", tag: "체험", address: "414 Jefferson St NE, Olympia, WA 98501" },
+          { time: "15:30 - 17:00", text: "퍼시벌 랜딩 공원 수변 데크길 산책 & 요트 구경", tag: "공원", address: "217 Thurston Ave NW, Olympia, WA 98501" },
+          { time: "17:00 - 18:30", text: "Anthony's Hearthfire Grill에서 연어 구이 디너 외식", tag: "식사", address: "1675 Marine Dr NE, Olympia, WA 98501" },
           { time: "18:30 - 19:00", text: "숙소 복귀 후 잔디 마당 별 보기 휴식", tag: "휴식" }
         ]
       },
@@ -406,11 +409,11 @@
         summary: "오레곤주 우드번 아울렛에서 소비세 0% 아이들 의류 면세 쇼핑 및 파크 놀이터 휴식",
         transit: "🚗 렌터카 (I-5 South 편도 약 1시간 45분)",
         timeline: [
-          { time: "08:30 - 10:15", text: "올림피아 출발 ➡️ 오레곤주 우드번 프리미엄 아울렛 이동", tag: "이동" },
-          { time: "10:15 - 13:00", text: "우드번 아울렛 1차 쇼핑 (소비세 0% 면세: 나이키, 폴로, 갭 키즈, 파타고니아)", tag: "쇼핑" },
+          { time: "08:30 - 10:15", text: "올림피아 출발 ➡️ 오레곤주 우드번 프리미엄 아울렛 이동", tag: "이동", address: "1001 Arney Rd, Woodburn, OR 97071" },
+          { time: "10:15 - 13:00", text: "우드번 아울렛 1차 쇼핑 (소비세 0% 면세: 나이키, 폴로, 갭 키즈, 파타고니아)", tag: "쇼핑", address: "1001 Arney Rd, Woodburn, OR 97071" },
           { time: "13:00 - 14:00", text: "아울렛 푸드코트 점심 식사", tag: "식사" },
           { time: "14:00 - 15:30", text: "부모 의류 및 선물 2차 쇼핑", tag: "쇼핑" },
-          { time: "15:30 - 16:30", text: "복귀 중 휴식: Town Center Park (Wilsonville) 잔디밭 놀이터", tag: "공원" },
+          { time: "15:30 - 16:30", text: "복귀 중 휴식: Town Center Park (Wilsonville) 잔디밭 놀이터", tag: "공원", address: "29600 SW Park Pl, Wilsonville, OR 97070" },
           { time: "16:30 - 18:15", text: "올림피아 숙소 복귀", tag: "이동" },
           { time: "18:15 - 19:30", text: "숙소 저녁 식사 및 쇼핑 물품 정리", tag: "휴식" }
         ]
@@ -424,8 +427,8 @@
         transit: "🚗 렌터카 이동 (시애틀 이동)",
         timeline: [
           { time: "09:00 - 10:00", text: "올림피아 에어비앤비 체크아웃 및 짐 적재", tag: "숙소" },
-          { time: "10:00 - 10:30", text: "Rutledge Corn Maze (럿레지 농장) 이동", tag: "이동" },
-          { time: "10:30 - 13:30", text: "미국 전통 가을 펌킨 패치 체험 (호박밭 포토존, 트랙터 마차, 옥수수 미로, 애플 사이다)", tag: "체험" },
+          { time: "10:00 - 10:30", text: "Rutledge Corn Maze (럿레지 농장) 이동", tag: "이동", address: "5226 Littlerock Rd SW, Tumwater, WA 98512" },
+          { time: "10:30 - 13:30", text: "미국 전통 가을 펌킨 패치 체험 (호박밭 포토존, 트랙터 마차, 옥수수 미로)", tag: "체험", address: "5226 Littlerock Rd SW, Tumwater, WA 98512" },
           { time: "13:30 - 15:00", text: "시애틀 숙소 영역으로 이동", tag: "이동" },
           { time: "15:00 - 16:30", text: "시애틀 독채 에어비앤비 체크인 및 짐 풀기", tag: "숙소" },
           { time: "16:30 - 18:00", text: "동네 놀이터 산책 & Trader Joe's 2차 장보기", tag: "쇼핑" },
@@ -440,12 +443,12 @@
         summary: "다운타운 렌터카 반납, 모노레일 탑승, 시애틀 어린이 박물관 & 대형 놀이터",
         transit: "🚊 모노레일 & 시내버스 (18세 이하 무료)",
         timeline: [
-          { time: "09:00 - 10:00", text: "다운타운 Avis 영업소 이동 및 차량 반납 완료", tag: "교통" },
-          { time: "10:00 - 10:20", text: "웨스트레이크 센터에서 시애틀 센터 모노레일 탑승", tag: "교통" },
-          { time: "10:20 - 13:00", text: "시애틀 어린이 박물관 (미니 마켓 장보기, 블록 건축)", tag: "체험" },
-          { time: "13:00 - 14:00", text: "시애틀 센터 아모리(Armory) 푸드코트 점심 식사", tag: "식사" },
-          { time: "14:00 - 15:30", text: "Artists at Play Playground (스페이스 니들 아래 9m 대형 정글짐)", tag: "공원" },
-          { time: "15:30 - 16:30", text: "International Fountain 잔디밭 피크닉 (음악 분수)", tag: "공원" },
+          { time: "09:00 - 10:00", text: "다운타운 Avis 영업소 이동 및 차량 반납 완료", tag: "교통", address: "1909 5th Ave, Seattle, WA 98101" },
+          { time: "10:00 - 10:20", text: "웨스트레이크 센터에서 시애틀 센터 모노레일 탑승", tag: "교통", address: "400 Pine St, Seattle, WA 98101" },
+          { time: "10:20 - 13:00", text: "시애틀 어린이 박물관 (미니 마켓 장보기, 블록 건축)", tag: "체험", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "13:00 - 14:00", text: "시애틀 센터 아모리(Armory) 푸드코트 점심 식사", tag: "식사", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "14:00 - 15:30", text: "Artists at Play Playground (스페이스 니들 아래 9m 대형 정글짐)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "15:30 - 16:30", text: "International Fountain 잔디밭 피크닉 (음악 분수)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
           { time: "16:30 - 17:30", text: "대중교통으로 숙소 복귀", tag: "휴식" }
         ]
       },
@@ -458,11 +461,11 @@
         transit: "🚊 대중교통 + 도보 (유모차 경사로 연결)",
         timeline: [
           { time: "09:30 - 10:15", text: "대중교통(경전철/버스) 타고 도심 이동", tag: "교통" },
-          { time: "10:15 - 11:45", text: "파이크 플레이스 마켓 (생선 던지기, 돼지저금통 레이첼, 스타벅스 1호점)", tag: "명소" },
-          { time: "11:45 - 12:45", text: "Pike Place Chowder에서 클램 차우더 빵 보울 점심", tag: "식사" },
-          { time: "12:45 - 13:00", text: "신규 Overlook Walk 육교를 통해 바다 뷰 감상하며 피어 59 이동", tag: "산책" },
-          { time: "13:00 - 14:30", text: "시애틀 아쿠아리움 (Touch Pool 조개 터치, 해달 관람)", tag: "체험" },
-          { time: "14:30 - 15:45", text: "시애틀 그레이트 휠 (대관람차) 탑승", tag: "체험" },
+          { time: "10:15 - 11:45", text: "파이크 플레이스 마켓 (생선 던지기, 돼지저금통 레이첼, 스타벅스 1호점)", tag: "명소", address: "85 Pike St, Seattle, WA 98101" },
+          { time: "11:45 - 12:45", text: "Pike Place Chowder에서 클램 차우더 빵 보울 점심", tag: "식사", address: "1530 Post Alley, Seattle, WA 98101" },
+          { time: "12:45 - 13:00", text: "신규 Overlook Walk 육교를 통해 바다 뷰 감상하며 피어 59 이동", tag: "산책", address: "Overlook Walk, Seattle, WA 98101" },
+          { time: "13:00 - 14:30", text: "시애틀 아쿠아리움 (Touch Pool 조개 터치, 해달 관람)", tag: "체험", address: "1483 Alaskan Way Pier 59, Seattle, WA 98101" },
+          { time: "14:30 - 15:45", text: "시애틀 그레이트 휠 (대관람차) 탑승", tag: "체험", address: "1301 Alaskan Way Pier 57, Seattle, WA 98101" },
           { time: "15:45 - 17:00", text: "워터프론트 공원 산책 후 숙소 복귀", tag: "휴식" }
         ]
       },
@@ -474,11 +477,11 @@
         summary: "우드랜드 파크 동물원의 야외 동물 탐험, 실내 온실 놀이터 줌마지움, 장미 정원 산책",
         transit: "🚌 5번 시내버스 탑승 (아동 무료)",
         timeline: [
-          { time: "09:30 - 10:15", text: "5번 시내버스로 우드랜드 파크 동물원 이동", tag: "교통" },
-          { time: "10:15 - 12:30", text: "자연 친화 야외 동물원 산책 (기린, 사자, 펭귄)", tag: "명소" },
+          { time: "09:30 - 10:15", text: "5번 시내버스로 우드랜드 파크 동물원 이동", tag: "교통", address: "5500 Phinney Ave N, Seattle, WA 98103" },
+          { time: "10:15 - 12:30", text: "자연 친화 야외 동물원 산책 (기린, 사자, 펭귄)", tag: "명소", address: "5500 Phinney Ave N, Seattle, WA 98103" },
           { time: "12:30 - 13:30", text: "동물원 내 카페테리아 키즈밀 점심", tag: "식사" },
-          { time: "13:30 - 15:00", text: "실내 숲속 놀이터 '줌마지움 (Zoomazium)'에서 오르기 & 미끄럼틀", tag: "체험" },
-          { time: "15:00 - 16:30", text: "동물원 옆 로즈 가든 (Rose Garden) 잔디밭 유모차 산책", tag: "공원" },
+          { time: "13:30 - 15:00", text: "실내 숲속 놀이터 '줌마지움 (Zoomazium)'에서 오르기 & 미끄럼틀", tag: "체험", address: "5500 Phinney Ave N, Seattle, WA 98103" },
+          { time: "15:00 - 16:30", text: "동물원 옆 로즈 가든 (Rose Garden) 잔디밭 유모차 산책", tag: "공원", address: "750 N 50th St, Seattle, WA 98103" },
           { time: "16:30 - 17:30", text: "버스 탑승 후 숙소 복귀", tag: "휴식" }
         ]
       },
@@ -490,10 +493,10 @@
         summary: "대형 페리 탑승, 베인브리지 섬 윈슬로 웨이 산책, 바닷가 놀이터 및 수제 아이스크림",
         transit: "🚢 워싱턴주 페리 (아동 무료 도보 승선)",
         timeline: [
-          { time: "10:00 - 10:40", text: "도보/경전철로 피어 52 페리 터미널 이동", tag: "교통" },
+          { time: "10:00 - 10:40", text: "도보/경전철로 피어 52 페리 터미널 이동", tag: "교통", address: "801 Alaskan Way, Seattle, WA 98104" },
           { time: "10:45 - 11:25", text: "대형 페리 탑승 (갑판 위 갈매기 구경 & 시애틀 스카이라인 조망)", tag: "체험" },
-          { time: "11:25 - 13:00", text: "베인브리지 섬 중심가(Winslow Way) 이동 및 브런치", tag: "식사" },
-          { time: "13:00 - 14:30", text: "Waterfront Park 바닷가 놀이터 그네 타기 & Mora 수제 아이스크림", tag: "공원" },
+          { time: "11:25 - 13:00", text: "베인브리지 섬 중심가(Winslow Way) 이동 및 브런치", tag: "식사", address: "Winslow Way E, Bainbridge Island, WA 98110" },
+          { time: "13:00 - 14:30", text: "Waterfront Park 바닷가 놀이터 그네 타기 & Mora 수제 아이스크림", tag: "공원", address: "305 Shannon Dr SE, Bainbridge Island, WA 98110" },
           { time: "14:45 - 15:30", text: "시애틀행 복귀 페리 탑승", tag: "교통" },
           { time: "15:30 - 17:00", text: "숙소 복귀 후 휴식", tag: "휴식" }
         ]
@@ -506,11 +509,11 @@
         summary: "발라드 록스 배 수위 조절 및 지하 연어 사다리 관람, 가스 워크 공원 잔디언덕 연날리기",
         transit: "🚌 시내버스 / UberXL",
         timeline: [
-          { time: "09:30 - 10:15", text: "버스로 발라드 록스 (Ballard Locks) 이동 (입장료 무료)", tag: "교통" },
-          { time: "10:15 - 12:30", text: "갑문 수위 조절 관람 & 지하 Fish Ladder 연어 사다리 감상", tag: "명소" },
-          { time: "12:30 - 13:30", text: "발라드 역사 거리 점심 식사 (피자/베이커리)", tag: "식사" },
-          { time: "13:30 - 14:15", text: "가스 워크 공원 (Gas Works Park) 이동", tag: "이동" },
-          { time: "14:15 - 16:30", text: "Play Barn 실내외 놀이공간 & Kite Hill 언덕에서 레이크 유니온 전경 감상", tag: "공원" },
+          { time: "09:30 - 10:15", text: "버스로 발라드 록스 (Ballard Locks) 이동 (입장료 무료)", tag: "교통", address: "3015 NW 54th St, Seattle, WA 98107" },
+          { time: "10:15 - 12:30", text: "갑문 수위 조절 관람 & 지하 Fish Ladder 연어 사다리 감상", tag: "명소", address: "3015 NW 54th St, Seattle, WA 98107" },
+          { time: "12:30 - 13:30", text: "발라드 역사 거리 점심 식사 (피자/베이커리)", tag: "식사", address: "Ballard Ave NW, Seattle, WA 98107" },
+          { time: "13:30 - 14:15", text: "가스 워크 공원 (Gas Works Park) 이동", tag: "이동", address: "2101 N 34th St, Seattle, WA 98103" },
+          { time: "14:15 - 16:30", text: "Play Barn 실내외 놀이공간 & Kite Hill 언덕에서 레이크 유니온 전경 감상", tag: "공원", address: "2101 N 34th St, Seattle, WA 98103" },
           { time: "16:30 - 17:30", text: "대중교통으로 숙소 복귀", tag: "휴식" }
         ]
       },
@@ -522,11 +525,11 @@
         summary: "그린 레이크 호숫가 유모차 산책과 대형 놀이터, 케리 공원에서 스페이스 니들 노을 촬영",
         transit: "🚌 시내버스",
         timeline: [
-          { time: "10:00 - 12:30", text: "그린 레이크 공원 (Green Lake) 2.8마일 산책, 오리 구경, 대형 놀이터", tag: "공원" },
+          { time: "10:00 - 12:30", text: "그린 레이크 공원 (Green Lake) 2.8마일 산책, 오리 구경, 대형 놀이터", tag: "공원", address: "7201 East Green Lake Dr N, Seattle, WA 98115" },
           { time: "12:30 - 14:00", text: "호수 변 브런치 카페 점심 식사", tag: "식사" },
           { time: "14:00 - 16:30", text: "숙소 복귀 휴식 및 면세 쇼핑품 캐리어 패킹", tag: "휴식" },
-          { time: "16:30 - 18:00", text: "케리 공원 (Kerry Park)에서 가을 노을 스페이스 니들 가족사진", tag: "명소" },
-          { time: "18:00 - 19:30", text: "퀸 앤 언덕 로컬 식당 여행 마지막 밤 디너", tag: "식사" }
+          { time: "16:30 - 18:00", text: "케리 공원 (Kerry Park)에서 가을 노을 스페이스 니들 가족사진", tag: "명소", address: "211 W Highland Dr, Seattle, WA 98119" },
+          { time: "18:00 - 19:30", text: "퀸 앤 언덕 로컬 식당 여행 마지막 밤 디너", tag: "식사", address: "Queen Anne Ave N, Seattle, WA 98119" }
         ]
       },
       {
@@ -538,7 +541,7 @@
         transit: "🚕 UberXL (대형 수하물 및 유모차 수용)",
         timeline: [
           { time: "08:30 - 09:00", text: "숙소 최종 체크아웃 및 정돈", tag: "숙소" },
-          { time: "09:00 - 09:45", text: "UberXL 탑승 ➡️ 시애틀 타코마 공항(SEA) 이동", tag: "이동" },
+          { time: "09:00 - 09:45", text: "UberXL 탑승 ➡️ 시애틀 타코마 공항(SEA) 이동", tag: "이동", address: "17801 International Blvd, SeaTac, WA 98158" },
           { time: "09:45 - 11:30", text: "대한항공 카운터 짐 부치기 및 보안 검색 통과", tag: "공항" },
           { time: "11:30 - 12:50", text: "공항 내 키즈 플레이존 대기 후 12:50 인천행 대한항공 탑승", tag: "공항" }
         ]
@@ -549,6 +552,8 @@
       {
         name: "핸즈 온 어린이 박물관",
         loc: "올림피아 다운타운",
+        address: "414 Jefferson St NE, Olympia, WA 98501",
+        parking: "전용 유료 주차장 및 주변 전용 주차구역 완비",
         category: "museum",
         hours: "월~토 09:00-17:00 / 일 10:00-17:00",
         closed: "주요 공휴일",
@@ -557,8 +562,22 @@
         highlights: "진흙 놀이 zone, 자갈 굴착기, 미니 등대 타워, 수조 실험실"
       },
       {
+        name: "더 에버그린 주립대 (캠퍼스 & 유기농 농장)",
+        loc: "올림피아 웨스트",
+        address: "2700 Evergreen Pkwy NW, Olympia, WA 98505",
+        parking: "F-Lot 또는 C-Lot 유료 주차권 구매 후 이용",
+        category: "park",
+        hours: "일몰 시까지 오픈",
+        closed: "연중무휴",
+        fee: "무료 (주차비 별도)",
+        summary: "울창한 태평양 서북부 숲으로 둘러싸인 아빠의 추억이 담긴 유기농 농장 캠퍼스.",
+        highlights: "Red Square 중앙광장, 숲속 유기농 농장 산책로, 다람쥐 관람"
+      },
+      {
         name: "럿레지 펌킨 패치 농장",
-        loc: "올림피아 근교",
+        loc: "올림피아 근교 (투물워터)",
+        address: "5226 Littlerock Rd SW, Tumwater, WA 98512",
+        parking: "농장 입구 대형 무료 평지 주차장",
         category: "farm",
         hours: "10월 매일 10:00-18:00",
         closed: "10월 무휴 (가을 시즌)",
@@ -569,6 +588,8 @@
       {
         name: "우드번 프리미엄 아울렛",
         loc: "오레곤주 우드번",
+        address: "1001 Arney Rd, Woodburn, OR 97071",
+        parking: "아울렛 전구역 넓은 무료 주차장",
         category: "farm",
         hours: "월~토 10:00-20:00 / 일 10:00-19:00",
         closed: "연중무휴",
@@ -579,6 +600,8 @@
       {
         name: "시애틀 어린이 박물관",
         loc: "시애틀 센터 아모리 지하",
+        address: "305 Harrison St, Seattle, WA 98109",
+        parking: "Seattle Center Mercer Garage 또는 5th Ave N Garage",
         category: "museum",
         hours: "수~월 10:00-17:00 (화요일 휴무)",
         closed: "화요일, 주요 공휴일",
@@ -589,6 +612,8 @@
       {
         name: "아티스트 앳 플레이 놀이터",
         loc: "스페이스 니들 하부",
+        address: "305 Harrison St, Seattle, WA 98109",
+        parking: "시애틀 센터 주변 공영 주차장",
         category: "park",
         hours: "매일 06:00-22:00",
         closed: "연중무휴",
@@ -599,6 +624,8 @@
       {
         name: "파이크 플레이스 마켓",
         loc: "시애틀 다운타운",
+        address: "85 Pike St, Seattle, WA 98101",
+        parking: "Pike Place Market Garage (1531 Western Ave)",
         category: "market",
         hours: "매일 09:00-17:00",
         closed: "연중무휴",
@@ -608,7 +635,9 @@
       },
       {
         name: "시애틀 아쿠아리움",
-        loc: "Pier 59",
+        loc: "Pier 59 (해안가)",
+        address: "1483 Alaskan Way Pier 59, Seattle, WA 98101",
+        parking: "Hillclimb Garage 또는 워터프론트 스트리트 파킹",
         category: "museum",
         hours: "매일 09:30-18:00 (마지막 입장 17:00)",
         closed: "크리스마스",
@@ -618,7 +647,9 @@
       },
       {
         name: "시애틀 그레이트 휠",
-        loc: "Pier 57",
+        loc: "Pier 57 (해안가)",
+        address: "1301 Alaskan Way Pier 57, Seattle, WA 98101",
+        parking: "워터프론트 유료 주차장 이용",
         category: "market",
         hours: "월~목 11:00-21:00 / 금~일 10:00-22:00",
         closed: "연중무휴",
@@ -629,6 +660,8 @@
       {
         name: "우드랜드 파크 동물원",
         loc: "시애틀 핀니 리지",
+        address: "5500 Phinney Ave N, Seattle, WA 98103",
+        parking: "동물원 West/South 전용 주차장 (유료)",
         category: "park",
         hours: "매일 09:30-16:00 (10월 기준)",
         closed: "연중무휴",
@@ -639,6 +672,8 @@
       {
         name: "발라드 록스 (Ballard Locks)",
         loc: "시애틀 발라드",
+        address: "3015 NW 54th St, Seattle, WA 98107",
+        parking: "공원 입구 유료 주차장 (주차 공간 한정적)",
         category: "park",
         hours: "매일 07:00-21:00",
         closed: "연중무휴",
@@ -649,6 +684,8 @@
       {
         name: "가스 워크 공원",
         loc: "레이크 유니온 북측",
+        address: "2101 N 34th St, Seattle, WA 98103",
+        parking: "공원 전용 주차장 완비 (PayStation)",
         category: "park",
         hours: "매일 06:00-22:00",
         closed: "연중무휴",
@@ -659,12 +696,26 @@
       {
         name: "그린 레이크 공원",
         loc: "시애틀 그린 레이크",
+        address: "7201 East Green Lake Dr N, Seattle, WA 98115",
+        parking: "공원 주변 무료/유료 스트리트 파킹 및 주차장",
         category: "park",
         hours: "24시간 연중무휴",
         closed: "연중무휴",
         fee: "무료",
         summary: "2.8마일 평지 산책로가 조성된 시민들의 대표 호수 공원.",
         highlights: "유모차 산책 전용 평지길, 호숫가 오리 구경, 대형 키즈 놀이터"
+      },
+      {
+        name: "케리 공원 (Kerry Park)",
+        loc: "퀸 앤 언덕",
+        address: "211 W Highland Dr, Seattle, WA 98119",
+        parking: "주택가 도로변 무료 스트리트 파킹",
+        category: "park",
+        hours: "매일 24시간 오픈",
+        closed: "연중무휴",
+        fee: "무료",
+        summary: "시애틀 시내 마천루와 레이크 유니온, 스페이스 니들을 한번에 촬영하는 최고 전망 명소.",
+        highlights: "황홀한 일몰 스페이스 니들 뷰, 시애틀 야경 인생샷 포토존"
       }
     ];
 
@@ -700,6 +751,12 @@
 
     let currentSelectedDay = 1;
     let currentTipPct = 20;
+
+    function openGoogleMap(address) {
+      if (!address) return;
+      const encoded = encodeURIComponent(address);
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encoded}`, '_blank');
+    }
 
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -770,22 +827,25 @@
         </p>
 
         <div class="space-y-2">
-          ${dayData.timeline.map(t => {
-            const cleanText = t.text.replace(/\[.*?\]/g, '').replace(/\(.*?\)/g, '').split(',')[0].trim();
-            const mapQuery = encodeURIComponent(cleanText + " Seattle");
-            return `
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs bg-white p-2.5 rounded-lg border border-stone-200/80 hover:border-amber-300 transition gap-1">
-              <div class="flex items-start space-x-2">
-                <span class="font-mono text-amber-800 font-bold whitespace-nowrap pt-0.5 w-20 text-[11px] sm:text-xs">${t.time}</span>
-                <span class="text-stone-800 font-medium leading-tight">${t.text}</span>
+          ${dayData.timeline.map(t => `
+            <div class="flex flex-col text-xs bg-white p-3 rounded-lg border border-stone-200/80 hover:border-amber-300 transition space-y-1.5">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-2">
+                  <span class="font-mono text-amber-800 font-bold text-[11px] sm:text-xs">${t.time}</span>
+                  <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-stone-100 text-stone-600 border border-stone-200 whitespace-nowrap">${t.tag}</span>
+                </div>
+                ${t.address ? `
+                  <button onclick="openGoogleMap('${t.address}')" class="px-2 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-[10px] rounded-md transition flex items-center space-x-1 touch-target">
+                    <span>📍 길찾기</span>
+                  </button>
+                ` : ''}
               </div>
-              <div class="flex items-center space-x-1.5 self-end sm:self-auto">
-                <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank" class="px-2 py-0.5 rounded text-[9px] font-semibold bg-stone-100 text-stone-600 border border-stone-200 whitespace-nowrap hover:bg-amber-50 hover:text-amber-900 transition touch-target">📍 지도</a>
-                <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-stone-100 text-stone-600 border border-stone-200 whitespace-nowrap">${t.tag}</span>
-              </div>
+              <p class="text-stone-800 font-medium leading-tight">${t.text}</p>
+              ${t.address ? `
+                <p class="text-[10px] text-stone-500 font-mono bg-stone-50 p-1 rounded border border-stone-100">🏠 ${t.address}</p>
+              ` : ''}
             </div>
-            `;
-          }).join('')}
+          `).join('')}
         </div>
       `;
     }
@@ -813,7 +873,10 @@
       const grid = document.getElementById('attractions-grid');
 
       const filtered = attractionsData.filter(item => {
-        const matchSearch = item.name.toLowerCase().includes(searchVal) || item.summary.toLowerCase().includes(searchVal) || item.loc.toLowerCase().includes(searchVal);
+        const matchSearch = item.name.toLowerCase().includes(searchVal) || 
+                            item.summary.toLowerCase().includes(searchVal) || 
+                            item.loc.toLowerCase().includes(searchVal) ||
+                            (item.address && item.address.toLowerCase().includes(searchVal));
         const matchCat = catVal === 'all' || item.category === catVal;
         return matchSearch && matchCat;
       });
@@ -830,20 +893,23 @@
               <h4 class="font-bold text-stone-900 text-sm">${item.name}</h4>
               <span class="text-[9px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold whitespace-nowrap ml-1">${item.loc}</span>
             </div>
-            <p class="text-xs text-stone-600 mb-2 leading-relaxed">${item.summary}</p>
-            <div class="bg-white p-2 rounded-lg border border-stone-200 text-[11px] space-y-0.5 text-stone-600 mb-2">
+            
+            <div class="bg-white p-2 rounded-lg border border-stone-200 text-[11px] space-y-1 text-stone-700 mb-2">
+              <div class="flex justify-between items-center bg-amber-50/50 p-1.5 rounded border border-amber-100">
+                <p class="font-mono text-[10px] text-amber-950 font-medium truncate mr-1">📍 ${item.address}</p>
+                <button onclick="openGoogleMap('${item.address}')" class="px-2 py-0.5 bg-amber-800 text-white font-bold text-[9px] rounded whitespace-nowrap shadow-sm hover:bg-amber-900 touch-target">지도 연결</button>
+              </div>
+              <p>🅿️ <strong>주차:</strong> ${item.parking}</p>
               <p>⏱️ <strong>운영:</strong> ${item.hours}</p>
               <p>🚫 <strong>휴무:</strong> ${item.closed}</p>
               <p>💵 <strong>입장료:</strong> ${item.fee}</p>
             </div>
+
+            <p class="text-xs text-stone-600 mb-2 leading-relaxed">${item.summary}</p>
           </div>
-          <div class="space-y-1.5">
-            <div class="text-[11px] bg-amber-50/80 p-2 rounded-lg border border-amber-200/60 text-amber-900">
-              ✨ <strong>아이 맞춤 포인트:</strong> ${item.highlights}
-            </div>
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.name + ' ' + item.loc)}" target="_blank" class="w-full flex items-center justify-center space-x-1 py-1.5 rounded-lg bg-stone-200/80 hover:bg-stone-300/80 active:scale-98 transition text-[10px] font-semibold text-stone-700 touch-target">
-              <span>📍 구글 맵에서 경로 찾기</span>
-            </a>
+
+          <div class="text-[11px] bg-amber-50/80 p-2 rounded-lg border border-amber-200/60 text-amber-900">
+            ✨ <strong>아이 맞춤 포인트:</strong> ${item.highlights}
           </div>
         </div>
       `).join('');
