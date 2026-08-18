@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>시애틀 & 올림피아 가을 가족 여행 마스터 노트</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: #FAF8F5;
+      color: #2D3748;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 220px;
+      max-height: 320px;
+    }
+    @media (min-width: 640px) {
+      .chart-container {
+        height: 280px;
+      }
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 320px;
+      }
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .custom-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .touch-target {
+      min-height: 44px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-8">
+
+  <!-- Chosen Palette: Warm Neutrals with Amber, Terracotta, Sage Green, and Slate -->
+  <!-- Application Structure Plan: Mobile-first responsive structure optimized for one-handed mobile use. Features a mobile fixed bottom navigation bar (App-like UX) and top sticky header. Day selectors use smooth horizontal swipable pills instead of cramped grids. Touch targets are scaled to min-44px height for effortless taps while traveling with kids. Tab sections: 1. Master Schedule (Day 1-11 filterable timeline), 2. Attractions Directory (Search & Category filter), 3. Transit & ORCA Guide, 4. Tip & Tax Calculator (Large keypad/preset buttons), 5. Interactive Checklist. -->
+  <!-- Visualization & Content Choices: 1. Overview Doughnut Chart (Chart.js) -> Shows 3-night Olympia vs 7-night Seattle split. 2. Tax Comparison Bar Chart (Chart.js) -> Visualizes Oregon 0% tax savings vs Seattle 10.55%. Height responsive so it never overflows small phone viewports. NO SVG/Mermaid JS used. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+  <!-- Top Header -->
+  <header class="bg-amber-900 text-amber-50 shadow-sm sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2.5">
+        <span class="text-2xl">🌲</span>
+        <div>
+          <h1 class="font-bold text-base leading-tight sm:text-lg">시애틀 & 올림피아 여행</h1>
+          <p class="text-[11px] text-amber-200">7세·4세 자매 맞춤 노트 (10박 11일)</p>
+        </div>
+      </div>
+      <!-- Desktop Navigation Links -->
+      <div class="hidden md:flex space-x-1 text-sm font-medium">
+        <button onclick="switchTab('tab-schedule')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-schedule">📅 마스터 일정</button>
+        <button onclick="switchTab('tab-attractions')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-attractions">📍 주요 명소</button>
+        <button onclick="switchTab('tab-transit')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-transit">🚘 교통 & ORCA</button>
+        <button onclick="switchTab('tab-dining')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-dining">💳 팁 & 세금 계산기</button>
+        <button onclick="switchTab('tab-checklist')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-checklist">🎒 준비물</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Fixed Bottom Navigation Bar -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-lg px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] flex justify-around items-center">
+    <button onclick="switchTab('tab-schedule')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-schedule">
+      <span class="text-lg">📅</span>
+      <span class="text-[10px] font-medium mt-0.5">일정</span>
+    </button>
+    <button onclick="switchTab('tab-attractions')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-attractions">
+      <span class="text-lg">📍</span>
+      <span class="text-[10px] font-medium mt-0.5">명소</span>
+    </button>
+    <button onclick="switchTab('tab-transit')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-transit">
+      <span class="text-lg">🚘</span>
+      <span class="text-[10px] font-medium mt-0.5">교통</span>
+    </button>
+    <button onclick="switchTab('tab-dining')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-dining">
+      <span class="text-lg">💳</span>
+      <span class="text-[10px] font-medium mt-0.5">팁/세금</span>
+    </button>
+    <button onclick="switchTab('tab-checklist')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-checklist">
+      <span class="text-lg">🎒</span>
+      <span class="text-[10px] font-medium mt-0.5">준비물</span>
+    </button>
+  </nav>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+
+    <!-- Hero / Summary Banner -->
+    <section id="hero-overview" class="mb-5 bg-white rounded-2xl shadow-sm border border-stone-200 p-4 sm:p-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-center">
+        <div class="md:col-span-2 space-y-2.5">
+          <div class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-900">
+            🍁 2026.09.30(수) ~ 10.10(토) [10박 11일]
+          </div>
+          <h2 class="text-10xl sm:text-2xl font-bold text-stone-800 leading-snug">
+            두 딸과 함께 만드는 시애틀·올림피아 가을 여행
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+            전투기/항공 박물관 등 하드 관람을 배제하고, 넓은 공원, 어린이 박물관, 펌킨 패치 호박 농장, 수변 시장, 오레곤주 0% 면세 쇼핑으로 채운 힐링 일정입니다.
+          </p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center text-xs">
+            <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
+              <p class="text-stone-500 text-[10px]">전반전 (3박)</p>
+              <p class="text-xs font-bold text-amber-900 mt-0.5">올림피아 & 오레곤</p>
+              <p class="text-[9px] text-stone-500">SUV 렌터카</p>
+            </div>
+            <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
+              <p class="text-stone-500 text-[10px]">후반전 (7박)</p>
+              <p class="text-xs font-bold text-indigo-900 mt-0.5">시애틀 도심 로컬</p>
+              <p class="text-[9px] text-stone-500">대중교통 & 도보</p>
+            </div>
+            <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
+              <p class="text-stone-500 text-[10px]">아동 대중교통</p>
+              <p class="text-xs font-bold text-emerald-700 mt-0.5">100% 무료</p>
+              <p class="text-[9px] text-stone-500">18세 이하 무료*</p>
+            </div>
+            <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
+              <p class="text-stone-500 text-[10px]">오레곤 소비세</p>
+              <p class="text-xs font-bold text-indigo-700 mt-0.5">0.0% 면세</p>
+              <p class="text-[9px] text-stone-500">우드번 아울렛</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center justify-center border-t md:border-t-0 md:border-l border-stone-200 pt-4 md:pt-0 md:pl-6">
+          <p class="text-xs font-semibold text-stone-500 mb-1.5">지역별 숙박 비중</p>
+          <div class="chart-container">
+            <canvas id="overviewChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 1: Master Schedule -->
+    <section id="tab-schedule" class="tab-content space-y-4">
+      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <div class="mb-3">
+          <h3 class="text-lg sm:text-xl font-bold text-stone-800">📅 10박 11일 마스터 일정</h3>
+          <p class="text-xs text-stone-500 mt-0.5">날짜 버튼을 스와이프하여 터치하시면 세부 이동 경로와 시간대별 일정을 확인하실 수 있습니다.</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <button onclick="filterSchedule('all')" class="sched-filter-btn active bg-amber-800 text-white px-3 py-1.5 rounded-lg text-xs font-medium touch-target">전체 (Day 1~11)</button>
+          <button onclick="filterSchedule('olympia')" class="sched-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-lg text-xs font-medium touch-target">🚗 올림피아 (Day 1~4)</button>
+          <button onclick="filterSchedule('seattle')" class="sched-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-lg text-xs font-medium touch-target">🚊 시애틀 (Day 5~11)</button>
+        </div>
+
+        <!-- Horizontal Swipable Day Selector Pills for Mobile -->
+        <div class="flex overflow-x-auto space-x-2 pb-2 mb-4 custom-scrollbar snap-x snap-mandatory" id="day-selector-container">
+        </div>
+
+        <!-- Schedule Detail Dynamic Card -->
+        <div id="schedule-detail-card" class="bg-stone-50 rounded-xl p-4 border border-stone-200">
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Attractions Directory -->
+    <section id="tab-attractions" class="tab-content hidden space-y-4">
+      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <div class="mb-4">
+          <h3 class="text-lg sm:text-xl font-bold text-stone-800">📍 주요 방문지 종합 디렉토리</h3>
+          <p class="text-xs text-stone-500 mt-0.5">휴무일, 운영시간, 입장료 및 아이 맞춤 포인트를 실시간으로 검색하세요.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
+          <input type="text" id="attract-search" oninput="renderAttractions()" placeholder="명소 명칭 검색 (예: 동물원, 마켓...)" class="w-full px-3.5 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target">
+          <select id="attract-category" onchange="renderAttractions()" class="w-full px-3.5 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target bg-white">
+            <option value="all">전체 카테고리</option>
+            <option value="museum">어린이 박물관/실내</option>
+            <option value="park">공원 & 자연</option>
+            <option value="market">시장 & 바닷가</option>
+            <option value="farm">농장 & 쇼핑</option>
+          </select>
+        </div>
+
+        <div id="attractions-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Transit & ORCA Guide -->
+    <section id="tab-transit" class="tab-content hidden space-y-4">
+      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <h3 class="text-lg sm:text-xl font-bold text-stone-800 mb-1">🚘 교통, 카시트 & 대중교통(ORCA) 가이드</h3>
+        <p class="text-xs text-stone-500 mb-4">아이 무료 탑승 제도 및 컨택트리스 신용카드 직접 결제 가이드입니다.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="bg-amber-50/80 rounded-xl p-4 border border-amber-200 space-y-2.5">
+            <div class="flex items-center space-x-2">
+              <span class="text-xl">👶</span>
+              <h4 class="font-bold text-amber-900 text-sm sm:text-base">18세 이하 아동 무료 탑승 (주의사항 필수)</h4>
+            </div>
+            <p class="text-xs text-amber-900 leading-relaxed">
+              워싱턴주 법(Move Ahead Washington)에 따라 <strong>7세, 4세 두 딸은 경전철, 시내버스, 페리(도보) 모두 요금이 0원</strong>입니다. 단, <strong>시애틀 센터 모노레일은 Youth ORCA 카드를 실물 또는 모바일로 제시해야만 무료 승차($0)가 가능</strong>하며, 미소지 시 현장 발권기에서 어린이 요금을 지불해야 합니다.
+            </p>
+            <div class="bg-white p-3 rounded-lg text-xs space-y-1.5 text-stone-700 border border-amber-100">
+              <p>• <strong>경전철:</strong> 부모 카드 태그 후 아이들과 함께 개찰구 통과 (카드 요구 시 나이 증명)</p>
+              <p>• <strong>시내버스:</strong> 승차 시 아이들과 함께 탑승</p>
+              <p>• <strong>모노레일:</strong> **Youth ORCA 카드 소지 필수** (없을 시 티켓 자판기에서 별도 구매)</p>
+              <p>• <strong>페리 (Bainbridge):</strong> 성인 2명 표만 발권, 아동은 도보 무료 승선</p>
+            </div>
+          </div>
+
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 space-y-2.5">
+            <div class="flex items-center space-x-2">
+              <span class="text-xl">💳</span>
+              <h4 class="font-bold text-stone-800 text-sm sm:text-base">성인 컨택트리스(Contactless) 결제</h4>
+            </div>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              실물 ORCA 카드 발급비($3)를 아끼려면 해외 결제가 가능한 와이파이 마크 신용/체크카드나 Apple Pay / Google Pay를 직접 단말기에 태그하세요.
+            </p>
+            <div class="bg-white p-3 rounded-lg text-xs space-y-1.5 text-stone-700 border border-stone-200">
+              <p>• <strong>경전철(Light Rail):</strong> 승차 전 <strong>Tap On</strong> ➡️ 하차 후 <strong>Tap Off</strong> 필수!</p>
+              <p>• <strong>시내버스(Metro Bus):</strong> 승차 시 1회만 <strong>Tap On</strong> (하차 태그 안 함)</p>
+              <p>• <strong>모노레일:</strong> 개찰구에서 컨택트리스 태그 (편도 약 $3.50)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 border border-stone-200 space-y-3">
+          <h4 class="font-bold text-stone-800 text-xs sm:text-sm">🚗 렌터카 운영 & 카시트 안전 수칙</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+              <p class="font-semibold text-stone-800">픽업 (9/30 수 13:00)</p>
+              <p class="text-stone-500 mt-1">시애틀 타코마 공항(SEA) 렌터카 센터. 중형 SUV 수령 후 트렁크 적재공간 확보.</p>
+            </div>
+            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+              <p class="font-semibold text-stone-800">반납 (10/4 일 09:30)</p>
+              <p class="text-stone-500 mt-1">다운타운 지점(Avis 5th Ave 등). 일요일 영업시간 단축(오전 마감) 고려 오전에 완료.</p>
+            </div>
+            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200">
+              <p class="font-semibold text-stone-800">카시트 규정</p>
+              <p class="text-stone-500 mt-1">4세 딸: 5점식 하네스 카시트 필수.<br>7세 딸: 부스터 시트 필수.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Tip & Tax Calculator -->
+    <section id="tab-dining" class="tab-content hidden space-y-4">
+      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <h3 class="text-lg sm:text-xl font-bold text-stone-800 mb-1">💳 외식 팁(Tip) & 소비세 실시간 계산기</h3>
+        <p class="text-xs text-stone-500 mb-4">세금 전 순수 음식값(Subtotal) 기준 팁 금액 및 지역별 세금을 계산해 드립니다.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <div class="lg:col-span-5 bg-amber-50/70 rounded-xl p-4 border border-amber-200/70 space-y-3.5">
+            <h4 class="font-bold text-amber-900 text-xs sm:text-sm">🧮 모바일 실시간 계산기</h4>
+            
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 mb-1">식사 주문 금액 (Subtotal, Tax 전)</label>
+              <div class="relative mb-2">
+                <span class="absolute left-3.5 top-2.5 text-stone-400 text-sm font-semibold">$</span>
+                <input type="number" id="calc-subtotal" value="80" inputmode="decimal" oninput="calculateTip()" class="w-full pl-8 pr-3 py-2 text-sm sm:text-base border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none touch-target font-semibold text-stone-800">
+              </div>
+              <div class="grid grid-cols-5 gap-1 text-[10px] mb-1">
+                <button onclick="quickAmount(20)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$20</button>
+                <button onclick="quickAmount(50)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$50</button>
+                <button onclick="quickAmount(80)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$80</button>
+                <button onclick="quickAmount(120)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$120</button>
+                <button onclick="quickAmount(160)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$160</button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 mb-1">식당 유형</label>
+              <select id="calc-type" onchange="calculateTip()" class="w-full px-3 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 touch-target bg-white">
+                <option value="full">풀서비스 레스토랑 (팁 18~22% 권장)</option>
+                <option value="counter">카운터 선불 매장 (팁 $0 또는 $1~$2)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 mb-1">식사 지역 (세율)</label>
+              <select id="calc-region" onchange="calculateTip()" class="w-full px-3 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 touch-target bg-white">
+                <option value="seattle">시애틀 도심 (Sales Tax 10.55%)</option>
+                <option value="olympia">올림피아 (Sales Tax 10.0%)</option>
+                <option value="oregon">오레곤 우드번/포틀랜드 (Sales Tax 0.0% 면세)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 mb-1">팁 비율 터치 선택</label>
+              <div class="grid grid-cols-4 gap-1.5 text-xs">
+                <button onclick="setTipPct(18)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-semibold touch-target">18%</button>
+                <button onclick="setTipPct(20)" class="tip-pct-btn active bg-amber-800 text-white border border-amber-800 py-2 rounded-xl font-semibold touch-target">20%</button>
+                <button onclick="setTipPct(22)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-semibold touch-target">22%</button>
+                <button onclick="setTipPct(0)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-semibold touch-target">0%</button>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-3.5 border border-amber-200 text-xs space-y-2 pt-3">
+              <div class="flex justify-between">
+                <span class="text-stone-500">순수 음식값 (Subtotal):</span>
+                <span id="res-subtotal" class="font-semibold text-stone-800">$80.00</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-stone-500">소비세 (Sales Tax):</span>
+                <span id="res-tax" class="font-semibold text-stone-800">$8.28</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-stone-500">팁 (Pre-tax 기준):</span>
+                <span id="res-tip" class="font-semibold text-amber-800">$16.00</span>
+              </div>
+              <div class="border-t border-stone-200 pt-2 flex justify-between text-sm font-bold text-stone-900">
+                <span>최종 결제 금액:</span>
+                <span id="res-total" class="text-amber-900 text-base">$104.28</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-3">
+            <h4 class="font-bold text-stone-800 text-xs sm:text-sm">📊 지역별 소비세(Sales Tax) 차이</h4>
+            <div class="chart-container">
+              <canvas id="taxChart"></canvas>
+            </div>
+
+            <div class="bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-1.5 text-xs text-stone-600">
+              <p class="font-semibold text-stone-800">💡 미국 현지 외식 팁 계산 팁</p>
+              <p>• 팁은 세금이 합산되기 전 **순수 음식값(Subtotal)** 기준으로 작성합니다.</p>
+              <p>• 영수증에 `Gratuity`나 `Service Charge`로 이미 18~20%가 찍혀있다면 중복해서 적지 마세요.</p>
+              <p>• 카운터 주문식 패스트푸드/커피숍은 모니터 결제 시 'No Tip' 또는 '$1' 선택도 충분합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 5: Checklist -->
+    <section id="tab-checklist" class="tab-content hidden space-y-4">
+      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <h3 class="text-lg sm:text-xl font-bold text-stone-800 mb-1">🎒 출발 전 최종 체크리스트</h3>
+        <p class="text-xs text-stone-500 mb-4">화면을 직접 터치하여 가방에 챙긴 품목을 체크하세요.</p>
+
+        <div id="checklist-container" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="hidden md:block bg-stone-800 text-stone-400 text-xs py-6 mt-8 border-t border-stone-700">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-1.5">
+      <p>시애틀 & 올림피아 가을 가족 여행 마스터 노트 • 2026.09.30 ~ 10.10</p>
+      <p class="text-stone-500">Designed for family harmony, kids' delight, and seamless navigation.</p>
+    </div>
+  </footer>
+
+  <script>
+    const scheduleData = [
+      {
+        day: 1,
+        date: "09/30(수)",
+        region: "olympia",
+        title: "미국 입성 & 올림피아 잔디마당 첫날",
+        summary: "공항 착륙 후 중형 SUV 렌터카 수령, 코스트코 장보기 후 올림피아 잔디 독채 체크인 및 바비큐",
+        transit: "🚗 렌터카 중형 SUV (카시트 2개 장착)",
+        timeline: [
+          { time: "11:40 - 13:00", text: "시애틀 타코마 공항(SEA) 착륙, 입국 심사 및 수하물 찾기", tag: "공항" },
+          { time: "13:00 - 13:40", text: "공항 렌터카 센터 이동 및 중형 SUV 차량 픽업", tag: "이동" },
+          { time: "13:40 - 14:40", text: "타코마 코스트코(Costco Wholesale) 이동", tag: "쇼핑" },
+          { time: "14:40 - 15:30", text: "소고기 스테이크, 생수, 과일, 아이들 아침거리 장보기", tag: "쇼핑" },
+          { time: "15:30 - 16:20", text: "웨스트 올림피아 독채 에어비앤비 도착 및 체크인", tag: "숙소" },
+          { time: "16:20 - 17:30", text: "넓은 울타리 잔디 마당에서 비눗방울 놀이 & 비행 피로 풀기", tag: "휴식" },
+          { time: "17:30 - 19:00", text: "아빠표 마당 소고기 바비큐 저녁 식사", tag: "식사" },
+          { time: "19:00 - 20:30", text: "아이들 목욕 및 시차 적응을 위한 조기 취침", tag: "휴식" }
+        ]
+      },
+      {
+        day: 2,
+        date: "10/01(목)",
+        region: "olympia",
+        title: "아빠의 추억(에버그린 대) & 어린이 박물관 & 마리나",
+        summary: "에버그린 주립대 숲속 산책, 핸즈 온 어린이 박물관 체험 및 퍼시벌 랜딩 마리나 연어 디너",
+        transit: "🚗 렌터카 이동",
+        timeline: [
+          { time: "08:00 - 09:30", text: "숙소 아침 식사 및 앞마당 햇살 산책", tag: "휴식" },
+          { time: "09:30 - 12:00", text: "더 에버그린 주립대 Red Square 및 유기농 농장 숲길 산책", tag: "명소" },
+          { time: "12:00 - 13:00", text: "올림피아 다운타운 브런치 식사", tag: "식사" },
+          { time: "13:00 - 15:30", text: "핸즈 온 어린이 박물관 (워싱턴주 최대 규모, 자갈 굴착 & 진흙 놀이)", tag: "체험" },
+          { time: "15:30 - 17:00", text: "퍼시벌 랜딩 공원 수변 데크길 산책 & 요트 구경", tag: "공원" },
+          { time: "17:00 - 18:30", text: "Anthony's Hearthfire Grill에서 연어 구이 디너 외식", tag: "식사" },
+          { time: "18:30 - 19:00", text: "숙소 복귀 후 잔디 마당 별 보기 휴식", tag: "휴식" }
+        ]
+      },
+      {
+        day: 3,
+        date: "10/02(금)",
+        region: "olympia",
+        title: "오레곤주 소비세 0% 면세 쇼핑 & 윌슨빌 파크",
+        summary: "오레곤주 우드번 아울렛에서 소비세 0% 아이들 의류 면세 쇼핑 및 파크 놀이터 휴식",
+        transit: "🚗 렌터카 (I-5 South 편도 약 1시간 45분)",
+        timeline: [
+          { time: "08:30 - 10:15", text: "올림피아 출발 ➡️ 오레곤주 우드번 프리미엄 아울렛 이동", tag: "이동" },
+          { time: "10:15 - 13:00", text: "우드번 아울렛 1차 쇼핑 (소비세 0% 면세: 나이키, 폴로, 갭 키즈, 파타고니아)", tag: "쇼핑" },
+          { time: "13:00 - 14:00", text: "아울렛 푸드코트 점심 식사", tag: "식사" },
+          { time: "14:00 - 15:30", text: "부모 의류 및 선물 2차 쇼핑", tag: "쇼핑" },
+          { time: "15:30 - 16:30", text: "복귀 중 휴식: Town Center Park (Wilsonville) 잔디밭 놀이터", tag: "공원" },
+          { time: "16:30 - 18:15", text: "올림피아 숙소 복귀", tag: "이동" },
+          { time: "18:15 - 19:30", text: "숙소 저녁 식사 및 쇼핑 물품 정리", tag: "휴식" }
+        ]
+      },
+      {
+        day: 4,
+        date: "10/03(토)",
+        region: "olympia",
+        title: "가을 호박 농장 축제 & 시애틀 이동",
+        summary: "럿레지 농장 펌킨 패치(호박밭, 트랙터, 옥수수 미로) 체험 후 시애틀 독채 체크인",
+        transit: "🚗 렌터카 이동 (시애틀 이동)",
+        timeline: [
+          { time: "09:00 - 10:00", text: "올림피아 에어비앤비 체크아웃 및 짐 적재", tag: "숙소" },
+          { time: "10:00 - 10:30", text: "Rutledge Corn Maze (럿레지 농장) 이동", tag: "이동" },
+          { time: "10:30 - 13:30", text: "미국 전통 가을 펌킨 패치 체험 (호박밭 포토존, 트랙터 마차, 옥수수 미로, 애플 사이다)", tag: "체험" },
+          { time: "13:30 - 15:00", text: "시애틀 숙소 영역으로 이동", tag: "이동" },
+          { time: "15:00 - 16:30", text: "시애틀 독채 에어비앤비 체크인 및 짐 풀기", tag: "숙소" },
+          { time: "16:30 - 18:00", text: "동네 놀이터 산책 & Trader Joe's 2차 장보기", tag: "쇼핑" },
+          { time: "18:00 - 20:00", text: "숙소 저녁 식사 후 휴식", tag: "휴식" }
+        ]
+      },
+      {
+        day: 5,
+        date: "10/04(일)",
+        region: "seattle",
+        title: "렌터카 반납 & 시애틀 센터 테마파크",
+        summary: "다운타운 렌터카 반납, 모노레일 탑승, 시애틀 어린이 박물관 & 대형 놀이터",
+        transit: "🚊 모노레일 & 시내버스 (18세 이하 무료)",
+        timeline: [
+          { time: "09:00 - 10:00", text: "다운타운 Avis 영업소 이동 및 차량 반납 완료", tag: "교통" },
+          { time: "10:00 - 10:20", text: "웨스트레이크 센터에서 시애틀 센터 모노레일 탑승", tag: "교통" },
+          { time: "10:20 - 13:00", text: "시애틀 어린이 박물관 (미니 마켓 장보기, 블록 건축)", tag: "체험" },
+          { time: "13:00 - 14:00", text: "시애틀 센터 아모리(Armory) 푸드코트 점심 식사", tag: "식사" },
+          { time: "14:00 - 15:30", text: "Artists at Play Playground (스페이스 니들 아래 9m 대형 정글짐)", tag: "공원" },
+          { time: "15:30 - 16:30", text: "International Fountain 잔디밭 피크닉 (음악 분수)", tag: "공원" },
+          { time: "16:30 - 17:30", text: "대중교통으로 숙소 복귀", tag: "휴식" }
+        ]
+      },
+      {
+        day: 6,
+        date: "10/05(월)",
+        region: "seattle",
+        title: "마켓 & 수족관 & 대관람차 & Overlook Walk",
+        summary: "파이크 플레이스 마켓 생선 퍼포먼스, 차우더 점심, Overlook Walk 보행로, 수족관 & 관람차",
+        transit: "🚊 대중교통 + 도보 (유모차 경사로 연결)",
+        timeline: [
+          { time: "09:30 - 10:15", text: "대중교통(경전철/버스) 타고 도심 이동", tag: "교통" },
+          { time: "10:15 - 11:45", text: "파이크 플레이스 마켓 (생선 던지기, 돼지저금통 레이첼, 스타벅스 1호점)", tag: "명소" },
+          { time: "11:45 - 12:45", text: "Pike Place Chowder에서 클램 차우더 빵 보울 점심", tag: "식사" },
+          { time: "12:45 - 13:00", text: "신규 Overlook Walk 육교를 통해 바다 뷰 감상하며 피어 59 이동", tag: "산책" },
+          { time: "13:00 - 14:30", text: "시애틀 아쿠아리움 (Touch Pool 조개 터치, 해달 관람)", tag: "체험" },
+          { time: "14:30 - 15:45", text: "시애틀 그레이트 휠 (대관람차) 탑승", tag: "체험" },
+          { time: "15:45 - 17:00", text: "워터프론트 공원 산책 후 숙소 복귀", tag: "휴식" }
+        ]
+      },
+      {
+        day: 7,
+        date: "10/06(화)",
+        region: "seattle",
+        title: "숲속 동물원 & 줌마지움 & 장미 정원",
+        summary: "우드랜드 파크 동물원의 야외 동물 탐험, 실내 온실 놀이터 줌마지움, 장미 정원 산책",
+        transit: "🚌 5번 시내버스 탑승 (아동 무료)",
+        timeline: [
+          { time: "09:30 - 10:15", text: "5번 시내버스로 우드랜드 파크 동물원 이동", tag: "교통" },
+          { time: "10:15 - 12:30", text: "자연 친화 야외 동물원 산책 (기린, 사자, 펭귄)", tag: "명소" },
+          { time: "12:30 - 13:30", text: "동물원 내 카페테리아 키즈밀 점심", tag: "식사" },
+          { time: "13:30 - 15:00", text: "실내 숲속 놀이터 '줌마지움 (Zoomazium)'에서 오르기 & 미끄럼틀", tag: "체험" },
+          { time: "15:00 - 16:30", text: "동물원 옆 로즈 가든 (Rose Garden) 잔디밭 유모차 산책", tag: "공원" },
+          { time: "16:30 - 17:30", text: "버스 탑승 후 숙소 복귀", tag: "휴식" }
+        ]
+      },
+      {
+        day: 8,
+        date: "10/07(수)",
+        region: "seattle",
+        title: "대형 카 페리 타고 떠나는 섬 여행 (베인브리지)",
+        summary: "대형 페리 탑승, 베인브리지 섬 윈슬로 웨이 산책, 바닷가 놀이터 및 수제 아이스크림",
+        transit: "🚢 워싱턴주 페리 (아동 무료 도보 승선)",
+        timeline: [
+          { time: "10:00 - 10:40", text: "도보/경전철로 피어 52 페리 터미널 이동", tag: "교통" },
+          { time: "10:45 - 11:25", text: "대형 페리 탑승 (갑판 위 갈매기 구경 & 시애틀 스카이라인 조망)", tag: "체험" },
+          { time: "11:25 - 13:00", text: "베인브리지 섬 중심가(Winslow Way) 이동 및 브런치", tag: "식사" },
+          { time: "13:00 - 14:30", text: "Waterfront Park 바닷가 놀이터 그네 타기 & Mora 수제 아이스크림", tag: "공원" },
+          { time: "14:45 - 15:30", text: "시애틀행 복귀 페리 탑승", tag: "교통" },
+          { time: "15:30 - 17:00", text: "숙소 복귀 후 휴식", tag: "휴식" }
+        ]
+      },
+      {
+        day: 9,
+        date: "10/08(목)",
+        region: "seattle",
+        title: "발라드 록스 & 가스 워크 공원",
+        summary: "발라드 록스 배 수위 조절 및 지하 연어 사다리 관람, 가스 워크 공원 잔디언덕 연날리기",
+        transit: "🚌 시내버스 / UberXL",
+        timeline: [
+          { time: "09:30 - 10:15", text: "버스로 발라드 록스 (Ballard Locks) 이동 (입장료 무료)", tag: "교통" },
+          { time: "10:15 - 12:30", text: "갑문 수위 조절 관람 & 지하 Fish Ladder 연어 사다리 감상", tag: "명소" },
+          { time: "12:30 - 13:30", text: "발라드 역사 거리 점심 식사 (피자/베이커리)", tag: "식사" },
+          { time: "13:30 - 14:15", text: "가스 워크 공원 (Gas Works Park) 이동", tag: "이동" },
+          { time: "14:15 - 16:30", text: "Play Barn 실내외 놀이공간 & Kite Hill 언덕에서 레이크 유니온 전경 감상", tag: "공원" },
+          { time: "16:30 - 17:30", text: "대중교통으로 숙소 복귀", tag: "휴식" }
+        ]
+      },
+      {
+        day: 10,
+        date: "10/09(금)",
+        region: "seattle",
+        title: "그린 레이크 호수 공원 & 케리 공원 노을",
+        summary: "그린 레이크 호숫가 유모차 산책과 대형 놀이터, 케리 공원에서 스페이스 니들 노을 촬영",
+        transit: "🚌 시내버스",
+        timeline: [
+          { time: "10:00 - 12:30", text: "그린 레이크 공원 (Green Lake) 2.8마일 산책, 오리 구경, 대형 놀이터", tag: "공원" },
+          { time: "12:30 - 14:00", text: "호수 변 브런치 카페 점심 식사", tag: "식사" },
+          { time: "14:00 - 16:30", text: "숙소 복귀 휴식 및 면세 쇼핑품 캐리어 패킹", tag: "휴식" },
+          { time: "16:30 - 18:00", text: "케리 공원 (Kerry Park)에서 가을 노을 스페이스 니들 가족사진", tag: "명소" },
+          { time: "18:00 - 19:30", text: "퀸 앤 언덕 로컬 식당 여행 마지막 밤 디너", tag: "식사" }
+        ]
+      },
+      {
+        day: 11,
+        date: "10/10(토)",
+        region: "seattle",
+        title: "여행 마무리 & 귀국",
+        summary: "숙소 체크아웃 후 대형 우버(UberXL)로 공항 이동, 키즈존 대기 후 인천행 귀국",
+        transit: "🚕 UberXL (대형 수하물 및 유모차 수용)",
+        timeline: [
+          { time: "08:30 - 09:00", text: "숙소 최종 체크아웃 및 정돈", tag: "숙소" },
+          { time: "09:00 - 09:45", text: "UberXL 탑승 ➡️ 시애틀 타코마 공항(SEA) 이동", tag: "이동" },
+          { time: "09:45 - 11:30", text: "대한항공 카운터 짐 부치기 및 보안 검색 통과", tag: "공항" },
+          { time: "11:30 - 12:50", text: "공항 내 키즈 플레이존 대기 후 12:50 인천행 대한항공 탑승", tag: "공항" }
+        ]
+      }
+    ];
+
+    const attractionsData = [
+      {
+        name: "핸즈 온 어린이 박물관",
+        loc: "올림피아 다운타운",
+        category: "museum",
+        hours: "월~토 09:00-17:00 / 일 10:00-17:00",
+        closed: "주요 공휴일",
+        fee: "성인/아동 $19.95 (17개월 이하 무료)",
+        summary: "워싱턴주 최대 규모 어린이 박물관. 실내외 150개 이상의 오감 체험관.",
+        highlights: "진흙 놀이 zone, 자갈 굴착기, 미니 등대 타워, 수조 실험실"
+      },
+      {
+        name: "럿레지 펌킨 패치 농장",
+        loc: "올림피아 근교",
+        category: "farm",
+        hours: "10월 매일 10:00-18:00",
+        closed: "10월 무휴 (가을 시즌)",
+        fee: "입장 무료 (액티비티 패스 $12~$18)",
+        summary: "미국 전통 가을 펌킨 패치 및 옥수수밭 미로 체험 농장.",
+        highlights: "주황색 거대 호박밭 포토존, 트랙터 마차(Hayride), 애플 사이다 도넛"
+      },
+      {
+        name: "우드번 프리미엄 아울렛",
+        loc: "오레곤주 우드번",
+        category: "farm",
+        hours: "월~토 10:00-20:00 / 일 10:00-19:00",
+        closed: "연중무휴",
+        fee: "무료 (소비세 0% 면세 구역)",
+        summary: "오레곤주 100% Tax-Free 면세 아울렛. 키즈 의류 파격 할인.",
+        highlights: "나이키, 폴로 키즈, 갭 키즈, 파타고니아 면세 쇼핑"
+      },
+      {
+        name: "시애틀 어린이 박물관",
+        loc: "시애틀 센터 아모리 지하",
+        category: "museum",
+        hours: "수~월 10:00-17:00 (화요일 휴무)",
+        closed: "화요일, 주요 공휴일",
+        fee: "성인/아동 $18 (1세 미만 무료)",
+        summary: "시애틀 센터 내 위치한 오감 만족 실내 놀이 박물관.",
+        highlights: "미니 슈퍼마켓 장보기 체험, 대형 블록 건축, 물놀이 수조"
+      },
+      {
+        name: "아티스트 앳 플레이 놀이터",
+        loc: "스페이스 니들 하부",
+        category: "park",
+        hours: "매일 06:00-22:00",
+        closed: "연중무휴",
+        fee: "무료",
+        summary: "스페이스 니들 바로 밑에 위치한 모험 중심의 대형 야외 놀이터.",
+        highlights: "9m 높이 밧줄 정글짐, 긴 미끄럼틀, 야외 실로폰 악기 기구"
+      },
+      {
+        name: "파이크 플레이스 마켓",
+        loc: "시애틀 다운타운",
+        category: "market",
+        hours: "매일 09:00-17:00",
+        closed: "연중무휴",
+        fee: "무료",
+        summary: "100년 역사를 자랑하는 시애틀의 명물 재래시장.",
+        highlights: "생선 던지기 퍼포먼스, 황동 돼지 저금통 레이첼, 스타벅스 1호점"
+      },
+      {
+        name: "시애틀 아쿠아리움",
+        loc: "Pier 59",
+        category: "museum",
+        hours: "매일 09:30-18:00 (마지막 입장 17:00)",
+        closed: "크리스마스",
+        fee: "성인 약 $28~$53 / 아동(4-12) 약 $17~$32 (3세 이하 무료)",
+        summary: "태평양 해양 생태계를 촉각으로 직접 체험하는 수족관 (신축 오션 파빌리온 통합 입장 가능).",
+        highlights: "불가사리/조개 터치 풀(Touch Pool), 해달 먹이주기, 신축 오션 파빌리온 입체 수조"
+      },
+      {
+        name: "시애틀 그레이트 휠",
+        loc: "Pier 57",
+        category: "market",
+        hours: "월~목 11:00-21:00 / 금~일 10:00-22:00",
+        closed: "연중무휴",
+        fee: "성인 약 $18 / 아동(4-11) 약 $13",
+        summary: "바다 위에 떠 있는 에어컨/히터 밀폐형 대형 관람차.",
+        highlights: "엘리엇 만 바다와 시애틀 스카이라인을 한눈에 감상"
+      },
+      {
+        name: "우드랜드 파크 동물원",
+        loc: "시애틀 핀니 리지",
+        category: "park",
+        hours: "매일 09:30-16:00 (10월 기준)",
+        closed: "연중무휴",
+        fee: "성인 약 $29~$37 / 아동 약 $19~$24",
+        summary: "철창 없이 자연 서식지를 재현한 숲속 동물원.",
+        highlights: "실내 숲속 놀이터 'Zoomazium' (15:00 조기 마감 유의), 기린, 펭귄, 바로 옆 로즈 가든"
+      },
+      {
+        name: "발라드 록스 (Ballard Locks)",
+        loc: "시애틀 발라드",
+        category: "park",
+        hours: "매일 07:00-21:00",
+        closed: "연중무휴",
+        fee: "무료",
+        summary: "바다와 호수의 수위를 조절해 배를 통과시키는 갑문식 운하.",
+        highlights: "배가 올라가는 수위 조절 관람, 지하 연어 사다리(10월 초는 연어 회귀 막바지로 개체수가 다소 적음)"
+      },
+      {
+        name: "가스 워크 공원",
+        loc: "레이크 유니온 북측",
+        category: "park",
+        hours: "매일 06:00-22:00",
+        closed: "연중무휴",
+        fee: "무료",
+        summary: "옛 가스 공장을 독창적인 예술 공원으로 개조한 명소.",
+        highlights: "Play Barn 실내외 놀이터, Kite Hill 연날리기 언덕, 시애틀 전경"
+      },
+      {
+        name: "그린 레이크 공원",
+        loc: "시애틀 그린 레이크",
+        category: "park",
+        hours: "24시간 연중무휴",
+        closed: "연중무휴",
+        fee: "무료",
+        summary: "2.8마일 평지 산책로가 조성된 시민들의 대표 호수 공원.",
+        highlights: "유모차 산책 전용 평지길, 호숫가 오리 구경, 대형 키즈 놀이터"
+      }
+    ];
+
+    const checklistData = [
+      {
+        category: "📄 필수 서류 & 카드",
+        items: [
+          "여권 (유효기간 6개월 이상 확인)",
+          "ESTA 비자 승인 출력본/캡처본",
+          "컨택트리스 결제 신용카드 (Apple/Google Pay 연동)",
+          "국제운전면허증 & 한국 운전면허증 (렌터카용)"
+        ]
+      },
+      {
+        category: "👶 아이들 상비약 & 케어 용품",
+        items: [
+          "어린이 해열제 (타이레놀/부프로펜 계열)",
+          "정장제, 체온계, 방수 밴드, 소독약",
+          "휴대용 비눗방울 놀이 세트 (마당용)",
+          "접이식 유모차 2대 또는 쌍둥이 유모차 + 레인커버"
+        ]
+      },
+      {
+        category: "🧥 10월 시애틀 가을 의류",
+        items: [
+          "아이들 경량 패딩 & 바람막이 점퍼",
+          "겹쳐 입기 좋은 후드집업 및 긴팔 레이어드",
+          "방수 기능이 있는 외투 (시애틀 가을비 대비)",
+          "부스터 시트 / 5점식 하네스 카시트 준비"
+        ]
+      }
+    ];
+
+    let currentSelectedDay = 1;
+    let currentTipPct = 20;
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-800', 'text-white');
+      });
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        btn.classList.remove('text-amber-800', 'font-bold');
+        btn.classList.add('text-stone-600');
+      });
+
+      const activeNav = document.getElementById('btn-' + tabId);
+      if (activeNav) activeNav.classList.add('bg-amber-800', 'text-white');
+      const activeMobileNav = document.getElementById('mbtn-' + tabId);
+      if (activeMobileNav) {
+        activeMobileNav.classList.remove('text-stone-600');
+        activeMobileNav.classList.add('text-amber-800', 'font-bold');
+      }
+
+      localStorage.setItem('seattle_travel_active_tab', tabId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderDaySelector() {
+      const container = document.getElementById('day-selector-container');
+      container.innerHTML = scheduleData.map(d => `
+        <button onclick="selectDay(${d.day})" id="day-btn-${d.day}" class="snap-start flex-shrink-0 px-3.5 py-2 rounded-xl border text-center transition touch-target ${d.day === currentSelectedDay ? 'bg-amber-800 text-white border-amber-800 font-bold shadow-sm' : 'bg-white text-stone-700 border-stone-200 hover:bg-amber-50'}">
+          <p class="text-[9px] opacity-80 uppercase tracking-wider">Day ${d.day}</p>
+          <p class="text-xs font-bold mt-0.5">${d.date.split('(')[0]}</p>
+        </button>
+      `).join('');
+    }
+
+    function selectDay(dayNum) {
+      currentSelectedDay = dayNum;
+      renderDaySelector();
+
+      const dayBtn = document.getElementById(`day-btn-${dayNum}`);
+      if (dayBtn) {
+        dayBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+
+      const dayData = scheduleData.find(d => d.day === dayNum);
+      const detailCard = document.getElementById('schedule-detail-card');
+
+      localStorage.setItem('seattle_travel_active_day', dayNum);
+
+      detailCard.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 pb-3 mb-3 gap-1.5">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${dayData.region === 'olympia' ? 'bg-amber-200 text-amber-900' : 'bg-indigo-100 text-indigo-900'}">
+                ${dayData.region === 'olympia' ? '🚗 전반전: 올림피아/오레곤' : '🚊 후반전: 시애틀 도심'}
+              </span>
+              <span class="text-xs font-semibold text-stone-500">Day ${dayData.day} (${dayData.date})</span>
+            </div>
+            <h4 class="text-base sm:text-lg font-bold text-stone-900 mt-1">${dayData.title}</h4>
+          </div>
+          <div class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-stone-200 text-stone-600 font-medium self-start sm:self-auto">
+            ${dayData.transit}
+          </div>
+        </div>
+
+        <p class="text-xs text-stone-600 mb-3.5 bg-white p-2.5 rounded-lg border border-stone-100 leading-relaxed">
+          💡 <strong>요약:</strong> ${dayData.summary}
+        </p>
+
+        <div class="space-y-2">
+          ${dayData.timeline.map(t => {
+            const cleanText = t.text.replace(/\[.*?\]/g, '').replace(/\(.*?\)/g, '').split(',')[0].trim();
+            const mapQuery = encodeURIComponent(cleanText + " Seattle");
+            return `
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs bg-white p-2.5 rounded-lg border border-stone-200/80 hover:border-amber-300 transition gap-1">
+              <div class="flex items-start space-x-2">
+                <span class="font-mono text-amber-800 font-bold whitespace-nowrap pt-0.5 w-20 text-[11px] sm:text-xs">${t.time}</span>
+                <span class="text-stone-800 font-medium leading-tight">${t.text}</span>
+              </div>
+              <div class="flex items-center space-x-1.5 self-end sm:self-auto">
+                <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank" class="px-2 py-0.5 rounded text-[9px] font-semibold bg-stone-100 text-stone-600 border border-stone-200 whitespace-nowrap hover:bg-amber-50 hover:text-amber-900 transition touch-target">📍 지도</a>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-stone-100 text-stone-600 border border-stone-200 whitespace-nowrap">${t.tag}</span>
+              </div>
+            </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function filterSchedule(filterType) {
+      document.querySelectorAll('.sched-filter-btn').forEach(b => {
+        b.classList.remove('bg-amber-800', 'text-white');
+        b.classList.add('bg-stone-100', 'text-stone-700');
+      });
+      event.target.classList.remove('bg-stone-100', 'text-stone-700');
+      event.target.classList.add('bg-amber-800', 'text-white');
+
+      if (filterType === 'olympia') {
+        selectDay(1);
+      } else if (filterType === 'seattle') {
+        selectDay(5);
+      } else {
+        selectDay(1);
+      }
+    }
+
+    function renderAttractions() {
+      const searchVal = document.getElementById('attract-search').value.toLowerCase();
+      const catVal = document.getElementById('attract-category').value;
+      const grid = document.getElementById('attractions-grid');
+
+      const filtered = attractionsData.filter(item => {
+        const matchSearch = item.name.toLowerCase().includes(searchVal) || item.summary.toLowerCase().includes(searchVal) || item.loc.toLowerCase().includes(searchVal);
+        const matchCat = catVal === 'all' || item.category === catVal;
+        return matchSearch && matchCat;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<p class="text-xs text-stone-500 col-span-full text-center py-8">검색 결과가 없습니다.</p>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="bg-stone-50 rounded-xl p-3.5 border border-stone-200 hover:shadow-md transition flex flex-col justify-between space-y-2.5">
+          <div>
+            <div class="flex justify-between items-start mb-1">
+              <h4 class="font-bold text-stone-900 text-sm">${item.name}</h4>
+              <span class="text-[9px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold whitespace-nowrap ml-1">${item.loc}</span>
+            </div>
+            <p class="text-xs text-stone-600 mb-2 leading-relaxed">${item.summary}</p>
+            <div class="bg-white p-2 rounded-lg border border-stone-200 text-[11px] space-y-0.5 text-stone-600 mb-2">
+              <p>⏱️ <strong>운영:</strong> ${item.hours}</p>
+              <p>🚫 <strong>휴무:</strong> ${item.closed}</p>
+              <p>💵 <strong>입장료:</strong> ${item.fee}</p>
+            </div>
+          </div>
+          <div class="space-y-1.5">
+            <div class="text-[11px] bg-amber-50/80 p-2 rounded-lg border border-amber-200/60 text-amber-900">
+              ✨ <strong>아이 맞춤 포인트:</strong> ${item.highlights}
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.name + ' ' + item.loc)}" target="_blank" class="w-full flex items-center justify-center space-x-1 py-1.5 rounded-lg bg-stone-200/80 hover:bg-stone-300/80 active:scale-98 transition text-[10px] font-semibold text-stone-700 touch-target">
+              <span>📍 구글 맵에서 경로 찾기</span>
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function quickAmount(amt) {
+      document.getElementById('calc-subtotal').value = amt;
+      calculateTip();
+    }
+
+    function calculateTip() {
+      const subtotal = parseFloat(document.getElementById('calc-subtotal').value) || 0;
+      const region = document.getElementById('calc-region').value;
+      
+      let taxRate = 0.1055;
+      if (region === 'olympia') taxRate = 0.100;
+      if (region === 'oregon') taxRate = 0.00;
+
+      const tax = subtotal * taxRate;
+      const tip = subtotal * (currentTipPct / 100);
+      const total = subtotal + tax + tip;
+
+      document.getElementById('res-subtotal').innerText = `$${subtotal.toFixed(2)}`;
+      document.getElementById('res-tax').innerText = `$${tax.toFixed(2)}`;
+      document.getElementById('res-tip').innerText = `$${tip.toFixed(2)}`;
+      document.getElementById('res-total').innerText = `$${total.toFixed(2)}`;
+    }
+
+    function setTipPct(pct) {
+      currentTipPct = pct;
+      document.querySelectorAll('.tip-pct-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-800', 'text-white', 'active');
+        btn.classList.add('bg-white', 'text-stone-800');
+      });
+      event.target.classList.add('bg-amber-800', 'text-white', 'active');
+      calculateTip();
+    }
+
+    function renderChecklist() {
+      const container = document.getElementById('checklist-container');
+      container.innerHTML = checklistData.map((cat, catIdx) => `
+        <div class="bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2">
+          <h4 class="font-bold text-stone-800 text-xs border-b border-stone-200 pb-1.5">${cat.category}</h4>
+          <div class="space-y-1.5">
+            ${cat.items.map((item, itemIdx) => {
+              const key = `chk-${catIdx}-${itemIdx}`;
+              const checked = localStorage.getItem(key) === 'true';
+              return `
+              <label class="flex items-center space-x-2 text-xs text-stone-700 cursor-pointer hover:bg-white p-2 rounded-lg transition touch-target">
+                <input type="checkbox" onchange="toggleCheck(this, '${key}')" ${checked ? 'checked' : ''} class="w-4 h-4 rounded text-amber-800 focus:ring-amber-500">
+                <span class="leading-tight ${checked ? 'line-through text-stone-400' : ''}">${item}</span>
+              </label>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleCheck(chk, key) {
+      localStorage.setItem(key, chk.checked);
+      if (chk.checked) {
+        chk.nextElementSibling.classList.add('line-through', 'text-stone-400');
+      } else {
+        chk.nextElementSibling.classList.remove('line-through', 'text-stone-400');
+      }
+    }
+
+    function initOverviewChart() {
+      const ctx = document.getElementById('overviewChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['올림피아/오레곤 (3박)', '시애틀 도심 (7박)'],
+          datasets: [{
+            data: [3, 7],
+            backgroundColor: ['#D97706', '#2563EB'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 10,
+                font: { size: 10 }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function initTaxChart() {
+      const ctx = document.getElementById('taxChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['시애틀 도심', '올림피아', '오레곤주'],
+          datasets: [{
+            label: '소비세율 (%)',
+            data: [10.55, 10.0, 0.0],
+            backgroundColor: ['#EF4444', '#F59E0B', '#10B981'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 12,
+              ticks: {
+                callback: function(val) { return val + '%'; },
+                font: { size: 10 }
+              }
+            },
+            x: {
+              ticks: { font: { size: 10 } }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTab = localStorage.getItem('seattle_travel_active_tab') || 'tab-schedule';
+      const savedDay = parseInt(localStorage.getItem('seattle_travel_active_day')) || 1;
+      
+      switchTab(savedTab);
+      renderDaySelector();
+      selectDay(savedDay);
+      renderAttractions();
+      renderChecklist();
+      calculateTip();
+      initOverviewChart();
+      initTaxChart();
+    });
+  </script>
+</body>
+</html>
