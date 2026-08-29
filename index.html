@@ -162,18 +162,18 @@
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center text-xs">
             <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
               <p class="text-stone-500 text-[10px]">사전 확정 경비</p>
-              <p class="text-xs font-extrabold text-amber-900 mt-0.5">₩4,383,960</p>
-              <p class="text-[9px] text-stone-500">28만 마일 별도</p>
+              <p class="text-xs font-extrabold text-amber-900 mt-0.5">₩5,023,212</p>
+              <p class="text-[9px] text-stone-500">항공+숙소+렌트+패스+보험</p>
             </div>
             <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
-              <p class="text-stone-500 text-[10px]">숙박 구성</p>
-              <p class="text-xs font-bold text-indigo-900 mt-0.5">3박 올림피아 + 7박 시애틀</p>
-              <p class="text-[9px] text-stone-500">에어비앤비 독채</p>
+              <p class="text-stone-500 text-[10px]">CityPASS 4인</p>
+              <p class="text-xs font-bold text-amber-800 mt-0.5">5대 명소 패스</p>
+              <p class="text-[9px] text-stone-500">₩602,562 (낮/밤 2회)</p>
             </div>
             <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
-              <p class="text-stone-500 text-[10px]">렌터카</p>
-              <p class="text-xs font-bold text-emerald-700 mt-0.5">National 4일</p>
-              <p class="text-[9px] text-stone-500">공항 픽업/도심 반납</p>
+              <p class="text-stone-500 text-[10px]">KB 여행자보험</p>
+              <p class="text-xs font-bold text-emerald-700 mt-0.5">11일 풀보장</p>
+              <p class="text-[9px] text-stone-500">해외의료비 5천만</p>
             </div>
             <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
               <p class="text-stone-500 text-[10px]">오레곤 면세</p>
@@ -343,8 +343,8 @@
           </div>
           <div class="bg-stone-50 p-3 rounded-xl border border-stone-200">
             <p class="text-[10px] text-stone-500 font-semibold">사전 확정 결제액</p>
-            <p class="text-sm sm:text-base font-bold text-stone-800 mt-0.5">₩4,383,960</p>
-            <p class="text-[10px] text-stone-500 font-mono">항공+숙소+렌트</p>
+            <p class="text-sm sm:text-base font-bold text-stone-800 mt-0.5">₩5,023,212</p>
+            <p class="text-[10px] text-stone-500 font-mono">항공+숙소+렌트+패스+보험</p>
           </div>
           <div class="bg-indigo-50/70 p-3 rounded-xl border border-indigo-200">
             <p class="text-[10px] text-indigo-700 font-semibold">현지 추가 지출액</p>
@@ -372,7 +372,7 @@
               <h4 class="font-bold text-stone-800 text-xs sm:text-sm">🔒 영수증 기반 사전 확정 내역 (고정비)</h4>
               <button onclick="switchTab('tab-docs')" class="text-[10px] text-amber-800 font-semibold underline">상세 부록 보기 ➡️</button>
             </div>
-            <div class="space-y-1.5 text-xs text-stone-700 max-h-48 overflow-y-auto pr-1">
+            <div class="space-y-1.5 text-xs text-stone-700 max-h-56 overflow-y-auto pr-1">
               <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
                 <div>
                   <p class="font-semibold text-stone-900">✈️ 대한항공 항공권 (4인 유류세/제세금)</p>
@@ -400,6 +400,20 @@
                   <p class="text-[10px] text-stone-500">중형 세단 토요타 코롤라급 (09/30~10/04)</p>
                 </div>
                 <span class="font-bold text-amber-900">₩277,300</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-amber-50/70 rounded-lg border border-amber-200">
+                <div>
+                  <p class="font-semibold text-amber-950">🎟️ 시애틀 CityPASS (4인 5개 어트랙션 패스)</p>
+                  <p class="text-[10px] text-amber-800">스페이스 니들(낮/밤 2회)+아쿠아리움+동물원/치훌리 등 택3</p>
+                </div>
+                <span class="font-bold text-amber-900">₩602,562</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-emerald-50/70 rounded-lg border border-emerald-200">
+                <div>
+                  <p class="font-semibold text-emerald-950">🛡️ KB 4인 해외여행자보험 (11일 풀보장)</p>
+                  <p class="text-[10px] text-emerald-800">해외의료비 5천만, 배상책임 3천만, 휴대품 100만 등</p>
+                </div>
+                <span class="font-bold text-emerald-900">₩36,690</span>
               </div>
             </div>
           </div>
@@ -504,6 +518,8 @@
               <option value="flight">✈️ 대한항공 항공권 & e-Ticket</option>
               <option value="stay">🏡 에어비앤비 숙소 영수증</option>
               <option value="rental">🚗 National 렌터카 & 바우처</option>
+              <option value="citypass">🎟️ 시애틀 CityPASS® 바우처</option>
+              <option value="insurance">🛡️ KB 4인 해외여행자보험</option>
             </select>
           </div>
         </div>
@@ -662,6 +678,142 @@
             </div>
           </div>
 
+          <!-- 5. CityPASS: Seattle CityPASS 5-Attraction Pass (4 Members) -->
+          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-amber-200/80 space-y-2.5" data-category="citypass" data-keywords="시애틀 citypass 시티패스 바우처 voucher 5개 어트랙션 스페이스니들 낮밤 2회 아쿠아리움 치훌리 아르고시 크루즈 mopop 동물원 과학센터 XUF039441 김지은 주아성 주이안 주이솔 3084580203510004079 3084580203510016560 3084580213510020694 3084580213510048620 602562">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-amber-200 gap-1">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-200 text-amber-900">🎟️ 시애틀 CityPASS®</span>
+                <h4 class="font-bold text-stone-900 text-xs sm:text-sm">시애틀 CityPASS® 5개 어트랙션 패스 (4인 가족)</h4>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩602,562</span>
+                <a href="https://my.citypass.com" target="_blank" class="text-[10px] bg-amber-800 text-white font-bold px-2 py-0.5 rounded hover:bg-amber-900 transition">My CityPASS 앱/예약 ↗</a>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-stone-700">
+              <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
+                <div class="flex justify-between items-center">
+                  <p class="font-bold text-amber-900 text-[11px]">👥 가족별 바우처 번호 (성인2 + 아동2)</p>
+                  <div class="flex items-center space-x-1">
+                    <span class="text-[10px] text-stone-500">예약 ID:</span>
+                    <span class="font-mono font-bold text-amber-900 text-[10px]">XUF039441</span>
+                    <button onclick="copyToClipboard('XUF039441', 'CityPASS 예약 ID')" class="text-[9px] bg-stone-100 px-1 py-0.2 rounded border">복사</button>
+                  </div>
+                </div>
+                <div class="space-y-1 text-[11px] font-mono">
+                  <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
+                    <span><strong>주아성</strong> (Adult / 3084580203510004079)</span>
+                    <button onclick="copyToClipboard('3084580203510004079', '주아성 CityPASS 바우처')" class="text-[10px] text-amber-800 font-semibold underline ml-1">복사</button>
+                  </div>
+                  <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
+                    <span><strong>김지은</strong> (Adult·대표 / 3084580203510016560)</span>
+                    <button onclick="copyToClipboard('3084580203510016560', '김지은 CityPASS 바우처')" class="text-[10px] text-amber-800 font-semibold underline ml-1">복사</button>
+                  </div>
+                  <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
+                    <span><strong>주이안</strong> (Child 5-12 / 3084580213510020694)</span>
+                    <button onclick="copyToClipboard('3084580213510020694', '주이안 CityPASS 바우처')" class="text-[10px] text-amber-800 font-semibold underline ml-1">복사</button>
+                  </div>
+                  <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
+                    <span><strong>주이솔</strong> (Child 5-12 / 3084580213510048620)</span>
+                    <button onclick="copyToClipboard('3084580213510048620', '주이솔 CityPASS 바우처')" class="text-[10px] text-amber-800 font-semibold underline ml-1">복사</button>
+                  </div>
+                </div>
+                <p class="text-[10px] text-stone-500 mt-1">※ 첫 어트랙션 입장(바우처 개시) 일로부터 <strong>연속 9일간</strong> 유효합니다.</p>
+              </div>
+
+              <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
+                <p class="font-bold text-amber-900 text-[11px]">🎡 이용 가능 5개 어트랙션 (지정 2 + 선택 3)</p>
+                <div class="space-y-1 text-[11px] text-stone-700">
+                  <p>• <span class="bg-amber-100 text-amber-900 px-1 py-0.2 rounded font-bold text-[10px]">지정 1</span> <strong>스페이스 니들:</strong> 주간 + 야간 <strong>24시간 내 2회 무료 입장 포함!</strong> (사전 예약 필수)</p>
+                  <p>• <span class="bg-amber-100 text-amber-900 px-1 py-0.2 rounded font-bold text-[10px]">지정 2</span> <strong>시애틀 아쿠아리움:</strong> 전관 입장권 (오션 파빌리온 포함, 사전 예약)</p>
+                  <p>• <span class="bg-stone-100 text-stone-700 px-1 py-0.2 rounded font-bold text-[10px]">선택 3종</span> <strong>다음 중 3곳 선택:</strong></p>
+                  <div class="pl-2.5 space-y-0.5 text-[10px] text-stone-600">
+                    <p>① <strong>우드랜드 파크 동물원</strong> (추천: 숲속 동물원 & 줌마지움)</p>
+                    <p>② <strong>치훌리 가든 앤 글라스</strong> (추천: 스페이스 니들 바로 옆 유리공예관)</p>
+                    <p>③ <strong>아르고시 크루즈 하버 투어</strong> (1시간 해설 유람선, Pier 55)</p>
+                    <p>④ <strong>퍼시픽 과학 센터 (PacSci)</strong> (어린이 과학/나비관, 시애틀 센터)</p>
+                    <p>⑤ <strong>팝 문화 박물관 (MOPOP)</strong> (음악/영화 전시, 시애틀 센터)</p>
+                  </div>
+                </div>
+                <div class="bg-amber-50 p-1.5 rounded text-[10px] text-amber-950 font-medium">
+                  💡 <strong>예약 팁:</strong> <a href="https://my.citypass.com" target="_blank" class="text-blue-700 underline font-bold">my.citypass.com</a> 또는 My CityPASS 앱에서 바우처 번호를 등록하고 방문 시간을 사전 예약하세요.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Insurance: KB Overseas Travel Insurance -->
+          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-emerald-200/80 space-y-2.5" data-category="insurance" data-keywords="kb 손해보험 해외여행보험 여행자보험 다이렉트플랫폼 증권 15508 2026-5705231 20265705231 김지은 주아성 주이안 주이솔 상해의료비 질병의료비 5000만 5천만원 배상책임 3000만 휴대품 100만 지연 20만 식중독 1544-0114 880128 36690">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-emerald-200 gap-1">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">🛡️ 여행자보험 증권</span>
+                <h4 class="font-bold text-stone-900 text-xs sm:text-sm">KB해외여행보험 (다이렉트플랫폼 4인 가족 풀보장)</h4>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-extrabold text-emerald-900 font-mono">총 보험료 ₩36,690 (일시납)</span>
+                <a href="tel:+8215440114" class="text-[10px] bg-emerald-700 text-white font-bold px-2 py-0.5 rounded hover:bg-emerald-800 transition">📞 긴급접수 (1544-0114)</a>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-stone-700">
+              <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
+                <div class="flex justify-between items-center">
+                  <p class="font-bold text-emerald-900 text-[11px]">📋 계약 사항 & 가입자 정보</p>
+                  <div class="flex items-center space-x-1">
+                    <span class="text-[10px] text-stone-500">증권번호:</span>
+                    <span class="font-mono font-bold text-emerald-900 text-[10px]">2026-5705231</span>
+                    <button onclick="copyToClipboard('2026-5705231', '보험 증권번호')" class="text-[9px] bg-stone-100 px-1 py-0.2 rounded border">복사</button>
+                  </div>
+                </div>
+                <div class="space-y-1 text-[11px]">
+                  <p>• <strong>보험 기간:</strong> 2026.09.30 17:00 ~ 10.11 17:00 (11일간 / 한국시간 기준)</p>
+                  <p>• <strong>계약자 / 대표피보험자:</strong> 김지은 (생년월일/비번: 880128)</p>
+                  <p>• <strong>총 피보험자:</strong> 4명 (김지은, 주아성, 주이안, 주이솔)</p>
+                  <div class="grid grid-cols-2 gap-1 bg-stone-50 p-1.5 rounded font-mono text-[10px]">
+                    <div>• 김지은 (39세 여): <strong>₩13,811</strong></div>
+                    <div>• 주아성 (41세 남): <strong>₩9,473</strong></div>
+                    <div>• 주이안 (8세 여): <strong>₩6,624</strong></div>
+                    <div>• 주이솔 (5세 여): <strong>₩6,782</strong></div>
+                  </div>
+                  <p class="text-[10px] text-stone-500">※ 보험 청약서 및 증권 PDF 비밀번호: <strong>880128</strong></p>
+                </div>
+              </div>
+
+              <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
+                <p class="font-bold text-emerald-900 text-[11px]">🏥 주요 보장 내역 (1인당 가입금액)</p>
+                <div class="space-y-1 text-[11px] text-stone-700">
+                  <div class="flex justify-between items-center bg-emerald-50/50 p-1 rounded">
+                    <span>• <strong>해외의료비 (상해 / 질병):</strong> 각 5,000만원 한도</span>
+                    <span class="text-[10px] text-emerald-800 font-bold">자기부담금 0원</span>
+                  </div>
+                  <div class="flex justify-between items-center bg-stone-50 p-1 rounded">
+                    <span>• <strong>배상책임:</strong> 3,000만원 한도</span>
+                    <span class="text-[10px] text-stone-600">자기부담금 1만원</span>
+                  </div>
+                  <div class="flex justify-between items-center bg-stone-50 p-1 rounded">
+                    <span>• <strong>휴대품 손해 (도난/파손):</strong> 100만원</span>
+                    <span class="text-[10px] text-stone-600">개당 20만원 한도</span>
+                  </div>
+                  <div class="flex justify-between items-center bg-stone-50 p-1 rounded">
+                    <span>• <strong>항공기 및 수하물 지연:</strong> 20만원 한도</span>
+                    <span class="text-[10px] text-stone-600">4시간 이상 지연시</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-1 text-[10px] text-stone-500 pt-0.5">
+                    <span>• 상해사망/후유장해: 3억원</span>
+                    <span>• 식중독/전염병: 각 20만원</span>
+                    <span>• 여행중단 추가비용: 20만원</span>
+                    <span>• 여권분실 재발급비용: 지원</span>
+                  </div>
+                </div>
+                <div class="bg-stone-50 p-1.5 rounded text-[10px] text-stone-600 space-y-0.5">
+                  <p>💡 <strong>청구 안내:</strong> 현지 진료 시 영수증/처방전/진단서를 필히 수령하세요.</p>
+                  <p>📞 <strong>고객콜센터:</strong> 1544-0114 (해외 발신: +82-1544-0114 / +82-2-6900-5000)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -805,6 +957,15 @@
           <a href="tel:+82232100404" class="bg-stone-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs shadow-sm">📞 통화</a>
         </div>
 
+        <div class="p-2.5 bg-emerald-50 rounded-xl border border-emerald-200 flex justify-between items-center">
+          <div>
+            <p class="font-bold text-emerald-950">KB손해보험 24시간 해외 긴급 콜</p>
+            <p class="text-emerald-800 text-[11px] font-mono">+82-1544-0114 / +82-2-6900-5000</p>
+            <p class="text-emerald-700 text-[10px]">증권: <span class="font-mono font-bold">2026-5705231</span> (김지은/주아성/이안/이솔)</p>
+          </div>
+          <a href="tel:+8215440114" class="bg-emerald-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs shadow-sm">📞 긴급접수</a>
+        </div>
+
         <div class="p-2.5 bg-stone-50 rounded-xl border border-stone-200 flex justify-between items-center">
           <div>
             <p class="font-bold text-stone-900">대한항공 시애틀 지점 (공항)</p>
@@ -907,33 +1068,34 @@
         day: 5,
         date: "10/04(일)",
         region: "seattle",
-        title: "렌터카 반납 & 시애틀 센터 테마파크",
-        summary: "다운타운 National 렌터카 반납(11:30 전), 모노레일 탑승, 시애틀 어린이 박물관 & 대형 놀이터",
+        title: "렌터카 반납 & 시애틀 센터 & 스페이스 니들 주간",
+        summary: "다운타운 National 렌터카 반납(11:30 전), 모노레일 탑승, 스페이스 니들 낮 전망(CityPASS 개시), 시애틀 어린이 박물관 & 대형 놀이터",
         transit: "🚊 모노레일 & 시내버스 (18세 이하 무료)",
         timeline: [
           { time: "09:30 - 10:30", text: "주유소에서 기름 가득 주유(Full) 후 시애틀 다운타운 National 렌터카 반납 완료", tag: "교통", address: "1601 3RD AVE, Seattle, WA 98101" },
           { time: "10:30 - 11:00", text: "웨스트레이크 센터에서 시애틀 센터 모노레일 탑승", tag: "교통", address: "400 Pine St, Seattle, WA 98101" },
-          { time: "11:00 - 13:30", text: "시애틀 어린이 박물관 (미니 마켓 장보기, 블록 건축)", tag: "체험", address: "305 Harrison St, Seattle, WA 98109" },
-          { time: "13:30 - 14:30", text: "시애틀 센터 아모리(Armory) 푸드코트 점심 식사", tag: "식사", address: "305 Harrison St, Seattle, WA 98109" },
-          { time: "14:30 - 16:00", text: "Artists at Play Playground (스페이스 니들 아래 9m 대형 정글짐)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
-          { time: "16:00 - 17:00", text: "International Fountain 잔디밭 피크닉 (음악 분수)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
-          { time: "17:00 - 18:00", text: "대중교통으로 숙소 복귀", tag: "휴식" }
+          { time: "11:00 - 12:30", text: "스페이스 니들 (Space Needle) 360도 파노라마 주간 전망 관람 🎟️ [CityPASS 지정1 - 낮/밤 2회 무료 중 1차]", tag: "명소", address: "400 Broad St, Seattle, WA 98109" },
+          { time: "12:30 - 13:30", text: "시애틀 센터 아모리(Armory) 푸드코트 점심 식사", tag: "식사", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "13:30 - 15:30", text: "시애틀 어린이 박물관 (미니 마켓 장보기, 블록 건축)", tag: "체험", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "15:30 - 16:30", text: "Artists at Play Playground (스페이스 니들 아래 9m 대형 정글짐)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "16:30 - 17:30", text: "International Fountain 잔디밭 피크닉 (음악 분수)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "17:30 - 18:30", text: "대중교통으로 숙소 복귀", tag: "휴식" }
         ]
       },
       {
         day: 6,
         date: "10/05(월)",
         region: "seattle",
-        title: "마켓 & 수족관 & 대관람차 & Overlook Walk",
-        summary: "파이크 플레이스 마켓 생선 퍼포먼스, 차우더 점심, Overlook Walk 보행로, 수족관 & 관람차",
+        title: "마켓 & 수족관(CityPASS) & 대관람차 & Overlook Walk",
+        summary: "파이크 플레이스 마켓 생선 퍼포먼스, 차우더 점심, Overlook Walk 보행로, 시애틀 아쿠아리움 & 대관람차",
         transit: "🚊 대중교통 + 도보 (유모차 경사로 연결)",
         timeline: [
           { time: "09:30 - 10:15", text: "대중교통(경전철/버스) 타고 도심 이동", tag: "교통" },
           { time: "10:15 - 11:45", text: "파이크 플레이스 마켓 (생선 던지기, 돼지저금통 레이첼, 스타벅스 1호점)", tag: "명소", address: "85 Pike St, Seattle, WA 98101" },
           { time: "11:45 - 12:45", text: "Pike Place Chowder에서 클램 차우더 빵 보울 점심", tag: "식사", address: "1530 Post Alley, Seattle, WA 98101" },
           { time: "12:45 - 13:00", text: "신규 Overlook Walk 육교를 통해 바다 뷰 감상하며 피어 59 이동", tag: "산책", address: "Overlook Walk, Seattle, WA 98101" },
-          { time: "13:00 - 14:30", text: "시애틀 아쿠아리움 (Touch Pool 조개 터치, 해달 관람)", tag: "체험", address: "1483 Alaskan Way Pier 59, Seattle, WA 98101" },
-          { time: "14:30 - 15:45", text: "시애틀 그레이트 휠 (대관람차) 탑승", tag: "체험", address: "1301 Alaskan Way Pier 57, Seattle, WA 98101" },
+          { time: "13:00 - 14:30", text: "시애틀 아쿠아리움 (Touch Pool 조개 터치, 신축 오션 파빌리온 관람) 🎟️ [CityPASS 지정2]", tag: "체험", address: "1483 Alaskan Way Pier 59, Seattle, WA 98101" },
+          { time: "14:30 - 15:45", text: "시애틀 그레이트 휠 (대관람차) 탑승 (피어 57)", tag: "체험", address: "1301 Alaskan Way Pier 57, Seattle, WA 98101" },
           { time: "15:45 - 17:00", text: "워터프론트 공원 산책 후 숙소 복귀", tag: "휴식" }
         ]
       },
@@ -941,12 +1103,12 @@
         day: 7,
         date: "10/06(화)",
         region: "seattle",
-        title: "숲속 동물원 & 줌마지움 & 장미 정원",
+        title: "숲속 동물원(CityPASS) & 줌마지움 & 장미 정원",
         summary: "우드랜드 파크 동물원의 야외 동물 탐험, 실내 온실 놀이터 줌마지움, 장미 정원 산책",
         transit: "🚌 5번 시내버스 탑승 (아동 무료)",
         timeline: [
           { time: "09:30 - 10:15", text: "5번 시내버스로 우드랜드 파크 동물원 이동", tag: "교통", address: "5500 Phinney Ave N, Seattle, WA 98103" },
-          { time: "10:15 - 12:30", text: "자연 친화 야외 동물원 산책 (기린, 사자, 펭귄)", tag: "명소", address: "5500 Phinney Ave N, Seattle, WA 98103" },
+          { time: "10:15 - 12:30", text: "우드랜드 파크 동물원 숲속 동물 탐험 (기린, 사자, 펭귄) 🎟️ [CityPASS 선택1]", tag: "명소", address: "5500 Phinney Ave N, Seattle, WA 98103" },
           { time: "12:30 - 13:30", text: "동물원 내 카페테리아 키즈밀 점심", tag: "식사" },
           { time: "13:30 - 15:00", text: "실내 숲속 놀이터 '줌마지움 (Zoomazium)'에서 오르기 & 미끄럼틀", tag: "체험", address: "5500 Phinney Ave N, Seattle, WA 98103" },
           { time: "15:00 - 16:30", text: "동물원 옆 로즈 가든 (Rose Garden) 잔디밭 유모차 산책", tag: "공원", address: "750 N 50th St, Seattle, WA 98103" },
@@ -973,8 +1135,8 @@
         day: 9,
         date: "10/08(목)",
         region: "seattle",
-        title: "발라드 록스 & 가스 워크 공원",
-        summary: "발라드 록스 배 수위 조절 및 지하 연어 사다리 관람, 가스 워크 공원 잔디언덕 연날리기",
+        title: "발라드 록스 & 가스 워크 공원 (또는 치훌리 가든)",
+        summary: "발라드 록스 배 수위 조절 및 지하 연어 사다리 관람, 가스 워크 공원 잔디언덕 연날리기 (선택: 치훌리 가든 CityPASS)",
         transit: "🚌 시내버스 / UberXL",
         timeline: [
           { time: "09:30 - 10:15", text: "버스로 발라드 록스 (Ballard Locks) 이동 (입장료 무료)", tag: "교통", address: "3015 NW 54th St, Seattle, WA 98107" },
@@ -982,22 +1144,23 @@
           { time: "12:30 - 13:30", text: "발라드 역사 거리 점심 식사 (피자/베이커리)", tag: "식사", address: "Ballard Ave NW, Seattle, WA 98107" },
           { time: "13:30 - 14:15", text: "가스 워크 공원 (Gas Works Park) 이동", tag: "이동", address: "2101 N 34th St, Seattle, WA 98103" },
           { time: "14:15 - 16:30", text: "Play Barn 실내외 놀이공간 & Kite Hill 언덕에서 레이크 유니온 전경 감상", tag: "공원", address: "2101 N 34th St, Seattle, WA 98103" },
-          { time: "16:30 - 17:30", text: "대중교통으로 숙소 복귀", tag: "휴식" }
+          { time: "16:30 - 17:30", text: "대중교통으로 숙소 복귀 (※ 시간 여유 시 치훌리 가든 앤 글라스 🎟️ CityPASS 관람 가능)", tag: "휴식" }
         ]
       },
       {
         day: 10,
         date: "10/09(금)",
         region: "seattle",
-        title: "그린 레이크 호수 공원 & 케리 공원 노을",
-        summary: "그린 레이크 호숫가 유모차 산책과 대형 놀이터, 케리 공원에서 스페이스 니들 노을 촬영",
+        title: "그린 레이크 호수 공원 & 케리 공원 노을 & 스페이스 니들 야경",
+        summary: "그린 레이크 호숫가 유모차 산책과 대형 놀이터, 케리 공원에서 스페이스 니들 노을 촬영 및 CityPASS 야간 재방문 옵션",
         transit: "🚌 시내버스",
         timeline: [
           { time: "10:00 - 12:30", text: "그린 레이크 공원 (Green Lake) 2.8마일 산책, 오리 구경, 대형 놀이터", tag: "공원", address: "7201 East Green Lake Dr N, Seattle, WA 98115" },
           { time: "12:30 - 14:00", text: "호수 변 브런치 카페 점심 식사", tag: "식사" },
           { time: "14:00 - 16:30", text: "숙소 복귀 휴식 및 면세 쇼핑품 캐리어 패킹", tag: "휴식" },
           { time: "16:30 - 18:00", text: "케리 공원 (Kerry Park)에서 가을 노을 스페이스 니들 가족사진", tag: "명소", address: "211 W Highland Dr, Seattle, WA 98119" },
-          { time: "18:00 - 19:30", text: "퀸 앤 언덕 로컬 식당 여행 마지막 밤 디너", tag: "식사", address: "Queen Anne Ave N, Seattle, WA 98119" }
+          { time: "18:00 - 19:30", text: "퀸 앤 언덕 로컬 식당 여행 마지막 밤 디너", tag: "식사", address: "Queen Anne Ave N, Seattle, WA 98119" },
+          { time: "19:30 - 20:30", text: "스페이스 니들 야경 재방문 🎟️ [CityPASS 24시간 내 야간 무료 재방문 혜택]", tag: "명소", address: "400 Broad St, Seattle, WA 98109" }
         ]
       },
       {
@@ -1009,7 +1172,7 @@
         transit: "🚕 UberXL (대형 수하물 및 유모차 수용)",
         timeline: [
           { time: "08:30 - 09:00", text: "시애틀 숙소 최종 체크아웃 및 정돈", tag: "숙소" },
-          { time: "09:00 - 09:45", text: "UberXL 탑승 ➡️ 시애틀 타코마 공항(SEA) 이동", tag: "이동", address: "17801 International Blvd, SeaTac, WA 98158" },
+          { time: "09:00 - 09:45", text: "UberXL 탑승 ➡️ 시애틀 타코마 공항(SEA) 이동", tag: "이동", address: "17801 International Blvd, SeaTac, WA 98518" },
           { time: "09:45 - 11:30", text: "대한항공 카운터 짐 부치기 및 보안 검색 통과", tag: "공항" },
           { time: "11:30 - 12:50", text: "공항 내 키즈 플레이존 대기 후 12:50 인천행 KE042편 탑승", tag: "공항" }
         ]
@@ -1018,6 +1181,90 @@
 
     // 2. Attractions Directory Data
     const attractionsData = [
+      {
+        name: "스페이스 니들 (Space Needle)",
+        loc: "시애틀 센터",
+        address: "400 Broad St, Seattle, WA 98109",
+        parking: "Seattle Center Mercer/5th Ave 공영 주차장",
+        category: "park",
+        hours: "매일 09:00-22:00 (시즌별 변동)",
+        closed: "연중무휴",
+        fee: "성인 $39~$44 (🎟️ CityPASS 소지 시 낮+밤 2회 무료 입장!)",
+        summary: "시애틀의 상징. 360도 유리 바닥 루프탑 전망대. CityPASS 패스로 24시간 이내 주간+야간 2회 무료 방문 가능!",
+        highlights: "유리 바닥 The Loupe 회전 전망대, 낮 파노라마 + 황홀한 야경 2회 관람 (0~4세 무료, 사전예약 필수)"
+      },
+      {
+        name: "시애틀 아쿠아리움 (Seattle Aquarium)",
+        loc: "Pier 59 (워터프론트)",
+        address: "1483 Alaskan Way Pier 59, Seattle, WA 98101",
+        parking: "Hillclimb Garage 또는 워터프론트 스트리트 파킹",
+        category: "museum",
+        hours: "매일 09:30-18:00 (마지막 입장 17:00)",
+        closed: "크리스마스",
+        fee: "성인 약 $28~$53 / 아동 $17~$32 (🎟️ CityPASS 전관 무료 포함)",
+        summary: "태평양 해양 생태계를 촉각으로 직접 체험하는 수족관. 2024년 신축 오션 파빌리온(Ocean Pavilion) 통합 입장 가능.",
+        highlights: "불가사리/조개 터치 풀(Touch Pool), 해달 먹이주기, 신축 오션 파빌리온 입체 수조 (0~3세 무료)"
+      },
+      {
+        name: "우드랜드 파크 동물원 (Woodland Park Zoo)",
+        loc: "시애틀 핀니 리지",
+        address: "5500 Phinney Ave N, Seattle, WA 98103",
+        parking: "동물원 West/South 전용 주차장 (유료)",
+        category: "park",
+        hours: "매일 09:30-16:00 (10월 기준)",
+        closed: "연중무휴",
+        fee: "성인 약 $29~$37 / 아동 약 $19~$24 (🎟️ CityPASS 선택 3종 포함)",
+        summary: "철창 없이 자연 서식지를 재현한 울창한 숲속 동물원.",
+        highlights: "실내 숲속 놀이터 'Zoomazium' (15:00 조기 마감 유의), 기린, 펭귄, 바로 옆 로즈 가든 (0~2세 무료)"
+      },
+      {
+        name: "치훌리 가든 앤 글라스 (Chihuly Garden and Glass)",
+        loc: "시애틀 센터",
+        address: "305 Harrison St, Seattle, WA 98109",
+        parking: "시애틀 센터 주변 공영 주차장",
+        category: "museum",
+        hours: "매일 10:00-18:00",
+        closed: "연중무휴",
+        fee: "성인 $35 / 아동 $24 (🎟️ CityPASS 선택 3종 포함 + 무료 디지털 오디오 가이드)",
+        summary: "세계적인 유리 조형 거장 데일 치훌리의 화려한 유리 공예 예술관. 스페이스 니들 바로 옆에 위치.",
+        highlights: "초대형 유리 온실 글래스하우스(Glasshouse)와 야외 정원 조형물 포토존 (0~4세 무료)"
+      },
+      {
+        name: "아르고시 크루즈 하버 투어 (Argosy Cruises)",
+        loc: "Pier 55 (워터프론트)",
+        address: "Pier 55, 1101 Alaskan Way Pier 55, Seattle, WA 98101",
+        parking: "워터프론트 공영 주차장",
+        category: "park",
+        hours: "출항 시간표 사전 확인 필수 (약 1시간 소요)",
+        closed: "연중무휴 (기상 상황 변동)",
+        fee: "성인 약 $38 / 아동 $19 (🎟️ CityPASS 선택 3종 포함)",
+        summary: "엘리엇 만 바다 위에서 시애틀 스카이라인과 캐스케이드 산맥을 조망하는 1시간 라이브 해설 유람선.",
+        highlights: "바닷바람과 함께 시애틀 도심 마천루 및 항만 전경 감상 (0~3세 무료, 사전예약 권장)"
+      },
+      {
+        name: "퍼시픽 과학 센터 (Pacific Science Center)",
+        loc: "시애틀 센터",
+        address: "200 2nd Ave N, Seattle, WA 98109",
+        parking: "Seattle Center 2nd Ave Garage",
+        category: "museum",
+        hours: "수~일 10:00-17:00",
+        closed: "월·화 휴무",
+        fee: "성인 약 $28 / 아동 $21 (🎟️ CityPASS 선택 3종 포함)",
+        summary: "아이들의 호기심을 자극하는 인터랙티브 과학 체험관. 열대 나비의 집과 팅커 탱크 메이커스페이스 완비.",
+        highlights: "열대 나비 온실, 움직이는 공룡관, 플라네타륨 & 주간 레이저쇼 (0~2세 무료)"
+      },
+      {
+        name: "팝 문화 박물관 (MOPOP)",
+        loc: "시애틀 센터",
+        address: "325 5th Ave N, Seattle, WA 98109",
+        parking: "5th Ave Garage",
+        category: "museum",
+        hours: "목~화 10:00-17:00",
+        closed: "수요일",
+        fee: "성인 약 $30~$35 (🎟️ CityPASS 선택 3종 포함)",
+        summary: "프랭크 게리가 설계한 독창적인 외관의 대중음악, 영화, 비디오 게임 인터랙티브 박물관.",
+        highlights: "악기 연주 사운드 랩(Sound Lab), 기타 타워 포토존, 마블/SF 영화 전시 (0~4세 무료)"
+      },
       {
         name: "핸즈 온 어린이 박물관",
         loc: "올림피아 다운타운",
@@ -1103,18 +1350,6 @@
         highlights: "생선 던지기 퍼포먼스, 황동 돼지 저금통 레이첼, 스타벅스 1호점"
       },
       {
-        name: "시애틀 아쿠아리움",
-        loc: "Pier 59 (해안가)",
-        address: "1483 Alaskan Way Pier 59, Seattle, WA 98101",
-        parking: "Hillclimb Garage 또는 워터프론트 스트리트 파킹",
-        category: "museum",
-        hours: "매일 09:30-18:00 (마지막 입장 17:00)",
-        closed: "크리스마스",
-        fee: "성인 약 $28~$53 / 아동(4-12) 약 $17~$32 (3세 이하 무료)",
-        summary: "태평양 해양 생태계를 촉각으로 직접 체험하는 수족관 (신축 오션 파빌리온 통합 입장 가능).",
-        highlights: "불가사리/조개 터치 풀(Touch Pool), 해달 먹이주기, 신축 오션 파빌리온 입체 수조"
-      },
-      {
         name: "시애틀 그레이트 휠",
         loc: "Pier 57 (해안가)",
         address: "1301 Alaskan Way Pier 57, Seattle, WA 98101",
@@ -1125,18 +1360,6 @@
         fee: "성인 약 $18 / 아동(4-11) 약 $13",
         summary: "바다 위에 떠 있는 에어컨/히터 밀폐형 대형 관람차.",
         highlights: "엘리엇 만 바다와 시애틀 스카이라인을 한눈에 감상"
-      },
-      {
-        name: "우드랜드 파크 동물원",
-        loc: "시애틀 핀니 리지",
-        address: "5500 Phinney Ave N, Seattle, WA 98103",
-        parking: "동물원 West/South 전용 주차장 (유료)",
-        category: "park",
-        hours: "매일 09:30-16:00 (10월 기준)",
-        closed: "연중무휴",
-        fee: "성인 약 $29~$37 / 아동 약 $19~$24",
-        summary: "철창 없이 자연 서식지를 재현한 숲속 동물원.",
-        highlights: "실내 숲속 놀이터 'Zoomazium' (15:00 조기 마감 유의), 기린, 펭귄, 바로 옆 로즈 가든"
       },
       {
         name: "발라드 록스 (Ballard Locks)",
@@ -1191,10 +1414,12 @@
     // 3. Checklist Data
     const checklistData = [
       {
-        category: "📄 필수 서류 & 카드",
+        category: "📄 필수 서류 & 카드 & 패스",
         items: [
           "여권 (유효기간 6개월 이상 확인)",
           "ESTA 비자 승인 출력본/캡처본",
+          "시애틀 CityPASS® 바우처 확인 & my.citypass.com 사전 예약",
+          "KB 해외여행보험 증권 PDF 저장 (비밀번호: 880128)",
           "컨택트리스 결제 신용카드 (Apple/Google Pay 연동)",
           "국제운전면허증 & 한국 운전면허증 (렌터카용)"
         ]
@@ -1229,14 +1454,16 @@
     const FIXED_STAY1 = 928592;
     const FIXED_STAY2 = 1929368;
     const FIXED_RENTAL = 277300;
-    const FIXED_TOTAL_KRW = FIXED_FLIGHT + FIXED_STAY1 + FIXED_STAY2 + FIXED_RENTAL; // 4,383,960
+    const FIXED_CITYPASS = 602562;
+    const FIXED_INSURANCE = 36690;
+    const FIXED_TOTAL_KRW = FIXED_FLIGHT + FIXED_STAY1 + FIXED_STAY2 + FIXED_RENTAL + FIXED_CITYPASS + FIXED_INSURANCE; // 5,023,212
 
     const defaultCustomExpenses = [
       { id: "def-1", title: "마운틴 레이니어 국립공원 차량 입장료", amount: 30, currency: "USD", category: "activity", note: "차량 1대 7일권", done: false },
       { id: "def-2", title: "핸즈온 어린이 박물관 (올림피아 4인)", amount: 79.8, currency: "USD", category: "activity", note: "성인2+아이2 ($19.95/인)", done: false },
       { id: "def-3", title: "시애틀 어린이 박물관 (4인)", amount: 72, currency: "USD", category: "activity", note: "성인2+아이2 ($18/인)", done: false },
-      { id: "def-4", title: "시애틀 아쿠아리움 (4인)", amount: 120, currency: "USD", category: "activity", note: "성인2+소아2", done: false },
-      { id: "def-5", title: "우드랜드 파크 동물원 (4인)", amount: 96, currency: "USD", category: "activity", note: "성인2+소아2", done: false },
+      { id: "def-4", title: "시애틀 그레이트 휠 (대관람차 4인)", amount: 62, currency: "USD", category: "activity", note: "성인2 ($18)+소아2 ($13)", done: false },
+      { id: "def-5", title: "럿레지 호박농장 액티비티 패스", amount: 40, currency: "USD", category: "activity", note: "트랙터 마차 & 미로 체험", done: false },
       { id: "def-6", title: "베인브리지 페리 도보 왕복 (성인2, 아동무료)", amount: 20, currency: "USD", category: "transit", note: "18세 이하 아동 무료", done: false },
       { id: "def-7", title: "타코마 코스트코 첫날 장보기", amount: 200, currency: "USD", category: "food", note: "소고기 스테이크, 생수, 간식", done: false },
       { id: "def-8", title: "렌터카 4일 주유비", amount: 50, currency: "USD", category: "transit", note: "반납 전 주유", done: false },
@@ -1695,7 +1922,7 @@
       const grandTotalKRW = FIXED_TOTAL_KRW + localTotalKRW;
 
       const summaryText = `[시애틀 가족여행 가계부 요약]
-• 사전 확정(항공+숙소+렌트): ₩${FIXED_TOTAL_KRW.toLocaleString()}
+• 사전 확정(항공+숙소+렌트+패스+보험): ₩${FIXED_TOTAL_KRW.toLocaleString()}
 • 현지 지출/예상 합계: ₩${Math.round(localTotalKRW).toLocaleString()} (≈$${Math.round(localTotalKRW / exchangeRate)})
 • 총 누적 예산: ₩${Math.round(grandTotalKRW).toLocaleString()}
 • 4인 가족 1인당: ₩${Math.round(grandTotalKRW / 4).toLocaleString()} (환율 $1=₩${exchangeRate})`;
@@ -1812,17 +2039,18 @@
         });
       }
 
-      const labels = ['항공 세금', '숙박 (10박)', '렌터카 (4일)', '관광/입장료', '식비/카페', '교통/주유/우버', '기타/쇼핑'];
+      const labels = ['항공 세금', '숙박 (10박)', '렌터카 (4일)', 'CityPASS/보험', '현지 관광/체험', '식비/카페', '교통/주유/우버', '기타/쇼핑'];
       const data = [
         catSums.flight,
         catSums.stay,
         catSums.rental,
+        FIXED_CITYPASS + FIXED_INSURANCE,
         catSums.activity,
         catSums.food,
         catSums.transit,
         catSums.shopping + catSums.other
       ];
-      const colors = ['#3B82F6', '#D97706', '#10B981', '#EC4899', '#F59E0B', '#6366F1', '#8B5CF6'];
+      const colors = ['#3B82F6', '#D97706', '#10B981', '#F59E0B', '#EC4899', '#EF4444', '#6366F1', '#8B5CF6'];
 
       if (budgetChartInstance) {
         budgetChartInstance.data.datasets[0].data = data;
