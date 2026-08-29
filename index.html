@@ -2,17 +2,25 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#78350f">
   <title>시애틀 & 올림피아 가을 가족 여행 마스터 노트</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
     body {
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
       background-color: #FAF8F5;
       color: #2D3748;
-      -webkit-tap-highlight-color: transparent;
     }
     .chart-container {
       position: relative;
@@ -20,17 +28,12 @@
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
-      height: 220px;
-      max-height: 320px;
+      height: 200px;
+      max-height: 300px;
     }
     @media (min-width: 640px) {
       .chart-container {
-        height: 280px;
-      }
-    }
-    @media (min-width: 768px) {
-      .chart-container {
-        height: 320px;
+        height: 250px;
       }
     }
     .custom-scrollbar::-webkit-scrollbar {
@@ -42,102 +45,146 @@
     }
     .touch-target {
       min-height: 44px;
+      min-width: 44px;
+    }
+    /* Toast Animation */
+    #toast-msg {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(100px);
+      opacity: 0;
+      pointer-events: none;
+    }
+    #toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-8">
+<body class="min-h-screen flex flex-col antialiased pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-8">
 
-  <!-- Chosen Palette: Warm Neutrals with Amber, Terracotta, Sage Green, and Slate -->
-  <!-- Application Structure Plan: Mobile-first responsive structure optimized for one-handed mobile use with exact address data & direct Google Maps routing buttons. Features mobile fixed bottom navigation bar and top sticky header. Interactive components: 1. Schedule with local persistence, accurate addresses & Google Maps button for every stop, 2. Attractions Directory with precise street address, parking tips, and one-tap navigation, 3. Transit & ORCA guide with 2026 youth exceptions, 4. Tip/Tax Calculator with quick budget buttons, 5. Stateful Checklist. -->
-  <!-- Visualization & Content Choices: 1. Overview Doughnut Chart (Chart.js) -> Visualizes 3-night Olympia vs 7-night Seattle split. 2. Tax Comparison Bar Chart (Chart.js) -> Visualizes tax rates. NO SVG/Mermaid JS used. -->
-  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
-  <!-- Top Header -->
-  <header class="bg-amber-900 text-amber-50 shadow-sm sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center space-x-2.5">
+  <!-- Top Header with Dual Clocks (Seattle & Korea) -->
+  <header class="bg-amber-900 text-amber-50 shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 py-2 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
         <span class="text-2xl">🌲</span>
         <div>
-          <h1 class="font-bold text-base leading-tight sm:text-lg">시애틀 & 올림피아 여행</h1>
-          <p class="text-[11px] text-amber-200">7세·4세 자매 맞춤 노트 (10박 11일)</p>
+          <h1 class="font-extrabold text-sm sm:text-lg leading-tight flex items-center gap-1.5">
+            시애틀 & 올림피아 여행
+            <span class="text-[10px] bg-amber-700/80 px-1.5 py-0.2 rounded font-semibold text-amber-200" id="header-dday">D-Day</span>
+          </h1>
+          <p class="text-[10px] sm:text-xs text-amber-200 font-medium">4인 가족 가을 여행 마스터 노트 (10박 11일)</p>
         </div>
       </div>
-      <!-- Desktop Navigation Links -->
-      <div class="hidden md:flex space-x-1 text-sm font-medium">
-        <button onclick="switchTab('tab-schedule')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-schedule">📅 마스터 일정</button>
-        <button onclick="switchTab('tab-attractions')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-attractions">📍 주요 명소 & 주소</button>
-        <button onclick="switchTab('tab-transit')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-transit">🚘 교통 & ORCA</button>
-        <button onclick="switchTab('tab-dining')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-dining">💳 팁 & 세금 계산기</button>
-        <button onclick="switchTab('tab-checklist')" class="nav-btn px-3 py-2 rounded-lg hover:bg-amber-800 transition touch-target" id="btn-tab-checklist">🎒 준비물</button>
+
+      <!-- Real-time Dual Clock (Seattle & Seoul) -->
+      <div class="flex items-center space-x-2 bg-amber-950/70 px-2.5 py-1 rounded-xl border border-amber-800/80 text-[10px] sm:text-xs">
+        <div class="text-right">
+          <p class="text-amber-300 font-semibold leading-none">🇺🇸 시애틀 <span id="clock-sea" class="font-mono font-bold text-white">--:--</span></p>
+          <p class="text-stone-400 font-medium mt-0.5 leading-none">🇰🇷 한국 <span id="clock-icn" class="font-mono text-stone-300">--:--</span></p>
+        </div>
+        <button onclick="openEmergencyModal()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-2 py-1 rounded-lg text-[10px] shadow-sm transition active:scale-95 touch-target flex items-center space-x-1" title="비상 연락망">
+          <span>🚨</span>
+          <span class="hidden sm:inline">긴급</span>
+        </button>
       </div>
+    </div>
+
+    <!-- Desktop Navigation Links (Large Screen) -->
+    <div class="hidden lg:block border-t border-amber-800/60 bg-amber-950/40">
+      <div class="max-w-7xl mx-auto px-4 py-1.5 flex space-x-1 text-xs font-medium">
+        <button onclick="switchTab('tab-schedule')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-schedule">📅 마스터 일정</button>
+        <button onclick="switchTab('tab-attractions')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-attractions">📍 주요 명소</button>
+        <button onclick="switchTab('tab-transit')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-transit">🚘 교통 & 안내</button>
+        <button onclick="switchTab('tab-budget')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-budget">💰 예산 & 가계부</button>
+        <button onclick="switchTab('tab-docs')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-docs">📑 예약·티켓 부록</button>
+        <button onclick="switchTab('tab-dining')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-dining">💳 팁 & 세금</button>
+        <button onclick="switchTab('tab-checklist')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-checklist">🎒 준비물</button>
+      </div>
+    </div>
+
+    <!-- Mobile Sub-Header Pill Navigation Bar (Horizontally scrollable for ease of touch) -->
+    <div class="lg:hidden flex overflow-x-auto space-x-1.5 px-3 py-1.5 bg-amber-950/50 border-t border-amber-800/50 custom-scrollbar snap-x">
+      <button onclick="switchTab('tab-schedule')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-800 text-white font-bold transition snap-start" id="mpill-tab-schedule">📅 일정</button>
+      <button onclick="switchTab('tab-attractions')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-attractions">📍 명소</button>
+      <button onclick="switchTab('tab-transit')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-transit">🚘 교통</button>
+      <button onclick="switchTab('tab-budget')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-budget">💰 예산</button>
+      <button onclick="switchTab('tab-docs')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-docs">📑 부록</button>
+      <button onclick="switchTab('tab-dining')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-dining">💳 팁/세금</button>
+      <button onclick="switchTab('tab-checklist')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-checklist">🎒 준비물</button>
     </div>
   </header>
 
-  <!-- Mobile Fixed Bottom Navigation Bar -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-lg px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] flex justify-around items-center">
-    <button onclick="switchTab('tab-schedule')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-schedule">
-      <span class="text-lg">📅</span>
-      <span class="text-[10px] font-medium mt-0.5">일정</span>
+  <!-- Mobile Fixed Bottom Navigation Bar (Optimized 5-Core Buttons with comfortable hitboxes) -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-2xl px-2 pt-1 pb-[calc(0.4rem+env(safe-area-inset-bottom))] flex justify-around items-center">
+    <button onclick="switchTab('tab-schedule')" class="mobile-nav-btn flex flex-col items-center justify-center py-1 text-amber-900 font-bold active:scale-95 transition flex-1 touch-target" id="mbtn-tab-schedule">
+      <span class="text-lg leading-tight">📅</span>
+      <span class="text-[10px] font-semibold mt-0.5">일정</span>
     </button>
-    <button onclick="switchTab('tab-attractions')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-attractions">
-      <span class="text-lg">📍</span>
-      <span class="text-[10px] font-medium mt-0.5">명소&주소</span>
+    <button onclick="switchTab('tab-attractions')" class="mobile-nav-btn flex flex-col items-center justify-center py-1 text-stone-600 active:scale-95 transition flex-1 touch-target" id="mbtn-tab-attractions">
+      <span class="text-lg leading-tight">📍</span>
+      <span class="text-[10px] font-semibold mt-0.5">명소</span>
     </button>
-    <button onclick="switchTab('tab-transit')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-transit">
-      <span class="text-lg">🚘</span>
-      <span class="text-[10px] font-medium mt-0.5">교통</span>
+    <button onclick="switchTab('tab-budget')" class="mobile-nav-btn flex flex-col items-center justify-center py-1 text-stone-600 active:scale-95 transition flex-1 touch-target" id="mbtn-tab-budget">
+      <span class="text-lg leading-tight">💰</span>
+      <span class="text-[10px] font-semibold mt-0.5">가계부</span>
     </button>
-    <button onclick="switchTab('tab-dining')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-dining">
-      <span class="text-lg">💳</span>
-      <span class="text-[10px] font-medium mt-0.5">팁/세금</span>
+    <button onclick="switchTab('tab-docs')" class="mobile-nav-btn flex flex-col items-center justify-center py-1 text-stone-600 active:scale-95 transition flex-1 touch-target" id="mbtn-tab-docs">
+      <span class="text-lg leading-tight">📑</span>
+      <span class="text-[10px] font-semibold mt-0.5">부록</span>
     </button>
-    <button onclick="switchTab('tab-checklist')" class="mobile-nav-btn flex flex-col items-center justify-center w-full py-1 text-stone-600 active:scale-95 transition touch-target" id="mbtn-tab-checklist">
-      <span class="text-lg">🎒</span>
-      <span class="text-[10px] font-medium mt-0.5">준비물</span>
+    <button onclick="switchTab('tab-transit')" class="mobile-nav-btn flex flex-col items-center justify-center py-1 text-stone-600 active:scale-95 transition flex-1 touch-target" id="mbtn-tab-transit">
+      <span class="text-lg leading-tight">🚘</span>
+      <span class="text-[10px] font-semibold mt-0.5">교통</span>
     </button>
   </nav>
 
-  <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+  <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-5">
 
     <!-- Hero / Summary Banner -->
-    <section id="hero-overview" class="mb-5 bg-white rounded-2xl shadow-sm border border-stone-200 p-4 sm:p-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-center">
-        <div class="md:col-span-2 space-y-2.5">
-          <div class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-900">
-            🍁 2026.09.30(수) ~ 10.10(토) [10박 11일]
+    <section id="hero-overview" class="mb-3.5 bg-white rounded-2xl shadow-sm border border-stone-200 p-3.5 sm:p-5">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 items-center">
+        <div class="md:col-span-2 space-y-2">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold bg-amber-100 text-amber-900">
+              🍁 2026.09.30(수) ~ 10.10(토) [10박 11일]
+            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-emerald-100 text-emerald-800">
+              👨‍👩‍👧‍👧 4인 가족 (주아성·김지은·주이솔·주이안)
+            </span>
           </div>
-          <h2 class="text-xl sm:text-2xl font-bold text-stone-800 leading-snug">
-            정확한 주소 기반 시애틀·올림피아 가을 여행 노트
+          <h2 class="text-base sm:text-xl font-extrabold text-stone-800 leading-snug">
+            시애틀 & 올림피아 통합 여행 마스터 노트
           </h2>
-          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
-            모든 방문지의 영문 도로명 주소와 우편번호, 주차 정보가 내장되어 있으며 원터치 구글 맵 네비게이션 연결 및 LocalStorage 자동 정보 저장 기능이 제공됩니다.
+          <p class="text-xs text-stone-600 leading-relaxed">
+            확정 영수증 및 e-티켓 보관소, 실시간 현지 가계부, 주소 기반 1-터치 내비게이션 & 빠른 복사를 지원합니다.
           </p>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center text-xs">
             <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
-              <p class="text-stone-500 text-[10px]">전반전 (3박)</p>
-              <p class="text-xs font-bold text-amber-900 mt-0.5">올림피아 & 오레곤</p>
-              <p class="text-[9px] text-stone-500">SUV 렌터카</p>
+              <p class="text-stone-500 text-[10px]">사전 확정 경비</p>
+              <p class="text-xs font-extrabold text-amber-900 mt-0.5">₩4,383,960</p>
+              <p class="text-[9px] text-stone-500">28만 마일 별도</p>
             </div>
             <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
-              <p class="text-stone-500 text-[10px]">후반전 (7박)</p>
-              <p class="text-xs font-bold text-indigo-900 mt-0.5">시애틀 도심 로컬</p>
-              <p class="text-[9px] text-stone-500">대중교통 & 도보</p>
+              <p class="text-stone-500 text-[10px]">숙박 구성</p>
+              <p class="text-xs font-bold text-indigo-900 mt-0.5">3박 올림피아 + 7박 시애틀</p>
+              <p class="text-[9px] text-stone-500">에어비앤비 독채</p>
             </div>
             <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
-              <p class="text-stone-500 text-[10px]">아동 대중교통</p>
-              <p class="text-xs font-bold text-emerald-700 mt-0.5">100% 무료</p>
-              <p class="text-[9px] text-stone-500">18세 이하 무료*</p>
+              <p class="text-stone-500 text-[10px]">렌터카</p>
+              <p class="text-xs font-bold text-emerald-700 mt-0.5">National 4일</p>
+              <p class="text-[9px] text-stone-500">공항 픽업/도심 반납</p>
             </div>
             <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
-              <p class="text-stone-500 text-[10px]">오레곤 소비세</p>
-              <p class="text-xs font-bold text-indigo-700 mt-0.5">0.0% 면세</p>
+              <p class="text-stone-500 text-[10px]">오레곤 면세</p>
+              <p class="text-xs font-bold text-indigo-700 mt-0.5">소비세 0%</p>
               <p class="text-[9px] text-stone-500">우드번 아울렛</p>
             </div>
           </div>
         </div>
-        <div class="flex flex-col items-center justify-center border-t md:border-t-0 md:border-l border-stone-200 pt-4 md:pt-0 md:pl-6">
-          <p class="text-xs font-semibold text-stone-500 mb-1.5">지역별 숙박 비중</p>
-          <div class="chart-container">
+        <div class="flex flex-col items-center justify-center border-t md:border-t-0 md:border-l border-stone-200 pt-3 md:pt-0 md:pl-5">
+          <p class="text-xs font-semibold text-stone-500 mb-1">숙박 일정 비율</p>
+          <div class="chart-container" style="height: 150px;">
             <canvas id="overviewChart"></canvas>
           </div>
         </div>
@@ -145,46 +192,48 @@
     </section>
 
     <!-- Tab 1: Master Schedule -->
-    <section id="tab-schedule" class="tab-content space-y-4">
-      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
-        <div class="mb-3">
-          <h3 class="text-lg sm:text-xl font-bold text-stone-800">📅 10박 11일 마스터 일정</h3>
-          <p class="text-xs text-stone-500 mt-0.5">날짜를 선택하시면 세부 경로 및 해당 장소의 정확한 주소와 지도 버튼이 표시됩니다.</p>
+    <section id="tab-schedule" class="tab-content space-y-3">
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-stone-800">📅 10박 11일 마스터 일정</h3>
+            <p class="text-xs text-stone-500 mt-0.5">날짜를 선택하시면 세부 동선, 정확한 주소 및 길찾기 버튼이 표시됩니다.</p>
+          </div>
         </div>
 
         <!-- Filter Buttons -->
-        <div class="flex flex-wrap gap-1.5 mb-3">
-          <button onclick="filterSchedule('all')" class="sched-filter-btn active bg-amber-800 text-white px-3 py-1.5 rounded-lg text-xs font-medium touch-target">전체 (Day 1~11)</button>
-          <button onclick="filterSchedule('olympia')" class="sched-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-lg text-xs font-medium touch-target">🚗 올림피아 (Day 1~4)</button>
-          <button onclick="filterSchedule('seattle')" class="sched-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-lg text-xs font-medium touch-target">🚊 시애틀 (Day 5~11)</button>
+        <div class="flex flex-wrap gap-1.5 mb-2.5">
+          <button onclick="filterSchedule('all')" class="sched-filter-btn active bg-amber-800 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition touch-target">전체 (Day 1~11)</button>
+          <button onclick="filterSchedule('olympia')" class="sched-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🚗 올림피아 (Day 1~4)</button>
+          <button onclick="filterSchedule('seattle')" class="sched-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🚊 시애틀 (Day 5~11)</button>
         </div>
 
-        <!-- Horizontal Swipable Day Selector Pills for Mobile -->
-        <div class="flex overflow-x-auto space-x-2 pb-2 mb-4 custom-scrollbar snap-x snap-mandatory" id="day-selector-container">
+        <!-- Horizontal Swipable Day Selector Pills -->
+        <div class="flex overflow-x-auto space-x-1.5 pb-2 mb-3 custom-scrollbar snap-x snap-mandatory" id="day-selector-container">
         </div>
 
         <!-- Schedule Detail Dynamic Card -->
-        <div id="schedule-detail-card" class="bg-stone-50 rounded-xl p-4 border border-stone-200">
+        <div id="schedule-detail-card" class="bg-stone-50 rounded-xl p-3 sm:p-4 border border-stone-200">
         </div>
       </div>
     </section>
 
     <!-- Tab 2: Attractions Directory -->
-    <section id="tab-attractions" class="tab-content hidden space-y-4">
-      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
-        <div class="mb-4">
-          <h3 class="text-lg sm:text-xl font-bold text-stone-800">📍 주요 방문지 주소 & 주차 디렉토리</h3>
-          <p class="text-xs text-stone-500 mt-0.5">정확한 도로명 주소, 주차 팁 및 1-터치 구글 맵 연결 버튼을 이용하세요.</p>
+    <section id="tab-attractions" class="tab-content hidden space-y-3">
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <div class="mb-3">
+          <h3 class="text-base sm:text-lg font-bold text-stone-800">📍 주요 방문지 주소 & 주차 디렉토리</h3>
+          <p class="text-xs text-stone-500 mt-0.5">정확한 도로명 주소, 주차 팁 및 1-터치 구글 맵 연결 & 주소 복사를 이용하세요.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
-          <input type="text" id="attract-search" oninput="renderAttractions()" placeholder="명소 명칭/주소 검색 (예: 5th Ave, 동물원...)" class="w-full px-3.5 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target">
-          <select id="attract-category" onchange="renderAttractions()" class="w-full px-3.5 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target bg-white">
-            <option value="all">전체 카테고리</option>
-            <option value="museum">어린이 박물관/실내</option>
-            <option value="park">공원 & 자연</option>
-            <option value="market">시장 & 바닷가</option>
-            <option value="farm">농장 & 쇼핑</option>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+          <input type="text" id="attract-search" oninput="renderAttractions()" placeholder="명소 명칭/주소 검색 (예: 5th Ave, 동물원, 박물관...)" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target">
+          <select id="attract-category" onchange="renderAttractions()" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target bg-white font-medium">
+            <option value="all">전체 카테고리 (모두 보기)</option>
+            <option value="museum">어린이 박물관 / 실내 체험</option>
+            <option value="park">공원 & 자연 & 전망대</option>
+            <option value="market">시장 & 바닷가 & 관람차</option>
+            <option value="farm">농장 체험 & 면세 쇼핑</option>
           </select>
         </div>
 
@@ -193,38 +242,38 @@
       </div>
     </section>
 
-    <!-- Tab 3: Transit & ORCA Guide -->
-    <section id="tab-transit" class="tab-content hidden space-y-4">
-      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
-        <h3 class="text-lg sm:text-xl font-bold text-stone-800 mb-1">🚘 교통, 카시트 & 대중교통(ORCA) 가이드</h3>
-        <p class="text-xs text-stone-500 mb-4">아이 무료 탑승 제도 및 네비게이션 주소 입력 가이드입니다.</p>
+    <!-- Tab 3: Transit & Guide -->
+    <section id="tab-transit" class="tab-content hidden space-y-3">
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <h3 class="text-base sm:text-lg font-bold text-stone-800 mb-1">🚘 교통, 카시트 & 대중교통(ORCA) 가이드</h3>
+        <p class="text-xs text-stone-500 mb-3">아이 무료 탑승 제도 및 네비게이션 주소 입력 가이드입니다.</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div class="bg-amber-50/80 rounded-xl p-4 border border-amber-200 space-y-2.5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+          <div class="bg-amber-50/80 rounded-xl p-3.5 border border-amber-200 space-y-2">
             <div class="flex items-center space-x-2">
               <span class="text-xl">👶</span>
-              <h4 class="font-bold text-amber-900 text-sm sm:text-base">18세 이하 아동 무료 탑승 (주의사항 필수)</h4>
+              <h4 class="font-bold text-amber-900 text-xs sm:text-sm">18세 이하 아동 대중교통 무료 탑승</h4>
             </div>
             <p class="text-xs text-amber-900 leading-relaxed">
-              워싱턴주 법(Move Ahead Washington)에 따라 <strong>7세, 4세 두 딸은 경전철, 시내버스, 페리(도보) 모두 요금이 0원</strong>입니다. 단, <strong>시애틀 센터 모노레일은 Youth ORCA 카드를 실물 또는 모바일로 제시해야만 무료 승차($0)가 가능</strong>하며, 미소지 시 현장 발권기에서 어린이 요금을 지불해야 합니다.
+              워싱턴주 법(Move Ahead Washington)에 따라 <strong>7세, 4세 두 딸은 경전철, 시내버스, 페리(도보) 모두 요금이 0원</strong>입니다. 단, <strong>시애틀 센터 모노레일은 Youth ORCA 카드를 실물/모바일로 제시해야 무료($0)</strong>이며, 미소지 시 현장 발권기에서 소액 티켓을 구매해야 합니다.
             </p>
-            <div class="bg-white p-3 rounded-lg text-xs space-y-1.5 text-stone-700 border border-amber-100">
-              <p>• <strong>경전철:</strong> 부모 카드 태그 후 아이들과 함께 개찰구 통과 (카드 요구 시 나이 증명)</p>
-              <p>• <strong>시내버스:</strong> 승차 시 아이들과 함께 탑승</p>
-              <p>• <strong>모노레일:</strong> **Youth ORCA 카드 소지 필수** (없을 시 티켓 자판기에서 별도 구매)</p>
-              <p>• <strong>페리 (Bainbridge):</strong> 성인 2명 표만 발권, 아동은 도보 무료 승선</p>
+            <div class="bg-white p-2.5 rounded-lg text-xs space-y-1 text-stone-700 border border-amber-100">
+              <p>• <strong>경전철:</strong> 부모 카드 태그 후 아이들과 함께 개찰구 통과</p>
+              <p>• <strong>시내버스:</strong> 승차 시 아이들과 함께 동반 탑승</p>
+              <p>• <strong>모노레일:</strong> Youth ORCA 카드 소지 필수 (미소지 시 발권기 구매)</p>
+              <p>• <strong>페리 (Bainbridge):</strong> 성인 2명 표만 발권, 아동은 무료 승선</p>
             </div>
           </div>
 
-          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 space-y-2.5">
+          <div class="bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2">
             <div class="flex items-center space-x-2">
               <span class="text-xl">💳</span>
-              <h4 class="font-bold text-stone-800 text-sm sm:text-base">성인 컨택트리스(Contactless) 결제</h4>
+              <h4 class="font-bold text-stone-800 text-xs sm:text-sm">성인 컨택트리스(Contactless) 결제</h4>
             </div>
             <p class="text-xs text-stone-600 leading-relaxed">
-              실물 ORCA 카드 발급비($3)를 아끼려면 해외 결제가 가능한 와이파이 마크 신용/체크카드나 Apple Pay / Google Pay를 직접 단말기에 태그하세요.
+              실물 ORCA 카드 발급비($3) 없이 해외 결제가 가능한 컨택트리스 신용/체크카드나 Apple Pay / Google Pay를 직접 단말기에 태그하세요.
             </p>
-            <div class="bg-white p-3 rounded-lg text-xs space-y-1.5 text-stone-700 border border-stone-200">
+            <div class="bg-white p-2.5 rounded-lg text-xs space-y-1 text-stone-700 border border-stone-200">
               <p>• <strong>경전철(Light Rail):</strong> 승차 전 <strong>Tap On</strong> ➡️ 하차 후 <strong>Tap Off</strong> 필수!</p>
               <p>• <strong>시내버스(Metro Bus):</strong> 승차 시 1회만 <strong>Tap On</strong> (하차 태그 안 함)</p>
               <p>• <strong>모노레일:</strong> 개찰구에서 컨택트리스 태그 (편도 약 $3.50)</p>
@@ -232,57 +281,419 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-xl p-4 border border-stone-200 space-y-3">
-          <h4 class="font-bold text-stone-800 text-xs sm:text-sm">🚗 렌터카 주요 거점 정확한 네비 주소</h4>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
-              <p class="font-semibold text-stone-800">공항 렌터카 센터 (픽업)</p>
-              <p class="text-amber-900 font-mono text-[11px]">3150 S 160th St, SeaTac, WA 98188</p>
-              <p class="text-stone-500 text-[10px]">공항 도착 후 Rental Car Shuttle 버스 탑승</p>
+        <div class="bg-white rounded-xl p-3.5 border border-stone-200 space-y-2.5">
+          <h4 class="font-bold text-stone-800 text-xs sm:text-sm">🚗 렌터카 주요 거점 주소 (National Car Rental 바우처 연동)</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+            <div class="p-2.5 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
+              <div class="flex justify-between items-center">
+                <p class="font-semibold text-stone-800">공항 렌터카 센터 (픽업)</p>
+                <button onclick="copyToClipboard('3150 S 160TH ST, STE 507, SeaTac, WA 98188', '공항 렌터카 주소')" class="text-[10px] bg-white border border-stone-300 px-1.5 py-0.5 rounded text-stone-600 hover:bg-stone-100 touch-target">📋 복사</button>
+              </div>
+              <p class="text-amber-900 font-mono text-[11px]">3150 S 160TH ST, STE 507, SeaTac, WA 98188</p>
+              <p class="text-stone-500 text-[10px]">공항 셔틀 탑승 후 5층 카운터 이동 (<a href="tel:8333298465" class="text-blue-600 underline">833-329-8465</a>)</p>
             </div>
-            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
-              <p class="font-semibold text-stone-800">다운타운 Avis 반납 지점</p>
-              <p class="text-amber-900 font-mono text-[11px]">1909 5th Ave, Seattle, WA 98101</p>
-              <p class="text-stone-500 text-[10px]">10/4(일) 오전 일찍 반납 (영업시간 마감 주의)</p>
+            <div class="p-2.5 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
+              <div class="flex justify-between items-center">
+                <p class="font-semibold text-stone-800">National 시애틀 다운타운 (반납)</p>
+                <button onclick="copyToClipboard('1601 3RD AVE, Seattle, WA 98101', '렌터카 반납 주소')" class="text-[10px] bg-white border border-stone-300 px-1.5 py-0.5 rounded text-stone-600 hover:bg-stone-100 touch-target">📋 복사</button>
+              </div>
+              <p class="text-amber-900 font-mono text-[11px]">1601 3RD AVE, Seattle, WA 98101</p>
+              <p class="text-stone-500 text-[10px]">10/4(일) 11:30 이전 반납 (3rd & Stewart 모퉁이, <a href="tel:8888266890" class="text-blue-600 underline">888-826-6890</a>)</p>
             </div>
-            <div class="p-3 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
-              <p class="font-semibold text-stone-800">타코마 코스트코 (1일차 장보기)</p>
+            <div class="p-2.5 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
+              <div class="flex justify-between items-center">
+                <p class="font-semibold text-stone-800">타코마 코스트코 (1일차 장보기)</p>
+                <button onclick="copyToClipboard('3701 S 37th St, Tacoma, WA 98409', '코스트코 주소')" class="text-[10px] bg-white border border-stone-300 px-1.5 py-0.5 rounded text-stone-600 hover:bg-stone-100 touch-target">📋 복사</button>
+              </div>
               <p class="text-amber-900 font-mono text-[11px]">3701 S 37th St, Tacoma, WA 98409</p>
-              <p class="text-stone-500 text-[10px]">I-5 출구 직결, 소고기/과일/생수 구매</p>
+              <p class="text-stone-500 text-[10px]">I-5 출구 직결, 소고기/생수/과일/간식 구매</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Tab 4: Tip & Tax Calculator -->
-    <section id="tab-dining" class="tab-content hidden space-y-4">
-      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
-        <h3 class="text-lg sm:text-xl font-bold text-stone-800 mb-1">💳 외식 팁(Tip) & 소비세 실시간 계산기</h3>
-        <p class="text-xs text-stone-500 mb-4">세금 전 순수 음식값(Subtotal) 기준 팁 금액 및 지역별 세금을 계산해 드립니다.</p>
+    <!-- Tab 4: Budget & Expense Tracker -->
+    <section id="tab-budget" class="tab-content hidden space-y-3">
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-stone-200 gap-2">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-stone-800">💰 여행 예산 & 실시간 현지 가계부</h3>
+            <p class="text-xs text-stone-500 mt-0.5">사전 확정 경비와 현지 추가 지출(입장료, 교통비, 식비 등)을 모바일에서 실시간 관리하세요.</p>
+          </div>
+          <div class="flex items-center space-x-2 self-start sm:self-auto">
+            <div class="flex items-center space-x-1.5 bg-amber-50 px-2.5 py-1 rounded-xl border border-amber-200 text-xs">
+              <span class="text-stone-600 font-medium text-[11px]">환율:</span>
+              <span class="font-bold text-amber-900">$1 =</span>
+              <input type="number" id="exchange-rate-input" value="1350" onchange="updateExchangeRate(this.value)" class="w-16 px-1.5 py-0.5 text-xs font-bold border border-amber-300 rounded bg-white text-center focus:ring-1 focus:ring-amber-500">
+              <span class="text-stone-600 text-[11px]">원</span>
+            </div>
+            <button onclick="shareBudgetSummary()" class="bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold px-2.5 py-1 rounded-xl text-xs border border-stone-300 transition active:scale-95 touch-target" title="지출 요약 텍스트 복사">
+              📤 요약 공유
+            </button>
+          </div>
+        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          <div class="lg:col-span-5 bg-amber-50/70 rounded-xl p-4 border border-amber-200/70 space-y-3.5">
+        <!-- Budget Summary Stat Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-3.5">
+          <div class="bg-amber-50/70 p-3 rounded-xl border border-amber-200">
+            <p class="text-[10px] text-amber-800 font-semibold">총 예상/지출액</p>
+            <p class="text-sm sm:text-base font-extrabold text-amber-950 mt-0.5" id="budget-grand-total">₩0</p>
+            <p class="text-[10px] text-amber-700 font-mono" id="budget-grand-usd">($0)</p>
+          </div>
+          <div class="bg-stone-50 p-3 rounded-xl border border-stone-200">
+            <p class="text-[10px] text-stone-500 font-semibold">사전 확정 결제액</p>
+            <p class="text-sm sm:text-base font-bold text-stone-800 mt-0.5">₩4,383,960</p>
+            <p class="text-[10px] text-stone-500 font-mono">항공+숙소+렌트</p>
+          </div>
+          <div class="bg-indigo-50/70 p-3 rounded-xl border border-indigo-200">
+            <p class="text-[10px] text-indigo-700 font-semibold">현지 추가 지출액</p>
+            <p class="text-sm sm:text-base font-extrabold text-indigo-950 mt-0.5" id="budget-local-total">₩0</p>
+            <p class="text-[10px] text-indigo-700 font-mono" id="budget-local-usd">($0)</p>
+          </div>
+          <div class="bg-emerald-50/70 p-3 rounded-xl border border-emerald-200">
+            <p class="text-[10px] text-emerald-800 font-semibold">4인 가족 1인당 평균</p>
+            <p class="text-sm sm:text-base font-extrabold text-emerald-950 mt-0.5" id="budget-per-person">₩0</p>
+            <p class="text-[10px] text-emerald-700 font-mono">+ 7만 마일/인</p>
+          </div>
+        </div>
+
+        <!-- Budget Chart & Fixed Breakdown -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 mb-4">
+          <div class="lg:col-span-5 bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2">
+            <h4 class="font-bold text-stone-800 text-xs sm:text-sm">📊 항목별 지출 비중</h4>
+            <div class="chart-container" style="height: 190px;">
+              <canvas id="budgetBreakdownChart"></canvas>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 bg-white rounded-xl p-3.5 border border-stone-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-stone-800 text-xs sm:text-sm">🔒 영수증 기반 사전 확정 내역 (고정비)</h4>
+              <button onclick="switchTab('tab-docs')" class="text-[10px] text-amber-800 font-semibold underline">상세 부록 보기 ➡️</button>
+            </div>
+            <div class="space-y-1.5 text-xs text-stone-700 max-h-48 overflow-y-auto pr-1">
+              <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
+                <div>
+                  <p class="font-semibold text-stone-900">✈️ 대한항공 항공권 (4인 유류세/제세금)</p>
+                  <p class="text-[10px] text-stone-500">주아성, 김지은, 주이솔, 주이안 (280,000 마일 차감)</p>
+                </div>
+                <span class="font-bold text-amber-900">₩1,248,700</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
+                <div>
+                  <p class="font-semibold text-stone-900">🏡 올림피아 숙소 에어비앤비 (3박)</p>
+                  <p class="text-[10px] text-stone-500">Country Cottage Cuteness (09/30~10/03)</p>
+                </div>
+                <span class="font-bold text-amber-900">₩928,592</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
+                <div>
+                  <p class="font-semibold text-stone-900">🏡 시애틀 퀸앤 숙소 에어비앤비 (7박)</p>
+                  <p class="text-[10px] text-stone-500">Cozy Queen Anne (10/03~10/10)</p>
+                </div>
+                <span class="font-bold text-amber-900">₩1,929,368</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
+                <div>
+                  <p class="font-semibold text-stone-900">🚗 National 렌터카 4일 + 풀커버 보험</p>
+                  <p class="text-[10px] text-stone-500">중형 세단 토요타 코롤라급 (09/30~10/04)</p>
+                </div>
+                <span class="font-bold text-amber-900">₩277,300</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expense Management Section (Add / Quick Preset / List) -->
+        <div class="bg-amber-50/50 rounded-xl p-3.5 border border-amber-200 space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+            <h4 class="font-bold text-stone-900 text-xs sm:text-sm">➕ 현지 지출 / 예상 비용 추가 & 수정</h4>
+            <div class="flex gap-1.5">
+              <button onclick="resetBudgetToDefault()" class="text-[10px] bg-white border border-stone-300 text-stone-600 px-2 py-1 rounded-lg hover:bg-stone-50 touch-target font-medium">기본 추천경비 불러오기</button>
+              <button onclick="clearAllCustomExpenses()" class="text-[10px] bg-white border border-rose-200 text-rose-600 px-2 py-1 rounded-lg hover:bg-rose-50 touch-target font-medium">전체 비우기</button>
+            </div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div>
+            <p class="text-[11px] font-semibold text-stone-600 mb-1.5">⚡ 원터치 추천 항목 바로 추가:</p>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="addPresetExpense('마운틴 레이니어 차량 입장료 (1대 7일권)', 30, 'USD', 'activity', 'Day 1~4 드라이브')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🌲 마운틴 레이니어 ($30)</button>
+              <button onclick="addPresetExpense('핸즈온 어린이 박물관 (올림피아 4인)', 79.8, 'USD', 'activity', '성인2+아이2 ($19.95/인)')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🏛️ 올림피아 어린이박물관 ($80)</button>
+              <button onclick="addPresetExpense('시애틀 어린이 박물관 (4인)', 72, 'USD', 'activity', '성인2+아이2 ($18/인)')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🧸 시애틀 어린이박물관 ($72)</button>
+              <button onclick="addPresetExpense('시애틀 아쿠아리움 (4인)', 120, 'USD', 'activity', '성인2+소아2')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🐠 시애틀 아쿠아리움 ($120)</button>
+              <button onclick="addPresetExpense('우드랜드 파크 동물원 (4인)', 96, 'USD', 'activity', '성인2+소아2')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🦁 우드랜드 동물원 ($96)</button>
+              <button onclick="addPresetExpense('베인브리지 페리 도보 왕복 (성인2, 아동무료)', 20, 'USD', 'transit', '아동 18세 이하 무료')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🚢 베인브리지 페리 ($20)</button>
+              <button onclick="addPresetExpense('렌터카 주유비 (4일)', 50, 'USD', 'transit', 'Full to Full 반납 주유')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">⛽ 주유비 ($50)</button>
+              <button onclick="addPresetExpense('귀국일 UberXL (숙소 ➡️ SEA 공항)', 65, 'USD', 'transit', '대형 수하물 및 유모차')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🚕 공항 UberXL ($65)</button>
+              <button onclick="addPresetExpense('코스트코 1차 장보기 (식자재/소고기)', 200, 'USD', 'food', '타코마 코스트코')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🛒 코스트코 장보기 ($200)</button>
+            </div>
+          </div>
+
+          <!-- Add Form -->
+          <form id="add-expense-form" onsubmit="handleNewExpenseSubmit(event)" class="bg-white p-3 rounded-xl border border-stone-200 grid grid-cols-1 sm:grid-cols-12 gap-2 text-xs">
+            <div class="sm:col-span-3">
+              <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">항목명</label>
+              <input type="text" id="exp-title" placeholder="예: 스페이스 니들 전망대" required class="w-full px-3 py-2 text-sm sm:text-xs border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">카테고리</label>
+              <select id="exp-cat" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-lg bg-white font-medium">
+                <option value="activity">🎟️ 입장료/관광</option>
+                <option value="food">🍽️ 식비/카페</option>
+                <option value="transit">🚘 교통/주유/우버</option>
+                <option value="shopping">🛍️ 쇼핑</option>
+                <option value="other">📦 기타</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">통화 & 금액</label>
+              <div class="flex">
+                <select id="exp-curr" class="px-2 py-2 border border-r-0 border-stone-300 rounded-l-lg bg-stone-50 font-bold text-stone-700 text-sm sm:text-xs">
+                  <option value="USD">$</option>
+                  <option value="KRW">₩</option>
+                </select>
+                <input type="number" id="exp-amount" step="any" placeholder="30" required class="w-full px-2.5 py-2 border border-stone-300 rounded-r-lg font-bold text-stone-900 text-sm sm:text-xs">
+              </div>
+            </div>
+            <div class="sm:col-span-3">
+              <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">메모 / 일자</label>
+              <input type="text" id="exp-note" placeholder="예: Day 2 오후 방문" class="w-full px-3 py-2 text-sm sm:text-xs border border-stone-300 rounded-lg">
+            </div>
+            <div class="sm:col-span-2 flex items-end">
+              <button type="submit" class="w-full bg-amber-800 hover:bg-amber-900 text-white font-bold py-2 px-3 rounded-lg transition touch-target flex items-center justify-center space-x-1 shadow-sm active:scale-95">
+                <span>➕ 추가하기</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Expense List Table / Cards -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center px-1">
+              <p class="text-xs font-bold text-stone-800">📋 등록된 현지 지출 목록 (<span id="expense-count">0</span>건)</p>
+              <span class="text-[10px] text-stone-500">체크박스를 눌러 결제 완료 여부를 기록할 수 있습니다.</span>
+            </div>
+            <div id="custom-expense-list" class="space-y-1.5">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 5: Ticket & Receipt Appendix Vault -->
+    <section id="tab-docs" class="tab-content hidden space-y-3">
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <div class="mb-3">
+          <div class="flex items-center space-x-2">
+            <span class="text-xl">📑</span>
+            <h3 class="text-base sm:text-lg font-bold text-stone-800">예약 영수증 & e-티켓 상세 검색 부록</h3>
+          </div>
+          <p class="text-xs text-stone-500 mt-0.5">보유하신 PDF 영수증과 e-티켓, 바우처의 세부 데이터(예약번호, 주소, 보험 보장 내역, 환불 규정 등)를 실시간 검색하세요.</p>
+        </div>
+
+        <!-- Search Bar & Category Filter -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3.5">
+          <div class="sm:col-span-2 relative">
+            <input type="text" id="vault-search-input" oninput="filterVaultCards()" placeholder="검색어 입력 (예: 예약번호, 바우처, 보증금, 수하물, 호스트...)" class="w-full pl-8 pr-3 py-2 text-sm border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none touch-target">
+            <span class="absolute left-2.5 top-2.5 text-stone-400 text-sm">🔍</span>
+          </div>
+          <div>
+            <select id="vault-filter-category" onchange="filterVaultCards()" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl bg-white focus:ring-2 focus:ring-amber-500 touch-target font-medium">
+              <option value="all">전체 예약 서류 (모두 보기)</option>
+              <option value="flight">✈️ 대한항공 항공권 & e-Ticket</option>
+              <option value="stay">🏡 에어비앤비 숙소 영수증</option>
+              <option value="rental">🚗 National 렌터카 & 바우처</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Vault Cards Container -->
+        <div id="vault-cards-container" class="space-y-3">
+
+          <!-- 1. Flight: Korean Air -->
+          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2.5" data-category="flight" data-keywords="대한항공 항공권 비행기 이티켓 eticket icn sea 인천 시애틀 마일리지 skypass 유류할증료 세금 787-10 수하물 23kg 주아성 김지은 주이솔 주이안 DJHQCH DS3V2H 1802354465949">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-stone-200 gap-1">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-900">✈️ 항공권 / e-Ticket</span>
+                <h4 class="font-bold text-stone-900 text-xs sm:text-sm">대한항공 ICN ↔ SEA 왕복 (4인 가족)</h4>
+              </div>
+              <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩1,248,700 + 280,000 마일</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-stone-700">
+              <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
+                <p class="font-bold text-blue-900 text-[11px]">🛫 항공편 스케줄 & 기종</p>
+                <p>• <strong>출국편 (KE041):</strong> 2026.09.30(수) 16:40 인천(ICN T2) ➡️ 10:40 시애틀(SEA) [비행 10시간]</p>
+                <p>• <strong>귀국편 (KE042):</strong> 2026.10.10(토) 12:50 시애틀(SEA) ➡️ 10.11(일) 16:40 인천(ICN T2) [비행 11시간 50분]</p>
+                <p>• <strong>기종 / 클래스:</strong> Boeing 787-10 / 일반석 (예약등급 X)</p>
+                <p>• <strong>무료 수하물:</strong> 위탁 수하물 1인당 <strong>2개 (각 23kg/50lb)</strong> + 기내 휴대 10kg</p>
+              </div>
+
+              <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
+                <p class="font-bold text-blue-900 text-[11px]">👥 승객별 결제 & 발권 번호</p>
+                <div class="space-y-1 text-[11px] font-mono">
+                  <div class="flex justify-between items-center bg-stone-50 p-1 rounded">
+                    <span><strong>주아성</strong> (1802354465949 / 예약 DJHQCH)</span>
+                    <button onclick="copyToClipboard('1802354465949', '주아성 항공권 번호')" class="text-[10px] text-blue-600 underline ml-1">복사</button>
+                    <span class="font-bold text-stone-900 ml-auto">₩315,600</span>
+                  </div>
+                  <div class="flex justify-between items-center bg-stone-50 p-1 rounded">
+                    <span><strong>김지은</strong> (주아성과 금액/일정 동일)</span>
+                    <span class="font-bold text-stone-900 ml-auto">₩315,600</span>
+                  </div>
+                  <div class="flex justify-between items-center bg-stone-50 p-1 rounded">
+                    <span><strong>주이솔</strong> (1802354465950 / 예약 DJHQCH)</span>
+                    <button onclick="copyToClipboard('1802354465950', '주이솔 항공권 번호')" class="text-[10px] text-blue-600 underline ml-1">복사</button>
+                    <span class="font-bold text-stone-900 ml-auto">₩308,600</span>
+                  </div>
+                  <div class="flex justify-between items-center bg-stone-50 p-1 rounded">
+                    <span><strong>주이안</strong> (1802354473993 / 예약 DS3V2H)</span>
+                    <button onclick="copyToClipboard('1802354473993', '주이안 항공권 번호')" class="text-[10px] text-blue-600 underline ml-1">복사</button>
+                    <span class="font-bold text-stone-900 ml-auto">₩308,900</span>
+                  </div>
+                </div>
+                <p class="text-[10px] text-stone-500 mt-1">※ 유류할증료 1인당 ₩189,000 공통, 공항세 등 세금 차이로 최종 금액 소액 상이</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Stay: Olympia Airbnb -->
+          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2.5" data-category="stay" data-keywords="올림피아 숙소 에어비앤비 airbnb 영수증 cottage 3339 cooper point olympia karl 98502 HMJ8DZNYKN 잔디마당 바베큐 3박">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-stone-200 gap-1">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900">🏡 숙소 영수증 1</span>
+                <h4 class="font-bold text-stone-900 text-xs sm:text-sm">올림피아 잔디 독채 (Country Cottage Cuteness)</h4>
+              </div>
+              <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩928,592 (3박)</span>
+            </div>
+
+            <div class="bg-white p-2.5 rounded-lg border border-stone-200 text-xs space-y-1.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                <p>• <strong>일정:</strong> 2026.09.30(수) 15:00 체크인 ~ 10.03(토) 10:00 체크아웃 (3박)</p>
+                <div class="flex items-center justify-between">
+                  <p>• <strong>확정 코드:</strong> <span class="font-mono font-bold text-amber-900">HMJ8DZNYKN</span></p>
+                  <button onclick="copyToClipboard('HMJ8DZNYKN', '올림피아 예약확정코드')" class="text-[10px] bg-stone-100 px-1.5 py-0.5 rounded border">복사</button>
+                </div>
+                <div class="flex items-center justify-between">
+                  <p>• <strong>호스트:</strong> Karl (<a href="tel:+13607913040" class="text-blue-600 underline font-mono">+1 360-791-3040</a>)</p>
+                  <a href="tel:+13607913040" class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded">📞 통화</a>
+                </div>
+                <p>• <strong>게스트:</strong> 4명 (A Seong Joo, Ji Eun Kim, Eean Joo, Eesol Joo)</p>
+              </div>
+              <div class="flex items-center justify-between bg-amber-50/60 p-1.5 rounded border border-amber-200 text-[11px]">
+                <span class="font-mono text-stone-800 truncate mr-1">📍 3339 Cooper Point Road Northwest, Olympia, WA 98502</span>
+                <div class="flex gap-1 shrink-0">
+                  <button onclick="copyToClipboard('3339 Cooper Point Road Northwest, Olympia, WA 98502', '올림피아 숙소 주소')" class="px-2 py-0.5 bg-white border border-stone-300 text-stone-700 font-semibold rounded text-[10px] touch-target">복사</button>
+                  <button onclick="openGoogleMap('3339 Cooper Point Road Northwest, Olympia, WA 98502')" class="px-2 py-0.5 bg-amber-800 text-white font-bold rounded text-[10px] whitespace-nowrap hover:bg-amber-900 touch-target">지도</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Stay: Seattle Airbnb -->
+          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2.5" data-category="stay" data-keywords="시애틀 퀸앤 숙소 에어비앤비 airbnb 영수증 cozy queen anne 3252 13th ave juyeon 98119 HMN3NJPTAE 주차장 세탁기 7박">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-stone-200 gap-1">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-900">🏡 숙소 영수증 2</span>
+                <h4 class="font-bold text-stone-900 text-xs sm:text-sm">시애틀 퀸앤 독채 (Cozy Queen Anne | Laundry | Private Parking)</h4>
+              </div>
+              <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩1,929,368 (7박)</span>
+            </div>
+
+            <div class="bg-white p-2.5 rounded-lg border border-stone-200 text-xs space-y-1.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                <p>• <strong>일정:</strong> 2026.10.03(토) 16:00 체크인 ~ 10.10(토) 11:00 체크아웃 (7박)</p>
+                <div class="flex items-center justify-between">
+                  <p>• <strong>확정 코드:</strong> <span class="font-mono font-bold text-indigo-900">HMN3NJPTAE</span></p>
+                  <button onclick="copyToClipboard('HMN3NJPTAE', '시애틀 예약확정코드')" class="text-[10px] bg-stone-100 px-1.5 py-0.5 rounded border">복사</button>
+                </div>
+                <div class="flex items-center justify-between">
+                  <p>• <strong>호스트:</strong> Juyeon (<a href="tel:+12064078217" class="text-blue-600 underline font-mono">+1 206-407-8217</a>)</p>
+                  <a href="tel:+12064078217" class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded">📞 통화</a>
+                </div>
+                <p>• <strong>게스트:</strong> 4명 (A Seong Joo, Ji Eun Kim, Eean Joo, Eesol Joo)</p>
+              </div>
+              <div class="flex items-center justify-between bg-indigo-50/60 p-1.5 rounded border border-indigo-200 text-[11px]">
+                <span class="font-mono text-stone-800 truncate mr-1">📍 3252 13th Avenue West, Seattle, WA 98119</span>
+                <div class="flex gap-1 shrink-0">
+                  <button onclick="copyToClipboard('3252 13th Avenue West, Seattle, WA 98119', '시애틀 숙소 주소')" class="px-2 py-0.5 bg-white border border-stone-300 text-stone-700 font-semibold rounded text-[10px] touch-target">복사</button>
+                  <button onclick="openGoogleMap('3252 13th Avenue West, Seattle, WA 98119')" class="px-2 py-0.5 bg-indigo-800 text-white font-bold rounded text-[10px] whitespace-nowrap hover:bg-indigo-900 touch-target">지도</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Rental Car: Klook / National -->
+          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2.5" data-category="rental" data-keywords="렌터카 바우처 클룩 klook national 토요타 코롤라 중형차 2132012965COUNT ZFY870530 cdw tp 보험 면책금 보증금 seatac 다운타운 1601 3rd">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-stone-200 gap-1">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">🚗 렌터카 바우처</span>
+                <h4 class="font-bold text-stone-900 text-xs sm:text-sm">National Car Rental (클룩 예약 완료)</h4>
+              </div>
+              <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩277,300 (4일/96시간)</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-stone-700">
+              <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
+                <p class="font-bold text-emerald-900 text-[11px]">📋 대여 & 픽업/반납 상세</p>
+                <p>• <strong>차종:</strong> 토요타 코롤라 또는 동급 (중형 5인승 / 오토 / 에어컨)</p>
+                <div class="flex items-center justify-between">
+                  <p>• <strong>예약번호:</strong> <span class="font-mono font-bold">ZFY870530</span> | <strong>확정:</strong> <span class="font-mono font-bold">2132012965COUNT</span></p>
+                  <button onclick="copyToClipboard('ZFY870530', '렌터카 예약번호')" class="text-[10px] bg-stone-100 px-1.5 py-0.5 rounded border">복사</button>
+                </div>
+                <p>• <strong>운전자:</strong> MR Aseong Joo (+82 10-4743-1671)</p>
+                <p>• <strong>픽업:</strong> 2026.09.30(수) 11:30 @ Sea-Tac 공항 5층 (<a href="tel:8333298465" class="text-blue-600 underline font-mono">833-329-8465</a>)</p>
+                <p>• <strong>반납:</strong> 2026.10.04(일) 11:30 @ 다운타운 1601 3rd Ave (<a href="tel:8888266890" class="text-blue-600 underline font-mono">888-826-6890</a>)</p>
+                <p>• <strong>연료/주행거리:</strong> 가득 채워 반납 (Full to Full) / 무제한 주행거리</p>
+              </div>
+
+              <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
+                <p class="font-bold text-emerald-900 text-[11px]">🛡️ 포함된 보험 (클룩 프로텍트 플러스 / AXA TP)</p>
+                <div class="space-y-0.5 text-[11px] text-stone-600">
+                  <p>• <strong>차량사고 면책보험(CDW):</strong> 자기부담금 US$ 0</p>
+                  <p>• <strong>도난보험(TP):</strong> 자기부담금 US$ 0</p>
+                  <p>• <strong>제3자 책임보험:</strong> 최대 US$ 300,000 한도</p>
+                  <p>• <strong>타이어/유리/미러 손해 & 긴급출동:</strong> 각 US$ 6,000 한도</p>
+                  <p>• <strong>현장 보증금:</strong> USD 400 ~ 850 (신용카드 실물 필수 가승인)</p>
+                  <p>• <strong>필수 지참물:</strong> 여권, 국내면허증 + 국제면허증(IDP), 주운전자 명의 신용카드, 바우처 출력본</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 6: Tip & Tax Calculator -->
+    <section id="tab-dining" class="tab-content hidden space-y-3">
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <h3 class="text-base sm:text-lg font-bold text-stone-800 mb-1">💳 외식 팁(Tip) & 소비세 실시간 계산기</h3>
+        <p class="text-xs text-stone-500 mb-3">세금 전 순수 음식값(Subtotal) 기준 팁 금액 및 지역별 세금을 계산해 드립니다.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-5 bg-amber-50/70 rounded-xl p-3.5 border border-amber-200/70 space-y-3">
             <h4 class="font-bold text-amber-900 text-xs sm:text-sm">🧮 모바일 실시간 계산기</h4>
             
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">식사 주문 금액 (Subtotal, Tax 전)</label>
-              <div class="relative mb-2">
-                <span class="absolute left-3.5 top-2.5 text-stone-400 text-sm font-semibold">$</span>
-                <input type="number" id="calc-subtotal" value="80" inputmode="decimal" oninput="calculateTip()" class="w-full pl-8 pr-3 py-2 text-sm sm:text-base border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none touch-target font-semibold text-stone-800">
+              <div class="relative mb-1.5">
+                <span class="absolute left-3 top-2 text-stone-400 text-sm font-semibold">$</span>
+                <input type="number" id="calc-subtotal" value="80" inputmode="decimal" oninput="calculateTip()" class="w-full pl-7 pr-3 py-2 text-base border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none font-bold text-stone-800">
               </div>
-              <div class="grid grid-cols-5 gap-1 text-[10px] mb-1">
-                <button onclick="quickAmount(20)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$20</button>
-                <button onclick="quickAmount(50)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$50</button>
-                <button onclick="quickAmount(80)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$80</button>
-                <button onclick="quickAmount(120)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$120</button>
-                <button onclick="quickAmount(160)" class="bg-white border border-stone-300 py-1 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$160</button>
+              <div class="grid grid-cols-5 gap-1 text-[10px]">
+                <button onclick="quickAmount(20)" class="bg-white border border-stone-300 py-1.5 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$20</button>
+                <button onclick="quickAmount(50)" class="bg-white border border-stone-300 py-1.5 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$50</button>
+                <button onclick="quickAmount(80)" class="bg-white border border-stone-300 py-1.5 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$80</button>
+                <button onclick="quickAmount(120)" class="bg-white border border-stone-300 py-1.5 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$120</button>
+                <button onclick="quickAmount(160)" class="bg-white border border-stone-300 py-1.5 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$160</button>
               </div>
             </div>
 
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">식당 유형</label>
-              <select id="calc-type" onchange="calculateTip()" class="w-full px-3 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 touch-target bg-white">
+              <select id="calc-type" onchange="calculateTip()" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 bg-white font-medium">
                 <option value="full">풀서비스 레스토랑 (팁 18~22% 권장)</option>
                 <option value="counter">카운터 선불 매장 (팁 $0 또는 $1~$2)</option>
               </select>
@@ -290,7 +701,7 @@
 
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">식사 지역 (세율)</label>
-              <select id="calc-region" onchange="calculateTip()" class="w-full px-3 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 touch-target bg-white">
+              <select id="calc-region" onchange="calculateTip()" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 bg-white font-medium">
                 <option value="seattle">시애틀 도심 (Sales Tax 10.55%)</option>
                 <option value="olympia">올림피아 (Sales Tax 10.0%)</option>
                 <option value="oregon">오레곤 우드번/포틀랜드 (Sales Tax 0.0% 면세)</option>
@@ -300,14 +711,14 @@
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">팁 비율 터치 선택</label>
               <div class="grid grid-cols-4 gap-1.5 text-xs">
-                <button onclick="setTipPct(18)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-semibold touch-target">18%</button>
-                <button onclick="setTipPct(20)" class="tip-pct-btn active bg-amber-800 text-white border border-amber-800 py-2 rounded-xl font-semibold touch-target">20%</button>
-                <button onclick="setTipPct(22)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-semibold touch-target">22%</button>
-                <button onclick="setTipPct(0)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-semibold touch-target">0%</button>
+                <button onclick="setTipPct(18)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">18%</button>
+                <button onclick="setTipPct(20)" class="tip-pct-btn active bg-amber-800 text-white border border-amber-800 py-2 rounded-xl font-bold touch-target">20%</button>
+                <button onclick="setTipPct(22)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">22%</button>
+                <button onclick="setTipPct(0)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">0%</button>
               </div>
             </div>
 
-            <div class="bg-white rounded-xl p-3.5 border border-amber-200 text-xs space-y-2 pt-3">
+            <div class="bg-white rounded-xl p-3 border border-amber-200 text-xs space-y-1.5">
               <div class="flex justify-between">
                 <span class="text-stone-500">순수 음식값 (Subtotal):</span>
                 <span id="res-subtotal" class="font-semibold text-stone-800">$80.00</span>
@@ -320,20 +731,20 @@
                 <span class="text-stone-500">팁 (Pre-tax 기준):</span>
                 <span id="res-tip" class="font-semibold text-amber-800">$16.00</span>
               </div>
-              <div class="border-t border-stone-200 pt-2 flex justify-between text-sm font-bold text-stone-900">
+              <div class="border-t border-stone-200 pt-1.5 flex justify-between text-xs sm:text-sm font-bold text-stone-900">
                 <span>최종 결제 금액:</span>
-                <span id="res-total" class="text-amber-900 text-base">$104.28</span>
+                <span id="res-total" class="text-amber-900 text-sm sm:text-base">$104.28</span>
               </div>
             </div>
           </div>
 
-          <div class="lg:col-span-7 space-y-3">
+          <div class="lg:col-span-7 space-y-2.5">
             <h4 class="font-bold text-stone-800 text-xs sm:text-sm">📊 지역별 소비세(Sales Tax) 차이</h4>
-            <div class="chart-container">
+            <div class="chart-container" style="height: 190px;">
               <canvas id="taxChart"></canvas>
             </div>
 
-            <div class="bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-1.5 text-xs text-stone-600">
+            <div class="bg-stone-50 rounded-xl p-3 border border-stone-200 space-y-1 text-xs text-stone-600">
               <p class="font-semibold text-stone-800">💡 미국 현지 외식 팁 계산 팁</p>
               <p>• 팁은 세금이 합산되기 전 **순수 음식값(Subtotal)** 기준으로 작성합니다.</p>
               <p>• 영수증에 `Gratuity`나 `Service Charge`로 이미 18~20%가 찍혀있다면 중복해서 적지 마세요.</p>
@@ -344,11 +755,11 @@
       </div>
     </section>
 
-    <!-- Tab 5: Checklist -->
-    <section id="tab-checklist" class="tab-content hidden space-y-4">
-      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
-        <h3 class="text-lg sm:text-xl font-bold text-stone-800 mb-1">🎒 출발 전 최종 체크리스트</h3>
-        <p class="text-xs text-stone-500 mb-4">화면을 직접 터치하여 가방에 챙긴 품목을 체크하세요.</p>
+    <!-- Tab 7: Checklist -->
+    <section id="tab-checklist" class="tab-content hidden space-y-3">
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
+        <h3 class="text-base sm:text-lg font-bold text-stone-800 mb-1">🎒 출발 전 최종 체크리스트</h3>
+        <p class="text-xs text-stone-500 mb-3">화면을 직접 터치하여 가방에 챙긴 품목을 체크하세요.</p>
 
         <div id="checklist-container" class="grid grid-cols-1 md:grid-cols-3 gap-3">
         </div>
@@ -357,29 +768,86 @@
 
   </main>
 
-  <footer class="hidden md:block bg-stone-800 text-stone-400 text-xs py-6 mt-8 border-t border-stone-700">
-    <div class="max-w-7xl mx-auto px-4 text-center space-y-1.5">
+  <!-- Emergency / Embassy Modal -->
+  <div id="emergency-modal" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-stone-200 overflow-hidden space-y-3 p-4 sm:p-5 animate-fade-in">
+      <div class="flex justify-between items-center border-b border-stone-200 pb-2">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">🚨</span>
+          <h4 class="font-bold text-stone-900 text-sm sm:text-base">현지 긴급 연락망 & 영사 콜</h4>
+        </div>
+        <button onclick="closeEmergencyModal()" class="text-stone-400 hover:text-stone-700 text-xl font-bold p-1">&times;</button>
+      </div>
+
+      <div class="space-y-2 text-xs text-stone-700">
+        <div class="p-2.5 bg-rose-50 rounded-xl border border-rose-200 flex justify-between items-center">
+          <div>
+            <p class="font-bold text-rose-950">미국 응급 신고 (경찰/소방/구급)</p>
+            <p class="text-rose-800 text-[11px] font-mono">911 (긴급 전화)</p>
+          </div>
+          <a href="tel:911" class="bg-rose-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow-sm">📞 911 통화</a>
+        </div>
+
+        <div class="p-2.5 bg-blue-50 rounded-xl border border-blue-200 flex justify-between items-center">
+          <div>
+            <p class="font-bold text-blue-950">주 시애틀 대한민국 총영사관</p>
+            <p class="text-blue-800 text-[11px] font-mono">+1-206-441-1011 (주간)</p>
+            <p class="text-rose-700 text-[10px] font-mono font-bold">+1-206-886-0641 (사건사고 긴급)</p>
+          </div>
+          <a href="tel:+12068860641" class="bg-blue-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs shadow-sm">📞 영사콜</a>
+        </div>
+
+        <div class="p-2.5 bg-stone-50 rounded-xl border border-stone-200 flex justify-between items-center">
+          <div>
+            <p class="font-bold text-stone-900">외교부 영사콜센터 (24시간 한국)</p>
+            <p class="text-stone-600 text-[11px] font-mono">+82-2-3210-0404</p>
+          </div>
+          <a href="tel:+82232100404" class="bg-stone-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs shadow-sm">📞 통화</a>
+        </div>
+
+        <div class="p-2.5 bg-stone-50 rounded-xl border border-stone-200 flex justify-between items-center">
+          <div>
+            <p class="font-bold text-stone-900">대한항공 시애틀 지점 (공항)</p>
+            <p class="text-stone-600 text-[11px] font-mono">+1-800-438-5000 (고객센터)</p>
+          </div>
+          <a href="tel:+18004385000" class="bg-stone-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs shadow-sm">📞 통화</a>
+        </div>
+      </div>
+
+      <button onclick="closeEmergencyModal()" class="w-full bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold py-2 rounded-xl text-xs transition touch-target">닫기</button>
+    </div>
+  </div>
+
+  <!-- Global Toast Notification -->
+  <div id="toast-msg" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-stone-900/90 text-white text-xs font-semibold px-4 py-2.5 rounded-2xl shadow-xl backdrop-blur-md flex items-center space-x-2">
+    <span id="toast-icon">📋</span>
+    <span id="toast-text">복사되었습니다!</span>
+  </div>
+
+  <footer class="hidden lg:block bg-stone-800 text-stone-400 text-xs py-5 mt-6 border-t border-stone-700">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-1">
       <p>시애틀 & 올림피아 가을 가족 여행 마스터 노트 • 2026.09.30 ~ 10.10</p>
       <p class="text-stone-500">Designed for family harmony, kids' delight, and seamless navigation.</p>
     </div>
   </footer>
 
   <script>
+    // 1. Schedule Data
     const scheduleData = [
       {
         day: 1,
         date: "09/30(수)",
         region: "olympia",
         title: "미국 입성 & 올림피아 잔디마당 첫날",
-        summary: "공항 착륙 후 중형 SUV 렌터카 수령, 코스트코 장보기 후 올림피아 잔디 독채 체크인 및 바비큐",
-        transit: "🚗 렌터카 중형 SUV",
+        summary: "공항 착륙 후 National 렌터카 수령, 코스트코 장보기 후 올림피아 잔디 독채 체크인 및 바비큐",
+        transit: "🚗 렌터카 중형 세단 (토요타 코롤라급)",
         timeline: [
-          { time: "11:40 - 13:00", text: "시애틀 타코마 공항(SEA) 착륙, 입국 심사 및 수하물 찾기", tag: "공항", address: "17801 International Blvd, SeaTac, WA 98158" },
-          { time: "13:00 - 13:40", text: "공항 렌터카 센터 이동 및 중형 SUV 차량 픽업", tag: "이동", address: "3150 S 160th St, SeaTac, WA 98188" },
-          { time: "13:40 - 14:40", text: "타코마 코스트코(Costco Wholesale) 이동", tag: "쇼핑", address: "3701 S 37th St, Tacoma, WA 98409" },
-          { time: "14:40 - 15:30", text: "소고기 스테이크, 생수, 과일, 아이들 아침거리 장보기", tag: "쇼핑", address: "3701 S 37th St, Tacoma, WA 98409" },
-          { time: "15:30 - 16:20", text: "웨스트 올림피아 독채 에어비앤비 도착 및 체크인", tag: "숙소", address: "West Olympia, WA 98502" },
-          { time: "16:20 - 17:30", text: "넓은 울타리 잔디 마당에서 비눗방울 놀이 & 비행 피로 풀기", tag: "휴식" },
+          { time: "10:40 - 12:00", text: "대한항공 KE041편 시애틀 타코마 공항(SEA) 착륙, 입국 심사 및 수하물 찾기", tag: "공항", address: "17801 International Blvd, SeaTac, WA 98158" },
+          { time: "12:00 - 12:45", text: "공항 셔틀 탑승 ➡️ 렌터카 센터 5층 National 카운터 차량 픽업", tag: "이동", address: "3150 S 160TH ST, STE 507, SeaTac, WA 98188" },
+          { time: "12:45 - 13:45", text: "타코마 코스트코(Costco Wholesale) 이동", tag: "쇼핑", address: "3701 S 37th St, Tacoma, WA 98409" },
+          { time: "13:45 - 15:00", text: "소고기 스테이크, 생수, 과일, 아이들 아침거리 장보기", tag: "쇼핑", address: "3701 S 37th St, Tacoma, WA 98409" },
+          { time: "15:00 - 15:50", text: "웨스트 올림피아 잔디 독채 에어비앤비 도착 및 체크인 (15:00 이후)", tag: "숙소", address: "3339 Cooper Point Road NW, Olympia, WA 98502" },
+          { time: "15:50 - 17:30", text: "넓은 울타리 잔디 마당에서 비눗방울 놀이 & 비행 피로 풀기", tag: "휴식" },
           { time: "17:30 - 19:00", text: "아빠표 마당 소고기 바비큐 저녁 식사", tag: "식사" },
           { time: "19:00 - 20:30", text: "아이들 목욕 및 시차 적응을 위한 조기 취침", tag: "휴식" }
         ]
@@ -423,14 +891,14 @@
         date: "10/03(토)",
         region: "olympia",
         title: "가을 호박 농장 축제 & 시애틀 이동",
-        summary: "럿레지 농장 펌킨 패치(호박밭, 트랙터, 옥수수 미로) 체험 후 시애틀 독채 체크인",
+        summary: "럿레지 농장 펌킨 패치(호박밭, 트랙터, 옥수수 미로) 체험 후 시애틀 퀸앤 독채 체크인",
         transit: "🚗 렌터카 이동 (시애틀 이동)",
         timeline: [
-          { time: "09:00 - 10:00", text: "올림피아 에어비앤비 체크아웃 및 짐 적재", tag: "숙소" },
+          { time: "09:00 - 10:00", text: "올림피아 에어비앤비 체크아웃(10:00) 및 짐 적재", tag: "숙소" },
           { time: "10:00 - 10:30", text: "Rutledge Corn Maze (럿레지 농장) 이동", tag: "이동", address: "5226 Littlerock Rd SW, Tumwater, WA 98512" },
           { time: "10:30 - 13:30", text: "미국 전통 가을 펌킨 패치 체험 (호박밭 포토존, 트랙터 마차, 옥수수 미로)", tag: "체험", address: "5226 Littlerock Rd SW, Tumwater, WA 98512" },
-          { time: "13:30 - 15:00", text: "시애틀 숙소 영역으로 이동", tag: "이동" },
-          { time: "15:00 - 16:30", text: "시애틀 독채 에어비앤비 체크인 및 짐 풀기", tag: "숙소" },
+          { time: "13:30 - 15:30", text: "시애틀 퀸앤 숙소로 이동", tag: "이동" },
+          { time: "15:30 - 16:30", text: "시애틀 퀸앤 독채 에어비앤비 체크인(16:00 이후)", tag: "숙소", address: "3252 13th Avenue West, Seattle, WA 98119" },
           { time: "16:30 - 18:00", text: "동네 놀이터 산책 & Trader Joe's 2차 장보기", tag: "쇼핑" },
           { time: "18:00 - 20:00", text: "숙소 저녁 식사 후 휴식", tag: "휴식" }
         ]
@@ -440,16 +908,16 @@
         date: "10/04(일)",
         region: "seattle",
         title: "렌터카 반납 & 시애틀 센터 테마파크",
-        summary: "다운타운 렌터카 반납, 모노레일 탑승, 시애틀 어린이 박물관 & 대형 놀이터",
+        summary: "다운타운 National 렌터카 반납(11:30 전), 모노레일 탑승, 시애틀 어린이 박물관 & 대형 놀이터",
         transit: "🚊 모노레일 & 시내버스 (18세 이하 무료)",
         timeline: [
-          { time: "09:00 - 10:00", text: "다운타운 Avis 영업소 이동 및 차량 반납 완료", tag: "교통", address: "1909 5th Ave, Seattle, WA 98101" },
-          { time: "10:00 - 10:20", text: "웨스트레이크 센터에서 시애틀 센터 모노레일 탑승", tag: "교통", address: "400 Pine St, Seattle, WA 98101" },
-          { time: "10:20 - 13:00", text: "시애틀 어린이 박물관 (미니 마켓 장보기, 블록 건축)", tag: "체험", address: "305 Harrison St, Seattle, WA 98109" },
-          { time: "13:00 - 14:00", text: "시애틀 센터 아모리(Armory) 푸드코트 점심 식사", tag: "식사", address: "305 Harrison St, Seattle, WA 98109" },
-          { time: "14:00 - 15:30", text: "Artists at Play Playground (스페이스 니들 아래 9m 대형 정글짐)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
-          { time: "15:30 - 16:30", text: "International Fountain 잔디밭 피크닉 (음악 분수)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
-          { time: "16:30 - 17:30", text: "대중교통으로 숙소 복귀", tag: "휴식" }
+          { time: "09:30 - 10:30", text: "주유소에서 기름 가득 주유(Full) 후 시애틀 다운타운 National 렌터카 반납 완료", tag: "교통", address: "1601 3RD AVE, Seattle, WA 98101" },
+          { time: "10:30 - 11:00", text: "웨스트레이크 센터에서 시애틀 센터 모노레일 탑승", tag: "교통", address: "400 Pine St, Seattle, WA 98101" },
+          { time: "11:00 - 13:30", text: "시애틀 어린이 박물관 (미니 마켓 장보기, 블록 건축)", tag: "체험", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "13:30 - 14:30", text: "시애틀 센터 아모리(Armory) 푸드코트 점심 식사", tag: "식사", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "14:30 - 16:00", text: "Artists at Play Playground (스페이스 니들 아래 9m 대형 정글짐)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "16:00 - 17:00", text: "International Fountain 잔디밭 피크닉 (음악 분수)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "17:00 - 18:00", text: "대중교통으로 숙소 복귀", tag: "휴식" }
         ]
       },
       {
@@ -537,17 +1005,18 @@
         date: "10/10(토)",
         region: "seattle",
         title: "여행 마무리 & 귀국",
-        summary: "숙소 체크아웃 후 대형 우버(UberXL)로 공항 이동, 키즈존 대기 후 인천행 귀국",
+        summary: "숙소 체크아웃 후 대형 우버(UberXL)로 공항 이동, 키즈존 대기 후 12:50 대한항공 인천행 귀국",
         transit: "🚕 UberXL (대형 수하물 및 유모차 수용)",
         timeline: [
-          { time: "08:30 - 09:00", text: "숙소 최종 체크아웃 및 정돈", tag: "숙소" },
+          { time: "08:30 - 09:00", text: "시애틀 숙소 최종 체크아웃 및 정돈", tag: "숙소" },
           { time: "09:00 - 09:45", text: "UberXL 탑승 ➡️ 시애틀 타코마 공항(SEA) 이동", tag: "이동", address: "17801 International Blvd, SeaTac, WA 98158" },
           { time: "09:45 - 11:30", text: "대한항공 카운터 짐 부치기 및 보안 검색 통과", tag: "공항" },
-          { time: "11:30 - 12:50", text: "공항 내 키즈 플레이존 대기 후 12:50 인천행 대한항공 탑승", tag: "공항" }
+          { time: "11:30 - 12:50", text: "공항 내 키즈 플레이존 대기 후 12:50 인천행 KE042편 탑승", tag: "공항" }
         ]
       }
     ];
 
+    // 2. Attractions Directory Data
     const attractionsData = [
       {
         name: "핸즈 온 어린이 박물관",
@@ -679,7 +1148,7 @@
         closed: "연중무휴",
         fee: "무료",
         summary: "바다와 호수의 수위를 조절해 배를 통과시키는 갑문식 운하.",
-        highlights: "배가 올라가는 수위 조절 관람, 지하 연어 사다리(10월 초는 연어 회귀 막바지로 개체수가 다소 적음)"
+        highlights: "배가 올라가는 수위 조절 관람, 지하 연어 사다리"
       },
       {
         name: "가스 워크 공원",
@@ -719,6 +1188,7 @@
       }
     ];
 
+    // 3. Checklist Data
     const checklistData = [
       {
         category: "📄 필수 서류 & 카드",
@@ -749,8 +1219,56 @@
       }
     ];
 
+    // 4. State Variables
     let currentSelectedDay = 1;
     let currentTipPct = 20;
+    let exchangeRate = 1350;
+    let budgetChartInstance = null;
+
+    const FIXED_FLIGHT = 1248700;
+    const FIXED_STAY1 = 928592;
+    const FIXED_STAY2 = 1929368;
+    const FIXED_RENTAL = 277300;
+    const FIXED_TOTAL_KRW = FIXED_FLIGHT + FIXED_STAY1 + FIXED_STAY2 + FIXED_RENTAL; // 4,383,960
+
+    const defaultCustomExpenses = [
+      { id: "def-1", title: "마운틴 레이니어 국립공원 차량 입장료", amount: 30, currency: "USD", category: "activity", note: "차량 1대 7일권", done: false },
+      { id: "def-2", title: "핸즈온 어린이 박물관 (올림피아 4인)", amount: 79.8, currency: "USD", category: "activity", note: "성인2+아이2 ($19.95/인)", done: false },
+      { id: "def-3", title: "시애틀 어린이 박물관 (4인)", amount: 72, currency: "USD", category: "activity", note: "성인2+아이2 ($18/인)", done: false },
+      { id: "def-4", title: "시애틀 아쿠아리움 (4인)", amount: 120, currency: "USD", category: "activity", note: "성인2+소아2", done: false },
+      { id: "def-5", title: "우드랜드 파크 동물원 (4인)", amount: 96, currency: "USD", category: "activity", note: "성인2+소아2", done: false },
+      { id: "def-6", title: "베인브리지 페리 도보 왕복 (성인2, 아동무료)", amount: 20, currency: "USD", category: "transit", note: "18세 이하 아동 무료", done: false },
+      { id: "def-7", title: "타코마 코스트코 첫날 장보기", amount: 200, currency: "USD", category: "food", note: "소고기 스테이크, 생수, 간식", done: false },
+      { id: "def-8", title: "렌터카 4일 주유비", amount: 50, currency: "USD", category: "transit", note: "반납 전 주유", done: false },
+      { id: "def-9", title: "귀국일 숙소 ➡️ SEA 공항 UberXL", amount: 65, currency: "USD", category: "transit", note: "대형 짐 & 유모차", done: false }
+    ];
+
+    let customExpenses = [];
+
+    // Helper functions
+    function showToast(text, icon = '📋') {
+      const toast = document.getElementById('toast-msg');
+      const toastText = document.getElementById('toast-text');
+      const toastIcon = document.getElementById('toast-icon');
+      if (!toast) return;
+
+      toastText.innerText = text;
+      toastIcon.innerText = icon;
+      toast.classList.add('show');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    function copyToClipboard(text, label = '텍스트') {
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`${label} 복사 완료!`, '✅');
+      }).catch(() => {
+        showToast('복사에 실패했습니다.', '⚠️');
+      });
+    }
 
     function openGoogleMap(address) {
       if (!address) return;
@@ -758,34 +1276,98 @@
       window.open(`https://www.google.com/maps/search/?api=1&query=${encoded}`, '_blank');
     }
 
+    function openEmergencyModal() {
+      document.getElementById('emergency-modal').classList.remove('hidden');
+    }
+
+    function closeEmergencyModal() {
+      document.getElementById('emergency-modal').classList.add('hidden');
+    }
+
+    function updateDualClocks() {
+      const now = new Date();
+      
+      // Seattle Time (PST/PDT: America/Los_Angeles)
+      const seaTimeStr = new Intl.DateTimeFormat('ko-KR', {
+        timeZone: 'America/Los_Angeles',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).format(now);
+
+      // Seoul Time (KST: Asia/Seoul)
+      const icnTimeStr = new Intl.DateTimeFormat('ko-KR', {
+        timeZone: 'Asia/Seoul',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).format(now);
+
+      const seaEl = document.getElementById('clock-sea');
+      const icnEl = document.getElementById('clock-icn');
+      if (seaEl) seaEl.innerText = seaTimeStr;
+      if (icnEl) icnEl.innerText = icnTimeStr;
+
+      // D-Day update (Target: 2026-09-30)
+      const targetDate = new Date('2026-09-30T00:00:00+09:00');
+      const diffTime = targetDate - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const ddayEl = document.getElementById('header-dday');
+      if (ddayEl) {
+        if (diffDays > 0) ddayEl.innerText = `D-${diffDays}`;
+        else if (diffDays === 0) ddayEl.innerText = `D-Day!`;
+        else ddayEl.innerText = `Day ${Math.abs(diffDays) + 1}`;
+      }
+    }
+
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.getElementById(tabId).classList.remove('hidden');
+      const target = document.getElementById(tabId);
+      if (target) target.classList.remove('hidden');
 
+      // Desktop Nav Buttons
       document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.remove('bg-amber-800', 'text-white');
       });
-      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
-        btn.classList.remove('text-amber-800', 'font-bold');
-        btn.classList.add('text-stone-600');
-      });
-
       const activeNav = document.getElementById('btn-' + tabId);
       if (activeNav) activeNav.classList.add('bg-amber-800', 'text-white');
+
+      // Mobile Bottom Nav Buttons
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        btn.classList.remove('text-amber-900', 'font-bold');
+        btn.classList.add('text-stone-600');
+      });
       const activeMobileNav = document.getElementById('mbtn-' + tabId);
       if (activeMobileNav) {
         activeMobileNav.classList.remove('text-stone-600');
-        activeMobileNav.classList.add('text-amber-800', 'font-bold');
+        activeMobileNav.classList.add('text-amber-900', 'font-bold');
+      }
+
+      // Mobile Top Pill Buttons
+      document.querySelectorAll('.mobile-top-pill').forEach(pill => {
+        pill.classList.remove('bg-amber-800', 'text-white', 'font-bold');
+        pill.classList.add('bg-amber-900/80', 'text-amber-200');
+      });
+      const activePill = document.getElementById('mpill-' + tabId);
+      if (activePill) {
+        activePill.classList.remove('bg-amber-900/80', 'text-amber-200');
+        activePill.classList.add('bg-amber-800', 'text-white', 'font-bold');
+        activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
 
       localStorage.setItem('seattle_travel_active_tab', tabId);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (tabId === 'tab-budget') {
+        renderBudgetBreakdownChart();
+      }
     }
 
+    // Schedule render
     function renderDaySelector() {
       const container = document.getElementById('day-selector-container');
       container.innerHTML = scheduleData.map(d => `
-        <button onclick="selectDay(${d.day})" id="day-btn-${d.day}" class="snap-start flex-shrink-0 px-3.5 py-2 rounded-xl border text-center transition touch-target ${d.day === currentSelectedDay ? 'bg-amber-800 text-white border-amber-800 font-bold shadow-sm' : 'bg-white text-stone-700 border-stone-200 hover:bg-amber-50'}">
+        <button onclick="selectDay(${d.day})" id="day-btn-${d.day}" class="snap-start flex-shrink-0 px-3 py-1.5 rounded-xl border text-center transition touch-target ${d.day === currentSelectedDay ? 'bg-amber-800 text-white border-amber-800 font-bold shadow-md' : 'bg-white text-stone-700 border-stone-200 hover:bg-amber-50'}">
           <p class="text-[9px] opacity-80 uppercase tracking-wider">Day ${d.day}</p>
           <p class="text-xs font-bold mt-0.5">${d.date.split('(')[0]}</p>
         </button>
@@ -807,7 +1389,7 @@
       localStorage.setItem('seattle_travel_active_day', dayNum);
 
       detailCard.innerHTML = `
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 pb-3 mb-3 gap-1.5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 pb-2.5 mb-2.5 gap-1">
           <div>
             <div class="flex items-center space-x-2">
               <span class="px-2 py-0.5 rounded text-[10px] font-bold ${dayData.region === 'olympia' ? 'bg-amber-200 text-amber-900' : 'bg-indigo-100 text-indigo-900'}">
@@ -815,32 +1397,37 @@
               </span>
               <span class="text-xs font-semibold text-stone-500">Day ${dayData.day} (${dayData.date})</span>
             </div>
-            <h4 class="text-base sm:text-lg font-bold text-stone-900 mt-1">${dayData.title}</h4>
+            <h4 class="text-sm sm:text-base font-bold text-stone-900 mt-1">${dayData.title}</h4>
           </div>
-          <div class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-stone-200 text-stone-600 font-medium self-start sm:self-auto">
+          <div class="text-[10px] sm:text-[11px] bg-white px-2.5 py-1 rounded-lg border border-stone-200 text-stone-600 font-medium self-start sm:self-auto">
             ${dayData.transit}
           </div>
         </div>
 
-        <p class="text-xs text-stone-600 mb-3.5 bg-white p-2.5 rounded-lg border border-stone-100 leading-relaxed">
+        <p class="text-xs text-stone-600 mb-3 bg-white p-2.5 rounded-lg border border-stone-100 leading-relaxed">
           💡 <strong>요약:</strong> ${dayData.summary}
         </p>
 
-        <div class="space-y-2">
+        <div class="space-y-1.5">
           ${dayData.timeline.map(t => `
-            <div class="flex flex-col text-xs bg-white p-3 rounded-lg border border-stone-200/80 hover:border-amber-300 transition space-y-1.5">
+            <div class="flex flex-col text-xs bg-white p-2.5 rounded-lg border border-stone-200/80 hover:border-amber-300 transition space-y-1">
               <div class="flex items-start justify-between">
                 <div class="flex items-center space-x-2">
                   <span class="font-mono text-amber-800 font-bold text-[11px] sm:text-xs">${t.time}</span>
                   <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-stone-100 text-stone-600 border border-stone-200 whitespace-nowrap">${t.tag}</span>
                 </div>
                 ${t.address ? `
-                  <button onclick="openGoogleMap('${t.address}')" class="px-2 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-[10px] rounded-md transition flex items-center space-x-1 touch-target">
-                    <span>📍 길찾기</span>
-                  </button>
+                  <div class="flex gap-1">
+                    <button onclick="copyToClipboard('${t.address}', '주소')" class="px-2 py-0.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-[10px] rounded-md transition touch-target">
+                      <span>📋 복사</span>
+                    </button>
+                    <button onclick="openGoogleMap('${t.address}')" class="px-2 py-0.5 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-[10px] rounded-md transition flex items-center space-x-1 touch-target">
+                      <span>📍 길찾기</span>
+                    </button>
+                  </div>
                 ` : ''}
               </div>
-              <p class="text-stone-800 font-medium leading-tight">${t.text}</p>
+              <p class="text-stone-800 font-medium leading-tight text-xs">${t.text}</p>
               ${t.address ? `
                 <p class="text-[10px] text-stone-500 font-mono bg-stone-50 p-1 rounded border border-stone-100">🏠 ${t.address}</p>
               ` : ''}
@@ -867,6 +1454,7 @@
       }
     }
 
+    // Attractions
     function renderAttractions() {
       const searchVal = document.getElementById('attract-search').value.toLowerCase();
       const catVal = document.getElementById('attract-category').value;
@@ -887,17 +1475,20 @@
       }
 
       grid.innerHTML = filtered.map(item => `
-        <div class="bg-stone-50 rounded-xl p-3.5 border border-stone-200 hover:shadow-md transition flex flex-col justify-between space-y-2.5">
+        <div class="bg-stone-50 rounded-xl p-3 border border-stone-200 hover:shadow-md transition flex flex-col justify-between space-y-2">
           <div>
             <div class="flex justify-between items-start mb-1">
-              <h4 class="font-bold text-stone-900 text-sm">${item.name}</h4>
+              <h4 class="font-bold text-stone-900 text-xs sm:text-sm">${item.name}</h4>
               <span class="text-[9px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold whitespace-nowrap ml-1">${item.loc}</span>
             </div>
             
-            <div class="bg-white p-2 rounded-lg border border-stone-200 text-[11px] space-y-1 text-stone-700 mb-2">
-              <div class="flex justify-between items-center bg-amber-50/50 p-1.5 rounded border border-amber-100">
+            <div class="bg-white p-2 rounded-lg border border-stone-200 text-[11px] space-y-1 text-stone-700 mb-1.5">
+              <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
                 <p class="font-mono text-[10px] text-amber-950 font-medium truncate mr-1">📍 ${item.address}</p>
-                <button onclick="openGoogleMap('${item.address}')" class="px-2 py-0.5 bg-amber-800 text-white font-bold text-[9px] rounded whitespace-nowrap shadow-sm hover:bg-amber-900 touch-target">지도 연결</button>
+                <div class="flex gap-1 shrink-0">
+                  <button onclick="copyToClipboard('${item.address}', '${item.name} 주소')" class="px-1.5 py-0.5 bg-white border border-stone-300 text-stone-700 font-semibold text-[9px] rounded touch-target">복사</button>
+                  <button onclick="openGoogleMap('${item.address}')" class="px-2 py-0.5 bg-amber-800 text-white font-bold text-[9px] rounded whitespace-nowrap shadow-sm hover:bg-amber-900 touch-target">지도</button>
+                </div>
               </div>
               <p>🅿️ <strong>주차:</strong> ${item.parking}</p>
               <p>⏱️ <strong>운영:</strong> ${item.hours}</p>
@@ -905,16 +1496,17 @@
               <p>💵 <strong>입장료:</strong> ${item.fee}</p>
             </div>
 
-            <p class="text-xs text-stone-600 mb-2 leading-relaxed">${item.summary}</p>
+            <p class="text-xs text-stone-600 mb-1.5 leading-relaxed">${item.summary}</p>
           </div>
 
-          <div class="text-[11px] bg-amber-50/80 p-2 rounded-lg border border-amber-200/60 text-amber-900">
-            ✨ <strong>아이 맞춤 포인트:</strong> ${item.highlights}
+          <div class="text-[10px] sm:text-[11px] bg-amber-50/80 p-1.5 rounded-lg border border-amber-200/60 text-amber-900">
+            ✨ <strong>아이 맞춤:</strong> ${item.highlights}
           </div>
         </div>
       `).join('');
     }
 
+    // Tip Calculator
     function quickAmount(amt) {
       document.getElementById('calc-subtotal').value = amt;
       calculateTip();
@@ -948,17 +1540,18 @@
       calculateTip();
     }
 
+    // Checklist
     function renderChecklist() {
       const container = document.getElementById('checklist-container');
       container.innerHTML = checklistData.map((cat, catIdx) => `
-        <div class="bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2">
-          <h4 class="font-bold text-stone-800 text-xs border-b border-stone-200 pb-1.5">${cat.category}</h4>
-          <div class="space-y-1.5">
+        <div class="bg-stone-50 rounded-xl p-3 border border-stone-200 space-y-1.5">
+          <h4 class="font-bold text-stone-800 text-xs border-b border-stone-200 pb-1">${cat.category}</h4>
+          <div class="space-y-1">
             ${cat.items.map((item, itemIdx) => {
               const key = `chk-${catIdx}-${itemIdx}`;
               const checked = localStorage.getItem(key) === 'true';
               return `
-              <label class="flex items-center space-x-2 text-xs text-stone-700 cursor-pointer hover:bg-white p-2 rounded-lg transition touch-target">
+              <label class="flex items-center space-x-2 text-xs text-stone-700 cursor-pointer hover:bg-white p-1.5 rounded-lg transition touch-target">
                 <input type="checkbox" onchange="toggleCheck(this, '${key}')" ${checked ? 'checked' : ''} class="w-4 h-4 rounded text-amber-800 focus:ring-amber-500">
                 <span class="leading-tight ${checked ? 'line-through text-stone-400' : ''}">${item}</span>
               </label>
@@ -978,12 +1571,331 @@
       }
     }
 
+    // ==========================================
+    // BUDGET & EXPENSE TRACKER ENGINE
+    // ==========================================
+    function loadExpensesFromStorage() {
+      const savedRate = localStorage.getItem('seattle_exchange_rate');
+      if (savedRate) {
+        exchangeRate = parseFloat(savedRate) || 1350;
+        const rateInput = document.getElementById('exchange-rate-input');
+        if (rateInput) rateInput.value = exchangeRate;
+      }
+
+      const savedExp = localStorage.getItem('seattle_custom_expenses');
+      if (savedExp) {
+        try {
+          customExpenses = JSON.parse(savedExp);
+        } catch (e) {
+          customExpenses = [...defaultCustomExpenses];
+        }
+      } else {
+        customExpenses = [...defaultCustomExpenses];
+        saveExpensesToStorage();
+      }
+    }
+
+    function saveExpensesToStorage() {
+      localStorage.setItem('seattle_custom_expenses', JSON.stringify(customExpenses));
+      localStorage.setItem('seattle_exchange_rate', exchangeRate);
+      renderExpenses();
+    }
+
+    function updateExchangeRate(val) {
+      const num = parseFloat(val);
+      if (num && num > 500) {
+        exchangeRate = num;
+        saveExpensesToStorage();
+        showToast(`환율이 $1 = ${num}원으로 업데이트되었습니다.`, '💱');
+      }
+    }
+
+    function handleNewExpenseSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('exp-title').value.trim();
+      const cat = document.getElementById('exp-cat').value;
+      const curr = document.getElementById('exp-curr').value;
+      const amt = parseFloat(document.getElementById('exp-amount').value);
+      const note = document.getElementById('exp-note').value.trim();
+
+      if (!title || isNaN(amt) || amt <= 0) return;
+
+      const newExpense = {
+        id: 'exp-' + Date.now(),
+        title,
+        amount: amt,
+        currency: curr,
+        category: cat,
+        note: note,
+        done: false
+      };
+
+      customExpenses.unshift(newExpense);
+      saveExpensesToStorage();
+      showToast(`${title} 추가 완료!`, '➕');
+
+      document.getElementById('exp-title').value = '';
+      document.getElementById('exp-amount').value = '';
+      document.getElementById('exp-note').value = '';
+    }
+
+    function addPresetExpense(title, amt, curr, cat, note) {
+      const newExpense = {
+        id: 'exp-' + Date.now() + Math.floor(Math.random()*100),
+        title,
+        amount: amt,
+        currency: curr,
+        category: cat,
+        note: note,
+        done: false
+      };
+      customExpenses.unshift(newExpense);
+      saveExpensesToStorage();
+      showToast(`${title} 추가 완료!`, '⚡');
+    }
+
+    function toggleExpenseDone(id) {
+      const target = customExpenses.find(x => x.id === id);
+      if (target) {
+        target.done = !target.done;
+        saveExpensesToStorage();
+      }
+    }
+
+    function deleteExpense(id) {
+      const target = customExpenses.find(x => x.id === id);
+      const title = target ? target.title : '항목';
+      customExpenses = customExpenses.filter(x => x.id !== id);
+      saveExpensesToStorage();
+      showToast(`${title} 삭제됨`, '🗑️');
+    }
+
+    function clearAllCustomExpenses() {
+      if (confirm('모든 현지 지출/예상 항목을 비우시겠습니까?')) {
+        customExpenses = [];
+        saveExpensesToStorage();
+        showToast('전체 항목이 초기화되었습니다.', '🧹');
+      }
+    }
+
+    function resetBudgetToDefault() {
+      if (confirm('기본 추천 현지 경비 항목들을 다시 불러오시겠습니까?')) {
+        customExpenses = [...defaultCustomExpenses];
+        saveExpensesToStorage();
+        showToast('기본 추천 항목이 로드되었습니다.', '🔄');
+      }
+    }
+
+    function shareBudgetSummary() {
+      let localTotalKRW = 0;
+      customExpenses.forEach(exp => {
+        let krw = (exp.currency === 'USD') ? (exp.amount * exchangeRate) : exp.amount;
+        localTotalKRW += krw;
+      });
+      const grandTotalKRW = FIXED_TOTAL_KRW + localTotalKRW;
+
+      const summaryText = `[시애틀 가족여행 가계부 요약]
+• 사전 확정(항공+숙소+렌트): ₩${FIXED_TOTAL_KRW.toLocaleString()}
+• 현지 지출/예상 합계: ₩${Math.round(localTotalKRW).toLocaleString()} (≈$${Math.round(localTotalKRW / exchangeRate)})
+• 총 누적 예산: ₩${Math.round(grandTotalKRW).toLocaleString()}
+• 4인 가족 1인당: ₩${Math.round(grandTotalKRW / 4).toLocaleString()} (환율 $1=₩${exchangeRate})`;
+
+      copyToClipboard(summaryText, '가계부 요약 텍스트');
+    }
+
+    function getCategoryEmoji(cat) {
+      switch(cat) {
+        case 'activity': return '🎟️';
+        case 'food': return '🍽️';
+        case 'transit': return '🚘';
+        case 'shopping': return '🛍️';
+        default: return '📦';
+      }
+    }
+
+    function renderExpenses() {
+      const container = document.getElementById('custom-expense-list');
+      const countEl = document.getElementById('expense-count');
+      if (countEl) countEl.innerText = customExpenses.length;
+
+      let localTotalKRW = 0;
+
+      let catSumsKRW = {
+        flight: FIXED_FLIGHT,
+        stay: FIXED_STAY1 + FIXED_STAY2,
+        rental: FIXED_RENTAL,
+        activity: 0,
+        food: 0,
+        transit: 0,
+        shopping: 0,
+        other: 0
+      };
+
+      customExpenses.forEach(exp => {
+        let krw = (exp.currency === 'USD') ? (exp.amount * exchangeRate) : exp.amount;
+        localTotalKRW += krw;
+        if (catSumsKRW[exp.category] !== undefined) {
+          catSumsKRW[exp.category] += krw;
+        } else {
+          catSumsKRW.other += krw;
+        }
+      });
+
+      const grandTotalKRW = FIXED_TOTAL_KRW + localTotalKRW;
+      const grandTotalUSD = grandTotalKRW / exchangeRate;
+      const localTotalUSD = localTotalKRW / exchangeRate;
+      const perPersonKRW = grandTotalKRW / 4;
+
+      document.getElementById('budget-grand-total').innerText = '₩' + Math.round(grandTotalKRW).toLocaleString();
+      document.getElementById('budget-grand-usd').innerText = `($${Math.round(grandTotalUSD).toLocaleString()})`;
+      document.getElementById('budget-local-total').innerText = '₩' + Math.round(localTotalKRW).toLocaleString();
+      document.getElementById('budget-local-usd').innerText = `($${Math.round(localTotalUSD).toLocaleString()})`;
+      document.getElementById('budget-per-person').innerText = '₩' + Math.round(perPersonKRW).toLocaleString();
+
+      if (customExpenses.length === 0) {
+        container.innerHTML = `<p class="text-xs text-stone-400 text-center py-4">등록된 현지 지출 항목이 없습니다. 상단에서 추가해보세요.</p>`;
+      } else {
+        container.innerHTML = customExpenses.map(exp => {
+          const isUSD = exp.currency === 'USD';
+          const krwEquivalent = isUSD ? Math.round(exp.amount * exchangeRate) : exp.amount;
+          const displayAmount = isUSD ? `$${exp.amount.toFixed(2)}` : `₩${exp.amount.toLocaleString()}`;
+          const subDisplay = isUSD ? `≈ ₩${krwEquivalent.toLocaleString()}` : `≈ $${(exp.amount / exchangeRate).toFixed(2)}`;
+
+          return `
+            <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border ${exp.done ? 'border-emerald-200 bg-emerald-50/30' : 'border-stone-200'} transition hover:border-amber-300">
+              <div class="flex items-center space-x-2.5 flex-1 min-w-0 pr-2">
+                <input type="checkbox" onchange="toggleExpenseDone('${exp.id}')" ${exp.done ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer">
+                <div class="min-w-0">
+                  <div class="flex items-center space-x-1.5">
+                    <span class="text-xs">${getCategoryEmoji(exp.category)}</span>
+                    <p class="font-bold text-xs text-stone-900 truncate ${exp.done ? 'line-through text-stone-400' : ''}">${exp.title}</p>
+                    ${exp.done ? '<span class="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">완료</span>' : ''}
+                  </div>
+                  ${exp.note ? `<p class="text-[10px] text-stone-500 truncate mt-0.5">${exp.note}</p>` : ''}
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-2.5">
+                <div class="text-right whitespace-nowrap">
+                  <p class="font-bold text-xs text-amber-900 font-mono">${displayAmount}</p>
+                  <p class="text-[10px] text-stone-400 font-mono">${subDisplay}</p>
+                </div>
+                <button onclick="deleteExpense('${exp.id}')" class="text-stone-400 hover:text-rose-600 p-1 text-xs touch-target" title="삭제">🗑️</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      renderBudgetBreakdownChart(catSumsKRW);
+    }
+
+    function renderBudgetBreakdownChart(catSums) {
+      const ctx = document.getElementById('budgetBreakdownChart');
+      if (!ctx) return;
+
+      if (!catSums) {
+        catSums = {
+          flight: FIXED_FLIGHT,
+          stay: FIXED_STAY1 + FIXED_STAY2,
+          rental: FIXED_RENTAL,
+          activity: 0,
+          food: 0,
+          transit: 0,
+          shopping: 0,
+          other: 0
+        };
+        customExpenses.forEach(exp => {
+          let krw = (exp.currency === 'USD') ? (exp.amount * exchangeRate) : exp.amount;
+          if (catSums[exp.category] !== undefined) catSums[exp.category] += krw;
+          else catSums.other += krw;
+        });
+      }
+
+      const labels = ['항공 세금', '숙박 (10박)', '렌터카 (4일)', '관광/입장료', '식비/카페', '교통/주유/우버', '기타/쇼핑'];
+      const data = [
+        catSums.flight,
+        catSums.stay,
+        catSums.rental,
+        catSums.activity,
+        catSums.food,
+        catSums.transit,
+        catSums.shopping + catSums.other
+      ];
+      const colors = ['#3B82F6', '#D97706', '#10B981', '#EC4899', '#F59E0B', '#6366F1', '#8B5CF6'];
+
+      if (budgetChartInstance) {
+        budgetChartInstance.data.datasets[0].data = data;
+        budgetChartInstance.update();
+      } else {
+        budgetChartInstance = new Chart(ctx.getContext('2d'), {
+          type: 'doughnut',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: data,
+              backgroundColor: colors,
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'right',
+                labels: {
+                  boxWidth: 8,
+                  font: { size: 9 },
+                  padding: 6
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(item) {
+                    return `${item.label}: ₩${Math.round(item.raw).toLocaleString()}`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    // ==========================================
+    // VAULT SEARCH & FILTER ENGINE
+    // ==========================================
+    function filterVaultCards() {
+      const searchVal = document.getElementById('vault-search-input').value.toLowerCase().trim();
+      const catVal = document.getElementById('vault-filter-category').value;
+      const cards = document.querySelectorAll('.vault-card');
+
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const textContent = card.innerText.toLowerCase();
+
+        const matchCat = (catVal === 'all' || cardCat === catVal);
+        const matchSearch = !searchVal || keywords.includes(searchVal) || textContent.includes(searchVal);
+
+        if (matchCat && matchSearch) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // ==========================================
+    // STATIC CHARTS
+    // ==========================================
     function initOverviewChart() {
       const ctx = document.getElementById('overviewChart').getContext('2d');
       new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['올림피아/오레곤 (3박)', '시애틀 도심 (7박)'],
+          labels: ['올림피아 3박', '시애틀 7박'],
           datasets: [{
             data: [3, 7],
             backgroundColor: ['#D97706', '#2563EB'],
@@ -997,8 +1909,8 @@
             legend: {
               position: 'bottom',
               labels: {
-                boxWidth: 10,
-                font: { size: 10 }
+                boxWidth: 8,
+                font: { size: 9 }
               }
             }
           }
@@ -1028,11 +1940,11 @@
               max: 12,
               ticks: {
                 callback: function(val) { return val + '%'; },
-                font: { size: 10 }
+                font: { size: 9 }
               }
             },
             x: {
-              ticks: { font: { size: 10 } }
+              ticks: { font: { size: 9 } }
             }
           },
           plugins: {
@@ -1043,6 +1955,8 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      loadExpensesFromStorage();
+
       const savedTab = localStorage.getItem('seattle_travel_active_tab') || 'tab-schedule';
       const savedDay = parseInt(localStorage.getItem('seattle_travel_active_day')) || 1;
       
@@ -1054,6 +1968,9 @@
       calculateTip();
       initOverviewChart();
       initTaxChart();
+
+      updateDualClocks();
+      setInterval(updateDualClocks, 10000);
     });
   </script>
 </body>
