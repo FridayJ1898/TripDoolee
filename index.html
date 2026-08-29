@@ -221,7 +221,7 @@
         <button onclick="switchTab('tab-transit')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-transit">🚘 교통 & 안내</button>
         <button onclick="switchTab('tab-budget')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-budget">💰 예산 & 가계부</button>
         <button onclick="switchTab('tab-docs')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-docs">📑 예약·티켓 부록</button>
-        <button onclick="switchTab('tab-dining')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-dining">💳 팁 & 세금</button>
+        <button onclick="switchTab('tab-dining')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-dining">🍽️ 맛집 & 팁</button>
         <button onclick="switchTab('tab-checklist')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-checklist">🎒 준비물</button>
       </div>
     </div>
@@ -233,7 +233,7 @@
       <button onclick="switchTab('tab-transit')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-transit">🚘 교통</button>
       <button onclick="switchTab('tab-budget')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-budget">💰 예산</button>
       <button onclick="switchTab('tab-docs')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-docs">📑 부록</button>
-      <button onclick="switchTab('tab-dining')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-dining">💳 팁/세금</button>
+      <button onclick="switchTab('tab-dining')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-dining">🍽️ 맛집/팁</button>
       <button onclick="switchTab('tab-checklist')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-checklist">🎒 준비물</button>
     </div>
   </header>
@@ -943,15 +943,44 @@
       </div>
     </section>
 
-    <!-- Tab 6: Tip & Tax Calculator -->
-    <section id="tab-dining" class="tab-content hidden space-y-3">
+    <!-- Tab 6: Restaurants & Tip/Tax Guide -->
+    <section id="tab-dining" class="tab-content hidden space-y-3.5">
+      
+      <!-- Restaurant Directory Top Header -->
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl shadow-sm border border-stone-200 space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-stone-100 pb-2.5">
+          <div>
+            <h3 class="text-base sm:text-lg font-extrabold text-stone-800 flex items-center gap-1.5">
+              <span>🍽️ 4인 가족 맞춤 맛집 & 미식 가이드</span>
+            </h3>
+            <p class="text-xs text-stone-500 mt-0.5">시애틀·올림피아·마운틴 레이니어의 검증된 맛집, 4인 추천 메뉴, 예상 비용 및 1-터치 내비게이션</p>
+          </div>
+          <span class="text-[10px] bg-amber-100 text-amber-900 font-bold px-2.5 py-1 rounded-full self-start sm:self-auto">2026년 8월 최신 기준</span>
+        </div>
+
+        <!-- Filter Buttons & Search -->
+        <div class="flex flex-wrap gap-1.5">
+          <button onclick="filterRestaurants('all')" class="rest-filter-btn active bg-amber-800 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition touch-target">전체 (11곳)</button>
+          <button onclick="filterRestaurants('counter')" class="rest-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🍔 카운터 주문 (팁 부담 적음)</button>
+          <button onclick="filterRestaurants('table')" class="rest-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🍽️ 테이블 다이닝 (패밀리)</button>
+          <button onclick="filterRestaurants('dessert')" class="rest-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🍦 디저트/베이커리 (Tip-Free)</button>
+          <button onclick="filterRestaurants('olympia')" class="rest-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🚗 올림피아/레이니어</button>
+          <button onclick="filterRestaurants('seattle')" class="rest-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🚊 시애틀 퀸앤/마켓</button>
+        </div>
+
+        <!-- Restaurants Card Grid -->
+        <div id="restaurants-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+        </div>
+      </div>
+
+      <!-- Tip & Tax Calculator Section -->
       <div class="bg-white p-3.5 sm:p-5 rounded-2xl shadow-sm border border-stone-200">
-        <h3 class="text-base sm:text-lg font-bold text-stone-800 mb-1">💳 외식 팁(Tip) & 소비세 실시간 계산기</h3>
-        <p class="text-xs text-stone-500 mb-3">세금 전 순수 음식값(Subtotal) 기준 팁 금액 및 지역별 세금을 계산해 드립니다.</p>
+        <h3 class="text-base sm:text-lg font-bold text-stone-800 mb-1">💳 미국 외식 팁(Tip) & 소비세 실시간 계산기</h3>
+        <p class="text-xs text-stone-500 mb-3">세금 전 순수 음식값(Subtotal) 기준 팁 금액 및 지역별 소비세를 1초 만에 계산합니다.</p>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
           <div class="lg:col-span-5 bg-amber-50/70 rounded-xl p-3.5 border border-amber-200/70 space-y-3">
-            <h4 class="font-bold text-amber-900 text-xs sm:text-sm">🧮 모바일 실시간 계산기</h4>
+            <h4 class="font-bold text-amber-900 text-xs sm:text-sm">🧮 모바일 실시간 팁 계산기</h4>
             
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">식사 주문 금액 (Subtotal, Tax 전)</label>
@@ -971,16 +1000,17 @@
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">식당 유형</label>
               <select id="calc-type" onchange="calculateTip()" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 bg-white font-medium">
-                <option value="full">풀서비스 레스토랑 (팁 18~22% 권장)</option>
-                <option value="counter">카운터 선불 매장 (팁 $0 또는 $1~$2)</option>
+                <option value="full">풀서비스 레스토랑 (팁 18~20% 권장)</option>
+                <option value="counter">카운터 선불 매장 (팁 $0 또는 $1~$3)</option>
               </select>
             </div>
 
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">식사 지역 (세율)</label>
               <select id="calc-region" onchange="calculateTip()" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 bg-white font-medium">
-                <option value="seattle">시애틀 도심 (Sales Tax 10.55%)</option>
-                <option value="olympia">올림피아 (Sales Tax 10.0%)</option>
+                <option value="seattle">시애틀 도심 (King County: 10.35%)</option>
+                <option value="olympia">올림피아 (Thurston County: 약 9.5%)</option>
+                <option value="rainier">마운틴 레이니어/애슈퍼드 (Pierce County: 약 8.5%)</option>
                 <option value="oregon">오레곤 우드번/포틀랜드 (Sales Tax 0.0% 면세)</option>
               </select>
             </div>
@@ -988,9 +1018,9 @@
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">팁 비율 터치 선택</label>
               <div class="grid grid-cols-4 gap-1.5 text-xs">
+                <button onclick="setTipPct(15)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">15%</button>
                 <button onclick="setTipPct(18)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">18%</button>
                 <button onclick="setTipPct(20)" class="tip-pct-btn active bg-amber-800 text-white border border-amber-800 py-2 rounded-xl font-bold touch-target">20%</button>
-                <button onclick="setTipPct(22)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">22%</button>
                 <button onclick="setTipPct(0)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">0%</button>
               </div>
             </div>
@@ -1021,11 +1051,11 @@
               <canvas id="taxChart"></canvas>
             </div>
 
-            <div class="bg-stone-50 rounded-xl p-3 border border-stone-200 space-y-1 text-xs text-stone-600">
-              <p class="font-semibold text-stone-800">💡 미국 현지 외식 팁 계산 팁</p>
-              <p>• 팁은 세금이 합산되기 전 **순수 음식값(Subtotal)** 기준으로 작성합니다.</p>
-              <p>• 영수증에 `Gratuity`나 `Service Charge`로 이미 18~20%가 찍혀있다면 중복해서 적지 마세요.</p>
-              <p>• 카운터 주문식 패스트푸드/커피숍은 모니터 결제 시 'No Tip' 또는 '$1' 선택도 충분합니다.</p>
+            <div class="bg-stone-50 rounded-xl p-3 border border-stone-200 space-y-1.5 text-xs text-stone-600">
+              <p class="font-semibold text-stone-800">💡 미국 팁 & 세금 핵심 요령</p>
+              <p>• <strong>카운터 주문:</strong> 카드 단말기에 팁 화면이 떠도 <strong>원칙적으로 $0 (No Tip)</strong> 가능하며, 만족 시 $1~$3만 추가해도 충분합니다.</p>
+              <p>• <strong>테이블 서빙:</strong> 점심 15~18%, 저녁 18~20%가 기본 에티켓입니다.</p>
+              <p>• <strong>중복 지불 주의:</strong> 영수증 하단에 `Gratuity Included` 또는 `Service Charge`가 이미 찍혀있는지 확인하세요.</p>
             </div>
           </div>
         </div>
@@ -1258,7 +1288,7 @@
   </footer>
 
   <script>
-    // 1. Schedule Data
+    // 1. Schedule Data (Updated with perfectly matched dining & transit routes)
     const scheduleData = [
       {
         day: 1,
@@ -1283,15 +1313,15 @@
         date: "10/01(목)",
         region: "olympia",
         title: "아빠의 추억(에버그린 대) & 어린이 박물관 & 마리나",
-        summary: "에버그린 주립대 숲속 산책, 핸즈 온 어린이 박물관 체험 및 퍼시벌 랜딩 마리나 연어 디너",
+        summary: "에버그린 주립대 숲속 산책, 골드 스탠다드 점심, 핸즈 온 어린이 박물관 및 퍼시벌 랜딩 연어 디너",
         transit: "🚗 렌터카 이동",
         timeline: [
           { time: "08:00 - 09:30", text: "숙소 아침 식사 및 앞마당 햇살 산책", tag: "휴식" },
-          { time: "09:30 - 12:00", text: "더 에버그린 주립대 Red Square 및 유기농 농장 숲길 산책", tag: "명소", address: "2700 Evergreen Pkwy NW, Olympia, WA 98505" },
-          { time: "12:00 - 13:00", text: "올림피아 다운타운 브런치 식사", tag: "식사", address: "Downtown Olympia, WA 98501" },
+          { time: "09:30 - 11:45", text: "더 에버그린 주립대 Red Square 및 유기농 농장 숲길 산책", tag: "명소", address: "2700 Evergreen Pkwy NW, Olympia, WA 98505" },
+          { time: "12:00 - 13:00", text: "🍔 골드 스탠다드 (Gold Standard) — 겉바속촉 치킨 샌드위치 & 점보 버터 비스킷 점심 (카운터 팁 $2~$3)", tag: "맛집", address: "302 Capitol Way N, Olympia, WA 98501" },
           { time: "13:00 - 15:30", text: "핸즈 온 어린이 박물관 (워싱턴주 최대 규모, 자갈 굴착 & 진흙 놀이)", tag: "체험", address: "414 Jefferson St NE, Olympia, WA 98501" },
           { time: "15:30 - 17:00", text: "퍼시벌 랜딩 공원 수변 데크길 산책 & 요트 구경", tag: "공원", address: "217 Thurston Ave NW, Olympia, WA 98501" },
-          { time: "17:00 - 18:30", text: "Anthony's Hearthfire Grill에서 연어 구이 디너 외식", tag: "식사", address: "1675 Marine Dr NE, Olympia, WA 98501" },
+          { time: "17:00 - 18:30", text: "🐟 Anthony's Hearthfire Grill — 퍼시벌 랜딩 수변 연어 구이 디너 외식", tag: "맛집", address: "1675 Marine Dr NE, Olympia, WA 98501" },
           { time: "18:30 - 19:00", text: "숙소 복귀 후 잔디 마당 별 보기 휴식", tag: "휴식" }
         ]
       },
@@ -1305,7 +1335,7 @@
         timeline: [
           { time: "08:30 - 10:15", text: "올림피아 출발 ➡️ 오레곤주 우드번 프리미엄 아울렛 이동", tag: "이동", address: "1001 Arney Rd, Woodburn, OR 97071" },
           { time: "10:15 - 13:00", text: "우드번 아울렛 1차 쇼핑 (소비세 0% 면세: 나이키, 폴로, 갭 키즈, 파타고니아)", tag: "쇼핑", address: "1001 Arney Rd, Woodburn, OR 97071" },
-          { time: "13:00 - 14:00", text: "아울렛 푸드코트 점심 식사", tag: "식사" },
+          { time: "13:00 - 14:00", text: "우드번 아울렛 푸드코트 점심 식사 (Sales Tax 0% 면세)", tag: "식사", address: "1001 Arney Rd, Woodburn, OR 97071" },
           { time: "14:00 - 15:30", text: "부모 의류 및 선물 2차 쇼핑", tag: "쇼핑" },
           { time: "15:30 - 16:30", text: "복귀 중 휴식: Town Center Park (Wilsonville) 잔디밭 놀이터", tag: "공원", address: "29600 SW Park Pl, Wilsonville, OR 97070" },
           { time: "16:30 - 18:15", text: "올림피아 숙소 복귀", tag: "이동" },
@@ -1316,8 +1346,8 @@
         day: 4,
         date: "10/03(토)",
         region: "olympia",
-        title: "가을 호박 농장 축제 & 시애틀 이동",
-        summary: "럿레지 농장 펌킨 패치(호박밭, 트랙터, 옥수수 미로) 체험 후 시애틀 퀸앤 독채 체크인",
+        title: "가을 호박 농장 축제 & 시애틀 퀸앤 체크인 & 딕스 버거",
+        summary: "럿레지 농장 펌킨 패치(호박밭, 트랙터, 옥수수 미로) 체험 후 시애틀 퀸앤 체크인 및 로컬 버거 디너",
         transit: "🚗 렌터카 이동 (시애틀 이동)",
         timeline: [
           { time: "09:00 - 10:00", text: "올림피아 에어비앤비 체크아웃(10:00) 및 짐 적재", tag: "숙소" },
@@ -1326,21 +1356,22 @@
           { time: "13:30 - 15:30", text: "시애틀 퀸앤 숙소로 이동", tag: "이동" },
           { time: "15:30 - 16:30", text: "시애틀 퀸앤 독채 에어비앤비 체크인(16:00 이후)", tag: "숙소", address: "3252 13th Avenue West, Seattle, WA 98119" },
           { time: "16:30 - 18:00", text: "동네 놀이터 산책 & Trader Joe's 2차 장보기", tag: "쇼핑" },
-          { time: "18:00 - 20:00", text: "숙소 저녁 식사 후 휴식", tag: "휴식" }
+          { time: "18:00 - 19:30", text: "🍔 딕스 드라이브인 (Dick's Drive-In) 퀸앤점 — 가성비 최강 로컬버거 & 쉐이크 (팁 $0)", tag: "맛집", address: "500 Queen Anne Ave N, Seattle, WA 98109" },
+          { time: "19:30 - 20:15", text: "🍦 몰리 문스 (Molly Moon's) 퀸앤점 — 수제 와플콘 아이스크림 (Tip-Free)", tag: "디저트", address: "321 W Galer St, Seattle, WA 98119" }
         ]
       },
       {
         day: 5,
         date: "10/04(일)",
         region: "seattle",
-        title: "렌터카 반납 & 시애틀 센터 & 스페이스 니들 주간",
+        title: "렌터카 반납 & 툴루즈 쁘띠 브런치 & 시애틀 센터 주간",
         summary: "다운타운 National 렌터카 반납(11:30 전), 모노레일 탑승, 스페이스 니들 낮 전망(CityPASS 개시), 시애틀 어린이 박물관 & 대형 놀이터",
         transit: "🚊 모노레일 & 시내버스 (18세 이하 무료)",
         timeline: [
           { time: "09:30 - 10:30", text: "주유소에서 기름 가득 주유(Full) 후 시애틀 다운타운 National 렌터카 반납 완료", tag: "교통", address: "1601 3RD AVE, Seattle, WA 98101" },
           { time: "10:30 - 11:00", text: "웨스트레이크 센터에서 시애틀 센터 모노레일 탑승", tag: "교통", address: "400 Pine St, Seattle, WA 98101" },
           { time: "11:00 - 12:30", text: "스페이스 니들 (Space Needle) 360도 파노라마 주간 전망 관람 🎟️ [CityPASS 지정1 - 낮/밤 2회 무료 중 1차]", tag: "명소", address: "400 Broad St, Seattle, WA 98109" },
-          { time: "12:30 - 13:30", text: "시애틀 센터 아모리(Armory) 푸드코트 점심 식사", tag: "식사", address: "305 Harrison St, Seattle, WA 98109" },
+          { time: "12:30 - 13:30", text: "시애틀 센터 아모리(Armory) 푸드코트 또는 🥐 툴루즈 쁘띠 (Toulouse Petit) 브런치", tag: "맛집", address: "601 Queen Anne Ave N, Seattle, WA 98109" },
           { time: "13:30 - 15:30", text: "시애틀 어린이 박물관 (미니 마켓 장보기, 블록 건축)", tag: "체험", address: "305 Harrison St, Seattle, WA 98109" },
           { time: "15:30 - 16:30", text: "Artists at Play Playground (스페이스 니들 아래 9m 대형 정글짐)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
           { time: "16:30 - 17:30", text: "International Fountain 잔디밭 피크닉 (음악 분수)", tag: "공원", address: "305 Harrison St, Seattle, WA 98109" },
@@ -1351,28 +1382,30 @@
         day: 6,
         date: "10/05(월)",
         region: "seattle",
-        title: "마켓 & 수족관(CityPASS) & 대관람차 & Overlook Walk",
-        summary: "파이크 플레이스 마켓 생선 퍼포먼스, 차우더 점심, Overlook Walk 보행로, 시애틀 아쿠아리움 & 대관람차",
+        title: "마켓 & 수족관(CityPASS) & 대관람차 & 아이버스 디너",
+        summary: "파이크 플레이스 마켓 생선 쇼, 차우더 점심, Overlook Walk, 시애틀 아쿠아리움 & 아이버스 피어 54 시푸드",
         transit: "🚊 대중교통 + 도보 (유모차 경사로 연결)",
         timeline: [
           { time: "09:30 - 10:15", text: "대중교통(경전철/버스) 타고 도심 이동", tag: "교통" },
           { time: "10:15 - 11:45", text: "파이크 플레이스 마켓 (생선 던지기, 돼지저금통 레이첼, 스타벅스 1호점)", tag: "명소", address: "85 Pike St, Seattle, WA 98101" },
-          { time: "11:45 - 12:45", text: "Pike Place Chowder에서 클램 차우더 빵 보울 점심", tag: "식사", address: "1530 Post Alley, Seattle, WA 98101" },
+          { time: "11:45 - 12:45", text: "🍲 파이크 플레이스 차우더 (Pike Place Chowder) — 클램 차우더 빵 보울 & 랍스터 롤", tag: "맛집", address: "1530 Post Alley, Seattle, WA 98101" },
           { time: "12:45 - 13:00", text: "신규 Overlook Walk 육교를 통해 바다 뷰 감상하며 피어 59 이동", tag: "산책", address: "Overlook Walk, Seattle, WA 98101" },
           { time: "13:00 - 14:30", text: "시애틀 아쿠아리움 (Touch Pool 조개 터치, 신축 오션 파빌리온 관람) 🎟️ [CityPASS 지정2]", tag: "체험", address: "1483 Alaskan Way Pier 59, Seattle, WA 98101" },
           { time: "14:30 - 15:45", text: "시애틀 그레이트 휠 (대관람차) 탑승 (피어 57)", tag: "체험", address: "1301 Alaskan Way Pier 57, Seattle, WA 98101" },
-          { time: "15:45 - 17:00", text: "워터프론트 공원 산책 후 숙소 복귀", tag: "휴식" }
+          { time: "16:00 - 17:30", text: "🐟 아이버스 에이커스 오브 클램 (Ivar's Pier 54) — 1938년 전통 피시앤칩스 & 연어 스테이크 디너", tag: "맛집", address: "1001 Alaskan Way Pier 54, Seattle, WA 98104" },
+          { time: "17:30 - 18:30", text: "워터프론트 공원 산책 후 숙소 복귀", tag: "휴식" }
         ]
       },
       {
         day: 7,
         date: "10/06(화)",
         region: "seattle",
-        title: "숲속 동물원(CityPASS) & 줌마지움 & 장미 정원",
-        summary: "우드랜드 파크 동물원의 야외 동물 탐험, 실내 온실 놀이터 줌마지움, 장미 정원 산책",
+        title: "시우프 베이커리 & 동물원(CityPASS) & 줌마지움",
+        summary: "시우프 베이커리 크루아상, 우드랜드 파크 동물원 탐험, 실내 온실 놀이터 줌마지움, 장미 정원 산책",
         transit: "🚌 5번 시내버스 탑승 (아동 무료)",
         timeline: [
-          { time: "09:30 - 10:15", text: "5번 시내버스로 우드랜드 파크 동물원 이동", tag: "교통", address: "5500 Phinney Ave N, Seattle, WA 98103" },
+          { time: "09:00 - 09:45", text: "🥐 시우프 베이커리 (Seawolf Bakery) — 로컬 최고의 사워도우 크루아상 & 모닝 커피", tag: "맛집", address: "3621 Stone Way N, Seattle, WA 98103" },
+          { time: "09:45 - 10:15", text: "5번 시내버스로 우드랜드 파크 동물원 이동", tag: "교통", address: "5500 Phinney Ave N, Seattle, WA 98103" },
           { time: "10:15 - 12:30", text: "우드랜드 파크 동물원 숲속 동물 탐험 (기린, 사자, 펭귄) 🎟️ [CityPASS 선택1]", tag: "명소", address: "5500 Phinney Ave N, Seattle, WA 98103" },
           { time: "12:30 - 13:30", text: "동물원 내 카페테리아 키즈밀 점심", tag: "식사" },
           { time: "13:30 - 15:00", text: "실내 숲속 놀이터 '줌마지움 (Zoomazium)'에서 오르기 & 미끄럼틀", tag: "체험", address: "5500 Phinney Ave N, Seattle, WA 98103" },
@@ -1385,7 +1418,7 @@
         date: "10/07(수)",
         region: "seattle",
         title: "대형 카 페리 타고 떠나는 섬 여행 (베인브리지)",
-        summary: "대형 페리 탑승, 베인브리지 섬 윈슬로 웨이 산책, 바닷가 놀이터 및 수제 아이스크림",
+        summary: "대형 페리 탑승, 베인브리지 섬 윈슬로 웨이 산책, 바닷가 놀이터 및 Mora 수제 아이스크림",
         transit: "🚢 워싱턴주 페리 (아동 무료 도보 승선)",
         timeline: [
           { time: "10:00 - 10:40", text: "도보/경전철로 피어 52 페리 터미널 이동", tag: "교통", address: "801 Alaskan Way, Seattle, WA 98104" },
@@ -1400,15 +1433,14 @@
         day: 9,
         date: "10/08(목)",
         region: "seattle",
-        title: "발라드 록스 & 가스 워크 공원 (또는 치훌리 가든)",
-        summary: "발라드 록스 배 수위 조절 및 지하 연어 사다리 관람, 가스 워크 공원 잔디언덕 연날리기 (선택: 치훌리 가든 CityPASS)",
+        title: "발라드 록스 & 가스웍스 & 마리네이션 마 카이",
+        summary: "발라드 록스 배 수위 조절 및 지하 연어 사다리, 마리네이션 마 카이 점심 및 환상적인 스카이라인 뷰",
         transit: "🚌 시내버스 / UberXL",
         timeline: [
           { time: "09:30 - 10:15", text: "버스로 발라드 록스 (Ballard Locks) 이동 (입장료 무료)", tag: "교통", address: "3015 NW 54th St, Seattle, WA 98107" },
           { time: "10:15 - 12:30", text: "갑문 수위 조절 관람 & 지하 Fish Ladder 연어 사다리 감상", tag: "명소", address: "3015 NW 54th St, Seattle, WA 98107" },
-          { time: "12:30 - 13:30", text: "발라드 역사 거리 점심 식사 (피자/베이커리)", tag: "식사", address: "Ballard Ave NW, Seattle, WA 98107" },
-          { time: "13:30 - 14:15", text: "가스 워크 공원 (Gas Works Park) 이동", tag: "이동", address: "2101 N 34th St, Seattle, WA 98103" },
-          { time: "14:15 - 16:30", text: "Play Barn 실내외 놀이공간 & Kite Hill 언덕에서 레이크 유니온 전경 감상", tag: "공원", address: "2101 N 34th St, Seattle, WA 98103" },
+          { time: "12:45 - 14:00", text: "🌮 마리네이션 마 카이 (Marination Ma Kai) — 바다 너머 스카이라인 뷰 & 갈비 타코/스팸무스비 점심", tag: "맛집", address: "1660 Harbor Ave SW, Seattle, WA 98116" },
+          { time: "14:15 - 16:30", text: "가스 워크 공원 (Gas Works Park) Kite Hill 언덕에서 레이크 유니온 전경 감상", tag: "공원", address: "2101 N 34th St, Seattle, WA 98103" },
           { time: "16:30 - 17:30", text: "대중교통으로 숙소 복귀 (※ 시간 여유 시 치훌리 가든 앤 글라스 🎟️ CityPASS 관람 가능)", tag: "휴식" }
         ]
       },
@@ -1416,15 +1448,15 @@
         day: 10,
         date: "10/09(금)",
         region: "seattle",
-        title: "그린 레이크 호수 공원 & 케리 공원 노을 & 스페이스 니들 야경",
-        summary: "그린 레이크 호숫가 유모차 산책과 대형 놀이터, 케리 공원에서 스페이스 니들 노을 촬영 및 CityPASS 야간 재방문 옵션",
+        title: "그린 레이크 호수 & 케리 공원 노을 & 퀸앤 디너 & 스페이스 니들 야경",
+        summary: "그린 레이크 호숫가 산책, 케리 공원 노을 촬영, 툴루즈 쁘띠/딕스 마지막 밤 디너 및 스페이스 니들 야경",
         transit: "🚌 시내버스",
         timeline: [
           { time: "10:00 - 12:30", text: "그린 레이크 공원 (Green Lake) 2.8마일 산책, 오리 구경, 대형 놀이터", tag: "공원", address: "7201 East Green Lake Dr N, Seattle, WA 98115" },
           { time: "12:30 - 14:00", text: "호수 변 브런치 카페 점심 식사", tag: "식사" },
           { time: "14:00 - 16:30", text: "숙소 복귀 휴식 및 면세 쇼핑품 캐리어 패킹", tag: "휴식" },
           { time: "16:30 - 18:00", text: "케리 공원 (Kerry Park)에서 가을 노을 스페이스 니들 가족사진", tag: "명소", address: "211 W Highland Dr, Seattle, WA 98119" },
-          { time: "18:00 - 19:30", text: "퀸 앤 언덕 로컬 식당 여행 마지막 밤 디너", tag: "식사", address: "Queen Anne Ave N, Seattle, WA 98119" },
+          { time: "18:00 - 19:30", text: "🥐 툴루즈 쁘띠 (Toulouse Petit) 또는 🍔 딕스 드라이브인 퀸앤점 디너", tag: "맛집", address: "601 Queen Anne Ave N, Seattle, WA 98109" },
           { time: "19:30 - 20:30", text: "스페이스 니들 야경 재방문 🎟️ [CityPASS 24시간 내 야간 무료 재방문 혜택]", tag: "명소", address: "400 Broad St, Seattle, WA 98109" }
         ]
       },
@@ -1437,14 +1469,238 @@
         transit: "🚕 UberXL (대형 수하물 및 유모차 수용)",
         timeline: [
           { time: "08:30 - 09:00", text: "시애틀 숙소 최종 체크아웃 및 정돈", tag: "숙소" },
-          { time: "09:00 - 09:45", text: "UberXL 탑승 ➡️ 시애틀 타코마 공항(SEA) 이동", tag: "이동", address: "17801 International Blvd, SeaTac, WA 98518" },
+          { time: "09:00 - 09:45", text: "UberXL 탑승 ➡️ 시애틀 타코마 공항(SEA) 이동", tag: "이동", address: "17801 International Blvd, SeaTac, WA 98158" },
           { time: "09:45 - 11:30", text: "대한항공 카운터 짐 부치기 및 보안 검색 통과", tag: "공항" },
           { time: "11:30 - 12:50", text: "공항 내 키즈 플레이존 대기 후 12:50 인천행 KE042편 탑승", tag: "공항" }
         ]
       }
     ];
 
-    // 2. Attractions Directory Data
+    // 2. Restaurants Directory Data (2026.08 Updated Full List)
+    const restaurantsData = [
+      {
+        id: "rest-1",
+        name: "딕스 드라이브인 (Dick's Drive-In) — 퀸앤점",
+        loc: "시애틀 퀸앤",
+        region: "seattle",
+        category: "counter",
+        serviceType: "카운터 워크업 주문 (실내석/야외벤치)",
+        badge: "🍔 가성비 로컬버거 (팁 $0)",
+        address: "500 Queen Anne Ave N, Seattle, WA 98109",
+        hours: "매일 10:30 ~ 익일 02:00",
+        closed: "연중무휴 (브레이크타임 없음)",
+        bestTime: "평일(화~목) 11:30 이전 또는 14:00 ~ 16:30",
+        cost: "약 $35 ~ $38 (4인 세금 포함 / 팁 $0)",
+        summary: "시애틀 로컬 버거의 상징! 숙소 근처에서 가장 가성비 높고 부담 없는 한 끼",
+        menuAdult: "Dick's Deluxe 버거 2개 ($11.50)",
+        menuKids: "플레인 치즈버거 2개 ($7.00) + 갓 튀긴 생감자튀김 2개 ($6.50)",
+        menuDrink: "수제 바닐라/초코 쉐이크 1개 ($4.20) + 탄산음료 ($2.50)",
+        tip: "시내 지점 중 유일하게 실내 좌석 완비. 케첩/딥소스는 $0.15 소액 유료 청구되므로 주문 시 2~3개 함께 요청하세요.",
+        transitInfo: "시애틀 퀸앤 숙소에서 차로 6~8분 / 시애틀 센터(스페이스 니들) 도보 8분"
+      },
+      {
+        id: "rest-2",
+        name: "파이크 플레이스 차우더 (Pike Place Chowder) — 마켓 본점",
+        loc: "시애틀 마켓",
+        region: "seattle",
+        category: "counter",
+        serviceType: "카운터 주문 & 셀프 픽업",
+        badge: "🍲 미국 1위 클램 차우더",
+        address: "1530 Post Alley, Seattle, WA 98101",
+        hours: "매일 11:00 ~ 17:00 (재료 소진 시 조기 마감)",
+        closed: "연중무휴 (브레이크타임 없음)",
+        bestTime: "평일(화~목) 11:00 오픈 직후 (대기 최소화)",
+        cost: "약 $90 ~ $96 (세금 포함 / 카운터 팁 $2~$3)",
+        summary: "미국 차우더 대회 다회 우승! 진하고 고소한 사워도우 브레드볼의 정석",
+        menuAdult: "뉴잉글랜드 클램 차우더 브레드볼 ($18.50) + 랍스터 롤 ($36.00)",
+        menuKids: "스모크 살몬 차우더(Medium Cup, $10.50) + 키즈 치킨 스트립 & 프라이 ($11.00)",
+        menuDrink: "사과주스 1팩 + 레모네이드 ($7.50)",
+        tip: "사워도우 빵 뚜껑을 뜯어 차우더에 찍어주면 아이들이 매우 잘 먹습니다. 실내 좌석을 원할 경우 퍼시픽 플레이스점(600 Pine St 4층) 추천.",
+        transitInfo: "파이크 플레이스 마켓 골목 안, 아쿠아리움 및 껌 벽(Gum Wall) 직결"
+      },
+      {
+        id: "rest-3",
+        name: "마리네이션 마 카이 (Marination Ma Kai) — 웨스트 시애틀",
+        loc: "웨스트 시애틀",
+        region: "seattle",
+        category: "counter",
+        serviceType: "카운터 주문 후 번호표 착석",
+        badge: "🌮 환상적인 스카이라인 바다 뷰",
+        address: "1660 Harbor Ave SW, Seattle, WA 98116",
+        hours: "화~목·일 09:00 ~ 20:00 / 금·토 09:00 ~ 21:00",
+        closed: "매주 월요일 정기휴무",
+        bestTime: "평일(수·목) 11:00 또는 15:30 ~ 17:00 테라스석",
+        cost: "약 $60 ~ $65 (세금 포함 / 카운터 팁 $2~$4)",
+        summary: "바다 너머 시애틀 스카이라인 뷰! 하와이안-코리안 퓨전의 편안한 맛",
+        menuAdult: "갈비 타코 2개 ($9.50) + 칼루아 포크 밥 플레이트 ($16.00)",
+        menuKids: "스팸 무스비 2개 ($7.50) + 미니 치즈 퀘사디아 ($8.50) + 감자튀김 ($5.50)",
+        menuDrink: "하와이안 썬 열대과일 음료 2캔 + 생수 ($9.00)",
+        tip: "훈제 돼지고기(Kalua Pork)는 맵지 않고 부드러워 흰밥과 아이들에게 덜어주기 좋습니다.",
+        transitInfo: "피어 50에서 워터 택시(Water Taxi) 탑승 시 선착장 바로 앞 위치"
+      },
+      {
+        id: "rest-4",
+        name: "골드 스탠다드 (Gold Standard) — 올림피아",
+        loc: "올림피아 다운타운",
+        region: "olympia",
+        category: "counter",
+        serviceType: "카운터 주문 & 셀프 픽업",
+        badge: "🍗 겉바속촉 치킨 & 버터 비스킷",
+        address: "302 Capitol Way N, Olympia, WA 98501",
+        hours: "수~일 11:00 ~ 20:00",
+        closed: "매주 월요일, 화요일 정기휴무",
+        bestTime: "평일(수~금) 11:30 이전 또는 14:00 ~ 16:00",
+        cost: "약 $59 ~ $64 (올림피아 세금 9.5% 포함 / 팁 $2~$3)",
+        summary: "겉바속촉 프라이드치킨과 커다란 홈메이드 버터 비스킷의 조화",
+        menuAdult: "시그니처 프라이드치킨 샌드위치 2개 ($26.00)",
+        menuKids: "점보 버터 비스킷 2개 ($8.00) + 수제 맥앤치즈 ($7.50) + 감자튀김 ($5.00)",
+        menuDrink: "탄산음료 2잔 + 사과주스 ($8.00)",
+        tip: "치킨 샌드위치의 매운 소스는 'Sauce on the side(소스 따로)'로 요청하세요. 갓 구운 비스킷에 잼/버터를 발라주면 아이들이 순삭합니다.",
+        transitInfo: "올림피아 주청사 공원 및 퍼시발 랜딩(Percival Landing) 해안 산책로 인접"
+      },
+      {
+        id: "rest-5",
+        name: "올드 스토브 브루잉 (Old Stove Brewing Co) — 파이크 플레이스",
+        loc: "시애틀 마켓프론트",
+        region: "seattle",
+        category: "table",
+        serviceType: "대형 테이블 서비스 패밀리 펍",
+        badge: "🍺 탁 트인 오션뷰 & 키즈 피자",
+        address: "1901 Western Ave, Seattle, WA 98101",
+        hours: "매일 11:00 ~ 22:00",
+        closed: "연중무휴 (브레이크타임 없음)",
+        bestTime: "평일(월~목) 13:30 ~ 16:30 (바다뷰 창가석 명당)",
+        cost: "약 $114 ~ $118 (세금 10.35% + 테이블 팁 18~20%)",
+        summary: "탁 트인 푸젯 사운드 바다 전망! 부모의 수제맥주와 아이들의 피자가 공존하는 대형 브루어리",
+        menuAdult: "퍼시픽 대구 피시 앤 칩스 ($25.00) + 클램 & 베이컨 차우더 볼 ($14.00)",
+        menuKids: "키즈 피자 ($13.50) + 키즈 디노 너겟 & 프라이 ($13.50)",
+        menuDrink: "로컬 수제 드래프트 맥주 2잔 ($18.00) + 키즈 사과주스 2팩 ($4.00)",
+        tip: "통유리창으로 페리와 바다가 훤히 보여 아이들이 지루해하지 않으며 매장이 넓어 유모차 반입이 매우 편합니다.",
+        transitInfo: "파이크 플레이스 마켓 북쪽 통로와 직결"
+      },
+      {
+        id: "rest-6",
+        name: "툴루즈 쁘띠 (Toulouse Petit) — 퀸앤",
+        loc: "시애틀 퀸앤",
+        region: "seattle",
+        category: "table",
+        serviceType: "정통 테이블 서비스 브런치 비스트로",
+        badge: "🥐 뉴올리언스 프렌치 쿼터 브런치",
+        address: "601 Queen Anne Ave N, Seattle, WA 98109",
+        hours: "월~금 10:00 ~ 22:00 / 토·일 09:00 ~ 22:00 (브런치 ~15:00)",
+        closed: "연중무휴 (브레이크타임 없음)",
+        bestTime: "평일(화~목) 10:00 ~ 11:30 얼리 브런치 (여유로움)",
+        cost: "약 $106 ~ $110 (세금 10.35% + 테이블 팁 18~20%)",
+        summary: "뉴올리언스 프렌치 쿼터 감성의 클래식 브런치 명소! 가족 모두를 반기는 따뜻한 분위기",
+        menuAdult: "던저니스 크랩 베네딕트 ($24.00) + 버터밀크 비스킷 & 소시지 그레이비 ($15.00)",
+        menuKids: "홈메이드 버터밀크 팬케이크 ($14.00) + 사이드 스크램블 에그 & 베이컨 ($9.00)",
+        menuDrink: "카페 라떼 2잔 ($12.00) + 오렌지 주스 2잔 ($8.00)",
+        tip: "팬케이크 양이 매우 푸짐하므로 아이 둘이서 1접시를 나누고 달걀/베이컨 사이드를 곁들이면 딱 맞습니다.",
+        transitInfo: "시애틀 퀸앤 숙소 도보/차량 5분, 케리 파크(Kerry Park) 및 시애틀 센터 인접"
+      },
+      {
+        id: "rest-7",
+        name: "아이버스 에이커스 오브 클램 (Ivar's) — 피어 54",
+        loc: "시애틀 워터프론트",
+        region: "seattle",
+        category: "table",
+        serviceType: "정통 해산물 패밀리 테이블 다이닝",
+        badge: "🐟 1938년 전통 시푸드 & 키즈 프렌들리",
+        address: "1001 Alaskan Way Pier 54, Seattle, WA 98104",
+        hours: "일~목 11:30 ~ 21:00 / 금·토 11:30 ~ 21:30",
+        closed: "연중무휴 (브레이크타임 없음)",
+        bestTime: "평일(월~목) 늦은 점심 13:30 ~ 16:00",
+        cost: "약 $134 ~ $140 (세금 10.35% + 테이블 팁 18~20%)",
+        summary: "1938년부터 이어져 온 시애틀 정통 시푸드 패밀리 레스토랑! 키즈 프렌들리의 대명사",
+        menuAdult: "알래스카 대구 피시 앤 칩스 (4pc, $28.00) + 그릴드 사카이 살몬 스테이크 ($38.00)",
+        menuKids: "키즈 팝콘 치킨 바스켓 ($12.00) + 키즈 맥앤치즈 ($11.00)",
+        menuDrink: "하우스 아이스티/소다 2잔 ($9.00) + 키즈 우유/주스 ($6.00)",
+        tip: "아이 동반 시 크레용과 색칠 활동지를 제공해 주어 식사 전후 매우 유용합니다.",
+        transitInfo: "시애틀 그레이트 휠(대관람차 Pier 57) 및 미네랄스프링스 공원 도보 3분"
+      },
+      {
+        id: "rest-8",
+        name: "캐스케이드 그릴 (Cascadia Grill) — 올림피아",
+        loc: "올림피아 다운타운",
+        region: "olympia",
+        category: "table",
+        serviceType: "캐주얼 패밀리 비스트로 (테이블 서비스)",
+        badge: "🥩 로컬 스테이크 & 아늑한 재즈",
+        address: "200 4th Ave W, Olympia, WA 98501",
+        hours: "화~일 12:00 ~ 20:00 (금·토 ~21:00)",
+        closed: "매주 월요일 정기휴무",
+        bestTime: "평일(화~금) 점심 12:00 ~ 14:00",
+        cost: "약 $91 ~ $95 (올림피아 세금 9.5% + 테이블 팁 18%)",
+        summary: "올림피아 다운타운의 아늑한 재즈 감성! 푸짐한 로컬 스테이크와 버거",
+        menuAdult: "캐스케이드 수제 버거 ($17.00) + 갈릭 스테이크 샐러드 ($23.00)",
+        menuKids: "키즈 그릴드 치즈 샌드위치 ($9.50) + 키즈 버터 파스타 ($9.00)",
+        menuDrink: "라벤더 레모네이드 ($5.50) + 소다/주스 ($7.00)",
+        tip: "1인분 양이 미국식으로 푸짐하므로 메인 2개에 키즈 단품을 섞는 것이 요령입니다.",
+        transitInfo: "핸즈온 어린이 박물관(Hands On Children's Museum)과 차로 4분 거리"
+      },
+      {
+        id: "rest-9",
+        name: "와일드베리 레스토랑 (Wildberry) — 마운틴 레이니어",
+        loc: "마운틴 레이니어 (애슈퍼드)",
+        region: "rainier",
+        category: "table",
+        serviceType: "네팔-아메리칸 산장 레스토랑",
+        badge: "🥧 셰르파 산장 모모 & 웜 블랙베리 파이",
+        address: "37718 State Route 706 E, Ashford, WA 98304",
+        hours: "매일 11:00 ~ 20:00 (19:30 이후 To-go만 가능)",
+        closed: "하절기 시즌 무휴 (브레이크타임 없음)",
+        bestTime: "공원 입장 전 점심(11:30~12:30) 또는 15:30 이전",
+        cost: "약 $104 ~ $110 (피어스카운티 세금 8.5% + 테이블 팁 18%)",
+        summary: "에베레스트 셰르파가 운영하는 산장 식당! 따뜻한 커리와 전설적인 야생 블랙베리 파이",
+        menuAdult: "치킨 커리 & 난 ($20.00) + 네팔 전통 찐만두 모모 (Momo 8개, $16.00)",
+        menuKids: "아메리칸 치즈버거 & 감자튀김 ($15.00) + 치킨 텐더 스트립 ($15.00)",
+        menuDrink: "홈메이드 웜 블랙베리 파이 ($8.50) + 차이티/주스 ($8.00)",
+        tip: "찐만두(모모)는 향신료가 강하지 않아 한국 고기만두처럼 아이들이 매우 잘 먹습니다. 따뜻한 블랙베리 파이에 바닐라 아이스크림 추가는 필수!",
+        transitInfo: "마운틴 레이니어 니스퀄리(Nisqually) 서쪽 게이트 직전 길목 위치"
+      },
+      {
+        id: "rest-10",
+        name: "몰리 문스 (Molly Moon's) — 퀸앤점",
+        loc: "시애틀 퀸앤",
+        region: "seattle",
+        category: "dessert",
+        serviceType: "카운터 주문 (완전 Tip-Free)",
+        badge: "🍦 생활임금 보장 팁프리 아이스크림",
+        address: "321 W Galer St, Seattle, WA 98119",
+        hours: "매일 12:00 ~ 22:00",
+        closed: "연중무휴",
+        bestTime: "식사 후 오후/저녁 디저트 타임",
+        cost: "약 $22 ~ $25 (4인 세금 포함 / 팁 $0 불필요)",
+        summary: "생활임금 보장 정책을 시행하는 완전한 팁 프리(Tip-Free) 로컬 수제 아이스크림",
+        menuAdult: "싱글 스쿱 2개 (솔티드 카라멜, 얼그레이)",
+        menuKids: "키즈 스쿱 2개 (허니 라벤더, 바닐라) + 갓 구운 수제 와플콘",
+        menuDrink: "생수 및 토핑",
+        tip: "정직한 가격 정찰제 및 직원 생활임금 포함 매장으로 팁을 줄 필요가 전혀 없습니다.",
+        transitInfo: "시애틀 퀸앤 숙소 도보 7분, 갤러 스트리트 상권 중심"
+      },
+      {
+        id: "rest-11",
+        name: "시우프 베이커리 (Seawolf Bakery) — 프레몬트",
+        loc: "시애틀 프레몬트",
+        region: "seattle",
+        category: "dessert",
+        serviceType: "카운터 베이커리 (Tip 부담 적음)",
+        badge: "🥐 로컬 최고의 사워도우 크루아상",
+        address: "3621 Stone Way N, Seattle, WA 98103",
+        hours: "매일 07:00 ~ 15:00",
+        closed: "연중무휴",
+        bestTime: "아침 08:00 ~ 10:30 (갓 구운 빵 출시 시간)",
+        cost: "약 $26 ~ $30 (4인 빵 & 음료)",
+        summary: "정직한 가격 정찰제로 카운터 팁 압박이 없는 로컬 사워도우 전문 빵집",
+        menuAdult: "사워도우 크루아상 + 드립 커피 2잔",
+        menuKids: "초콜릿 빵 + 시나몬 롤 + 우유",
+        menuDrink: "스페셜티 드립 커피",
+        tip: "오전에 갓 구워져 나오는 크루아상과 바게트의 풍미가 압도적입니다.",
+        transitInfo: "우드랜드 파크 동물원 & 가스 워크 공원 이동 길목 위치"
+      }
+    ];
+
+    // 3. Attractions Directory Data
     const attractionsData = [
       {
         name: "스페이스 니들 (Space Needle)",
@@ -1878,7 +2134,23 @@
         }
       });
 
-      // 3. Vault & Tickets Search
+      // 3. Restaurants Directory Search
+      restaurantsData.forEach(rest => {
+        if (rest.name.toLowerCase().includes(q) || rest.summary.toLowerCase().includes(q) || rest.menuAdult.toLowerCase().includes(q) || rest.menuKids.toLowerCase().includes(q) || rest.address.toLowerCase().includes(q) || rest.badge.toLowerCase().includes(q) || rest.loc.toLowerCase().includes(q)) {
+          matches.push({
+            type: '🍽️ 맛집 디렉토리',
+            title: rest.name,
+            desc: `${rest.badge} • ${rest.cost}`,
+            action: () => {
+              closeSearchModal();
+              switchTab('tab-dining');
+              filterRestaurants('all');
+            }
+          });
+        }
+      });
+
+      // 4. Vault & Tickets Search
       const vaultKeywords = [
         { title: '시애틀 CityPASS 바우처 (4인 가족)', desc: '스페이스 니들, 아쿠아리움 등 5대 명소 패스', cat: 'citypass', tab: 'tab-docs' },
         { title: 'KB 해외여행보험 증권 (2026-5705231)', desc: '해외의료비 5천만 4인 풀보장 / 비번 880128', cat: 'insurance', tab: 'tab-docs' },
@@ -2208,6 +2480,94 @@
       `).join('');
     }
 
+    // 4. Restaurants Directory Rendering
+    let currentRestaurantFilter = 'all';
+
+    function filterRestaurants(filterType) {
+      currentRestaurantFilter = filterType;
+      document.querySelectorAll('.rest-filter-btn').forEach(b => {
+        b.classList.remove('bg-amber-800', 'text-white', 'active');
+        b.classList.add('bg-stone-100', 'text-stone-700');
+      });
+      if (event && event.target) {
+        event.target.classList.remove('bg-stone-100', 'text-stone-700');
+        event.target.classList.add('bg-amber-800', 'text-white', 'active');
+      }
+      renderRestaurants(filterType);
+    }
+
+    function renderRestaurants(filter = 'all') {
+      const grid = document.getElementById('restaurants-grid');
+      if (!grid) return;
+
+      const filtered = restaurantsData.filter(item => {
+        if (filter === 'all') return true;
+        if (filter === 'counter' || filter === 'table' || filter === 'dessert') return item.category === filter;
+        if (filter === 'olympia') return item.region === 'olympia' || item.region === 'rainier';
+        if (filter === 'seattle') return item.region === 'seattle';
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<p class="text-xs text-stone-500 col-span-full text-center py-8">선택한 조건에 해당하는 맛집이 없습니다.</p>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200 hover:shadow-md transition flex flex-col justify-between space-y-2.5">
+          <div class="space-y-2">
+            
+            <!-- Card Header: Title & Badges -->
+            <div class="flex justify-between items-start gap-1">
+              <div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.category === 'counter' ? 'bg-emerald-100 text-emerald-800' : (item.category === 'dessert' ? 'bg-pink-100 text-pink-800' : 'bg-amber-100 text-amber-900')}">
+                  ${item.badge}
+                </span>
+                <h4 class="font-extrabold text-stone-900 text-sm sm:text-base mt-1 leading-snug">${item.name}</h4>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-stone-200 text-stone-700 font-semibold whitespace-nowrap">${item.loc}</span>
+            </div>
+
+            <!-- Address & Action Buttons Bar -->
+            <div class="flex justify-between items-center bg-white p-2 rounded-xl border border-stone-200 text-xs">
+              <p class="font-mono text-[10px] sm:text-[11px] text-stone-800 truncate mr-1">📍 ${item.address}</p>
+              <div class="flex gap-1 shrink-0">
+                <button onclick="copyToClipboard('${item.address}', '${item.name} 주소')" class="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-[10px] rounded-lg transition touch-target">📋 복사</button>
+                <button onclick="openGoogleMap('${item.address}')" class="px-2.5 py-1 bg-amber-800 hover:bg-amber-900 text-white font-bold text-[10px] rounded-lg transition flex items-center gap-0.5 touch-target">📍 길찾기</button>
+              </div>
+            </div>
+
+            <!-- Core Operating Info -->
+            <div class="bg-white p-2.5 rounded-xl border border-stone-100 text-[11px] space-y-1 text-stone-700 font-medium">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[10px]">
+                <p>⏱️ <strong>운영:</strong> ${item.hours}</p>
+                <p>🚫 <strong>휴무:</strong> ${item.closed}</p>
+                <p>🎯 <strong>추천시간:</strong> ${item.bestTime}</p>
+                <p>💵 <strong>4인예상:</strong> <span class="font-bold text-amber-900">${item.cost}</span></p>
+              </div>
+            </div>
+
+            <!-- 4-Person Recommended Menu -->
+            <div class="bg-amber-50/70 p-2.5 rounded-xl border border-amber-200/70 text-[11px] space-y-1 text-stone-800">
+              <p class="font-bold text-amber-950 text-xs">👨‍👩‍👧‍👧 4인 가족 추천 주문 가이드</p>
+              <p>• <strong>어른 (2인):</strong> ${item.menuAdult}</p>
+              <p>• <strong>아이 (2인):</strong> ${item.menuKids}</p>
+              <p>• <strong>음료/디저트:</strong> ${item.menuDrink}</p>
+            </div>
+
+            <!-- Kids & Field Tip -->
+            <div class="text-[11px] bg-stone-100/80 p-2 rounded-lg text-stone-700 leading-relaxed">
+              💡 <strong>현장 꿀팁:</strong> ${item.tip}
+            </div>
+          </div>
+
+          <div class="text-[10px] text-stone-500 font-medium border-t border-stone-200/60 pt-1.5 flex items-center justify-between">
+            <span>🚗 <strong>동선:</strong> ${item.transitInfo}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
     // Tip Calculator
     function quickAmount(amt) {
       document.getElementById('calc-subtotal').value = amt;
@@ -2218,9 +2578,10 @@
       const subtotal = parseFloat(document.getElementById('calc-subtotal').value) || 0;
       const region = document.getElementById('calc-region').value;
       
-      let taxRate = 0.1055;
-      if (region === 'olympia') taxRate = 0.100;
-      if (region === 'oregon') taxRate = 0.00;
+      let taxRate = 0.1035; // Seattle King County (10.35%)
+      if (region === 'olympia') taxRate = 0.095; // Thurston County (9.5%)
+      if (region === 'rainier') taxRate = 0.085; // Pierce County Ashford (8.5%)
+      if (region === 'oregon') taxRate = 0.00;   // Oregon (0.0%)
 
       const tax = subtotal * taxRate;
       const tip = subtotal * (currentTipPct / 100);
@@ -2626,11 +2987,11 @@
       new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['시애틀 도심', '올림피아', '오레곤주'],
+          labels: ['시애틀 (King)', '올림피아 (Thurston)', '레이니어 (Pierce)', '오레곤주 (면세)'],
           datasets: [{
             label: '소비세율 (%)',
-            data: [10.55, 10.0, 0.0],
-            backgroundColor: ['#EF4444', '#F59E0B', '#10B981'],
+            data: [10.35, 9.5, 8.5, 0.0],
+            backgroundColor: ['#EF4444', '#F59E0B', '#6366F1', '#10B981'],
             borderRadius: 6
           }]
         },
@@ -2676,6 +3037,7 @@
       switchTab(savedTab);
       renderDaySelector();
       selectDay(savedDay);
+      renderRestaurants();
       renderAttractions();
       renderChecklist();
       calculateTip();
