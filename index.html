@@ -194,15 +194,21 @@
         </div>
       </div>
 
-      <!-- Real-time Dual Clock (Seattle & Seoul) -->
-      <div class="flex items-center space-x-2 bg-amber-950/70 px-2.5 py-1 rounded-xl border border-amber-800/80 text-[10px] sm:text-xs">
-        <div class="text-right">
-          <p class="text-amber-300 font-semibold leading-none">🇺🇸 시애틀 <span id="clock-sea" class="font-mono font-bold text-white">--:--</span></p>
-          <p class="text-stone-400 font-medium mt-0.5 leading-none">🇰🇷 한국 <span id="clock-icn" class="font-mono text-stone-300">--:--</span></p>
+      <!-- Real-time Dual Clock (Seattle & Seoul) & Quick Action Buttons -->
+      <div class="flex items-center space-x-1.5 sm:space-x-2">
+        <div class="flex items-center space-x-2 bg-amber-950/70 px-2.5 py-1 rounded-xl border border-amber-800/80 text-[10px] sm:text-xs">
+          <div class="text-right">
+            <p class="text-amber-300 font-semibold leading-none">🇺🇸 시애틀 <span id="clock-sea" class="font-mono font-bold text-white">--:--</span></p>
+            <p class="text-stone-400 font-medium mt-0.5 leading-none">🇰🇷 한국 <span id="clock-icn" class="font-mono text-stone-300">--:--</span></p>
+          </div>
         </div>
-        <button onclick="openEmergencyModal()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-2 py-1 rounded-lg text-[10px] shadow-sm transition active:scale-95 touch-target flex items-center space-x-1" title="비상 연락망">
+        <button onclick="openSearchModal()" class="bg-amber-800/90 hover:bg-amber-700 text-amber-100 font-bold p-1.5 sm:px-2 sm:py-1 rounded-lg text-xs border border-amber-600/60 shadow-sm transition active:scale-95 touch-target flex items-center space-x-1" title="통합 검색 (명소/일정/티켓/주소)">
+          <span>🔍</span>
+          <span class="hidden sm:inline text-[10px]">검색</span>
+        </button>
+        <button onclick="openEmergencyModal()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold p-1.5 sm:px-2 sm:py-1 rounded-lg text-xs shadow-sm transition active:scale-95 touch-target flex items-center space-x-1" title="비상 연락망">
           <span>🚨</span>
-          <span class="hidden sm:inline">긴급</span>
+          <span class="hidden sm:inline text-[10px]">긴급</span>
         </button>
       </div>
     </div>
@@ -1098,6 +1104,146 @@
     </div>
   </div>
 
+  <!-- Floating Quick Drawer Action Button (FAB) -->
+  <button id="fab-quick-btn" onclick="openQuickDrawer()" class="fixed bottom-20 right-3.5 z-40 lg:bottom-8 lg:right-8 bg-gradient-to-r from-amber-800 to-amber-900 text-white font-extrabold px-3.5 py-2.5 rounded-full shadow-2xl flex items-center space-x-1.5 border border-amber-400/50 hover:scale-105 active:scale-95 transition-all touch-target" title="만능 퀵 서랍 (바우처/보험/숙소/내비)">
+    <span class="text-lg">⚡</span>
+    <span class="text-xs font-bold tracking-tight">퀵패널</span>
+  </button>
+
+  <!-- Quick Drawer Bottom Sheet Modal -->
+  <div id="quick-drawer-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-2xl shadow-2xl p-4 sm:p-5 max-h-[85vh] overflow-y-auto space-y-3.5 animate-fade-in border border-stone-200">
+      <div class="flex items-center justify-between border-b border-stone-200 pb-2.5">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">⚡</span>
+          <div>
+            <h3 class="font-extrabold text-stone-900 text-sm sm:text-base">현장 만능 퀵패널</h3>
+            <p class="text-[10px] text-stone-500">현장에서 1초 만에 필요한 핵심 정보를 확인하고 복사하세요.</p>
+          </div>
+        </div>
+        <button onclick="closeQuickDrawer()" class="text-stone-400 hover:text-stone-700 p-1 text-base font-bold touch-target">✕</button>
+      </div>
+
+      <!-- Quick Cards Grid -->
+      <div class="space-y-2.5 text-xs">
+        
+        <!-- 1. CityPASS 4인 바우처 -->
+        <div class="p-3 bg-amber-50/80 rounded-xl border border-amber-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-amber-950 flex items-center gap-1">🎟️ 시애틀 CityPASS (4인 바우처)</span>
+            <a href="https://my.citypass.com" target="_blank" class="text-[10px] bg-amber-800 text-white font-bold px-2 py-0.5 rounded-md hover:bg-amber-900">예약 사이트 ↗</a>
+          </div>
+          <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
+            <div class="bg-white p-1.5 rounded border border-amber-100 flex justify-between items-center">
+              <span>👨 주아성</span>
+              <button onclick="copyToClipboard('3084580203510004079', '주아성 바우처')" class="text-amber-800 font-bold underline">3084...079 📋</button>
+            </div>
+            <div class="bg-white p-1.5 rounded border border-amber-100 flex justify-between items-center">
+              <span>👩 김지은</span>
+              <button onclick="copyToClipboard('3084580203510016560', '김지은 바우처')" class="text-amber-800 font-bold underline">3084...560 📋</button>
+            </div>
+            <div class="bg-white p-1.5 rounded border border-amber-100 flex justify-between items-center">
+              <span>👧 주이안</span>
+              <button onclick="copyToClipboard('3084580213510020694', '주이안 바우처')" class="text-amber-800 font-bold underline">3084...694 📋</button>
+            </div>
+            <div class="bg-white p-1.5 rounded border border-amber-100 flex justify-between items-center">
+              <span>👶 주이솔</span>
+              <button onclick="copyToClipboard('3084580213510048620', '주이솔 바우처')" class="text-amber-800 font-bold underline">3084...620 📋</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. KB 해외여행보험 -->
+        <div class="p-3 bg-emerald-50/80 rounded-xl border border-emerald-200 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-emerald-950 flex items-center gap-1">🛡️ KB 해외여행보험 (증권번호)</span>
+            <a href="tel:+8215440114" class="text-[10px] bg-emerald-700 text-white font-bold px-2 py-0.5 rounded-md hover:bg-emerald-800">📞 긴급콜</a>
+          </div>
+          <div class="flex items-center justify-between text-[11px] bg-white p-1.5 rounded border border-emerald-100">
+            <div>
+              <span class="text-stone-500">증권번호:</span>
+              <span class="font-mono font-bold text-emerald-900 ml-1">2026-5705231</span>
+            </div>
+            <button onclick="copyToClipboard('2026-5705231', '증권번호')" class="text-emerald-800 font-bold underline text-[10px]">복사 📋</button>
+          </div>
+          <p class="text-[10px] text-stone-500">※ 계약자 김지은 / 4인 풀보장 (의료비 5천만) / PDF 비번: <strong>880128</strong></p>
+        </div>
+
+        <!-- 3. 숙소 1-터치 내비 -->
+        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 space-y-1.5">
+          <span class="font-bold text-stone-900 flex items-center gap-1">🏡 숙소 바로 길찾기 (구글 맵)</span>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex justify-between items-center bg-white p-1.5 rounded border border-stone-200">
+              <div>
+                <span class="font-bold text-stone-800">웨스트 올림피아 (Day 1~4)</span>
+                <p class="text-[9px] text-stone-500 font-mono">3339 Cooper Point Rd NW, Olympia</p>
+              </div>
+              <div class="flex gap-1">
+                <button onclick="copyToClipboard('3339 Cooper Point Road Northwest, Olympia, WA 98502', '올림피아 숙소 주소')" class="px-1.5 py-0.5 bg-stone-100 text-stone-700 rounded text-[10px]">📋</button>
+                <button onclick="openGoogleMap('3339 Cooper Point Road Northwest, Olympia, WA 98502')" class="px-2 py-0.5 bg-amber-100 text-amber-900 font-bold rounded text-[10px]">📍 내비</button>
+              </div>
+            </div>
+            <div class="flex justify-between items-center bg-white p-1.5 rounded border border-stone-200">
+              <div>
+                <span class="font-bold text-stone-800">시애틀 퀸앤 (Day 4~11)</span>
+                <p class="text-[9px] text-stone-500 font-mono">3252 13th Ave W, Seattle</p>
+              </div>
+              <div class="flex gap-1">
+                <button onclick="copyToClipboard('3252 13th Avenue West, Seattle, WA 98119', '시애틀 숙소 주소')" class="px-1.5 py-0.5 bg-stone-100 text-stone-700 rounded text-[10px]">📋</button>
+                <button onclick="openGoogleMap('3252 13th Avenue West, Seattle, WA 98119')" class="px-2 py-0.5 bg-amber-100 text-amber-900 font-bold rounded text-[10px]">📍 내비</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 렌터카 반납지 -->
+        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 flex justify-between items-center">
+          <div>
+            <span class="font-bold text-stone-900">🚗 National 렌터카 반납지</span>
+            <p class="text-[10px] text-stone-500 font-mono">1601 3RD AVE, Seattle (10/04 11:30 전)</p>
+          </div>
+          <button onclick="openGoogleMap('1601 3RD AVE, Seattle, WA 98101')" class="px-2.5 py-1 bg-amber-800 text-white font-bold rounded-lg text-[10px]">📍 내비</button>
+        </div>
+      </div>
+
+      <button onclick="closeQuickDrawer()" class="w-full bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold py-2 rounded-xl text-xs transition touch-target">닫기</button>
+    </div>
+  </div>
+
+  <!-- Global Smart Search Modal -->
+  <div id="global-search-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-start justify-center p-3 sm:p-6 pt-12 sm:pt-20">
+    <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl p-4 sm:p-5 max-h-[80vh] flex flex-col space-y-3 border border-stone-200 animate-fade-in">
+      <div class="flex items-center justify-between border-b border-stone-200 pb-2">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">🔍</span>
+          <h3 class="font-extrabold text-stone-900 text-sm sm:text-base">통합 스마트 검색</h3>
+        </div>
+        <button onclick="closeSearchModal()" class="text-stone-400 hover:text-stone-700 p-1 text-base font-bold touch-target">✕</button>
+      </div>
+
+      <div class="relative">
+        <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="일정, 명소, 주차, 바우처, 코스트코, 항공권..." class="w-full pl-9 pr-4 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 font-medium touch-target">
+        <span class="absolute left-3 top-3 text-stone-400 text-xs">🔍</span>
+      </div>
+
+      <!-- Quick Suggestion Tags -->
+      <div class="flex flex-wrap gap-1 text-[11px] text-stone-600">
+        <span class="text-stone-400 self-center mr-0.5 text-[10px]">추천:</span>
+        <button onclick="fillSearchKeyword('스페이스 니들')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🗼 스페이스 니들</button>
+        <button onclick="fillSearchKeyword('CityPASS')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🎟️ CityPASS</button>
+        <button onclick="fillSearchKeyword('아쿠아리움')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🐠 아쿠아리움</button>
+        <button onclick="fillSearchKeyword('코스트코')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🛒 코스트코</button>
+        <button onclick="fillSearchKeyword('주차')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🅿️ 주차</button>
+        <button onclick="fillSearchKeyword('보험')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🛡️ 보험</button>
+      </div>
+
+      <!-- Search Results List -->
+      <div id="global-search-results" class="flex-grow overflow-y-auto max-h-80 space-y-2 pr-1 custom-scrollbar text-xs">
+        <p class="text-xs text-stone-400 text-center py-6">검색어를 입력하시면 일정, 명소, 바우처가 실시간으로 검색됩니다.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Global Toast Notification -->
   <div id="toast-msg" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-stone-900/90 text-white text-xs font-semibold px-4 py-2.5 rounded-2xl shadow-xl backdrop-blur-md flex items-center space-x-2">
     <span id="toast-icon">📋</span>
@@ -1642,12 +1788,135 @@
       window.open(`https://www.google.com/maps/search/?api=1&query=${encoded}`, '_blank');
     }
 
+    // Modal Control: Emergency Modal
     function openEmergencyModal() {
       document.getElementById('emergency-modal').classList.remove('hidden');
     }
 
     function closeEmergencyModal() {
       document.getElementById('emergency-modal').classList.add('hidden');
+    }
+
+    // Modal Control: Quick Drawer (FAB)
+    function openQuickDrawer() {
+      document.getElementById('quick-drawer-modal').classList.remove('hidden');
+    }
+
+    function closeQuickDrawer() {
+      document.getElementById('quick-drawer-modal').classList.add('hidden');
+    }
+
+    // Modal Control: Global Search
+    function openSearchModal() {
+      document.getElementById('global-search-modal').classList.remove('hidden');
+      const input = document.getElementById('global-search-input');
+      if (input) {
+        input.value = '';
+        setTimeout(() => input.focus(), 100);
+        handleGlobalSearch('');
+      }
+    }
+
+    function closeSearchModal() {
+      document.getElementById('global-search-modal').classList.add('hidden');
+    }
+
+    function fillSearchKeyword(kw) {
+      const input = document.getElementById('global-search-input');
+      if (input) {
+        input.value = kw;
+        handleGlobalSearch(kw);
+      }
+    }
+
+    function handleGlobalSearch(query) {
+      const q = query.trim().toLowerCase();
+      const resultsContainer = document.getElementById('global-search-results');
+      if (!q) {
+        resultsContainer.innerHTML = `<p class="text-xs text-stone-400 text-center py-6">검색어를 입력하시면 일정, 명소, 바우처가 실시간으로 검색됩니다.</p>`;
+        return;
+      }
+
+      let matches = [];
+
+      // 1. Schedule Data Search
+      scheduleData.forEach(day => {
+        if (day.title.toLowerCase().includes(q) || day.summary.toLowerCase().includes(q) || day.transit.toLowerCase().includes(q)) {
+          matches.push({
+            type: '📅 일정',
+            title: `Day ${day.day} (${day.date}): ${day.title}`,
+            desc: day.summary,
+            action: () => { closeSearchModal(); switchTab('tab-schedule'); selectDay(day.day); }
+          });
+        }
+        day.timeline.forEach(t => {
+          if (t.text.toLowerCase().includes(q) || (t.address && t.address.toLowerCase().includes(q)) || t.tag.toLowerCase().includes(q)) {
+            matches.push({
+              type: '🕒 일정 타임라인',
+              title: `Day ${day.day} [${t.time}] ${t.text}`,
+              desc: t.address ? `📍 ${t.address}` : t.tag,
+              action: () => { closeSearchModal(); switchTab('tab-schedule'); selectDay(day.day); }
+            });
+          }
+        });
+      });
+
+      // 2. Attractions Directory Search
+      attractionsData.forEach(attr => {
+        if (attr.name.toLowerCase().includes(q) || attr.summary.toLowerCase().includes(q) || attr.highlights.toLowerCase().includes(q) || attr.address.toLowerCase().includes(q) || attr.fee.toLowerCase().includes(q)) {
+          matches.push({
+            type: '📍 명소 디렉토리',
+            title: attr.name,
+            desc: `${attr.loc} • ${attr.summary}`,
+            action: () => {
+              closeSearchModal();
+              switchTab('tab-attractions');
+              const searchInput = document.getElementById('attract-search');
+              if (searchInput) { searchInput.value = attr.name; renderAttractions(); }
+            }
+          });
+        }
+      });
+
+      // 3. Vault & Tickets Search
+      const vaultKeywords = [
+        { title: '시애틀 CityPASS 바우처 (4인 가족)', desc: '스페이스 니들, 아쿠아리움 등 5대 명소 패스', cat: 'citypass', tab: 'tab-docs' },
+        { title: 'KB 해외여행보험 증권 (2026-5705231)', desc: '해외의료비 5천만 4인 풀보장 / 비번 880128', cat: 'insurance', tab: 'tab-docs' },
+        { title: '대한항공 e-Ticket (KE041/KE042)', desc: '인천 ↔ 시애틀 왕복 4인 발권', cat: 'flight', tab: 'tab-docs' },
+        { title: '올림피아 잔디 독채 에어비앤비 (3박)', desc: '3339 Cooper Point Rd NW, Olympia', cat: 'stay', tab: 'tab-docs' },
+        { title: '시애틀 퀸앤 에어비앤비 (7박)', desc: '3252 13th Ave W, Seattle', cat: 'stay', tab: 'tab-docs' },
+        { title: 'National 렌터카 예약 (KLOOK ZFY870530)', desc: '공항 픽업 / 1601 3RD AVE 다운타운 반납', cat: 'rental', tab: 'tab-docs' }
+      ];
+      vaultKeywords.forEach(vk => {
+        if (vk.title.toLowerCase().includes(q) || vk.desc.toLowerCase().includes(q)) {
+          matches.push({
+            type: '📑 부록 금고',
+            title: vk.title,
+            desc: vk.desc,
+            action: () => { closeSearchModal(); switchTab('tab-docs'); }
+          });
+        }
+      });
+
+      if (matches.length === 0) {
+        resultsContainer.innerHTML = `<p class="text-xs text-stone-400 text-center py-6">'${query}'에 대한 검색 결과가 없습니다.</p>`;
+        return;
+      }
+
+      resultsContainer.innerHTML = matches.map((m, idx) => `
+        <div onclick="window.searchResultsActions[${idx}]()" class="p-2.5 bg-stone-50 hover:bg-amber-50 rounded-xl border border-stone-200 cursor-pointer transition flex items-center justify-between group">
+          <div class="min-w-0 pr-2">
+            <div class="flex items-center space-x-1.5">
+              <span class="text-[10px] bg-white border border-stone-200 text-stone-700 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">${m.type}</span>
+              <p class="font-bold text-xs text-stone-900 group-hover:text-amber-900 truncate">${m.title}</p>
+            </div>
+            <p class="text-[11px] text-stone-500 truncate mt-0.5">${m.desc}</p>
+          </div>
+          <span class="text-xs text-amber-800 font-bold shrink-0">이동 ➔</span>
+        </div>
+      `).join('');
+
+      window.searchResultsActions = matches.map(m => m.action);
     }
 
     function updateDualClocks() {
@@ -1730,6 +1999,27 @@
     }
 
     // Schedule render
+    let timelineAllExpanded = true;
+
+    function toggleAllTimeline() {
+      timelineAllExpanded = !timelineAllExpanded;
+      document.querySelectorAll('.timeline-detail-body').forEach(el => {
+        if (timelineAllExpanded) el.classList.remove('hidden');
+        else el.classList.add('hidden');
+      });
+      const toggleBtn = document.getElementById('btn-toggle-timeline');
+      if (toggleBtn) {
+        toggleBtn.innerText = timelineAllExpanded ? '📂 전체 접기' : '📖 전체 펼치기';
+      }
+    }
+
+    function toggleTimelineItem(idx) {
+      const body = document.getElementById(`tl-detail-${idx}`);
+      if (body) {
+        body.classList.toggle('hidden');
+      }
+    }
+
     function renderDaySelector() {
       const container = document.getElementById('day-selector-container');
       container.innerHTML = scheduleData.map(d => `
@@ -1754,8 +2044,12 @@
 
       localStorage.setItem('seattle_travel_active_day', dayNum);
 
+      // Extract address-bearing destinations for Today Quick Navigator
+      const destItems = dayData.timeline.filter(t => t.address);
+
       detailCard.innerHTML = `
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 pb-2.5 mb-2.5 gap-1">
+        <!-- Day Title Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 pb-2.5 mb-2.5 gap-1.5">
           <div>
             <div class="flex items-center space-x-2">
               <span class="px-2 py-0.5 rounded text-[10px] font-bold ${dayData.region === 'olympia' ? 'bg-amber-200 text-amber-900' : 'bg-indigo-100 text-indigo-900'}">
@@ -1763,40 +2057,82 @@
               </span>
               <span class="text-xs font-semibold text-stone-500">Day ${dayData.day} (${dayData.date})</span>
             </div>
-            <h4 class="text-sm sm:text-base font-bold text-stone-900 mt-1">${dayData.title}</h4>
+            <h4 class="text-sm sm:text-base font-extrabold text-stone-900 mt-1 leading-snug">${dayData.title}</h4>
           </div>
-          <div class="text-[10px] sm:text-[11px] bg-white px-2.5 py-1 rounded-lg border border-stone-200 text-stone-600 font-medium self-start sm:self-auto">
-            ${dayData.transit}
+          <div class="flex items-center space-x-2 self-start sm:self-auto">
+            <span class="text-[10px] sm:text-[11px] bg-white px-2.5 py-1 rounded-lg border border-stone-200 text-stone-600 font-medium">${dayData.transit}</span>
+            <button onclick="toggleAllTimeline()" id="btn-toggle-timeline" class="text-[10px] bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold px-2 py-1 rounded-lg border border-stone-300">
+              ${timelineAllExpanded ? '📂 전체 접기' : '📖 전체 펼치기'}
+            </button>
           </div>
         </div>
 
+        <!-- Today Quick Navigator Action Bar (Top Focus) -->
+        ${destItems.length > 0 ? `
+          <div class="mb-3 p-2.5 bg-amber-50/80 rounded-xl border border-amber-200/90 space-y-1.5">
+            <div class="flex items-center justify-between text-[11px] font-bold text-amber-950">
+              <span>🧭 오늘의 주요 목적지 1-터치 내비</span>
+              <span class="text-[10px] font-normal text-amber-800">구글맵 즉시 연결</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+              ${destItems.slice(0, 3).map(di => `
+                <div class="flex items-center justify-between bg-white p-2 rounded-lg border border-amber-100 text-xs">
+                  <span class="font-bold text-stone-800 truncate mr-1.5 text-[11px]">${di.text.split('(')[0].split(']')[di.text.includes(']') ? 1 : 0].trim()}</span>
+                  <div class="flex gap-1 shrink-0">
+                    <button onclick="copyToClipboard('${di.address}', '주소')" class="px-1.5 py-0.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded text-[10px] font-mono">📋</button>
+                    <button onclick="openGoogleMap('${di.address}')" class="px-2 py-0.5 bg-amber-800 hover:bg-amber-900 text-white font-bold rounded text-[10px] flex items-center gap-0.5">
+                      <span>📍 길찾기</span>
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Day Summary Box -->
         <p class="text-xs text-stone-600 mb-3 bg-white p-2.5 rounded-lg border border-stone-100 leading-relaxed">
           💡 <strong>요약:</strong> ${dayData.summary}
         </p>
 
+        <!-- Dynamic Timeline Accordion Cards -->
         <div class="space-y-1.5">
-          ${dayData.timeline.map(t => `
-            <div class="flex flex-col text-xs bg-white p-2.5 rounded-lg border border-stone-200/80 hover:border-amber-300 transition space-y-1">
-              <div class="flex items-start justify-between">
-                <div class="flex items-center space-x-2">
-                  <span class="font-mono text-amber-800 font-bold text-[11px] sm:text-xs">${t.time}</span>
-                  <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-stone-100 text-stone-600 border border-stone-200 whitespace-nowrap">${t.tag}</span>
+          ${dayData.timeline.map((t, tIdx) => `
+            <div class="flex flex-col text-xs bg-white rounded-xl border border-stone-200 hover:border-amber-400 transition overflow-hidden shadow-xs">
+              
+              <!-- 1-Step: Header (Time, Tag, Place, Quick Buttons) -->
+              <div onclick="toggleTimelineItem(${tIdx})" class="flex items-center justify-between p-2.5 cursor-pointer bg-white hover:bg-stone-50 select-none">
+                <div class="flex items-center space-x-2 min-w-0 pr-2">
+                  <span class="font-mono text-amber-900 font-bold text-[11px] sm:text-xs shrink-0">${t.time}</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-semibold bg-stone-100 text-stone-600 border border-stone-200 shrink-0">${t.tag}</span>
+                  <p class="font-bold text-stone-900 truncate text-xs sm:text-[13px]">${t.text.split('(')[0]}</p>
                 </div>
+
+                <div class="flex items-center space-x-1 shrink-0" onclick="event.stopPropagation()">
+                  ${t.address ? `
+                    <button onclick="copyToClipboard('${t.address}', '주소')" class="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-[10px] rounded-md transition" title="주소 복사">
+                      <span>📋</span>
+                    </button>
+                    <button onclick="openGoogleMap('${t.address}')" class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-[10px] rounded-md transition flex items-center space-x-0.5" title="구글 맵 내비게이션">
+                      <span>📍 내비</span>
+                    </button>
+                  ` : ''}
+                  <button onclick="toggleTimelineItem(${tIdx})" class="p-1 text-stone-400 hover:text-stone-700 text-xs">
+                    <span>🔽</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 2-Step: Accordion Body (Detail explanation, address & tips) -->
+              <div id="tl-detail-${tIdx}" class="timeline-detail-body p-2.5 pt-0 bg-stone-50/50 border-t border-stone-100 space-y-1 text-xs ${timelineAllExpanded ? '' : 'hidden'}">
+                <p class="text-stone-700 font-medium leading-relaxed pt-1">${t.text}</p>
                 ${t.address ? `
-                  <div class="flex gap-1">
-                    <button onclick="copyToClipboard('${t.address}', '주소')" class="px-2 py-0.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-[10px] rounded-md transition touch-target">
-                      <span>📋 복사</span>
-                    </button>
-                    <button onclick="openGoogleMap('${t.address}')" class="px-2 py-0.5 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-[10px] rounded-md transition flex items-center space-x-1 touch-target">
-                      <span>📍 길찾기</span>
-                    </button>
+                  <div class="flex items-center justify-between bg-white p-1.5 rounded-lg border border-stone-200 text-[10px] font-mono text-stone-600">
+                    <span class="truncate mr-1">🏠 ${t.address}</span>
+                    <button onclick="copyToClipboard('${t.address}', '주소')" class="text-amber-800 font-bold underline shrink-0">복사</button>
                   </div>
                 ` : ''}
               </div>
-              <p class="text-stone-800 font-medium leading-tight text-xs">${t.text}</p>
-              ${t.address ? `
-                <p class="text-[10px] text-stone-500 font-mono bg-stone-50 p-1 rounded border border-stone-100">🏠 ${t.address}</p>
-              ` : ''}
             </div>
           `).join('')}
         </div>
@@ -2324,8 +2660,18 @@
     window.addEventListener('DOMContentLoaded', () => {
       loadExpensesFromStorage();
 
+      // Smart Today Detection (Auto-detect Day during 2026.09.30 ~ 2026.10.10)
+      const now = new Date();
+      const tripStartDate = new Date('2026-09-30T00:00:00');
+      const tripEndDate = new Date('2026-10-11T00:00:00');
+      let defaultDay = 1;
+      if (now >= tripStartDate && now <= tripEndDate) {
+        const diffMs = now - tripStartDate;
+        defaultDay = Math.min(11, Math.max(1, Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1));
+      }
+      
       const savedTab = localStorage.getItem('seattle_travel_active_tab') || 'tab-schedule';
-      const savedDay = parseInt(localStorage.getItem('seattle_travel_active_day')) || 1;
+      const savedDay = parseInt(localStorage.getItem('seattle_travel_active_day')) || defaultDay;
       
       switchTab(savedTab);
       renderDaySelector();
