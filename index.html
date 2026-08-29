@@ -59,21 +59,125 @@
       opacity: 1;
       pointer-events: auto;
     }
+
+    /* Splash Screen Animations */
+    @keyframes flyPlane {
+      0% {
+        transform: translate(-60px, 40px) scale(0.7) rotate(-15deg);
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      70% {
+        transform: translate(20px, -15px) scale(1.1) rotate(5deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(80px, -40px) scale(1.2) rotate(15deg);
+        opacity: 0.9;
+      }
+    }
+    @keyframes leafFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-12px) rotate(15deg);
+      }
+    }
+    @keyframes pulseGlow {
+      0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(1.08);
+      }
+    }
+    .anim-plane {
+      animation: flyPlane 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    .anim-leaf {
+      animation: leafFloat 3s ease-in-out infinite;
+    }
+    .anim-glow {
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-8">
 
+  <!-- Dynamic Welcome Intro Splash Screen (Auto Dismiss & Click-to-Skip) -->
+  <div id="splash-screen" onclick="dismissSplash()" class="fixed inset-0 z-[100] bg-gradient-to-br from-amber-950 via-amber-900 to-stone-950 text-amber-50 flex flex-col items-center justify-center p-4 transition-all duration-700 ease-out select-none cursor-pointer overflow-hidden backdrop-blur-md">
+    
+    <!-- Background Ambient Glow & Floating Leaves -->
+    <div class="absolute -top-24 -left-24 w-72 h-72 bg-amber-600/20 rounded-full blur-3xl pointer-events-none anim-glow"></div>
+    <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none anim-glow" style="animation-delay: 1s;"></div>
+    
+    <div class="relative z-10 flex flex-col items-center text-center max-w-sm px-4 space-y-4">
+      
+      <!-- Animated Airplane & Cloud Trail -->
+      <div class="relative w-32 h-20 flex items-center justify-center">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="text-4xl opacity-30 blur-[1px]">☁️</span>
+        </div>
+        <div class="text-5xl anim-plane drop-shadow-2xl">
+          ✈️
+        </div>
+        <div class="absolute -bottom-1 text-2xl anim-leaf" style="animation-delay: 0.3s;">
+          🍁
+        </div>
+      </div>
+
+      <!-- Main Welcome Title -->
+      <div class="space-y-1.5 animate-fade-in">
+        <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-800/80 border border-amber-600/50 text-[11px] font-bold text-amber-200 shadow-sm tracking-wide">
+          <span>🌲 2026.09.30 ~ 10.10</span>
+          <span>•</span>
+          <span>10박 11일</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug drop-shadow-md">
+          시애틀 & 올림피아<br>
+          <span class="text-amber-300">가을 가족 여행</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-amber-200/90 font-medium pt-0.5">
+          주아성 · 김지은 · 주이솔 · 주이안 👨‍👩‍👧‍👧
+        </p>
+      </div>
+
+      <!-- Landmark Pills -->
+      <div class="flex flex-wrap justify-center gap-1.5 pt-1 text-[11px] font-semibold text-amber-100/90">
+        <span class="bg-amber-900/60 border border-amber-700/50 px-2 py-0.5 rounded-lg">🗼 스페이스 니들</span>
+        <span class="bg-amber-900/60 border border-amber-700/50 px-2 py-0.5 rounded-lg">🐠 수족관</span>
+        <span class="bg-amber-900/60 border border-amber-700/50 px-2 py-0.5 rounded-lg">🏡 올림피아</span>
+        <span class="bg-amber-900/60 border border-amber-700/50 px-2 py-0.5 rounded-lg">🛍️ 오레곤 면세</span>
+      </div>
+
+      <!-- Progress bar / Skip prompt -->
+      <div class="w-full max-w-[180px] pt-4 flex flex-col items-center space-y-1.5">
+        <div class="w-full h-1 bg-amber-950/80 rounded-full overflow-hidden border border-amber-700/40">
+          <div id="splash-progress" class="h-full bg-gradient-to-r from-amber-400 to-amber-200 rounded-full transition-all duration-[1600ms] ease-linear w-0"></div>
+        </div>
+        <p class="text-[10px] text-amber-300/70 font-mono">화면을 터치하면 바로 시작합니다 ⚡</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Top Header with Dual Clocks (Seattle & Korea) -->
   <header class="bg-amber-900 text-amber-50 shadow-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-3 sm:px-4 py-2 flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <span class="text-2xl">🌲</span>
+      
+      <!-- Simplified Logo & Title (Click to Return Home) -->
+      <div onclick="goHome()" class="flex items-center space-x-2 cursor-pointer active:scale-95 transition-transform select-none group touch-target" title="홈(마스터 일정)으로 이동">
+        <span class="text-2xl group-hover:scale-110 transition-transform">🌲</span>
         <div>
-          <h1 class="font-extrabold text-sm sm:text-lg leading-tight flex items-center gap-1.5">
-            시애틀 & 올림피아 여행
-            <span class="text-[10px] bg-amber-700/80 px-1.5 py-0.2 rounded font-semibold text-amber-200" id="header-dday">D-Day</span>
+          <h1 class="font-extrabold text-base sm:text-lg leading-tight flex items-center gap-1.5">
+            시애틀 여행
+            <span class="text-[10px] bg-amber-700/90 px-1.5 py-0.2 rounded font-semibold text-amber-200" id="header-dday">D-Day</span>
           </h1>
-          <p class="text-[10px] sm:text-xs text-amber-200 font-medium">4인 가족 가을 여행 마스터 노트 (10박 11일)</p>
+          <p class="text-[10px] sm:text-xs text-amber-200/90 font-medium">4인 가족 가을 여행 마스터 노트</p>
         </div>
       </div>
 
@@ -1472,6 +1576,26 @@
 
     let customExpenses = [];
 
+    let splashDismissed = false;
+
+    function dismissSplash() {
+      if (splashDismissed) return;
+      splashDismissed = true;
+      const splash = document.getElementById('splash-screen');
+      if (splash) {
+        splash.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
+        setTimeout(() => {
+          splash.style.display = 'none';
+        }, 700);
+      }
+    }
+
+    function goHome() {
+      switchTab('tab-schedule');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('마스터 일정(홈)으로 이동했습니다.', '🌲');
+    }
+
     // Helper functions
     function showToast(text, icon = '📋') {
       const toast = document.getElementById('toast-msg');
@@ -2199,6 +2323,17 @@
 
       updateDualClocks();
       setInterval(updateDualClocks, 10000);
+
+      // Welcome Splash Animation & Auto Dismiss (1.8s)
+      const splashProg = document.getElementById('splash-progress');
+      if (splashProg) {
+        setTimeout(() => {
+          splashProg.style.width = '100%';
+        }, 80);
+      }
+      setTimeout(() => {
+        dismissSplash();
+      }, 1800);
     });
   </script>
 </body>
