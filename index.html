@@ -118,9 +118,22 @@
     .anim-glow {
       animation: pulseGlow 2.5s ease-in-out infinite;
     }
+
+    /* ── Mobile: prevent iOS viewport zoom on focused inputs ── */
+    @media (max-width: 639px) {
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+    }
+
+    /* ── Long text word-wrap for English phrase cards ── */
+    .phrase-li {
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-8">
+<body class="min-h-screen flex flex-col antialiased pb-[calc(4.5rem+env(safe-area-inset-bottom))] md:pb-8">
 
   <!-- Dynamic Welcome Intro Splash Screen (Auto Dismiss & Click-to-Skip) -->
   <div id="splash-screen" onclick="dismissSplash()" class="fixed inset-0 z-[100] bg-gradient-to-br from-amber-950 via-amber-900 to-stone-950 text-amber-50 flex flex-col items-center justify-center p-4 transition-all duration-700 ease-out select-none cursor-pointer overflow-hidden backdrop-blur-md">
@@ -646,6 +659,64 @@
               <option value="citypass">🎟️ 시애틀 CityPASS® 바우처</option>
               <option value="insurance">🛡️ KB 4인 해외여행자보험</option>
             </select>
+          </div>
+        </div>
+
+        <!-- Travel English Phrase Kit -->
+        <div class="mb-4 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-3.5 sm:p-4">
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <div>
+              <p class="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-amber-700">Travel English Kit</p>
+              <h4 class="text-base sm:text-lg font-extrabold text-stone-900 mt-0.5">🗣️ 현지에서 바로 쓰는 자연스러운 영어</h4>
+            </div>
+            <span class="inline-flex items-center rounded-full border border-amber-300 bg-white px-2 py-1 text-[10px] font-semibold text-amber-800">모바일 최적화</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 text-xs sm:text-sm">
+            <div class="rounded-xl border border-stone-200 bg-white p-3 shadow-sm">
+              <h5 class="mb-2 flex items-center gap-2 font-extrabold text-stone-800"><span>👨</span> 아빠 · Professional, Crisp & Confident</h5>
+              <ul class="space-y-2 text-stone-700 leading-relaxed">
+                <li class="phrase-li"><span class="font-semibold text-amber-800">입국심사:</span> "We're on a 10-day family retreat, splitting our time between Seattle and Olympia."</li>
+                <li class="phrase-li"><span class="font-semibold text-amber-800">통관:</span> "Here's our documentation: four passports and our confirmed return itineraries."</li>
+                <li class="phrase-li"><span class="font-semibold text-amber-800">렌터카:</span> "Good morning. I have an advance reservation under Aseong Joo. The confirmation number is ZFY870530."</li>
+                <li class="phrase-li"><span class="font-semibold text-amber-800">주유/체크:</span> "I've just topped off the fuel tank across the street. Could you do a quick walk-around and email me the receipt?"</li>
+                <li class="phrase-li"><span class="font-semibold text-amber-800">팁:</span> "Just making sure—does the total include an automatic gratuity, or should I calculate the tip separately?"</li>
+              </ul>
+            </div>
+
+            <div class="rounded-xl border border-stone-200 bg-white p-3 shadow-sm">
+              <h5 class="mb-2 flex items-center gap-2 font-extrabold text-stone-800"><span>👩</span> 엄마 · Polite, Specific & Practical</h5>
+              <ul class="space-y-2 text-stone-700 leading-relaxed">
+                <li class="phrase-li"><span class="font-semibold text-emerald-700">숙소:</span> "Hi Karl / Juyeon, we've just settled in. The place is lovely and spotlessly clean!"</li>
+                <li class="phrase-li"><span class="font-semibold text-emerald-700">가전/설비:</span> "Could you walk us through how to safely operate the outdoor barbecue grill and fireplace?"</li>
+                <li class="phrase-li"><span class="font-semibold text-emerald-700">식당:</span> "We'd like a table for four, ideally somewhere with enough room to park our stroller."</li>
+                <li class="phrase-li"><span class="font-semibold text-emerald-700">맵/요청:</span> "My kids are sensitive to heat, so could you make sure the chowder and tenders are completely mild—no black pepper and no spicy seasoning?"</li>
+                <li class="phrase-li"><span class="font-semibold text-emerald-700">쇼핑:</span> "We're taking these original ceramic tumblers on a long-haul international flight. Could you double-bubble wrap them for extra protection?"</li>
+              </ul>
+            </div>
+
+            <div class="rounded-xl border border-stone-200 bg-white p-3 shadow-sm">
+              <h5 class="mb-2 flex items-center gap-2 font-extrabold text-stone-800"><span>👧</span> 이안 · Native Kid English</h5>
+              <ul class="space-y-2 text-stone-700 leading-relaxed">
+                <li class="phrase-li"><span class="font-semibold text-sky-700">소개:</span> "Hi, nice to meet you! I'm Eean, and I'm visiting from South Korea with my family."</li>
+                <li class="phrase-li"><span class="font-semibold text-sky-700">학교/여행:</span> "I'm in second grade back home, and this is my first time seeing Seattle!"</li>
+                <li class="phrase-li"><span class="font-semibold text-sky-700">놀이:</span> "Hey, are you almost finished with the digger? Do you mind if I take a turn next?"</li>
+                <li class="phrase-li"><span class="font-semibold text-sky-700">디저트:</span> "Could I please get a kid's scoop of salted caramel in a freshly baked waffle cone?"</li>
+                <li class="phrase-li"><span class="font-semibold text-sky-700">감탄:</span> "Mom, look how fast the sea otters are swirling around in the water! They're adorable!"</li>
+              </ul>
+            </div>
+
+            <div class="rounded-xl border border-stone-200 bg-white p-3 shadow-sm">
+              <h5 class="mb-2 flex items-center gap-2 font-extrabold text-stone-800"><span>👶</span> 이솔 · Cute, Clear & Expressive</h5>
+              <ul class="space-y-2 text-stone-700 leading-relaxed">
+                <li><span class="font-semibold text-pink-700">인사:</span> “Hi there! My name is Eesol, and I’m five years old!”</li>
+                <li class="phrase-li"><span class="font-semibold text-pink-700">인사:</span> "Hi there! My name is Eesol, and I'm five years old!"</li>
+                <li class="phrase-li"><span class="font-semibold text-pink-700">음료:</span> "May I have some cold water, please? I'm feeling thirsty."</li>
+                <li class="phrase-li"><span class="font-semibold text-pink-700">간식:</span> "Can I get strawberry ice cream with colorful sprinkles on top?"</li>
+                <li class="phrase-li"><span class="font-semibold text-pink-700">요청:</span> "Mommy, hold my hand, please! Let's go check out the puppies!"</li>
+                <li class="phrase-li"><span class="font-semibold text-pink-700">피곤함:</span> "My legs are getting a bit tired. Can you give me a piggyback ride, Daddy?"</li>
+              </ul>
+            </div>
           </div>
         </div>
 
