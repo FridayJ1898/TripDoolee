@@ -428,7 +428,7 @@
                 <button onclick="copyToClipboard('3150 S 160TH ST, STE 507, SeaTac, WA 98188', '공항 렌터카 주소')" class="text-[10px] bg-white border border-stone-300 px-1.5 py-0.5 rounded text-stone-600 hover:bg-stone-100 touch-target">📋 복사</button>
               </div>
               <p class="text-amber-900 font-mono text-[11px]">3150 S 160TH ST, STE 507, SeaTac, WA 98188</p>
-              <p class="text-stone-500 text-[10px]">공항 셔틀 탑승 후 5층 카운터 이동 (<a href="tel:8333298465" class="text-blue-600 underline">833-329-8465</a>)</p>
+              <p class="text-stone-500 text-[10px]">수하물 수취 후 1층 1번/16번 출구 밖 무료 셔틀 탑승 ➔ 5층 카운터 이동 (<a href="tel:8333298465" class="text-blue-600 underline">833-329-8465</a>)</p>
             </div>
             <div class="p-2.5 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
               <div class="flex justify-between items-center">
@@ -837,7 +837,7 @@
           </div>
 
           <!-- 4. Rental Car: Klook / National -->
-          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2.5" data-category="rental" data-keywords="렌터카 바우처 클룩 klook national 토요타 코롤라 중형차 2132012965COUNT ZFY870530 cdw tp 보험 면책금 보증금 seatac 다운타운 1601 3rd">
+          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2.5" data-category="rental" data-keywords="렌터카 바우처 클룩 klook national 토요타 코롤라 중형차 2132012965COUNT ZFY870530 cdw tp 보험 면책금 보증금 seatac 다운타운 1601 3rd 셔틀 shuttle rcf 공항셔틀 수하물 5층 픽업방법">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-stone-200 gap-1">
               <div class="flex items-center space-x-2">
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">🚗 렌터카 바우처</span>
@@ -869,6 +869,32 @@
                   <p>• <strong>타이어/유리/미러 손해 & 긴급출동:</strong> 각 US$ 6,000 한도</p>
                   <p>• <strong>현장 보증금:</strong> USD 400 ~ 850 (신용카드 실물 필수 가승인)</p>
                   <p>• <strong>필수 지참물:</strong> 여권, 국내면허증 + 국제면허증(IDP), 주운전자 명의 신용카드, 바우처 출력본</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 렌터카 센터 픽업 상세 가이드 -->
+            <div class="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-xs space-y-2">
+              <div class="flex items-center space-x-1.5">
+                <span class="text-base">🚶</span>
+                <p class="font-bold text-emerald-900 text-xs">공항 도착 후 렌터카 센터(RCF) 찾아가는 동선 가이드</p>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-[11px] text-stone-700">
+                <div class="bg-white p-2 rounded border border-emerald-100 space-y-0.5">
+                  <span class="font-bold text-emerald-800">1. 입국 & 짐 찾기</span>
+                  <p class="text-stone-600">KE041(10:40) 착륙 후 입국 심사 마치고 <strong>1층 Baggage Claim</strong>에서 위탁 수하물 수취</p>
+                </div>
+                <div class="bg-white p-2 rounded border border-emerald-100 space-y-0.5">
+                  <span class="font-bold text-emerald-800">2. 무료 셔틀 탑승</span>
+                  <p class="text-stone-600">수하물 구역 양쪽 끝(<strong>1번 또는 16번 근처</strong>) 외부 출구로 나와 <strong>'Rental Car Shuttle'</strong> 표지판 따라 탑승 (약 5분 간격 무료)</p>
+                </div>
+                <div class="bg-white p-2 rounded border border-emerald-100 space-y-0.5">
+                  <span class="font-bold text-emerald-800">3. 센터 5층 이동</span>
+                  <p class="text-stone-600">셔틀로 5~7분 이동 후 렌터카 센터(RCF) 하차 ➔ 에스컬레이터/엘리베이터 타고 <strong>5층 Suite 507 National 카운터</strong>로 이동</p>
+                </div>
+                <div class="bg-white p-2 rounded border border-emerald-100 space-y-0.5">
+                  <span class="font-bold text-emerald-800">4. 차량 수령 & 출차</span>
+                  <p class="text-stone-600">예약번호(<span class="font-mono font-bold">ZFY870530</span>), 여권, 면허증 2종, 신용카드 제시 ➔ 차량 외관 점검 후 코스트코로 출발</p>
                 </div>
               </div>
             </div>
@@ -1377,7 +1403,7 @@
         summary: "공항 착륙 후 National 렌터카 수령, 코스트코 장보기 후 올림피아 잔디 독채 체크인 및 바비큐",
         transit: "🚗 렌터카 중형 세단 (토요타 코롤라급)",
         timeline: [
-          { time: "오전", text: "시애틀 타코마 공항(SEA) 도착, 입국 심사 후 렌터카 수령", tag: "입국/렌트", address: "3150 S 160TH ST, STE 507, SeaTac, WA 98188" },
+          { time: "오전", text: "시애틀 공항(SEA) 도착 ➔ 입국 심사 & 수하물 수취 ➔ 1층 무료 셔틀 탑승 ➔ 렌터카 센터(RCF) 5층 National 카운터에서 차량 수령", tag: "입국/렌트", address: "3150 S 160TH ST, STE 507, SeaTac, WA 98188" },
           { time: "오후", text: "타코마 코스트코 장보기 (스테이크, 생수, 과일) ➔ 올림피아 잔디 독채 체크인 및 마당 휴식", tag: "장보기/숙소", address: "3339 Cooper Point Road NW, Olympia, WA 98502" },
           { time: "저녁", text: "아빠표 마당 소고기 바비큐 저녁 식사 및 시차 적응을 위한 조기 취침", tag: "식사/휴식" }
         ]
