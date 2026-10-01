@@ -230,6 +230,7 @@
     <div class="hidden lg:block border-t border-amber-800/60 bg-amber-950/40">
       <div class="max-w-7xl mx-auto px-4 py-1.5 flex space-x-1 text-xs font-medium">
         <button onclick="switchTab('tab-schedule')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-schedule">📅 마스터 일정</button>
+        <button onclick="switchTab('tab-diary')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-diary">📖 여행 일기</button>
         <button onclick="switchTab('tab-attractions')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-attractions">📍 주요 명소</button>
         <button onclick="switchTab('tab-transit')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-transit">🚘 교통 & 안내</button>
         <button onclick="switchTab('tab-budget')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-budget">💰 예산 & 가계부</button>
@@ -242,6 +243,7 @@
     <!-- Mobile Sub-Header Pill Navigation Bar (Horizontally scrollable for ease of touch) -->
     <div class="lg:hidden flex overflow-x-auto space-x-1.5 px-3 py-1.5 bg-amber-950/50 border-t border-amber-800/50 custom-scrollbar snap-x">
       <button onclick="switchTab('tab-schedule')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-800 text-white font-bold transition snap-start" id="mpill-tab-schedule">📅 일정</button>
+      <button onclick="switchTab('tab-diary')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-diary">📖 일기</button>
       <button onclick="switchTab('tab-attractions')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-attractions">📍 명소</button>
       <button onclick="switchTab('tab-transit')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-transit">🚘 교통</button>
       <button onclick="switchTab('tab-budget')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-budget">💰 예산</button>
@@ -1178,6 +1180,74 @@
       </div>
     </section>
 
+    <!-- Tab 8: Dad's Travel Diary (아빠의 미국 여행 일기) -->
+    <section id="tab-diary" class="tab-content hidden space-y-4">
+      
+      <!-- Diary Hero Banner -->
+      <div class="bg-gradient-to-r from-amber-900 via-stone-800 to-amber-950 text-white rounded-2xl shadow-md p-4 sm:p-6 border border-amber-800/60 relative overflow-hidden">
+        <div class="relative z-10 space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-[11px] font-bold">
+              <span>📖 아빠의 시선으로 쓴 리얼 여행기</span>
+              <span>•</span>
+              <span id="diary-status-badge">1일차 작성 완료</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="window.print()" class="px-2.5 py-1 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg border border-white/20 transition flex items-center space-x-1">
+                <span>🖨️</span>
+                <span>일기 인쇄/PDF</span>
+              </button>
+              <button onclick="openNewDiaryModal()" class="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-lg shadow-sm transition flex items-center space-x-1">
+                <span>✍️</span>
+                <span>새 일기 작성</span>
+              </button>
+            </div>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-amber-50 tracking-tight">
+            아빠의 미국 여행 일기장 👨‍👩‍👧‍👧
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-2xl">
+            16년 만에 다시 밟은 미국 땅. 설렘과 긴장, 시차와 피로 속에서도 네 식구가 함께 울고 웃은 좌충우돌 생생한 현장 기록입니다.
+          </p>
+          <div class="flex flex-wrap gap-2 pt-1 text-[11px]">
+            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-amber-300 font-mono">⏱️ 1일차 여정: 34시간 지속</span>
+            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-emerald-300 font-mono">🚗 차량: 쏘나타 하이브리드</span>
+            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-cyan-300 font-mono">📍 위치: 올림피아 숙소</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diary Day Selector Pills -->
+      <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 custom-scrollbar">
+        <button onclick="viewDiaryDay(1)" id="diary-day-btn-1" class="diary-day-tab px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shrink-0 bg-amber-800 text-white shadow-sm border border-amber-900">
+          <span>Day 1 (09/30)</span>
+          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+        </button>
+        <button onclick="viewDiaryDay(2)" id="diary-day-btn-2" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
+          <span>Day 2 (10/01)</span>
+          <span class="text-[10px] text-stone-400">레이니어 ✏️</span>
+        </button>
+        <button onclick="viewDiaryDay(3)" id="diary-day-btn-3" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
+          <span>Day 3 (10/02)</span>
+          <span class="text-[10px] text-stone-400">면세쇼핑</span>
+        </button>
+        <button onclick="viewDiaryDay(4)" id="diary-day-btn-4" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
+          <span>Day 4 (10/03)</span>
+          <span class="text-[10px] text-stone-400">호박축제</span>
+        </button>
+        <button onclick="viewDiaryDay(5)" id="diary-day-btn-5" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
+          <span>Day 5~11</span>
+          <span class="text-[10px] text-stone-400">시애틀</span>
+        </button>
+      </div>
+
+      <!-- Diary Container Dynamic View -->
+      <div id="diary-content-container" class="space-y-4">
+        <!-- Rendered dynamically via renderDiaryDay(dayNum) -->
+      </div>
+
+    </section>
+
   </main>
 
   <!-- Emergency / Embassy Modal -->
@@ -1379,6 +1449,54 @@
     </div>
   </div>
 
+  <!-- New Travel Diary Modal (작성 및 편집 모달) -->
+  <div id="new-diary-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[90vh] animate-fade-in">
+      <div class="flex justify-between items-center bg-amber-900 text-amber-50 p-3.5 sm:p-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">✍️</span>
+          <h4 class="font-bold text-sm sm:text-base" id="diary-modal-title">여행 일기 작성 / 수정</h4>
+        </div>
+        <button onclick="closeNewDiaryModal()" class="text-amber-200 hover:text-white text-lg p-1">✕</button>
+      </div>
+      <div class="p-4 overflow-y-auto space-y-3 text-xs flex-grow custom-scrollbar">
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">일차 선택</label>
+          <select id="diary-form-day" class="w-full p-2 border border-stone-300 rounded-lg text-xs bg-stone-50">
+            <option value="1">Day 1 (09/30 수) - 미국 입성</option>
+            <option value="2">Day 2 (10/01 목) - 마운틴 레이니어 국립공원</option>
+            <option value="3">Day 3 (10/02 금) - 오레곤 면세 쇼핑</option>
+            <option value="4">Day 4 (10/03 토) - 켄트 호박 축제 & 시애틀</option>
+            <option value="5">Day 5 (10/04 일) - 시애틀 센터 & 스페이스 니들</option>
+            <option value="6">Day 6 (10/05 월) - 파이크 플레이스 & 스타벅스</option>
+            <option value="7">Day 7 (10/06 화) - 벨뷰 & 워싱턴대</option>
+            <option value="8">Day 8 (10/07 수) - 우딘빌 와이너리 & 보잉</option>
+            <option value="9">Day 9 (10/08 목) - 시애틀 워터프론트</option>
+            <option value="10">Day 10 (10/09 금) - 시애틀 아울렛 & 패킹</option>
+            <option value="11">Day 11 (10/10 토) - 귀국길</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">일기 제목</label>
+          <input type="text" id="diary-form-title" placeholder="예: 2일차: 만년설 레이니어 산의 기적" class="w-full p-2 border border-stone-300 rounded-lg text-xs">
+        </div>
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">오늘의 기분 / 한마디</label>
+          <input type="text" id="diary-form-mood" placeholder="예: 상쾌함 최고! 아이들도 신남 🏔️" class="w-full p-2 border border-stone-300 rounded-lg text-xs">
+        </div>
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">일기 내용 (아빠의 솔직한 이야기)</label>
+          <textarea id="diary-form-content" rows="8" placeholder="오늘 있었던 일, 감동적인 순간, 웃겼던 에피소드를 적어주세요..." class="w-full p-2.5 border border-stone-300 rounded-lg text-xs leading-relaxed font-sans"></textarea>
+        </div>
+        <p class="text-[10px] text-stone-400">💡 브라우저 로컬 저장소(localStorage)에 안전하게 자동 저장되어 여행 중 언제든 다시 열람할 수 있습니다.</p>
+      </div>
+      <div class="p-3 bg-stone-100 border-t border-stone-200 flex justify-end space-x-2">
+        <button onclick="closeNewDiaryModal()" class="px-3 py-1.5 rounded-lg border border-stone-300 text-stone-700 hover:bg-stone-200 text-xs font-semibold">취소</button>
+        <button onclick="saveCustomDiary()" class="px-4 py-1.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold shadow">저장하기</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Global Toast Notification -->
   <div id="toast-msg" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-stone-900/90 text-white text-xs font-semibold px-4 py-2.5 rounded-2xl shadow-xl backdrop-blur-md flex items-center space-x-2">
     <span id="toast-icon">📋</span>
@@ -1399,13 +1517,22 @@
         day: 1,
         date: "09/30(수)",
         region: "olympia",
-        title: "미국 입성 & 올림피아 잔디마당 첫날",
-        summary: "공항 착륙 후 National 렌터카 수령, 코스트코 장보기 후 올림피아 잔디 독채 체크인 및 바비큐",
-        transit: "🚗 렌터카 중형 세단 (토요타 코롤라급)",
+        title: "한국 낮 12시부터 미국 밤 10시까지, 기적의 34시간 미국 입성기",
+        summary: "현대오토에버 앞 집결 ➔ T2 주차 & 라운지 배터리 소동 ➔ KE041 뜬눈 밤샘 비행 ➔ 시애틀 공항 입국 ➔ '백인 래퍼' 직원과 쏘나타 하이브리드 수령 ➔ 트레이더 조 거대 호박 ➔ 올림피아 숙소 & 순둥이 핏불 & 기절 낮잠 ➔ 캐피털 몰 & 레드 로빈 짠맛 쇼크 ➔ ROSS/Target 쇼핑 급선회!",
+        transit: "🚗 National 렌터카 (쏘나타 하이브리드로 무료 업그레이드 수령!)",
+        hasDiary: true,
         timeline: [
-          { time: "오전", text: "시애틀 공항(SEA) 도착 ➔ 입국 심사 & 수하물 수취 ➔ 1층 무료 셔틀 탑승 ➔ 렌터카 센터(RCF) 5층 National 카운터에서 차량 수령", tag: "입국/렌트", address: "3150 S 160TH ST, STE 507, SeaTac, WA 98188" },
-          { time: "오후", text: "타코마 코스트코 장보기 (스테이크, 생수, 과일) ➔ 올림피아 잔디 독채 체크인 및 마당 휴식", tag: "장보기/숙소", address: "3339 Cooper Point Road NW, Olympia, WA 98502" },
-          { time: "저녁", text: "아빠표 마당 소고기 바비큐 저녁 식사 및 시차 적응을 위한 조기 취침", tag: "식사/휴식" }
+          { time: "🇰🇷 12:00", text: "현대오토에버 회사 앞 아빠 지정 주차 자리에서 비장하게 4인 가족 집결 및 인천공항으로 출발", tag: "출발/집결", address: "서울 강남구 테헤란로 501" },
+          { time: "🇰🇷 13:30", text: "인천국제공항 T2 예약 주차장 파킹 완료 ➔ 셔틀버스 환승 ➔ 대한항공 카운터 일사천리 체크인 ➔ 면세점에서 소중한 위스키 인도", tag: "공항/면세", address: "인천 중구 제2터미널대로 446" },
+          { time: "🇰🇷 14:30", text: "마티나 라운지 부부 바통 터치 작전 (아이들 돈가스/우동 식사) ➔ 라운지 식사 중 수하물 센터 긴급 호출('배터리 찾아가세요!')에 숟가락 던지고 질주하여 카메라 배터리 회수 성공", tag: "라운지/소동", address: "인천공항 제2여객터미널 252번 게이트 부근 마티나 라운지" },
+          { time: "🇰🇷 16:30", text: "대한항공 KE041편 탑승 (16년 만의 미국행 설렘) ➔ 가혹한 이코노미 직각 좌석 & 기내 영화/드라마 강제 정주행으로 네 식구 꼴딱 밤샘 비행", tag: "비행/기내" },
+          { time: "🇺🇸 10:30", text: "시애틀-타코마 공항(SEA) 착륙 ➔ 충혈된 엄빠 둘 + 정수리까지 화난 두 딸의 입국 심사 & 수하물 수취 완료", tag: "미국입국", address: "17801 International Blvd, SeaTac, WA 98158" },
+          { time: "🇺🇸 11:30", text: "National 렌터카 센터 5층 ➔ '백인 래퍼' 직원의 속사포 랩 설명 ('진한 녹색 표지판 아래 마음에 드는 거 골라 타라') ➔ 원래 코롤라 대신 익숙한 쏘나타 하이브리드 전격 겟(Get)!", tag: "렌터카", address: "3150 S 160th St, SeaTac, WA 98188" },
+          { time: "🇺🇸 12:15", text: "뺨 때려가며 졸음 쫓고 운전 ➔ 1차 목적지 트레이더 조(Trader Joe's) 도착! 입구 거대 호박 비주얼 감상 & 장보기", tag: "장보기", address: "400 Cooper Point Rd SW, Olympia, WA 98502" },
+          { time: "🇺🇸 14:00", text: "올림피아 숙소 도착 (뇌내 자율주행 위기 극복, 아내 풍경 감동, 두 딸 꿀잠) ➔ 인상 좋은 호스트와 착한 척하는 핏불 환영 ➔ 침대 쓰러져 1.5시간 기절 낮잠", tag: "숙소/체크인", address: "3339 Cooper Point Road NW, Olympia, WA 98502" },
+          { time: "🇺🇸 17:00", text: "아빠가 세 모녀 깨워 캐피털 몰 출동 ➔ 저녁 '레드 로빈' 피자 & 프라이의 혀가 얼얼한 미국 극강 짠맛 쇼크 ➔ 지연 사과 할인 계산서에 서명 후 탈출", tag: "맛집/식사", address: "625 Black Lake Blvd SW, Olympia, WA 98502" },
+          { time: "🇺🇸 18:30", text: "원래 마라톤 공원 산책 대신, 와이프 레이더에 포착된 ROSS 매장과 타깃(Target) 쇼핑 급선회 후 숙소 복귀", tag: "쇼핑/일정변경", address: "2925 Harrison Ave NW, Olympia, WA 98502" },
+          { time: "🇺🇸 22:00", text: "노트북 오른쪽 아래 밤 10시 확인. 길고 길었던 34시간의 9월 30일을 마무리하며 아빠의 여행 일기 기록 완료!", tag: "일기/마감", address: "3339 Cooper Point Road NW, Olympia, WA 98502" }
         ]
       },
       {
@@ -2490,6 +2617,23 @@
           </div>
         </div>
 
+        <!-- Real Diary Quick Access Banner -->
+        ${dayData.hasDiary ? `
+          <div class="mb-3 p-3 bg-gradient-to-r from-amber-900 via-amber-800 to-stone-900 rounded-xl text-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-amber-700/60">
+            <div class="space-y-0.5">
+              <div class="flex items-center space-x-1.5">
+                <span class="text-[10px] bg-amber-400 text-stone-900 font-black px-1.5 py-0.2 rounded">실제 여행 일기</span>
+                <span class="text-xs font-bold text-amber-200">9월 30일이 왜 이렇게 길어? (기적의 34시간)</span>
+              </div>
+              <p class="text-[11px] text-stone-300">T2 배터리 질주부터 백인 래퍼 렌터카, 쏘나타 겟, 짠맛 피자, ROSS 급습까지 아빠의 생생 여행기!</p>
+            </div>
+            <button onclick="switchTab('tab-diary')" class="shrink-0 bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs px-3 py-1.5 rounded-lg shadow transition active:scale-95 flex items-center justify-center space-x-1">
+              <span>📖 일기 읽기 & 타임라인</span>
+              <span>➔</span>
+            </button>
+          </div>
+        ` : ''}
+
         <!-- Today Quick Navigator Action Bar (Top Focus) -->
         ${destItems.length > 0 ? `
           <div class="mb-3 p-2.5 bg-amber-50/80 rounded-xl border border-amber-200/90 space-y-1.5">
@@ -3173,6 +3317,544 @@
       });
     }
 
+    // ==========================================
+    // 12. Travel Diary System (아빠의 미국 여행 일기)
+    // ==========================================
+    const defaultDiaryDay1 = {
+      day: 1,
+      dateStr: "2026.09.30 (수)",
+      title: "[아빠의 미국 여행 일기] 1일차: 9월 30일이 왜 이렇게 길어?",
+      subTitle: "한국 9/30 낮 12시 ~ 미국 9/30 밤 10시 (무려 34시간 동안 이어진 기적의 하루)",
+      author: "아빠 (주아성)",
+      mood: "피곤함과 짜증을 뚫고 무사히 입성 완료! 🚀",
+      tags: ["대장정시작", "인천공항배터리추격전", "KE041밤샘", "백인래퍼직원", "쏘나타하이브리드", "트레이더조호박", "착한척핏불", "레드로빈짠맛쇼크", "와이프쇼핑새치기"],
+      stats: {
+        totalHours: "34시간 (시차 -16시간 효과)",
+        driveDistance: "약 115km (공항 ➔ 마트 ➔ 올림피아 ➔ 몰)",
+        flightInfo: "KE041 (10시간 30분 직각 비행)",
+        napTime: "1시간 30분 기절 낮잠"
+      },
+      highlights: [
+        { icon: "🚨", title: "배터리 전력 질주", desc: "마티나 라운지에서 음식 집어넣다 말고 수하물 센터 호출에 숟가락 던지고 질주하여 카메라 배터리 회수!" },
+        { icon: "🎤", title: "백인 래퍼 렌터카 직원", desc: "속사포 랩 설명에 정신 혼미! 코롤라 대신 진한 녹색 표지판 아래서 쏘나타 하이브리드 전격 겟!" },
+        { icon: "🐶", title: "착한 척(?) 핏불 멍뭉이", desc: "올림피아 숙소 도착. 맹견 타이틀이 무색하게 멀뚱멀뚱 쳐다보던 순둥이 녀석의 반전 매력." },
+        { icon: "🧂", title: "레드 로빈 극강 짠맛 쇼크", desc: "혀가 아릴 정도로 짰지만, 늦게 나온 잘못 인정하고 쿨하게 할인해 준 정직함에 감동!" }
+      ],
+      timelineEvents: [
+        { krTime: "9/30 12:00", usTime: "9/29 20:00", place: "현대오토에버 앞", desc: "아빠 지정 주차 자리에서 비장하게 4인 가족 집결 및 출발!", tag: "출발", icon: "🚗" },
+        { krTime: "9/30 13:30", usTime: "9/29 21:30", place: "인천공항 제2터미널", desc: "예약 주차장 파킹 후 셔틀 이동, 대한항공 체크인 완료 & 면세점에서 위스키 수령", tag: "공항", icon: "🛂" },
+        { krTime: "9/30 14:30", usTime: "9/29 22:30", place: "마티나 라운지", desc: "부부 교대 작전! 돈가스/우동 먹다 수하물 센터 긴급 호출에 전력 질주하여 카메라 배터리 구출", tag: "해프닝", icon: "🚨" },
+        { krTime: "9/30 16:30", usTime: "9/30 00:30", place: "대한항공 KE041", desc: "16년 만의 미국행! 이코노미 직각 좌석에서 영화 강제 정주행하며 네 식구 꼴딱 밤샘", tag: "비행", icon: "✈️" },
+        { krTime: "10/1 02:30", usTime: "9/30 10:30", place: "시애틀 공항(SEA)", desc: "충혈된 어른 둘과 짜증 지수 폭발한 두 딸의 미국 입국! 입국 심사 & 수하물 완료", tag: "도착", icon: "🛬" },
+        { krTime: "10/1 03:30", usTime: "9/30 11:30", place: "National 렌터카", desc: "백인 래퍼 직원의 속사포 랩 설명 듣고 코롤라 대신 익숙한 쏘나타 하이브리드 수령", tag: "렌터카", icon: "🔑" },
+        { krTime: "10/1 04:15", usTime: "9/30 12:15", place: "트레이더 조(Trader Joe's)", desc: "스스로 따귀 때리며 졸음 쫓고 도착! 입구 거대 호박 감상 & 첫 장보기", tag: "장보기", icon: "🎃" },
+        { krTime: "10/1 06:00", usTime: "9/30 14:00", place: "올림피아 숙소", desc: "뇌내 자율주행 위기 극복하고 도착! 인상 좋은 주인과 핏불 환영, 침대 쓰러져 1.5시간 기절 낮잠", tag: "체크인", icon: "🏡" },
+        { krTime: "10/1 09:00", usTime: "9/30 17:00", place: "캐피털 몰 & 레드 로빈", desc: "세 모녀 깨워 출동. 피자 & 프라이의 극강 짠맛 쇼크, 지연 사과 할인 계산서 서명 후 탈출", tag: "저녁식사", icon: "🍕" },
+        { krTime: "10/1 10:30", usTime: "9/30 18:30", place: "ROSS & Target 몰", desc: "공원 산책 대신 와이프 레이더에 걸린 ROSS와 타깃 매장 번개 쇼핑 급선회 후 귀가", tag: "쇼핑", icon: "🛍️" },
+        { krTime: "10/1 14:00", usTime: "9/30 22:00", place: "올림피아 숙소 노트북 앞", desc: "미국 시간 밤 10시. 노트북 앞에서 길고 길었던 34시간의 하루 일기를 마무리!", tag: "마감", icon: "✍️" }
+      ],
+      paragraphs: [
+        "한국 시간 9월 30일 낮 12시, 드디어 대장정의 시작.",
+        "우리는 현대오토에버 회사 앞, 아빠의 지정 주차 자리에서 비장하게 집결했다. 1시 30분에 인천공항 제2터미널 예약 주차장에 무사히 파킹 완료! 셔틀버스로 갈아타고 2터미널로 이동해 대한항공 체크인부터 일사천리로 마쳤다. 면세점에서 내 소중한 위스키를 인도받을 때까지만 해도 기분이 아주 산뜻했다.",
+        "공항의 꽃, 마티나 라운지는 아내와 바통 터치 작전으로 공략했다. 먼저 아이들과 돈가스 우동 세트를 먹다가 아내와 교대하고 라운지에 입성했는데—한창 음식을 집어넣던 중 수하물 센터에서 다급한 호출이 왔다. “수하물에 든 카메라 배터리 찾아가세요!” 숟가락 던져두고 허겁지겁 뛰어가 배터리를 돌려받은 뒤, 숨을 헐떡이며 대한항공 KE041편에 올라탔다.",
+        "무려 16년 만에 다시 밟는 미국이라 아빠 마음은 콩닥콩닥 설렜다.",
+        "하지만 설렘도 잠시, 대한항공 이코노미석은 가혹했다. 뒤로 젖히지도 못하는 꼿꼿한 자세로 기내 영화와 드라마를 강제 정주행하며, 우리 네 식구는 그렇게 꼴딱 뜬눈으로 밤을 지새웠다.",
+        "시차 덕분에 다시 만난 미국 시간 9월 30일 오전 10시 30분경.",
+        "눈이 시뻘겋게 충혈된 어른 둘과 짜증 지수가 정수리 끝까지 차오른 두 딸은 그렇게 미국 땅을 밟았다. 정신없이 짐을 찾고 입국 수속을 마친 뒤 내셔널(National) 렌터카로 향했다. 카운터의 ‘백인 래퍼’ 직원이 속사포 랩 같은 설명과 함께 차를 내줬다. 원래 예약은 도요타 코롤라였는데, 래퍼 양반이 \"진한 녹색 표지판 아래에서 마음에 드는 차 아무거나 골라 타라\"고 한다. ‘이게 뭔 귀신 씻나락 까먹는 소린가’ 싶었지만, 눈치껏 가장 만만하고 익숙한 쏘나타 하이브리드를 잽싸게 겟(Get)했다.",
+        "피곤함과 짜증, 충혈된 눈과 예민함으로 무장한 두 딸의 아빠는 핸들을 잡자마자 눈을 비비고 스스로 따귀를 때려가며 잠을 쫓았다. 1차 목적지인 ‘트레이더 조(Trader Joe\\'s)’에 도착. 입구부터 큼직한 호박 비주얼에 깜짝 놀란 뒤, 후다닥 장을 보고 최종 목적지인 올림피아 숙소로 엑셀을 밟았다.",
+        "다시 운전대를 잡은 아빠 옆에서, 미국 감성을 난생처음 느껴보는 와이프는 창밖 풍경에 깊은 감동을 받는 중이었고, 그사이 뒷자리의 두 딸은 언제 짜증 냈냐는 듯 새근새근 잠이 들었다. 졸음 탓에 수십 번이나 뇌내 ‘자율주행’ 모드로 빠져들 뻔한 위기가 찾아왔지만, 다행히 정신줄을 뺏기지 않고 버텨내며 오후 2시경 무사히 숙소에 도착했다.",
+        "숙소 주인아저씨는 너무나 좋은 인상으로 우리를 반겨주셨고, 그 뒤에 있던 핏불 녀석은 주인 덕분인지 맹견 타이틀이 무색하게 착한 척, 멍청한 척 우리를 멀뚱멀뚱 쳐다보기만 했다. 파김치가 된 우리는 일단 짐부터 던져두고 침대에 쓰러져 다 함께 1시간 반 동안 기절하듯 낮잠을 잤다.",
+        "역시나 가장 먼저 눈을 뜬 아빠. 곤히 곯아떨어진 세 모녀를 깨워 캐피털 몰(Capital Mall) 구경에 나섰다. 저녁 핑계로 ‘레드 로빈(Red Robin)’에 들어가 피자와 프라이 플래터를 시켰는데… 세상에, 혀가 아릴 정도로 짜디짠 음식 맛에 네 사람의 얼굴이 일제히 일그러졌다. 그나마 음식이 늦게 나온 탓인지 자기들 잘못을 인정하고 제값을 다 받지 않는 그들의 정직함에 살짝 감동하며, 아름답게 할인된 계산서에 잽싸게 서명하고 도망치듯 나왔다.",
+        "소화도 시킬 겸 원래 계획대로 마라톤 공원(Marathon Park)에 가려고 했으나, 와이프의 레이더에 로스(ROSS) 매장과 타깃 몰(Target)이 딱 걸려버렸다. 번개처럼 쇼핑 일정에 새치기를 당하는 바람에 결국 마라톤 공원은 구경도 못 하고 그대로 숙소로 복귀했다.",
+        "그렇게 정신없이, 치열하게 하루를 보내고 이 글을 끄적이며 마무리하는 지금.",
+        "노트북 모니터 오른쪽 아래 적힌 시간은 미국 시간 9월 30일 밤 10시다.",
+        "참 길고도 길었던 하루였다. 안녕, 미국 9월 30일!"
+      ],
+      quickExpenses: [
+        { name: "트레이더 조 첫 장보기 (과일/간식/식재료)", amount: 46.16, currency: "USD", cat: "dining", note: "Day 1 첫 식료품 — 입구 거대 호박에 놀라며 구입!" },
+        { name: "레드 로빈 저녁 식사 (할인 적용)", amount: 31.32, currency: "USD", cat: "dining", note: "원가에서 $17.99 할인 — 극강 짠맛이지만 정직한 할인에 감동!" },
+        { name: "타깃(Target) 몰 쇼핑", amount: 28.25, currency: "USD", cat: "shopping", note: "와이프 레이더가 포착한 번개 쇼핑 — 마라톤 공원 희생!" }
+      ],
+      familyComments: [
+        {
+          author: "엄마 (지은)",
+          emoji: "👩",
+          color: "rose",
+          comments: [
+            { moment: "미국 첫 풍경", text: "차 타고 가는데 창밖 풍경이 진짜 너무 예뻤어… 나무 색깔이 한국이랑 달라서 그냥 멍하니 봤어 😍" },
+            { moment: "레드 로빈 짠맛", text: "이게 음식이야 소금이야? 네 명이 다 같이 얼굴 찌그러뜨린 거 나만 웃겼어 ㅋㅋㅋ 할인이라도 받아서 다행이지..." },
+            { moment: "쇼핑 한마디", text: "ROSS랑 타깃은 잠깐이었어요~ 진짜로! 💁 (공원은 내일 가면 되잖아 😇)" }
+          ]
+        },
+        {
+          author: "이안 (큰딸)",
+          emoji: "👧",
+          color: "violet",
+          comments: [
+            { moment: "비행기 안", text: "비행기에서 영화 보다가 너무 불편해서 맨날 자세 바꿨는데 어쩌다 보니 새벽이 됐어요 😪" },
+            { moment: "숙소 핏불", text: "핏불이 엄청 무서울 줄 알았는데 그냥 멍하니 쳐다보고만 있어서 너무 귀여웠어요 🐶" },
+            { moment: "미국 첫인상", text: "미국 진짜 넓다… 주차장도 엄청 크고 도로도 진짜 넓어요!" }
+          ]
+        },
+        {
+          author: "이솔 (막내딸)",
+          emoji: "👧",
+          color: "emerald",
+          comments: [
+            { moment: "트레이더 조", text: "마트 앞에 호박 엄청 컸어요!!! 나보다 큰 호박이 있었어요 🎃 신기해요!!" },
+            { moment: "기절 낮잠", text: "침대에 눕자마자 자버렸어요 ㅎㅎ 아빠가 깨울 때까지 몰랐어요 😴" },
+            { moment: "레드 로빈 피자", text: "맛있었는데 왜 다들 짜다고 해요? 저는 맛있었는데... (가족 전원 경악)" }
+          ]
+        }
+      ]
+    };
+
+    let activeDiaryDay = 1;
+
+    function getCustomDiaries() {
+      try {
+        return JSON.parse(localStorage.getItem('seattle_travel_custom_diaries')) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    // 가족 코멘트 HTML 생성 헬퍼 (중첩 템플릿 리터럴 회피)
+    function renderFamilyCommentsHTML(members) {
+      const colorMap = {
+        rose:    { bg: 'bg-rose-50',    border: 'border-rose-200',    badge: 'bg-rose-100 text-rose-900',       bubbleBg: 'bg-white', bubbleBorder: 'border-rose-100',    tag: 'text-rose-600',    line: 'border-rose-200'    },
+        violet:  { bg: 'bg-violet-50',  border: 'border-violet-200',  badge: 'bg-violet-100 text-violet-900',   bubbleBg: 'bg-white', bubbleBorder: 'border-violet-100',  tag: 'text-violet-600',  line: 'border-violet-200'  },
+        emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', badge: 'bg-emerald-100 text-emerald-900', bubbleBg: 'bg-white', bubbleBorder: 'border-emerald-100', tag: 'text-emerald-600', line: 'border-emerald-200' }
+      };
+      return members.map(function(member) {
+        var col = colorMap[member.color] || colorMap.rose;
+        var commentsHtml = member.comments.map(function(cmt) {
+          return '<div class="' + col.bubbleBg + ' ' + col.bubbleBorder + ' border rounded-xl p-2.5 space-y-0.5">'
+            + '<p class="' + col.tag + ' text-[10px] font-bold uppercase tracking-wider">' + cmt.moment + '</p>'
+            + '<p class="text-stone-800 text-[11px] leading-relaxed">' + cmt.text + '</p>'
+            + '</div>';
+        }).join('');
+        return '<div class="' + col.bg + ' border ' + col.border + ' rounded-2xl p-3 space-y-2.5 hover:shadow-sm transition">'
+          + '<div class="flex items-center space-x-2 border-b ' + col.line + ' pb-2">'
+          + '<span class="text-2xl">' + member.emoji + '</span>'
+          + '<span class="' + col.badge + ' px-2 py-0.5 rounded-full text-[11px] font-extrabold">' + member.author + '</span>'
+          + '</div>'
+          + '<div class="space-y-2">' + commentsHtml + '</div>'
+          + '</div>';
+      }).join('');
+    }
+
+    function viewDiaryDay(dayNum) {
+      activeDiaryDay = dayNum;
+      document.querySelectorAll('.diary-day-tab').forEach((btn, idx) => {
+        const d = idx + 1;
+        if (d === dayNum) {
+          btn.classList.remove('bg-white', 'text-stone-600', 'border-stone-200');
+          btn.classList.add('bg-amber-800', 'text-white', 'shadow-sm', 'border-amber-900', 'font-bold');
+        } else {
+          btn.classList.remove('bg-amber-800', 'text-white', 'shadow-sm', 'border-amber-900', 'font-bold');
+          btn.classList.add('bg-white', 'text-stone-600', 'border-stone-200');
+        }
+      });
+      renderDiaryDay(dayNum);
+    }
+
+    function renderDiaryDay(dayNum) {
+      const container = document.getElementById('diary-content-container');
+      if (!container) return;
+
+      const customDiaries = getCustomDiaries();
+      const customData = customDiaries[dayNum];
+
+      // Day 1: 아빠의 실제 일기 데이터
+      if (dayNum === 1) {
+        const d = defaultDiaryDay1;
+        const paragraphsToUse = (customData && customData.content) ? customData.content.split('\n\n') : d.paragraphs;
+        const titleToUse = (customData && customData.title) ? customData.title : d.title;
+        const moodToUse = (customData && customData.mood) ? customData.mood : d.mood;
+
+        container.innerHTML = `
+          <!-- Diary Title & Header Box -->
+          <div class="bg-amber-50/60 border border-amber-200/80 rounded-2xl p-4 sm:p-6 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-200/60 pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-200 text-amber-900 uppercase">Day 1 • 2026.09.30</span>
+                <h3 class="text-base sm:text-xl font-black text-stone-900 mt-1 leading-snug">${titleToUse}</h3>
+                <p class="text-xs text-amber-800 font-medium">${d.subTitle}</p>
+              </div>
+              <div class="text-right">
+                <span class="inline-block px-2.5 py-1 bg-white rounded-lg border border-amber-200 text-xs font-semibold text-stone-700 shadow-2xs">
+                  오늘의 기분: <span class="font-bold text-amber-900">${moodToUse}</span>
+                </span>
+                <button onclick="openNewDiaryModal(1)" class="ml-1 text-[11px] text-amber-800 underline font-semibold">✏️ 수정</button>
+              </div>
+            </div>
+
+            <!-- 4 Quick Stats -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center">
+              <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
+                <p class="text-[10px] text-stone-500 font-medium">체감 하루 길이</p>
+                <p class="text-xs sm:text-sm font-bold text-amber-900 mt-0.5">${d.stats.totalHours}</p>
+              </div>
+              <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
+                <p class="text-[10px] text-stone-500 font-medium">비행 & 자세</p>
+                <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${d.stats.flightInfo}</p>
+              </div>
+              <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
+                <p class="text-[10px] text-stone-500 font-medium">실제 운전 거리</p>
+                <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${d.stats.driveDistance}</p>
+              </div>
+              <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
+                <p class="text-[10px] text-stone-500 font-medium">기적의 낮잠</p>
+                <p class="text-xs sm:text-sm font-bold text-emerald-800 mt-0.5">${d.stats.napTime}</p>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              ${d.tags.map(t => `<span class="bg-white/80 border border-amber-200/90 text-amber-900 px-2 py-0.5 rounded-full text-[10px] font-semibold">#${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <!-- Highlight Cards (4 Key Moments) -->
+          <div class="space-y-1.5">
+            <h4 class="text-xs font-bold text-stone-800 flex items-center space-x-1.5">
+              <span>🌟</span>
+              <span>1일차 결정적 순간들 (Key Highlights)</span>
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              ${d.highlights.map(h => `
+                <div class="bg-white p-3 rounded-xl border border-stone-200 hover:border-amber-300 transition shadow-2xs flex items-start space-x-2.5">
+                  <span class="text-2xl p-1.5 bg-amber-50 rounded-lg shrink-0">${h.icon}</span>
+                  <div>
+                    <h5 class="font-extrabold text-stone-900 text-xs">${h.title}</h5>
+                    <p class="text-[11px] text-stone-600 mt-0.5 leading-relaxed">${h.desc}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Dual-Time Travel Timeline (KST vs PDT) -->
+          <div class="bg-white rounded-2xl border border-stone-200 p-3.5 sm:p-5 shadow-xs space-y-3">
+            <div class="flex items-center justify-between border-b border-stone-100 pb-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-base">⏱️</span>
+                <h4 class="font-extrabold text-stone-900 text-xs sm:text-sm">기적의 34시간 타임라인 (한국 시각 vs 미국 현지 시각)</h4>
+              </div>
+              <span class="text-[10px] text-stone-500 font-mono">시차 -16시간 완벽 대조</span>
+            </div>
+
+            <div class="space-y-2 relative before:absolute before:inset-0 before:left-5 before:w-0.5 before:bg-amber-100 before:z-0">
+              ${d.timelineEvents.map((evt, idx) => `
+                <div class="relative z-10 flex items-start space-x-3 text-xs bg-stone-50/70 hover:bg-amber-50/50 p-2.5 rounded-xl border border-stone-200/80 transition">
+                  <div class="w-8 h-8 rounded-full bg-white border-2 border-amber-600 flex items-center justify-center shrink-0 shadow-2xs text-sm">
+                    ${evt.icon}
+                  </div>
+                  <div class="flex-grow min-w-0">
+                    <div class="flex flex-wrap items-center justify-between gap-1 mb-0.5">
+                      <div class="flex items-center space-x-1.5">
+                        <span class="font-bold text-stone-900 text-xs">${evt.place}</span>
+                        <span class="px-1.5 py-0.2 rounded text-[9px] font-semibold bg-amber-200 text-amber-900">${evt.tag}</span>
+                      </div>
+                      <div class="flex items-center space-x-2 font-mono text-[10px]">
+                        <span class="text-blue-700 font-semibold">🇰🇷 ${evt.krTime}</span>
+                        <span class="text-stone-300">|</span>
+                        <span class="text-amber-800 font-bold">🇺🇸 ${evt.usTime}</span>
+                      </div>
+                    </div>
+                    <p class="text-stone-700 text-[11px] leading-relaxed">${evt.desc}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Essay Full Journal View (Paper Style) -->
+          <div class="bg-[#FFFDF9] rounded-2xl border-2 border-amber-200/70 p-4 sm:p-7 shadow-sm space-y-4">
+            <div class="border-b-2 border-amber-900/10 pb-3 flex items-center justify-between">
+              <div>
+                <h4 class="font-black text-amber-950 text-sm sm:text-base tracking-tight flex items-center gap-1.5">
+                  <span>📝</span>
+                  <span>아빠의 여행 일기 본문 (Full Essay)</span>
+                </h4>
+                <p class="text-[11px] text-stone-500 mt-0.5">2026년 9월 30일 밤 10시, 올림피아 숙소에서 작성</p>
+              </div>
+              <button onclick="copyDiaryContent()" class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                <span>📋</span>
+                <span>일기 복사</span>
+              </button>
+            </div>
+
+            <div class="space-y-3.5 text-stone-800 leading-loose text-xs sm:text-[13px] font-normal" id="diary-essay-body">
+              ${paragraphsToUse.map(p => `<p class="leading-relaxed sm:leading-loose text-justify">${p}</p>`).join('')}
+            </div>
+
+            <!-- Quote Highlights -->
+            <div class="bg-amber-100/70 border-l-4 border-amber-600 p-3 rounded-r-xl space-y-1">
+              <p class="font-extrabold text-amber-950 text-xs">💬 1일차 명언 / 웃음 벨</p>
+              <p class="text-stone-700 text-[11px] italic">“진한 녹색 표지판 아래에서 마음에 드는 차 아무거나 골라 타라” — 백인 래퍼 렌터카 직원</p>
+              <p class="text-stone-700 text-[11px] italic">“혀가 아릴 정도로 짠맛 쇼크, 그러나 아름답게 할인된 계산서에 서명하고 도망치듯 나왔다.”</p>
+            </div>
+          </div>
+
+          <!-- Auto-Budget Link Bar (1일차 지출 가계부 즉시 등록) -->
+          <div class="bg-emerald-50/80 border border-emerald-200 rounded-2xl p-3.5 sm:p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-1.5">
+                <span class="text-lg">💰</span>
+                <div>
+                  <h4 class="font-bold text-xs sm:text-sm text-emerald-950">1일차 일기 속 지출 ➔ 현지 가계부 1-클릭 연동</h4>
+                  <p class="text-[10px] text-emerald-800">일기에 언급된 실제 지출 내역을 터치 한 번으로 가계부 탭에 즉시 기록하세요.</p>
+                </div>
+              </div>
+              <button onclick="switchTab('tab-budget')" class="text-xs text-emerald-900 font-bold underline shrink-0">가계부 보기</button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+              ${d.quickExpenses.map(qe => `
+                <div class="bg-white p-2.5 rounded-xl border border-emerald-100 flex items-center justify-between text-xs shadow-2xs">
+                  <div>
+                    <p class="font-bold text-stone-800 truncate">${qe.name}</p>
+                    <p class="text-[10px] text-emerald-700 font-mono font-bold">$${qe.amount} (${qe.note})</p>
+                  </div>
+                  <button onclick="addDiaryExpenseToBudget('${qe.name}', ${qe.amount}, '${qe.currency}', '${qe.cat}', '${qe.note}')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[10px] font-bold shrink-0 transition active:scale-95">
+                    + 추가
+                  </button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Father's Retrospective Tips -->
+          <div class="bg-stone-100 border border-stone-200 rounded-2xl p-4 text-xs space-y-2">
+            <h4 class="font-extrabold text-stone-900 flex items-center gap-1.5">
+              <span>💡</span>
+              <span>아빠의 1일차 실전 교훈 & 회고</span>
+            </h4>
+            <ul class="list-disc list-inside space-y-1 text-stone-700 leading-relaxed text-[11px]">
+              <li><strong>보조/카메라 배터리:</strong> 위탁 수하물에 넣으면 공항에서 숟가락 던지고 질주해야 하니, 무조건 기내 휴대 가방에 소지할 것!</li>
+              <li><strong>렌터카 픽업 팁:</strong> National Emerald Aisle 등 구역 자율 배정 시, 당황하지 말고 익숙한 차(쏘나타 등)를 매의 눈으로 고르면 이득.</li>
+              <li><strong>미국 외식 짠맛 주의:</strong> 식당에서 주문할 때는 주저하지 말고 <em>"Please make it less salty"</em>를 꼭 부탁할 것!</li>
+              <li><strong>시차 극복 신의 한 수:</strong> 도착 직후 1.5시간의 낮잠 기절이 첫날 밤샘 운전의 피로를 극복하는 최고의 활력제가 됨.</li>
+            </ul>
+          </div>
+
+          <!-- ✨ 가족 인터랙티브 일기 — Family Voice Section -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs sm:text-sm font-extrabold text-stone-900 flex items-center gap-1.5">
+                <span class="text-base">👨‍👩‍👧‍👧</span>
+                <span>우리 가족 각자의 한마디 (Family's Voice)</span>
+              </h4>
+              <button onclick="openFamilyCommentModal()" class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 text-[11px] font-bold rounded-lg border border-amber-200 transition flex items-center gap-1">
+                <span>✏️</span>
+                <span>코멘트 수정</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="family-voice-grid">
+              ${renderFamilyCommentsHTML(d.familyComments)}
+            </div>
+          </div>
+        `;
+      } else {
+        // Day 2~11 빈 일기 상태
+        const plan = scheduleData.find(s => s.day === dayNum);
+        const saved = customData;
+
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 text-center space-y-4 shadow-sm">
+            <div class="w-16 h-16 bg-amber-100 text-amber-800 rounded-full flex items-center justify-center text-3xl mx-auto">
+              ${saved ? '📖' : '✏️'}
+            </div>
+            <div class="space-y-1">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900">Day ${dayNum} • ${plan ? plan.date : ''}</span>
+              <h3 class="text-base sm:text-lg font-black text-stone-900 mt-1">${saved ? saved.title : (plan ? plan.title : '여행 일기')}</h3>
+              <p class="text-xs text-stone-500 max-w-md mx-auto">${saved ? saved.mood : (plan ? plan.summary : '')}</p>
+            </div>
+
+            ${saved ? `
+              <div class="bg-amber-50/60 p-4 rounded-xl text-left border border-amber-200 text-xs leading-relaxed space-y-2 max-w-xl mx-auto">
+                <p class="whitespace-pre-line text-stone-800">${saved.content}</p>
+              </div>
+              <div class="flex justify-center gap-2">
+                <button onclick="openNewDiaryModal(${dayNum})" class="px-3.5 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-xl text-xs font-bold transition">
+                  ✏️ 일기 수정하기
+                </button>
+              </div>
+            ` : `
+              <p class="text-xs text-stone-400">아직 ${dayNum}일차 일기가 작성되지 않았습니다.<br>오늘 여행을 마치고 아빠의 생생한 감상을 기록해보세요!</p>
+              <div class="pt-2">
+                <button onclick="openNewDiaryModal(${dayNum})" class="px-4 py-2.5 bg-amber-800 hover:bg-amber-900 text-white rounded-xl text-xs font-bold shadow-md transition active:scale-95 inline-flex items-center gap-1.5">
+                  <span>✍️</span>
+                  <span>${dayNum}일차 일기 쓰기</span>
+                </button>
+              </div>
+            `}
+          </div>
+        `;
+      }
+    }
+
+    function openNewDiaryModal(dayNum) {
+      const targetDay = dayNum || activeDiaryDay || 1;
+      document.getElementById('diary-form-day').value = targetDay;
+      
+      const customDiaries = getCustomDiaries();
+      const existing = customDiaries[targetDay];
+
+      if (existing) {
+        document.getElementById('diary-form-title').value = existing.title || '';
+        document.getElementById('diary-form-mood').value = existing.mood || '';
+        document.getElementById('diary-form-content').value = existing.content || '';
+      } else if (targetDay === 1) {
+        document.getElementById('diary-form-title').value = defaultDiaryDay1.title;
+        document.getElementById('diary-form-mood').value = defaultDiaryDay1.mood;
+        document.getElementById('diary-form-content').value = defaultDiaryDay1.paragraphs.join('\n\n');
+      } else {
+        const plan = scheduleData.find(s => s.day === targetDay);
+        document.getElementById('diary-form-title').value = plan ? `[아빠의 여행 일기] ${targetDay}일차: ${plan.title}` : '';
+        document.getElementById('diary-form-mood').value = '';
+        document.getElementById('diary-form-content').value = '';
+      }
+
+      document.getElementById('new-diary-modal').classList.remove('hidden');
+    }
+
+    function closeNewDiaryModal() {
+      document.getElementById('new-diary-modal').classList.add('hidden');
+    }
+
+    function getFamilyComments() {
+      try {
+        return JSON.parse(localStorage.getItem('seattle_family_comments_day1')) || null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function openFamilyCommentModal() {
+      const saved = getFamilyComments() || defaultDiaryDay1.familyComments;
+      // 모달이 없으면 동적으로 생성
+      let modal = document.getElementById('family-comment-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'family-comment-modal';
+        modal.className = 'fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4';
+        document.body.appendChild(modal);
+      }
+      modal.innerHTML = `
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[92vh]">
+          <div class="flex justify-between items-center bg-amber-900 text-amber-50 p-3.5 sm:p-4">
+            <div class="flex items-center space-x-2">
+              <span class="text-xl">👨‍👩‍👧‍👧</span>
+              <h4 class="font-bold text-sm sm:text-base">가족 한마디 수정 — 1일차</h4>
+            </div>
+            <button onclick="closeFamilyCommentModal()" class="text-amber-200 hover:text-white text-lg p-1">✕</button>
+          </div>
+          <div class="p-4 overflow-y-auto flex-grow space-y-4 text-xs custom-scrollbar">
+            ${saved.map((member, mIdx) => `
+              <div class="space-y-2">
+                <div class="flex items-center space-x-2 mb-1">
+                  <span class="text-lg">${member.emoji}</span>
+                  <span class="font-extrabold text-stone-900 text-sm">${member.author}</span>
+                </div>
+                ${member.comments.map((cmt, cIdx) => `
+                  <div class="space-y-1 bg-stone-50 p-2.5 rounded-xl border border-stone-200">
+                    <label class="font-bold text-stone-600 text-[11px]">💬 ${cmt.moment}</label>
+                    <textarea
+                      id="fc-${mIdx}-${cIdx}"
+                      rows="2"
+                      class="w-full p-2 border border-stone-300 rounded-lg text-xs leading-relaxed resize-none font-sans"
+                    >${cmt.text}</textarea>
+                  </div>
+                `).join('')}
+              </div>
+            `).join('')}
+            <p class="text-[10px] text-stone-400 pt-1">💡 수정 내용은 브라우저 로컬 저장소에 저장됩니다.</p>
+          </div>
+          <div class="p-3 bg-stone-100 border-t border-stone-200 flex justify-end space-x-2">
+            <button onclick="closeFamilyCommentModal()" class="px-3 py-1.5 rounded-lg border border-stone-300 text-stone-700 hover:bg-stone-200 text-xs font-semibold">취소</button>
+            <button onclick="saveFamilyComments(${JSON.stringify(saved).replace(/"/g, '&quot;')})" class="px-4 py-1.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold shadow">저장하기</button>
+          </div>
+        </div>
+      `;
+      modal.classList.remove('hidden');
+    }
+
+    function closeFamilyCommentModal() {
+      const modal = document.getElementById('family-comment-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveFamilyComments(template) {
+      const updated = template.map((member, mIdx) => ({
+        ...member,
+        comments: member.comments.map((cmt, cIdx) => {
+          const el = document.getElementById(`fc-${mIdx}-${cIdx}`);
+          return { ...cmt, text: el ? el.value.trim() || cmt.text : cmt.text };
+        })
+      }));
+      localStorage.setItem('seattle_family_comments_day1', JSON.stringify(updated));
+      // defaultDiaryDay1.familyComments를 인-메모리에서도 갱신
+      defaultDiaryDay1.familyComments = updated;
+      closeFamilyCommentModal();
+      showToast('가족 한마디가 저장되었습니다! 👨‍👩‍👧‍👧', '✨');
+      renderDiaryDay(1);
+    }
+
+    function saveCustomDiary() {
+      const day = parseInt(document.getElementById('diary-form-day').value);
+      const title = document.getElementById('diary-form-title').value.trim();
+      const mood = document.getElementById('diary-form-mood').value.trim();
+      const content = document.getElementById('diary-form-content').value.trim();
+
+      if (!title || !content) {
+        showToast('제목과 일기 내용을 모두 입력해주세요!', '⚠️');
+        return;
+      }
+
+      const customDiaries = getCustomDiaries();
+      customDiaries[day] = {
+        title,
+        mood: mood || '기록 완료 ✨',
+        content,
+        updatedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem('seattle_travel_custom_diaries', JSON.stringify(customDiaries));
+
+      // Day button badge update
+      const dayBtn = document.getElementById(`diary-day-btn-${day}`);
+      if (dayBtn) {
+        const badge = dayBtn.querySelector('span:last-child');
+        if (badge) {
+          badge.textContent = '완료 ✨';
+          badge.className = 'text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full';
+        }
+      }
+
+      closeNewDiaryModal();
+      showToast(`${day}일차 여행 일기가 안전하게 저장되었습니다!`, '✍️');
+      viewDiaryDay(day);
+    }
+
+    function copyDiaryContent() {
+      const customDiaries = getCustomDiaries();
+      const text = (customDiaries[1] && customDiaries[1].content) ? customDiaries[1].content : defaultDiaryDay1.paragraphs.join('\n\n');
+      copyToClipboard(text, '1일차 아빠의 여행 일기 전문');
+    }
+
+    function addDiaryExpenseToBudget(name, amount, currency, category, note) {
+      if (typeof addPresetExpense === 'function') {
+        addPresetExpense(name, amount, currency, category, note);
+        showToast(`가계부에 [${name}] $${amount}이(가) 추가되었습니다!`, '💰');
+      } else {
+        showToast('가계부 추가 기능을 호출했습니다.', '💰');
+      }
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       loadExpensesFromStorage();
 
@@ -3198,6 +3880,13 @@
       calculateTip();
       initOverviewChart();
       initTaxChart();
+
+      // localStorage에서 가족 코멘트 복원 (저장된 경우)
+      const savedFamilyComments = getFamilyComments();
+      if (savedFamilyComments) {
+        defaultDiaryDay1.familyComments = savedFamilyComments;
+      }
+      renderDiaryDay(1);
 
       updateDualClocks();
       setInterval(updateDualClocks, 10000);
