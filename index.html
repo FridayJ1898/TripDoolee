@@ -569,21 +569,8 @@
             </div>
           </div>
 
-          <!-- Quick Presets -->
-          <div>
-            <p class="text-[11px] font-semibold text-stone-600 mb-1.5">⚡ 원터치 추천 항목 바로 추가:</p>
-            <div class="flex flex-wrap gap-1.5">
-              <button onclick="addPresetExpense('마운틴 레이니어 차량 입장료 (1대 7일권)', 30, 'USD', 'activity', 'Day 1~4 드라이브')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🌲 마운틴 레이니어 ($30)</button>
-              <button onclick="addPresetExpense('핸즈온 어린이 박물관 (올림피아 4인)', 79.8, 'USD', 'activity', '성인2+아이2 ($19.95/인)')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🏛️ 올림피아 어린이박물관 ($80)</button>
-              <button onclick="addPresetExpense('시애틀 어린이 박물관 (4인)', 72, 'USD', 'activity', '성인2+아이2 ($18/인)')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🧸 시애틀 어린이박물관 ($72)</button>
-              <button onclick="addPresetExpense('시애틀 아쿠아리움 (4인)', 120, 'USD', 'activity', '성인2+소아2')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🐠 시애틀 아쿠아리움 ($120)</button>
-              <button onclick="addPresetExpense('우드랜드 파크 동물원 (4인)', 96, 'USD', 'activity', '성인2+소아2')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🦁 우드랜드 동물원 ($96)</button>
-              <button onclick="addPresetExpense('베인브리지 페리 도보 왕복 (성인2, 아동무료)', 20, 'USD', 'transit', '아동 18세 이하 무료')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🚢 베인브리지 페리 ($20)</button>
-              <button onclick="addPresetExpense('렌터카 주유비 (4일)', 50, 'USD', 'transit', 'Full to Full 반납 주유')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">⛽ 주유비 ($50)</button>
-              <button onclick="addPresetExpense('귀국일 UberXL (숙소 ➡️ SEA 공항)', 65, 'USD', 'transit', '대형 수하물 및 유모차')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🚕 공항 UberXL ($65)</button>
-              <button onclick="addPresetExpense('코스트코 1차 장보기 (식자재/소고기)', 200, 'USD', 'food', '타코마 코스트코')" class="bg-white border border-amber-300 text-amber-900 px-2.5 py-1.5 rounded-lg text-[11px] font-medium hover:bg-amber-100 transition touch-target">🛒 코스트코 장보기 ($200)</button>
-            </div>
-          </div>
+          <!-- Add Form Description -->
+          <p class="text-[11px] font-semibold text-stone-600">✍️ 추가 발생 결제 직접 입력 (사용자 지시 내역만 반영):</p>
 
           <!-- Add Form -->
           <form id="add-expense-form" onsubmit="handleNewExpenseSubmit(event)" class="bg-white p-3 rounded-xl border border-stone-200 grid grid-cols-1 sm:grid-cols-12 gap-2 text-xs">
@@ -2258,29 +2245,23 @@
 
     const defaultCustomExpenses = [
       // 09/30 (Day 1 실제 결제 완료)
-      { id: "exp-0930-1", title: "🛒 트레이더 조 첫 장보기 (09/30)", amount: 46.16, currency: "USD", category: "food", note: "과일/간식/식재료", done: true },
-      { id: "exp-0930-2", title: "🍕 레드 로빈 저녁 식사 (09/30)", amount: 31.32, currency: "USD", category: "food", note: "피자 & 프라이 (할인 적용)", done: true },
-      { id: "exp-0930-3", title: "🎯 타깃(Target) 몰 쇼핑 (09/30)", amount: 28.25, currency: "USD", category: "shopping", note: "번개 생필품 쇼핑", done: true },
+      { id: "exp-0930-1", date: "2026.09.30 (수)", title: "🛒 트레이더 조 (Trader Joe's)", amount: 46.16, currency: "USD", category: "food", note: "첫 식료품/장보기", done: true },
+      { id: "exp-0930-2", date: "2026.09.30 (수)", title: "🍕 레드 로빈 (Red Robin)", amount: 31.32, currency: "USD", category: "food", note: "피자 & 프라이 저녁 식사 (할인 적용)", done: true },
+      { id: "exp-0930-3", date: "2026.09.30 (수)", title: "🎯 타깃 (Target)", amount: 28.25, currency: "USD", category: "shopping", note: "생필품 몰 쇼핑", done: true },
 
       // 10/01 (Day 2 실제 결제 완료)
-      { id: "exp-1001-1", title: "🦬 NW TREK WILDLIFE 4인 (10/01)", amount: 108.00, currency: "USD", category: "activity", note: "야생동물원 40분 트램 투어 포함", done: true },
-      { id: "exp-1001-2", title: "🍔 맥도날드 점심 식사 (10/01)", amount: 32.41, currency: "USD", category: "food", note: "치즈버거 & 쿼터파운더 버거 세트", done: true },
+      { id: "exp-1001-1", date: "2026.10.01 (목)", title: "🦬 NW TREK WILDLIFE", amount: 108.00, currency: "USD", category: "activity", note: "4인 입장료 (40분 트램 투어)", done: true },
+      { id: "exp-1001-2", date: "2026.10.01 (목)", title: "🍔 맥도날드 (McDonald)", amount: 32.41, currency: "USD", category: "food", note: "치즈버거 & 쿼터파운더 4인 점심", done: true },
 
       // 10/02 (Day 3 실제 결제 완료)
-      { id: "exp-1002-1", title: "⛽ 쏘나타 하이브리드 휘발유 주유 (10/02)", amount: 39.73, currency: "USD", category: "transit", note: "I-5 South 드라이브 후 주유", done: true },
-      { id: "exp-1002-2", title: "🛍️ POLO Ralph Lauren 오레곤 면세 (10/02)", amount: 477.90, currency: "USD", category: "shopping", note: "우드번 아울렛 (소비세 0%)", done: true },
-      { id: "exp-1002-3", title: "🛍️ GAP 오레곤 면세 (10/02)", amount: 230.26, currency: "USD", category: "shopping", note: "우드번 아울렛 (소비세 0% 키즈/의류)", done: true },
-      { id: "exp-1002-4", title: "🛍️ TOMMY Hilfiger 오레곤 면세 (10/02)", amount: 171.87, currency: "USD", category: "shopping", note: "우드번 아울렛 (소비세 0% 의류)", done: true },
-      { id: "exp-1002-5", title: "🌮 RIGOBERTO'S TACO 점심 (10/02)", amount: 32.95, currency: "USD", category: "food", note: "타코 점심 & 남은 음식 포장", done: true },
-      { id: "exp-1002-6", title: "☕ 스타벅스 포틀랜드 시티 머그 (10/02 - 💵현금)", amount: 17.95, currency: "USD", category: "shopping", note: "💵 현금(Cash) 결제 — 포틀랜드 머그", done: true },
-      { id: "exp-1002-7", title: "📚 POWELL'S City Books 영문책 (10/02 - 💵현금)", amount: 11.54, currency: "USD", category: "shopping", note: "💵 현금(Cash) 결제 — 아이들 영문 그림책 2권", done: true },
-      { id: "exp-1002-8", title: "🛒 Whole Foods Market 장보기 (10/02)", amount: 24.40, currency: "USD", category: "food", note: "로컬 맥주 & 샐러드 (주차비 해결)", done: true },
-
-      // 향후 예정 예산 (Days 4~11)
-      { id: "def-1", title: "🌲 마운틴 레이니어 국립공원 차량 입장료", amount: 30, currency: "USD", category: "activity", note: "차량 1대 7일권", done: false },
-      { id: "def-5", title: "🎃 Carpinito Bros 호박농장 액티비티", amount: 40, currency: "USD", category: "activity", note: "유픽 & 옥수수 미로 체험", done: false },
-      { id: "def-6", title: "🚢 베인브리지 페리 도보 왕복", amount: 20, currency: "USD", category: "transit", note: "18세 이하 아동 무료", done: false },
-      { id: "def-9", title: "🚕 귀국일 숙소 ➡️ SEA 공항 UberXL", amount: 65, currency: "USD", category: "transit", note: "대형 짐 & 유모차", done: false }
+      { id: "exp-1002-1", date: "2026.10.02 (금)", title: "⛽ GAS (휘발유 주유)", amount: 39.73, currency: "USD", category: "transit", note: "쏘나타 하이브리드 주유", done: true },
+      { id: "exp-1002-2", date: "2026.10.02 (금)", title: "🛍️ POLO Ralph Lauren", amount: 477.90, currency: "USD", category: "shopping", note: "우드번 아울렛 (오레곤 소비세 0% 면세)", done: true },
+      { id: "exp-1002-3", date: "2026.10.02 (금)", title: "🛍️ GAP", amount: 230.26, currency: "USD", category: "shopping", note: "우드번 아울렛 (오레곤 소비세 0% 면세)", done: true },
+      { id: "exp-1002-4", date: "2026.10.02 (금)", title: "🛍️ TOMMY Hilfiger", amount: 171.87, currency: "USD", category: "shopping", note: "우드번 아울렛 (오레곤 소비세 0% 면세)", done: true },
+      { id: "exp-1002-5", date: "2026.10.02 (금)", title: "🌮 RIGOBERTO'S TACO", amount: 32.95, currency: "USD", category: "food", note: "타코 점심 & 남은 음식 포장", done: true },
+      { id: "exp-1002-6", date: "2026.10.02 (금)", title: "☕ 스타벅스 (STARBUCKS - 💵현금)", amount: 17.95, currency: "USD", category: "shopping", note: "💵 현금 Cash 결제 — 포틀랜드 시티 머그", done: true },
+      { id: "exp-1002-7", date: "2026.10.02 (금)", title: "📚 POWELL'S City Books (💵현금)", amount: 11.54, currency: "USD", category: "shopping", note: "💵 현금 Cash 결제 — 아이들 영문 그림책 2권", done: true },
+      { id: "exp-1002-8", date: "2026.10.02 (금)", title: "🛒 Whole Foods Market", amount: 24.40, currency: "USD", category: "food", note: "로컬 맥주 & 샐러드 (주차비 해결)", done: true }
     ];
 
     let customExpenses = [];
@@ -2959,7 +2940,7 @@
         if (rateInput) rateInput.value = exchangeRate;
       }
 
-      const savedExp = localStorage.getItem('seattle_custom_expenses');
+      const savedExp = localStorage.getItem('seattle_custom_expenses_v3');
       if (savedExp) {
         try {
           customExpenses = JSON.parse(savedExp);
@@ -2973,7 +2954,7 @@
     }
 
     function saveExpensesToStorage() {
-      localStorage.setItem('seattle_custom_expenses', JSON.stringify(customExpenses));
+      localStorage.setItem('seattle_custom_expenses_v3', JSON.stringify(customExpenses));
       localStorage.setItem('seattle_exchange_rate', exchangeRate);
       renderExpenses();
     }
@@ -3130,38 +3111,80 @@
       document.getElementById('budget-per-person').innerText = '₩' + Math.round(perPersonKRW).toLocaleString();
 
       if (customExpenses.length === 0) {
-        container.innerHTML = `<p class="text-xs text-stone-400 text-center py-4">등록된 현지 지출 항목이 없습니다. 상단에서 추가해보세요.</p>`;
+        container.innerHTML = `<p class="text-xs text-stone-400 text-center py-4">등록된 현지 지출 항목이 없습니다.</p>`;
       } else {
-        container.innerHTML = customExpenses.map(exp => {
-          const isUSD = exp.currency === 'USD';
-          const krwEquivalent = isUSD ? Math.round(exp.amount * exchangeRate) : exp.amount;
-          const displayAmount = isUSD ? `$${exp.amount.toFixed(2)}` : `₩${exp.amount.toLocaleString()}`;
-          const subDisplay = isUSD ? `≈ ₩${krwEquivalent.toLocaleString()}` : `≈ $${(exp.amount / exchangeRate).toFixed(2)}`;
+        // 날짜별 그룹화 (Group by date)
+        const groups = {};
+        customExpenses.forEach(exp => {
+          const d = exp.date || '기타 / 날짜 미지정';
+          if (!groups[d]) groups[d] = [];
+          groups[d].push(exp);
+        });
 
-          return `
-            <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border ${exp.done ? 'border-emerald-200 bg-emerald-50/30' : 'border-stone-200'} transition hover:border-amber-300">
-              <div class="flex items-center space-x-2.5 flex-1 min-w-0 pr-2">
-                <input type="checkbox" onchange="toggleExpenseDone('${exp.id}')" ${exp.done ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer">
-                <div class="min-w-0">
-                  <div class="flex items-center space-x-1.5">
-                    <span class="text-xs">${getCategoryEmoji(exp.category)}</span>
-                    <p class="font-bold text-xs text-stone-900 truncate ${exp.done ? 'line-through text-stone-400' : ''}">${exp.title}</p>
-                    ${exp.done ? '<span class="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">완료</span>' : ''}
-                  </div>
-                  ${exp.note ? `<p class="text-[10px] text-stone-500 truncate mt-0.5">${exp.note}</p>` : ''}
-                </div>
+        let html = '<div class="space-y-3.5">';
+        Object.keys(groups).forEach(dateKey => {
+          const items = groups[dateKey];
+          let groupUSD = 0;
+          let groupKRW = 0;
+          items.forEach(it => {
+            if (it.currency === 'USD') {
+              groupUSD += it.amount;
+              groupKRW += it.amount * exchangeRate;
+            } else {
+              groupKRW += it.amount;
+              groupUSD += it.amount / exchangeRate;
+            }
+          });
+
+          html += `
+            <div class="bg-stone-50/90 rounded-2xl border border-stone-200/90 p-3 sm:p-3.5 space-y-2 shadow-2xs">
+              <div class="flex items-center justify-between border-b border-stone-200 pb-2 px-1">
+                <span class="text-xs sm:text-sm font-black text-amber-950 flex items-center gap-1.5">
+                  <span>📅</span>
+                  <span>${dateKey} 지출 내역</span>
+                </span>
+                <span class="text-[11px] sm:text-xs font-bold text-amber-900 font-mono">
+                  일일 합계: <span class="text-amber-950 font-black">$${groupUSD.toFixed(2)}</span> <span class="text-stone-500 font-normal text-[10px]">(≈ ₩${Math.round(groupKRW).toLocaleString()})</span>
+                </span>
               </div>
+              <div class="space-y-1.5">
+                ${items.map(exp => {
+                  const isUSD = exp.currency === 'USD';
+                  const krwEquivalent = isUSD ? Math.round(exp.amount * exchangeRate) : exp.amount;
+                  const displayAmount = isUSD ? `$${exp.amount.toFixed(2)}` : `₩${exp.amount.toLocaleString()}`;
+                  const subDisplay = isUSD ? `≈ ₩${krwEquivalent.toLocaleString()}` : `≈ $${(exp.amount / exchangeRate).toFixed(2)}`;
 
-              <div class="flex items-center space-x-2.5">
-                <div class="text-right whitespace-nowrap">
-                  <p class="font-bold text-xs text-amber-900 font-mono">${displayAmount}</p>
-                  <p class="text-[10px] text-stone-400 font-mono">${subDisplay}</p>
-                </div>
-                <button onclick="deleteExpense('${exp.id}')" class="text-stone-400 hover:text-rose-600 p-1 text-xs touch-target" title="삭제">🗑️</button>
+                  return `
+                    <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border ${exp.done ? 'border-emerald-200 bg-emerald-50/30' : 'border-stone-200'} transition hover:border-amber-300">
+                      <div class="flex items-center space-x-2.5 flex-1 min-w-0 pr-2">
+                        <input type="checkbox" onchange="toggleExpenseDone('${exp.id}')" ${exp.done ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer">
+                        <div class="min-w-0">
+                          <div class="flex items-center space-x-1.5">
+                            <span class="text-xs">${getCategoryEmoji(exp.category)}</span>
+                            <p class="font-bold text-xs text-stone-900 truncate ${exp.done ? 'line-through text-stone-400' : ''}">${exp.title}</p>
+                            ${exp.done ? '<span class="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">확정</span>' : ''}
+                          </div>
+                          ${exp.note ? `<p class="text-[10px] text-stone-500 truncate mt-0.5">${exp.note}</p>` : ''}
+                        </div>
+                      </div>
+
+                      <div class="flex items-center space-x-2.5">
+                        <div class="text-right whitespace-nowrap">
+                          <p class="font-bold text-xs text-amber-900 font-mono">${displayAmount}</p>
+                          <p class="text-[10px] text-stone-400 font-mono">${subDisplay}</p>
+                        </div>
+                        <button onclick="deleteExpense('${exp.id}')" class="text-stone-400 hover:text-rose-600 p-1 text-xs touch-target" title="삭제">🗑️</button>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
               </div>
             </div>
           `;
-        }).join('');
+        });
+        html += '</div>';
+
+        container.innerHTML = html;
       }
 
       renderBudgetBreakdownChart(catSumsKRW);
@@ -3809,29 +3832,29 @@
             </div>
           </div>
 
-          <!-- Auto-Budget Link Bar (${dayNum}일차 지출 가계부 즉시 등록) -->
+          <!-- Auto-Budget Display Bar (${dayNum}일차 지출 내역 — 가계부 자동 반영 완료) -->
           <div class="bg-emerald-50/80 border border-emerald-200 rounded-2xl p-3.5 sm:p-4 space-y-2">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-1.5">
-                <span class="text-lg">💰</span>
+                <span class="text-lg">💳</span>
                 <div>
-                  <h4 class="font-bold text-xs sm:text-sm text-emerald-950">${dayNum}일차 일기 속 지출 ➔ 현지 가계부 1-클릭 연동</h4>
-                  <p class="text-[10px] text-emerald-800">일기에 언급된 실제 지출 내역을 터치 한 번으로 가계부 탭에 즉시 기록하세요.</p>
+                  <h4 class="font-bold text-xs sm:text-sm text-emerald-950">${dayNum}일차 현지 결제 지출 (예산가계부 자동 반영 완료)</h4>
+                  <p class="text-[10px] text-emerald-800">이 날짜의 실제 결제 내역은 예산 가계부 탭에 즉시 연동 및 포함되어 관리됩니다.</p>
                 </div>
               </div>
-              <button onclick="switchTab('tab-budget')" class="text-xs text-emerald-900 font-bold underline shrink-0">가계부 보기</button>
+              <button onclick="switchTab('tab-budget')" class="text-xs text-emerald-900 font-bold underline shrink-0">가계부 보기 ➡️</button>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
               ${d.quickExpenses.map(qe => `
                 <div class="bg-white p-2.5 rounded-xl border border-emerald-100 flex items-center justify-between text-xs shadow-2xs">
-                  <div>
+                  <div class="min-w-0 pr-1">
                     <p class="font-bold text-stone-800 truncate">${qe.name}</p>
-                    <p class="text-[10px] text-emerald-700 font-mono font-bold">$${qe.amount} (${qe.note})</p>
+                    <p class="text-[10px] text-emerald-700 font-mono font-bold">$${qe.amount.toFixed(2)} ${qe.note ? '<span class="text-stone-400 font-normal">(' + qe.note + ')</span>' : ''}</p>
                   </div>
-                  <button onclick="addDiaryExpenseToBudget('${qe.name}', ${qe.amount}, '${qe.currency}', '${qe.cat}', '${qe.note}')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[10px] font-bold shrink-0 transition active:scale-95">
-                    + 추가
-                  </button>
+                  <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-md text-[10px] font-extrabold whitespace-nowrap">
+                    ✓ 반영됨
+                  </span>
                 </div>
               `).join('')}
             </div>
