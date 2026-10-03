@@ -2943,7 +2943,12 @@
       const savedExp = localStorage.getItem('seattle_custom_expenses_v3');
       if (savedExp) {
         try {
-          customExpenses = JSON.parse(savedExp);
+          const parsed = JSON.parse(savedExp);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            customExpenses = parsed;
+          } else {
+            customExpenses = [...defaultCustomExpenses];
+          }
         } catch (e) {
           customExpenses = [...defaultCustomExpenses];
         }
@@ -3073,6 +3078,9 @@
 
     function renderExpenses() {
       const container = document.getElementById('custom-expense-list');
+      if (!customExpenses || customExpenses.length === 0) {
+        customExpenses = [...defaultCustomExpenses];
+      }
       const countEl = document.getElementById('expense-count');
       if (countEl) countEl.innerText = customExpenses.length;
 
