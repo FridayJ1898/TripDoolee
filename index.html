@@ -611,9 +611,16 @@
 
           <!-- Expense List Table / Cards -->
           <div class="space-y-2">
-            <div class="flex justify-between items-center px-1">
-              <p class="text-xs font-bold text-stone-800">📋 등록된 현지 지출 목록 (<span id="expense-count">0</span>건)</p>
-              <span class="text-[10px] text-stone-500">체크박스를 눌러 결제 완료 여부를 기록할 수 있습니다.</span>
+            <div class="flex flex-wrap justify-between items-center px-1 gap-2 border-b border-stone-200/60 pb-2">
+              <p class="text-xs font-bold text-stone-900 flex items-center gap-1.5">
+                <span>📋</span>
+                <span>현지 지출 목록 (<span id="expense-count" class="text-amber-800">0</span>건)</span>
+              </p>
+              <div class="flex items-center space-x-1 bg-stone-100 p-1 rounded-xl border border-stone-200 text-xs">
+                <button onclick="setExpenseViewMode('date')" id="exp-view-btn-date" class="px-2.5 py-1 rounded-lg font-bold text-[11px] transition bg-amber-800 text-white shadow-2xs">📅 날짜별 보기</button>
+                <button onclick="setExpenseViewMode('category')" id="exp-view-btn-category" class="px-2.5 py-1 rounded-lg font-bold text-[11px] transition text-stone-600 hover:bg-stone-200">🏷️ 카테고리별 보기</button>
+                <button onclick="setExpenseViewMode('all')" id="exp-view-btn-all" class="px-2.5 py-1 rounded-lg font-bold text-[11px] transition text-stone-600 hover:bg-stone-200">📋 전체 보기</button>
+              </div>
             </div>
             <div id="custom-expense-list" class="space-y-1.5">
             </div>
@@ -2540,7 +2547,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       if (tabId === 'tab-budget') {
-        renderBudgetBreakdownChart();
+        renderExpenses();
       }
     }
 
@@ -3076,6 +3083,33 @@
       }
     }
 
+    let currentExpenseViewMode = 'date'; // 'date', 'category', 'all'
+
+    function setExpenseViewMode(mode) {
+      currentExpenseViewMode = mode;
+      ['date', 'category', 'all'].forEach(m => {
+        const btn = document.getElementById('exp-view-btn-' + m);
+        if (btn) {
+          if (m === mode) {
+            btn.className = 'px-2.5 py-1 rounded-lg font-bold text-[11px] transition bg-amber-800 text-white shadow-2xs';
+          } else {
+            btn.className = 'px-2.5 py-1 rounded-lg font-bold text-[11px] transition text-stone-600 hover:bg-stone-200';
+          }
+        }
+      });
+      renderExpenses();
+    }
+
+    function getCategoryName(cat) {
+      switch(cat) {
+        case 'activity': return '🎟️ 입장료 / 관광';
+        case 'food': return '🍽️ 식비 / 카페';
+        case 'transit': return '🚘 교통 / 주유 / 우버';
+        case 'shopping': return '🛍️ 쇼핑';
+        default: return '📦 기타';
+      }
+    }
+
     function renderExpenses() {
       const container = document.getElementById('custom-expense-list');
       if (!customExpenses || customExpenses.length === 0) {
@@ -3112,16 +3146,23 @@
       const localTotalUSD = localTotalKRW / exchangeRate;
       const perPersonKRW = grandTotalKRW / 4;
 
-      document.getElementById('budget-grand-total').innerText = '₩' + Math.round(grandTotalKRW).toLocaleString();
-      document.getElementById('budget-grand-usd').innerText = `($${Math.round(grandTotalUSD).toLocaleString()})`;
-      document.getElementById('budget-local-total').innerText = '₩' + Math.round(localTotalKRW).toLocaleString();
-      document.getElementById('budget-local-usd').innerText = `($${Math.round(localTotalUSD).toLocaleString()})`;
-      document.getElementById('budget-per-person').innerText = '₩' + Math.round(perPersonKRW).toLocaleString();
+      const grandEl = document.getElementById('budget-grand-total');
+      if (grandEl) grandEl.innerText = '₩' + Math.round(grandTotalKRW).toLocaleString();
+      const grandUsdEl = document.getElementById('budget-grand-usd');
+      if (grandUsdEl) grandUsdEl.innerText = `($${Math.round(grandTotalUSD).toLocaleString()})`;
+      const localEl = document.getElementById('budget-local-total');
+      if (localEl) localEl.innerText = '₩' + Math.round(localTotalKRW).toLocaleString();
+      const localUsdEl = document.getElementById('budget-local-usd');
+      if (localUsdEl) localUsdEl.innerText = `($${Math.round(localTotalUSD).toLocaleString()})`;
+      const perEl = document.getElementById('budget-per-person');
+      if (perEl) perEl.innerText = '₩' + Math.round(perPersonKRW).toLocaleString();
+
+      if (!container) return;
 
       if (customExpenses.length === 0) {
         container.innerHTML = `<p class="text-xs text-stone-400 text-center py-4">등록된 현지 지출 항목이 없습니다.</p>`;
-      } else {
-        // 날짜별 그룹화 (Group by date)
+      } else if (currentExpenseViewMode === 'date') {
+        // 1) 날짜별 그룹화 View
         const groups = {};
         customExpenses.forEach(exp => {
           const d = exp.date || '기타 / 날짜 미지정';
@@ -3149,51 +3190,106 @@
               <div class="flex items-center justify-between border-b border-stone-200 pb-2 px-1">
                 <span class="text-xs sm:text-sm font-black text-amber-950 flex items-center gap-1.5">
                   <span>📅</span>
-                  <span>${dateKey} 지출 내역</span>
+                  <span>${dateKey} 결제 내역 (${items.length}건)</span>
                 </span>
                 <span class="text-[11px] sm:text-xs font-bold text-amber-900 font-mono">
-                  일일 합계: <span class="text-amber-950 font-black">$${groupUSD.toFixed(2)}</span> <span class="text-stone-500 font-normal text-[10px]">(≈ ₩${Math.round(groupKRW).toLocaleString()})</span>
+                  일일 소계: <span class="text-amber-950 font-black">$${groupUSD.toFixed(2)}</span> <span class="text-stone-500 font-normal text-[10px]">(≈ ₩${Math.round(groupKRW).toLocaleString()})</span>
                 </span>
               </div>
               <div class="space-y-1.5">
-                ${items.map(exp => {
-                  const isUSD = exp.currency === 'USD';
-                  const krwEquivalent = isUSD ? Math.round(exp.amount * exchangeRate) : exp.amount;
-                  const displayAmount = isUSD ? `$${exp.amount.toFixed(2)}` : `₩${exp.amount.toLocaleString()}`;
-                  const subDisplay = isUSD ? `≈ ₩${krwEquivalent.toLocaleString()}` : `≈ $${(exp.amount / exchangeRate).toFixed(2)}`;
-
-                  return `
-                    <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border ${exp.done ? 'border-emerald-200 bg-emerald-50/30' : 'border-stone-200'} transition hover:border-amber-300">
-                      <div class="flex items-center space-x-2.5 flex-1 min-w-0 pr-2">
-                        <input type="checkbox" onchange="toggleExpenseDone('${exp.id}')" ${exp.done ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer">
-                        <div class="min-w-0">
-                          <div class="flex items-center space-x-1.5">
-                            <span class="text-xs">${getCategoryEmoji(exp.category)}</span>
-                            <p class="font-bold text-xs text-stone-900 truncate ${exp.done ? 'line-through text-stone-400' : ''}">${exp.title}</p>
-                            ${exp.done ? '<span class="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">확정</span>' : ''}
-                          </div>
-                          ${exp.note ? `<p class="text-[10px] text-stone-500 truncate mt-0.5">${exp.note}</p>` : ''}
-                        </div>
-                      </div>
-
-                      <div class="flex items-center space-x-2.5">
-                        <div class="text-right whitespace-nowrap">
-                          <p class="font-bold text-xs text-amber-900 font-mono">${displayAmount}</p>
-                          <p class="text-[10px] text-stone-400 font-mono">${subDisplay}</p>
-                        </div>
-                        <button onclick="deleteExpense('${exp.id}')" class="text-stone-400 hover:text-rose-600 p-1 text-xs touch-target" title="삭제">🗑️</button>
-                      </div>
-                    </div>
-                  `;
-                }).join('')}
+                ${items.map(exp => renderSingleExpenseItemHTML(exp)).join('')}
               </div>
             </div>
           `;
         });
         html += '</div>';
-
         container.innerHTML = html;
+      } else if (currentExpenseViewMode === 'category') {
+        // 2) 카테고리별 그룹화 View (식비, 쇼핑, 입장료, 교통 등)
+        const catGroups = {};
+        customExpenses.forEach(exp => {
+          const c = exp.category || 'other';
+          if (!catGroups[c]) catGroups[c] = [];
+          catGroups[c].push(exp);
+        });
+
+        let html = '<div class="space-y-3.5">';
+        Object.keys(catGroups).forEach(catKey => {
+          const items = catGroups[catKey];
+          let groupUSD = 0;
+          let groupKRW = 0;
+          items.forEach(it => {
+            if (it.currency === 'USD') {
+              groupUSD += it.amount;
+              groupKRW += it.amount * exchangeRate;
+            } else {
+              groupKRW += it.amount;
+              groupUSD += it.amount / exchangeRate;
+            }
+          });
+
+          html += `
+            <div class="bg-stone-50/90 rounded-2xl border border-stone-200/90 p-3 sm:p-3.5 space-y-2 shadow-2xs">
+              <div class="flex items-center justify-between border-b border-stone-200 pb-2 px-1">
+                <span class="text-xs sm:text-sm font-black text-stone-900 flex items-center gap-1.5">
+                  <span>${getCategoryName(catKey)}</span>
+                  <span class="text-[10px] bg-stone-200 text-stone-700 px-1.5 py-0.2 rounded font-bold">${items.length}건</span>
+                </span>
+                <span class="text-[11px] sm:text-xs font-bold text-amber-900 font-mono">
+                  항목 소계: <span class="text-amber-950 font-black">$${groupUSD.toFixed(2)}</span> <span class="text-stone-500 font-normal text-[10px]">(≈ ₩${Math.round(groupKRW).toLocaleString()})</span>
+                </span>
+              </div>
+              <div class="space-y-1.5">
+                ${items.map(exp => renderSingleExpenseItemHTML(exp)).join('')}
+              </div>
+            </div>
+          `;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+      } else {
+        // 3) 전체 보기 (Flat List View)
+        container.innerHTML = `
+          <div class="space-y-1.5">
+            ${customExpenses.map(exp => renderSingleExpenseItemHTML(exp)).join('')}
+          </div>
+        `;
       }
+
+      renderBudgetBreakdownChart(catSumsKRW);
+    }
+
+    function renderSingleExpenseItemHTML(exp) {
+      const isUSD = exp.currency === 'USD';
+      const krwEquivalent = isUSD ? Math.round(exp.amount * exchangeRate) : exp.amount;
+      const displayAmount = isUSD ? `$${exp.amount.toFixed(2)}` : `₩${exp.amount.toLocaleString()}`;
+      const subDisplay = isUSD ? `≈ ₩${krwEquivalent.toLocaleString()}` : `≈ $${(exp.amount / exchangeRate).toFixed(2)}`;
+
+      return `
+        <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border ${exp.done ? 'border-emerald-200 bg-emerald-50/30' : 'border-stone-200'} transition hover:border-amber-300">
+          <div class="flex items-center space-x-2.5 flex-1 min-w-0 pr-2">
+            <input type="checkbox" onchange="toggleExpenseDone('${exp.id}')" ${exp.done ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer">
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="text-xs">${getCategoryEmoji(exp.category)}</span>
+                <p class="font-bold text-xs text-stone-900 truncate ${exp.done ? 'line-through text-stone-400' : ''}">${exp.title}</p>
+                ${exp.date ? `<span class="text-[9px] bg-amber-100 text-amber-900 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">${exp.date}</span>` : ''}
+                ${exp.done ? '<span class="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">확정</span>' : ''}
+              </div>
+              ${exp.note ? `<p class="text-[10px] text-stone-500 truncate mt-0.5">${exp.note}</p>` : ''}
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2.5">
+            <div class="text-right whitespace-nowrap">
+              <p class="font-bold text-xs text-amber-900 font-mono">${displayAmount}</p>
+              <p class="text-[10px] text-stone-400 font-mono">${subDisplay}</p>
+            </div>
+            <button onclick="deleteExpense('${exp.id}')" class="text-stone-400 hover:text-rose-600 p-1 text-xs touch-target" title="삭제">🗑️</button>
+          </div>
+        </div>
+      `;
+    }
 
       renderBudgetBreakdownChart(catSumsKRW);
     }
