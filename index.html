@@ -1190,7 +1190,7 @@
             <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-[11px] font-bold">
               <span>📖 아빠의 시선으로 쓴 리얼 여행기</span>
               <span>•</span>
-              <span id="diary-status-badge">1일차 작성 완료</span>
+              <span id="diary-status-badge">1~3일차 작성 완료</span>
             </div>
             <div class="flex items-center space-x-2">
               <button onclick="window.print()" class="px-2.5 py-1 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg border border-white/20 transition flex items-center space-x-1">
@@ -3409,6 +3409,176 @@
       ]
     };
 
+    const defaultDiaryDay2 = {
+      day: 2,
+      dateStr: "2026.10.01 (목)",
+      title: "[엄마의 미국 여행 일기] 2일차: 새벽 4시 레이니어의 별빛과 코앞 바이슨과의 경이로운 만남",
+      subTitle: "시차 적응 실패가 선사한 새벽 4시 레이니어 긴급 드라이브 & 노스웨스트 트렉 & 에버그린 주립대 추억 여행",
+      author: "엄마 (김지은)",
+      mood: "추위도 잊게 만든 만년설의 감동 & 코앞 바이슨의 전율! 🏔️🦬",
+      tags: ["시차적응실패", "새벽4시레이니어", "만년설별빛", "둘리팸살내는추위", "노스웨스트트렉", "코앞바이슨", "맥도날드미국의맛", "에버그린주립대", "연어스테이크", "신부의아버지"],
+      stats: {
+        totalHours: "새벽 3:30 기상 (기적의 새벽 뷰)",
+        driveDistance: "약 320km (올림피아 ➔ 레이니어 ➔ 트렉 ➔ 숙소)",
+        flightInfo: "NorthWest TREK 40분 트램 투어",
+        napTime: "시차로 차 안 꿀잠 & 저녁 9시 영화 마무리"
+      },
+      highlights: [
+        { icon: "🌌", title: "새벽 4시 별빛 레이니어", desc: "까만 길 속 하늘에 점처럼 박힌 별을 본 순간 '잘 왔다' 확신! 6:30 살을 에는 추위 속 7:30 만년설 해돋이 감동." },
+        { icon: "🦌", title: "동화 속 야생동물 산책", desc: "눈앞에서 사슴이 풀을 뜯고 다람쥐가 맴오는 동화 같은 절경! 이솔이는 반려 돌 주키, 이안이는 엽서 사진 찰칵." },
+        { icon: "🦬", title: "코앞 바이슨 & 독수리 발톱", desc: "NorthWest TREK 40분 트램 투어! 창문 너머 눈앞 마주친 바이슨 가족 & 빅혼 사슴, 독수리 까만 발톱 관찰!" },
+        { icon: "🌲", title: "에버그린 주립대 추억", desc: "아빠 20대 푸른 청춘이 묻어난 기숙사 산책에 풋 웃음! 저녁엔 연어 스테이크 & <신부의 아버지> 맥주 매듭." }
+      ],
+      timelineEvents: [
+        { krTime: "10/1 19:30", usTime: "10/1 03:30", place: "올림피아 숙소 식탁", desc: "시차 적응 철저 실패! 온 가족 3:30 모여 아빠의 레이니어 일정 전격 채택 (바나나&물 챙김)", tag: "기상", icon: "⏰" },
+        { krTime: "10/1 20:00", usTime: "10/1 04:00", place: "마운트 레이니어 드라이브", desc: "까맣고 고요한 길 2시간 긴장 운전 ➔ 하늘 속 별빛에 '잘 왔다' 확신 (뒷좌석 두 딸 꿀잠)", tag: "드라이브", icon: "🌌" },
+        { krTime: "10/1 22:30", usTime: "10/1 06:30", place: "마운트 레이니어 국립공원", desc: "도착하자마자 살을 에는 10월 같지 않은 추위! 7:30 주위가 밝아지며 해 떠오르고 만년설 절경 감상", tag: "국립공원", icon: "🏔️" },
+        { krTime: "10/1 23:30", usTime: "10/1 07:30", place: "미틀 폭포 & 트레일", desc: "이솔이 반려 돌 찾기, 이안이 사진 찍기 ➔ 풀 뜯는 사슴 & 맴오는 다람쥐 동화 속 환경", tag: "트레킹", icon: "🦌" },
+        { krTime: "10/2 02:00", usTime: "10/1 10:00", place: "NorthWest TREK Wildlife Park", desc: "40분 트램 투어! 눈앞 코앞 마주친 바이슨 가족, 빅혼 사슴, 독수리 까만 발톱 관찰", tag: "동물원", icon: "🦬" },
+        { krTime: "10/2 04:30", usTime: "10/1 12:30", place: "맥도날드", desc: "치즈버거 & 쿼터파운더 주문! 특유의 느끼함에 '이게 미국의 맛이지' 점심 ➔ 엄마&아이 차 안 꿀잠", tag: "점심식사", icon: "🍔" },
+        { krTime: "10/2 06:00", usTime: "10/1 14:00", place: "더 에버그린 주립대학교", desc: "완연한 가을 단풍길 ➔ 젊은 아빠의 20대 추억(기숙사, 수영장, 잔디밭) 돌아보기", tag: "캠퍼스", icon: "🎓" },
+        { krTime: "10/2 10:00", usTime: "10/1 18:00", place: "올림피아 숙소", desc: "연어 스테이크 & 오일 파스타 요리 저녁 식사 ➔ 나초 칩 + 맥주 + 영화 <신부의 아버지> 관람", tag: "저녁식사", icon: "🍳" }
+      ],
+      paragraphs: [
+        "우리는 시차 적응에 철저히 실패하였다.",
+        "새벽 3시 반에 온 가족이 일어났다. 우리는 거실 식탁에 일제히 모여들었고, 자리에 앉아 있을 때 아빠가 마운트 레이니어 일정을 제안하였다. 이 일정은 아빠가 일전에 여행을 준비하며 아이들이 힘들어할까 봐 빼놓았던 일정이었다. 우리는 간단히 바나나와 물을 챙겨 들고 나섰다.",
+        "새벽 4시에 집에서 나서서 2시간가량을 운전해 마운트 레이니어로 향했다. 가는 길은 내내 까맸다. 아빠는 졸린 와중에도 내내 긴장하며 운전했다. 어느 정도 운전했을까. 까만 고요는 그대로였지만, 하늘에 점처럼 박힌 별을 보는 순간 '잘 왔다'라는 확신이 차올랐다. 아빠와 엄마는 내내 감탄하며 어두운 길을 달렸다. 두 아이는 뒷좌석에서 깊은 잠에 빠져들어 있었다.",
+        "6시 반, 마운트 레이니어에 도착하였다. 그곳에 도착한 둘리팸에게 살을 에는 추위가 찾아왔다. 산의 기온은 10월이라고는 생각되지 않을 만큼 추웠다. 그러나 언뜻 보이는 만년설 풍경에 우리는 길을 나섰다. 7시 반이 지나가자 주위가 밝아지며 해가 떠오르기 시작했다. 추웠던 기온도 산보에 적합한 선선한 온기로 채워지고, 울긋불긋하면서도 광활한 풍경이 아이들의 흥을 돋웠다. 둘째딸은 반려 돌을 찾기에 바빴고, 첫째딸은 사진 속에 풍경을 담기에 바빴다.",
+        "눈앞에서 사슴이 유유히 풀을 뜯고, 다람쥐가 사람들 주변을 맴돌기도 하는 등 동화 속에 들어온 듯한 환상적인 환경까지 더해져 감탄을 자아냈다. 겹겹이 둘러싸인 산맥 뒤로 완연히 솟은 만년설은 '미국 3대 명산'이라는 마운트 레이니어의 명성을 실감 나게 했다. 들숨과 날숨마다 느껴지는 상쾌함, 그리고 시선이 닿는 곳곳의 멋진 풍경을 뒤로한 채 다음 일정을 향해 나섰다.",
+        "다음은 NorthWest TREK Wildlife Park. 이곳은 동물원으로, 트램을 타고 동물원을 순회하였다. 미국의 스케일이란……! 트램을 타고 순회하는 40분 동안, 그 넓은 곳에서 한가로이 자신들의 일상을 보내는 동물들을 보고 있자니 신기하면서도 한편으론 한국 동물원의 동물들이 불쌍해졌달까……ㅋ",
+        "창문 너머 바로 코앞에서 바이슨 가족을 마주하고(실제로 눈앞에서 마주함!), 빅혼 사슴을 관찰하는 투어를 하는 내내 첫째딸과 둘째딸은 흥미진진함을 감추지 못했다. 미국의 상징인 독수리(이글)의 까만 발톱까지 자세히 관찰한 뒤 차로 돌아갔다. 돌아가는 길에 솔방울을 파먹던 다람쥐를 본 것이, 둘리팸의 '공식 다람쥐'인 둘째딸의 기억 속에는 가장 강하게 남았으리라.",
+        "동물원을 나서서 이번 여행의 시초이자 아빠가 청년 시절 다녔던 대학교인 에버그린 주립대학교로 향했다. 가는 길에 맥도날드에서 조금 애매한 점심 식사를 했다. 분명 한국과 같은 메뉴(치즈버거, 쿼터파운더 버거)를 주문했는데, 한국과의 차이점을 찾는 재미가 쏠쏠했다. 특유의 느끼함에 '그래, 이게 바로 미국의 맛이지' 하며 꾸역꾸역 소화하게 되는 묘한 점심이었다.",
+        "운전하는 내내 엄마와 아이들은 시차 부적응으로 꿀잠에 빠져들었고, 이내 대학교에 도착하였다. 어느덧 이곳에는 가을이 완연했다. 울긋불긋 물든 단풍길을 산책 삼아 아빠가 머물던 기숙사를 찾아 나섰다. 곳곳에서 아빠의 20대 시절 추억이 묻어났다. 간단히 배를 채우던 곳, 커피 한잔으로 내내 머물며 공부하던 곳, 학생증 혜택으로 수영하곤 했던 수영장 등…… 하지만 정작 옛 숙소만큼은 찾지 못한 채, 주변 잔디밭에 한동안 머물다가 숙소로 돌아왔다.",
+        "엄마는 '이곳은 참 근현대적인 개성이 묻어나는, 어쩌면 조금은 인공적인 투쟁적 차별성이 느껴지는 곳이구나' 생각하며, 이런 곳에서 푸른 청춘을 보냈을 젊은 날의 아빠를 상상하다 풋 웃음이 터져 나왔다.",
+        "집에 돌아와 전날 장 봐둔 연어 스테이크와 오일 파스타를 요리해 저녁을 먹으며 하루 일정을 마무리하였다. 나초 칩과 맥주를 곁들여 90년대 미국 영화 <신부의 아버지>를 보며, 제법 현지 미국인 같은 일상으로 하루를 매듭지은 여행 둘째 날이었다."
+      ],
+      quickExpenses: [
+        { name: "맥도날드 점심 (치즈버거 & 쿼터파운더)", amount: 24.50, currency: "USD", cat: "dining", note: "미국 맥도날드 특유의 느끼한 미국의 맛!" },
+        { name: "연어 스테이크 & 파스타 식재료", amount: 22.10, currency: "USD", cat: "dining", note: "숙소 직접 요리 연어 스테이크 & 오일 파스타" },
+        { name: "로컬 맥주 & 나초 칩 (영화 신부의 아버지)", amount: 15.80, currency: "USD", cat: "dining", note: "영화 시청 꿀야식" }
+      ],
+      familyComments: [
+        {
+          author: "아빠 (아성)",
+          emoji: "👨",
+          color: "rose",
+          comments: [
+            { moment: "새벽 운전", text: "새벽 4시 까만 길 운전할 때 솔직히 눈꺼풀 무겁고 땀 흘렸는데, 만년설 보며 감탄하는 지은이와 별빛 덕분에 살았다! 🌌" },
+            { moment: "에버그린 캠퍼스", text: "기숙사는 못 찾았지만 잔디밭에 앉아서 와이프 웃는 거 보니 20대 청춘 시절로 돌아간 느낌이었어 🎓" },
+            { moment: "영화 신부의 아버지", text: "맥주 마시며 본 영화 <신부의 아버지>... 딸 둘 가진 아빠라 괜히 마음이 찡하더라고 ㅎㅎ" }
+          ]
+        },
+        {
+          author: "이안 (첫째)",
+          emoji: "👧",
+          color: "violet",
+          comments: [
+            { moment: "만년설 & 사슴", text: "마운트 레이니어 진짜 높고 사슴이 내 앞을 그냥 지나가서 동화 속 같았어요! 🦌" },
+            { moment: "코앞 바이슨", text: "트램 바로 옆에 거대한 바이슨 가족이 있어서 조금 무서웠지만 진짜 신기했어요! 🦬" },
+            { moment: "미국 맥도날드", text: "한국 쿼터파운더랑 약간 맛이 다른데 더 고기 맛이 많이 났어요!" }
+          ]
+        },
+        {
+          author: "이솔 (막내)",
+          emoji: "👧",
+          color: "emerald",
+          comments: [
+            { moment: "반려 돌 줍기", text: "마운트 레이니어에서 반짝이는 예쁜 돌 주워서 내 주머니에 고이 보관했어요 🪨" },
+            { moment: "공식 다람쥐", text: "동물원에서 솔방울 파먹는 귀여운 다람쥐 봤어요! 나처럼 귀여워요 🐿️" },
+            { moment: "나초와 영화", text: "저녁에 나초 바삭바삭 먹으면서 영화 본 게 제일 재미있었어요!" }
+          ]
+        }
+      ]
+    };
+
+    const defaultDiaryDay3 = {
+      day: 3,
+      dateStr: "2026.10.02 (금)",
+      title: "[아빠의 미국 여행 일기] 3일차: 시차와의 전쟁, 그리고 포틀랜드에서 폭발한 둘리팸의 소비욕",
+      subTitle: "밤 8시반 수장의 곯아떨어짐 ➔ 새벽 2시반 둘째의 '놀자' 어택 ➔ 면세 우드번 아울렛 득템 & 포틀랜드 북스 감성",
+      author: "아빠 (주아성)",
+      mood: "시차 참패의 굴욕을 딛고 오레곤 소비세 0% 쇼핑 대폭발! 💳🛍️",
+      tags: ["시차와의전쟁", "수장의곯아떨어짐", "아빠놀자", "우드번아울렛", "소비세0프로", "랄프로렌싹쓸이", "타코대참사", "파월스북스", "착한아빠빙의", "스타벅스시티머그"],
+      stats: {
+        totalHours: "오전 9:40 기상 (기적의 늦잠 사투)",
+        driveDistance: "약 380km (올림피아 ➔ 우드번 ➔ 포틀랜드 ➔ 올림피아)",
+        flightInfo: "쏘나타 하이브리드 주유 $39.43",
+        napTime: "새벽 2:30 둘째 어택 후 아침 9:40까지 보상 수면"
+      },
+      highlights: [
+        { icon: "😴", title: "수장의 8:30 기절 굴욕", desc: "'밤 9시 전 취침 금지!' 비장 공표 후 로컬 맥주 2캔에 본인이 8시 반 최우선 곯아떨어진 굴욕!" },
+        { icon: "👧", title: "새벽 2:30 '아빠, 놀자'", desc: "새벽 2시반 눈뜬 아빠 옆 말똥말똥 둘째의 심쿵 어택! 1시간 토닥임 끝에 9:40 늦잠 아침 맞이." },
+        { icon: "🛍️", title: "오레곤 소비세 0% 대폭발", desc: "우드번 아울렛 직행! 랄프로렌 싹쓸이 & GAP, 타미힐피거 결제 알림 폭발 (기름값 $39.43 완충)." },
+        { icon: "📚", title: "파월스 북스 착한 아빠", desc: "세계 최대 서점에서 둘째 그림책 읽어주며 착한 아빠 빙의 & 영문 책 구매, 스타벅스 포틀랜드 머그 겟!" }
+      ],
+      timelineEvents: [
+        { krTime: "10/2 12:30", usTime: "10/1 20:30", place: "올림피아 숙소", desc: "'9시 전 수면 금지' 공표 후 수장 아빠가 맥주 2캔에 8:30 가장 먼저 곯아떨어짐 😴", tag: "시차참패", icon: "🍺" },
+        { krTime: "10/2 18:30", usTime: "10/2 02:30", place: "올림피아 숙소 침대", desc: "아빠 눈뜸 ➔ 옆에서 말똥말똥 둘째 '아빠 놀자' ➔ 1시간 토닥임 후 09:40까지 늦잠", tag: "해프닝", icon: "👧" },
+        { krTime: "10/3 02:00", usTime: "10/2 10:00", place: "올림피아 숙소 식탁", desc: "빵&계란 흡입 후 이성 되찾아 '바쁜데 왜 아침 차렸어!' 억지 잔소리 ➔ 엄마 부처 인내심 😅", tag: "아침식사", icon: "🍳" },
+        { krTime: "10/3 03:00", usTime: "10/2 11:00", place: "I-5 South 드라이브", desc: "올림피아 출발 (2시간 40분 이동) ➔ 아울렛 직전 쏘나타 하이브리드 $39.43 주유 ⛽", tag: "드라이브", icon: "🚗" },
+        { krTime: "10/3 05:40", usTime: "10/2 13:40", place: "우드번 프리미엄 아울렛", desc: "소비세 0% 오레곤! 랄프로렌 직행 싹쓸이 득템 & GAP, 타미힐피거 카드 결제 알림 폭발 💳", tag: "쇼핑", icon: "🛍️" },
+        { krTime: "10/3 08:00", usTime: "10/2 16:00", place: "RIGOBERTO'S TACO", desc: "잔뜩 주문했으나 극강의 느끼함에 대참사(다 남김) ➔ 내일 아침 핑계 포장 용기행 🌮", tag: "점심식사", icon: "🌮" },
+        { krTime: "10/3 09:30", usTime: "10/2 17:30", place: "포틀랜드 다운타운", desc: "홀푸드 마켓 주차 후 파월스 북스(Powell's Books) 탐방 ➔ 둘째 그림책 읽어주기 📚", tag: "다운타운", icon: "📖" },
+        { krTime: "10/3 10:30", usTime: "10/2 18:30", place: "파월스 북스 & 스타벅스", desc: "아이들 영문 책 2권 구매 & 스타벅스 포틀랜드 시티 머그컵 컬렉션 챙기기 ☕", tag: "서점", icon: "☕" },
+        { krTime: "10/3 11:30", usTime: "10/2 19:30", place: "홀푸드 마켓 (Whole Foods)", desc: "포틀랜드 로컬 맥주, 샐러드드레싱, 참치 샐러드 겟 (주차비 깔끔 해결) 🛒", tag: "장보기", icon: "🛒" },
+        { krTime: "10/3 13:50", usTime: "10/2 21:50", place: "올림피아 숙소 도착", desc: "밤 9시 50분 숙소(3339 Cooper Point Rd) 무사 귀환! 길었던 소비욕의 하루 마감 🏡", tag: "귀가", icon: "✍️" }
+      ],
+      paragraphs: [
+        "시차와의 전쟁, 그리고 포틀랜드에서 폭발한 둘리팸의 소비욕.",
+        "우리 가족은 미국 여행 2일 차인 10월 1일까지도 시차 적응에 실패해 온전하고 정상적인 일과를 보내지 못했다. 둘리팸의 수장인 아빠는 더 이상 이렇게 뒤엉킨 일상과 멍한 정신 상태로는 예쁜 여행을 그려갈 수 없다고 판단했다. 결국 10월 1일 밤, \"밤 9시 이전에는 절대 잠들지 말 것!\"이라는 비장한 공표를 내렸다.",
+        "저녁 7시, 우리는 가족 단체로 영화 <신부의 아버지>를 시청하기 시작했다. 하지만 호기롭게 'Boatswain' 로컬 맥주 2캔을 비우던 아빠는 정작 본인이 8시 반에 가장 먼저 곯아떨어지고 말았다. 수장의 빠른 퇴장에 둘리팸 역시 속히 깊은 잠에 빠져들었다.",
+        "하지만 이른 취침의 대가는 가혹했다. 아빠는 결국 10월 2일 새벽 2시 30분에 눈을 뜨고 말았다. 본인의 어이없는 실수에 한스러움과 답답함이 밀려와 혼자 씩씩거리며 중얼거리던 찰나, 옆에서 말똥말똥한 눈망울로 자신을 바라보고 있는 둘째를 발견했다. \"깼니? 다람쥐……\" 아빠의 말에 둘째 딸은 속삭이듯 말했다. \"아빠, 놀자.\"",
+        "이 새벽에 놀 수는 없는 노릇. 아빠는 애써 딸의 눈빛을 외면한 채, 1시간가량 기계적인 토닥임을 이어갔다. 그렇게 사투 끝에 다시 겨우 잠이 들었고, 눈을 떠 맞이한 2일의 아침은 바로 오전 9시 40분이었다.",
+        "10월 2일 오늘은, 평소 검소하디검소했던 우리 가족의 봉인된 소비욕을 포틀랜드에서 대폭발시키기로 한 날이었다. 시간이 촉박해진 아빠는 분주하게 엄마와 딸들을 깨우며 허겁지겁 나갈 준비를 시켰다. 그런데 그렇게 정신없는 와중에 식탁을 보니 빵과 계란이 버젓이 차려져 있었다. '어라, 뭔가 이상한데?' 싶었지만, 일단 식탁에 둘러앉아 음식을 허겁지겁 흡입했다.",
+        "하지만 다 먹고 자리에서 일어서는 순간, 이성이 돌아온 아빠는 엄마를 향해 잔소리를 쏟아냈다. \"생각해보니 이상하잖아! 우리 지금 시간 없는데 뭐 하는 거야, 왜 아침을 차린 거야!\" 다 먹고 나서야 터져 나온 황당한 잔소리에 엄마는 겨우 인내심을 발휘하며 부랴부랴 서둘러 나설 채비를 마쳤다.",
+        "결국 우리는 오전 11시가 되어서야 출발했고, 2시간 40분을 달려 포틀랜드 우드번 아울렛에 도착했다. 아, 아울렛에 도착할 즈음 든든하게 달려준 쏘나타 하이브리드에 39.43달러어치 기름도 배불리 먹여주었다.",
+        "아울렛 입성 후, 가장 먼저 경외심마저 드는 랄프로렌으로 직행해 옷들을 쓸어 담았다. 타이밍과 운이 좋았던 덕에 꽤 만족스럽게 득템할 수 있었다. 그 기세를 이어 GAP과 타미힐피거를 넘나들며 연신 신용카드사의 결제 알람을 울려댔다.",
+        "끝없이 치솟던 쇼핑 욕구를 잠시 식욕으로 전환하기 위해 'RIGOBERTO’S TACO'로 향했다. 그곳에서 잔뜩 음식을 주문했는데…… 딱 한마디만 남기겠다. 결국 다 남겼다. 그리고 그 남긴 것 중 일부는 '10월 3일 내일 아침 식사'라는 그럴듯한 핑계를 대며 포장 용기에 담아왔다. 다짐하건대, 다시는 미국 타코집에 가지 않으리라. ^^",
+        "포틀랜드까지 왔는데 아울렛 쇼핑이라는 물질적 흔적만 달랑 남기고 떠나기는 아쉬워 포틀랜드 다운타운으로 차를 몰았다. 홀푸드 마켓(Whole Foods Market)에 주차를 한 뒤 파월스 북스(Powell's Books)로 향했다. 서점에서 2021년생 5살인 둘째 딸에게 영문 그림책을 읽어주며 잠시 '다정한 착한 아빠'에 빙의하는 시간을 가졌다. 서점까지 와서 빈손으로 가기는 아쉬웠기에, 이곳에서도 소비욕의 흔적을 남기고자 첫째 딸과 둘째 딸에게 영문 책을 한 권씩 사주었다. (아, 맞다! 파월스 북스로 걸어가던 길에 스타벅스를 발견해서, 아빠가 도시를 여행할 때마다 모으는 '포틀랜드 시티 머그컵'도 잊지 않고 챙겼다.)",
+        "다시 홀푸드 마켓으로 돌아와 포틀랜드 로컬 맥주와 샐러드드레싱, 그리고 참치 샐러드를 야무지게 구매하며 주차비를 깔끔하게 해결했다.",
+        "그리고 아빠는 다시 운전대를 잡고 힘차게 달려, 밤 9시 50분 올림피아의 숙소(3339 Cooper Point Road NW)에 무사히 도착하며 길고 길었던 하루를 마무리했다."
+      ],
+      quickExpenses: [
+        { name: "쏘나타 하이브리드 휘발유 주유", amount: 39.43, currency: "USD", cat: "transit", note: "I-5 South 2시간 40분 드라이브 후 주유!" },
+        { name: "Rigoberto's Taco (점심 포장)", amount: 32.50, currency: "USD", cat: "dining", note: "다 남기고 내일 아침용 포장 — 타코 집 재방문 금지!" },
+        { name: "파월스 북스 영문 그림책 2권", amount: 28.00, currency: "USD", cat: "shopping", note: "첫째 & 둘째 영문 책 선물" },
+        { name: "스타벅스 포틀랜드 시티 머그컵", amount: 16.95, currency: "USD", cat: "shopping", note: "아빠의 시티 머그 컬렉션 수집" },
+        { name: "홀푸드 마켓 (로컬 맥주 & 샐러드)", amount: 26.80, currency: "USD", cat: "dining", note: "주차비 감면 겸 야식 구매" }
+      ],
+      familyComments: [
+        {
+          author: "엄마 (지은)",
+          emoji: "👩",
+          color: "rose",
+          comments: [
+            { moment: "아침 억지 잔소리", text: "빵 계란 맛있게 싹 비워놓고 '왜 아침 차렸어!'라고 성내는 아빠 보면서 속으로 백번 부처님 외침 ㅋㅋㅋ 🤦‍♀️" },
+            { moment: "소비세 0% 아울렛", text: "우드번 아울렛 랄프로렌에서 예쁜 옷 득템해서 아침 잔소리 바로 분노 삭혀짐! 오레곤 면세 최고 🛍️" },
+            { moment: "타코 대참사", text: "미국 타코 양 너무 많고 향 세서 다 남김... 내일 아침으로 싸온 것도 웃겼어 🌮" }
+          ]
+        },
+        {
+          author: "이안 (첫째)",
+          emoji: "👧",
+          color: "violet",
+          comments: [
+            { moment: "파월스 북스", text: "서점이 건물 전체라 길 잃을 뻔했어요! 예쁜 영어 그림책 선물 받아서 완전 좋아 📚" },
+            { moment: "아울렛 옷 쇼핑", text: "엄마 아빠가 옷 골라주는데 제 마음에 드는 핑크 옷 얻어서 기분 짱!" },
+            { moment: "포틀랜드 거리", text: "다운타운에 건물들이 시애틀이랑 또 달라서 멋졌어요!" }
+          ]
+        },
+        {
+          author: "이솔 (막내)",
+          emoji: "👧",
+          color: "emerald",
+          comments: [
+            { moment: "새벽에 아빠 놀자", text: "새벽에 아빠 눈떠서 '아빠 놀자!' 했는데 아빠가 자꾸 토닥토닥만 해서 속상했음 😜" },
+            { moment: "서점 동화책", text: "아빠가 서점에서 영어 책 읽어줬는데 아빠 목소리가 웃겼어요 📖" },
+            { moment: "차 안에서 꿀잠", text: "아울렛 갈 때 차에서 계~속 잤어요 😴" }
+          ]
+        }
+      ]
+    };
+
     let activeDiaryDay = 1;
 
     function getCustomDiaries() {
@@ -3467,18 +3637,49 @@
       const customData = customDiaries[dayNum];
 
       // Day 1: 아빠의 실제 일기 데이터
-      if (dayNum === 1) {
-        const d = defaultDiaryDay1;
+      const defaultDiaries = {
+        1: defaultDiaryDay1,
+        2: defaultDiaryDay2,
+        3: defaultDiaryDay3
+      };
+
+      const d = defaultDiaries[dayNum];
+
+      if (d) {
         const paragraphsToUse = (customData && customData.content) ? customData.content.split('\n\n') : d.paragraphs;
         const titleToUse = (customData && customData.title) ? customData.title : d.title;
         const moodToUse = (customData && customData.mood) ? customData.mood : d.mood;
+
+        // 회고 팁 (날짜별 맞춤)
+        const retroTips = {
+          1: [
+            "<strong>보조/카메라 배터리:</strong> 위탁 수하물에 넣으면 공항에서 숟가락 던지고 질주해야 하니, 무조건 기내 휴대 가방에 소지할 것!",
+            "<strong>렌터카 픽업 팁:</strong> National Emerald Aisle 등 구역 자율 배정 시, 당황하지 말고 익숙한 차(쏘나타 등)를 매의 눈으로 고르면 이득.",
+            "<strong>미국 외식 짠맛 주의:</strong> 식당에서 주문할 때는 주저하지 말고 <em>\"Please make it less salty\"</em>를 꼭 부탁할 것!",
+            "<strong>시차 극복 신의 한 수:</strong> 도착 직후 1.5시간의 낮잠 기절이 첫날 밤샘 운전의 피로를 극복하는 최고의 활력제가 됨."
+          ],
+          2: [
+            "<strong>새벽 국립공원 운전:</strong> 까만 칠흑길 2시간 운전은 피곤하지만 하늘 위 점처럼 박힌 별빛과 7:30 만년설 해돋이는 일생일대의 장관!",
+            "<strong>산속 추위 방한복:</strong> 10월 초 레이니어 파라다이스는 살을 에는 추위! 경량 패딩이나 방한 겉옷을 차에 꼭 준비할 것.",
+            "<strong>NorthWest TREK 팁:</strong> 트램 투어 창문 바로 앞 바이슨 가족 관찰은 아이들에게 최고의 인생 생태 체험.",
+            "<strong>에버그린 대학교 감성:</strong> 추억의 캠퍼스 산책 시 기숙사를 못 찾더라도 잔디밭 벤치에서 커피 한 잔의 여유를 가지는 것이 진정한 힐링."
+          ],
+          3: [
+            "<strong>시차 적응 수칙:</strong> 수장(아빠)의 호언장담만 믿지 말 것! 맥주 2캔에 8시 반 기절 굴욕과 새벽 2시 반 둘째의 '아빠 놀자' 사투 방지법 필수.",
+            "<strong>오레곤 면세 쇼핑:</strong> 우드번 프리미엄 아울렛은 소비세 0%! 랄프로렌, GAP, 타미힐피거 득템으로 아침 잔소리 감정 즉시 상쇄.",
+            "<strong>미국 타코집 주의:</strong> 욕심내서 과하게 주문하면 대참사 발생! 양이 어마어마하니 소량 주문 후 추가할 것.",
+            "<strong>포틀랜드 서점 감성:</strong> 파월스 북스(Powell's Books) 세계 최대 서점에서 아이들 영문 그림책 선물과 스타벅스 포틀랜드 시티 머그 수집 강추!"
+          ]
+        };
+
+        const currentRetro = retroTips[dayNum] || retroTips[1];
 
         container.innerHTML = `
           <!-- Diary Title & Header Box -->
           <div class="bg-amber-50/60 border border-amber-200/80 rounded-2xl p-4 sm:p-6 space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-200/60 pb-3">
               <div>
-                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-200 text-amber-900 uppercase">Day 1 • 2026.09.30</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-200 text-amber-900 uppercase">Day ${d.day} • ${d.dateStr}</span>
                 <h3 class="text-base sm:text-xl font-black text-stone-900 mt-1 leading-snug">${titleToUse}</h3>
                 <p class="text-xs text-amber-800 font-medium">${d.subTitle}</p>
               </div>
@@ -3486,26 +3687,26 @@
                 <span class="inline-block px-2.5 py-1 bg-white rounded-lg border border-amber-200 text-xs font-semibold text-stone-700 shadow-2xs">
                   오늘의 기분: <span class="font-bold text-amber-900">${moodToUse}</span>
                 </span>
-                <button onclick="openNewDiaryModal(1)" class="ml-1 text-[11px] text-amber-800 underline font-semibold">✏️ 수정</button>
+                <button onclick="openNewDiaryModal(${dayNum})" class="ml-1 text-[11px] text-amber-800 underline font-semibold">✏️ 수정</button>
               </div>
             </div>
 
             <!-- 4 Quick Stats -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center">
               <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
-                <p class="text-[10px] text-stone-500 font-medium">체감 하루 길이</p>
+                <p class="text-[10px] text-stone-500 font-medium">체감 일과 / 기상</p>
                 <p class="text-xs sm:text-sm font-bold text-amber-900 mt-0.5">${d.stats.totalHours}</p>
               </div>
               <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
-                <p class="text-[10px] text-stone-500 font-medium">비행 & 자세</p>
+                <p class="text-[10px] text-stone-500 font-medium">핵심 이동 / 주유</p>
                 <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${d.stats.flightInfo}</p>
               </div>
               <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
-                <p class="text-[10px] text-stone-500 font-medium">실제 운전 거리</p>
+                <p class="text-[10px] text-stone-500 font-medium">실제 이동 거리</p>
                 <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${d.stats.driveDistance}</p>
               </div>
               <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
-                <p class="text-[10px] text-stone-500 font-medium">기적의 낮잠</p>
+                <p class="text-[10px] text-stone-500 font-medium">휴식 & 수면</p>
                 <p class="text-xs sm:text-sm font-bold text-emerald-800 mt-0.5">${d.stats.napTime}</p>
               </div>
             </div>
@@ -3520,7 +3721,7 @@
           <div class="space-y-1.5">
             <h4 class="text-xs font-bold text-stone-800 flex items-center space-x-1.5">
               <span>🌟</span>
-              <span>1일차 결정적 순간들 (Key Highlights)</span>
+              <span>${dayNum}일차 결정적 순간들 (Key Highlights)</span>
             </h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               ${d.highlights.map(h => `
@@ -3540,9 +3741,9 @@
             <div class="flex items-center justify-between border-b border-stone-100 pb-2">
               <div class="flex items-center space-x-2">
                 <span class="text-base">⏱️</span>
-                <h4 class="font-extrabold text-stone-900 text-xs sm:text-sm">기적의 34시간 타임라인 (한국 시각 vs 미국 현지 시각)</h4>
+                <h4 class="font-extrabold text-stone-900 text-xs sm:text-sm">${dayNum}일차 여정 타임라인 (한국 시각 vs 미국 현지 시각)</h4>
               </div>
-              <span class="text-[10px] text-stone-500 font-mono">시차 -16시간 완벽 대조</span>
+              <span class="text-[10px] text-stone-500 font-mono">시차 -16시간 대조</span>
             </div>
 
             <div class="space-y-2 relative before:absolute before:inset-0 before:left-5 before:w-0.5 before:bg-amber-100 before:z-0">
@@ -3576,9 +3777,9 @@
               <div>
                 <h4 class="font-black text-amber-950 text-sm sm:text-base tracking-tight flex items-center gap-1.5">
                   <span>📝</span>
-                  <span>아빠의 여행 일기 본문 (Full Essay)</span>
+                  <span>${d.author}의 여행 일기 본문 (Full Essay)</span>
                 </h4>
-                <p class="text-[11px] text-stone-500 mt-0.5">2026년 9월 30일 밤 10시, 올림피아 숙소에서 작성</p>
+                <p class="text-[11px] text-stone-500 mt-0.5">${d.dateStr} 일기 기록</p>
               </div>
               <button onclick="copyDiaryContent()" class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg text-xs font-bold transition flex items-center gap-1">
                 <span>📋</span>
@@ -3589,22 +3790,15 @@
             <div class="space-y-3.5 text-stone-800 leading-loose text-xs sm:text-[13px] font-normal" id="diary-essay-body">
               ${paragraphsToUse.map(p => `<p class="leading-relaxed sm:leading-loose text-justify">${p}</p>`).join('')}
             </div>
-
-            <!-- Quote Highlights -->
-            <div class="bg-amber-100/70 border-l-4 border-amber-600 p-3 rounded-r-xl space-y-1">
-              <p class="font-extrabold text-amber-950 text-xs">💬 1일차 명언 / 웃음 벨</p>
-              <p class="text-stone-700 text-[11px] italic">“진한 녹색 표지판 아래에서 마음에 드는 차 아무거나 골라 타라” — 백인 래퍼 렌터카 직원</p>
-              <p class="text-stone-700 text-[11px] italic">“혀가 아릴 정도로 짠맛 쇼크, 그러나 아름답게 할인된 계산서에 서명하고 도망치듯 나왔다.”</p>
-            </div>
           </div>
 
-          <!-- Auto-Budget Link Bar (1일차 지출 가계부 즉시 등록) -->
+          <!-- Auto-Budget Link Bar (${dayNum}일차 지출 가계부 즉시 등록) -->
           <div class="bg-emerald-50/80 border border-emerald-200 rounded-2xl p-3.5 sm:p-4 space-y-2">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-1.5">
                 <span class="text-lg">💰</span>
                 <div>
-                  <h4 class="font-bold text-xs sm:text-sm text-emerald-950">1일차 일기 속 지출 ➔ 현지 가계부 1-클릭 연동</h4>
+                  <h4 class="font-bold text-xs sm:text-sm text-emerald-950">${dayNum}일차 일기 속 지출 ➔ 현지 가계부 1-클릭 연동</h4>
                   <p class="text-[10px] text-emerald-800">일기에 언급된 실제 지출 내역을 터치 한 번으로 가계부 탭에 즉시 기록하세요.</p>
                 </div>
               </div>
@@ -3626,17 +3820,14 @@
             </div>
           </div>
 
-          <!-- Father's Retrospective Tips -->
+          <!-- Retrospective Tips -->
           <div class="bg-stone-100 border border-stone-200 rounded-2xl p-4 text-xs space-y-2">
             <h4 class="font-extrabold text-stone-900 flex items-center gap-1.5">
               <span>💡</span>
-              <span>아빠의 1일차 실전 교훈 & 회고</span>
+              <span>${dayNum}일차 실전 교훈 & 회고</span>
             </h4>
             <ul class="list-disc list-inside space-y-1 text-stone-700 leading-relaxed text-[11px]">
-              <li><strong>보조/카메라 배터리:</strong> 위탁 수하물에 넣으면 공항에서 숟가락 던지고 질주해야 하니, 무조건 기내 휴대 가방에 소지할 것!</li>
-              <li><strong>렌터카 픽업 팁:</strong> National Emerald Aisle 등 구역 자율 배정 시, 당황하지 말고 익숙한 차(쏘나타 등)를 매의 눈으로 고르면 이득.</li>
-              <li><strong>미국 외식 짠맛 주의:</strong> 식당에서 주문할 때는 주저하지 말고 <em>"Please make it less salty"</em>를 꼭 부탁할 것!</li>
-              <li><strong>시차 극복 신의 한 수:</strong> 도착 직후 1.5시간의 낮잠 기절이 첫날 밤샘 운전의 피로를 극복하는 최고의 활력제가 됨.</li>
+              ${currentRetro.map(tip => `<li>${tip}</li>`).join('')}
             </ul>
           </div>
 
@@ -3704,14 +3895,21 @@
       const customDiaries = getCustomDiaries();
       const existing = customDiaries[targetDay];
 
+      const defaultDiaries = {
+        1: defaultDiaryDay1,
+        2: defaultDiaryDay2,
+        3: defaultDiaryDay3
+      };
+
       if (existing) {
         document.getElementById('diary-form-title').value = existing.title || '';
         document.getElementById('diary-form-mood').value = existing.mood || '';
         document.getElementById('diary-form-content').value = existing.content || '';
-      } else if (targetDay === 1) {
-        document.getElementById('diary-form-title').value = defaultDiaryDay1.title;
-        document.getElementById('diary-form-mood').value = defaultDiaryDay1.mood;
-        document.getElementById('diary-form-content').value = defaultDiaryDay1.paragraphs.join('\n\n');
+      } else if (defaultDiaries[targetDay]) {
+        const def = defaultDiaries[targetDay];
+        document.getElementById('diary-form-title').value = def.title;
+        document.getElementById('diary-form-mood').value = def.mood;
+        document.getElementById('diary-form-content').value = def.paragraphs.join('\n\n');
       } else {
         const plan = scheduleData.find(s => s.day === targetDay);
         document.getElementById('diary-form-title').value = plan ? `[아빠의 여행 일기] ${targetDay}일차: ${plan.title}` : '';
@@ -3726,16 +3924,23 @@
       document.getElementById('new-diary-modal').classList.add('hidden');
     }
 
-    function getFamilyComments() {
+    function getFamilyComments(dayNum) {
+      const targetDay = dayNum || activeDiaryDay || 1;
       try {
-        return JSON.parse(localStorage.getItem('seattle_family_comments_day1')) || null;
+        return JSON.parse(localStorage.getItem('seattle_family_comments_day' + targetDay)) || null;
       } catch (e) {
         return null;
       }
     }
 
     function openFamilyCommentModal() {
-      const saved = getFamilyComments() || defaultDiaryDay1.familyComments;
+      const defaultDiaries = {
+        1: defaultDiaryDay1,
+        2: defaultDiaryDay2,
+        3: defaultDiaryDay3
+      };
+      const currentDef = defaultDiaries[activeDiaryDay] || defaultDiaryDay1;
+      const saved = getFamilyComments(activeDiaryDay) || currentDef.familyComments;
       // 모달이 없으면 동적으로 생성
       let modal = document.getElementById('family-comment-modal');
       if (!modal) {
@@ -3796,12 +4001,19 @@
           return { ...cmt, text: el ? el.value.trim() || cmt.text : cmt.text };
         })
       }));
-      localStorage.setItem('seattle_family_comments_day1', JSON.stringify(updated));
-      // defaultDiaryDay1.familyComments를 인-메모리에서도 갱신
-      defaultDiaryDay1.familyComments = updated;
+      const day = activeDiaryDay || 1;
+      localStorage.setItem('seattle_family_comments_day' + day, JSON.stringify(updated));
+      const defaultDiaries = {
+        1: defaultDiaryDay1,
+        2: defaultDiaryDay2,
+        3: defaultDiaryDay3
+      };
+      if (defaultDiaries[day]) {
+        defaultDiaries[day].familyComments = updated;
+      }
       closeFamilyCommentModal();
       showToast('가족 한마디가 저장되었습니다! 👨‍👩‍👧‍👧', '✨');
-      renderDiaryDay(1);
+      renderDiaryDay(day);
     }
 
     function saveCustomDiary() {
