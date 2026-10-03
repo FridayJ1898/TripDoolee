@@ -589,6 +589,23 @@
               </select>
             </div>
             <div class="sm:col-span-2">
+              <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">📅 날짜</label>
+              <select id="exp-date" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-lg bg-white font-medium">
+                <option value="">날짜 미지정</option>
+                <option value="2026.09.30 (수)">9월 30일 (수)</option>
+                <option value="2026.10.01 (목)">10월 1일 (목)</option>
+                <option value="2026.10.02 (금)">10월 2일 (금)</option>
+                <option value="2026.10.03 (토)">10월 3일 (토)</option>
+                <option value="2026.10.04 (일)">10월 4일 (일)</option>
+                <option value="2026.10.05 (월)">10월 5일 (월)</option>
+                <option value="2026.10.06 (화)">10월 6일 (화)</option>
+                <option value="2026.10.07 (수)">10월 7일 (수)</option>
+                <option value="2026.10.08 (목)">10월 8일 (목)</option>
+                <option value="2026.10.09 (금)">10월 9일 (금)</option>
+                <option value="2026.10.10 (토)">10월 10일 (토)</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
               <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">통화 & 금액</label>
               <div class="flex">
                 <select id="exp-curr" class="px-2 py-2 border border-r-0 border-stone-300 rounded-l-lg bg-stone-50 font-bold text-stone-700 text-sm sm:text-xs">
@@ -598,13 +615,13 @@
                 <input type="number" id="exp-amount" step="any" placeholder="30" required class="w-full px-2.5 py-2 border border-stone-300 rounded-r-lg font-bold text-stone-900 text-sm sm:text-xs">
               </div>
             </div>
-            <div class="sm:col-span-3">
-              <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">메모 / 일자</label>
-              <input type="text" id="exp-note" placeholder="예: Day 2 오후 방문" class="w-full px-3 py-2 text-sm sm:text-xs border border-stone-300 rounded-lg">
+            <div class="sm:col-span-2">
+              <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">메모</label>
+              <input type="text" id="exp-note" placeholder="예: 4인 가족 입장료" class="w-full px-3 py-2 text-sm sm:text-xs border border-stone-300 rounded-lg">
             </div>
-            <div class="sm:col-span-2 flex items-end">
+            <div class="sm:col-span-1 flex items-end">
               <button type="submit" class="w-full bg-amber-800 hover:bg-amber-900 text-white font-bold py-2 px-3 rounded-lg transition touch-target flex items-center justify-center space-x-1 shadow-sm active:scale-95">
-                <span>➕ 추가하기</span>
+                <span>➕ 추가</span>
               </button>
             </div>
           </form>
@@ -2987,6 +3004,7 @@
       const curr = document.getElementById('exp-curr').value;
       const amt = parseFloat(document.getElementById('exp-amount').value);
       const note = document.getElementById('exp-note').value.trim();
+      const dateVal = document.getElementById('exp-date').value; // 날짜 드롭다운 값
 
       if (!title || isNaN(amt) || amt <= 0) return;
 
@@ -2999,6 +3017,8 @@
         note: note,
         done: false
       };
+      // 날짜가 선택된 경우에만 date 필드 추가
+      if (dateVal) newExpense.date = dateVal;
 
       customExpenses.unshift(newExpense);
       saveExpensesToStorage();
@@ -3007,6 +3027,7 @@
       document.getElementById('exp-title').value = '';
       document.getElementById('exp-amount').value = '';
       document.getElementById('exp-note').value = '';
+      document.getElementById('exp-date').value = '';
     }
 
     function addPresetExpense(title, amt, curr, cat, note) {
@@ -3291,8 +3312,6 @@
       `;
     }
 
-      renderBudgetBreakdownChart(catSumsKRW);
-    }
 
     function renderBudgetBreakdownChart(catSums) {
       const ctx = document.getElementById('budgetBreakdownChart');
