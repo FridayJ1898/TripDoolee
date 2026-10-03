@@ -2257,15 +2257,30 @@
     const FIXED_TOTAL_KRW = FIXED_FLIGHT + FIXED_STAY1 + FIXED_STAY2 + FIXED_RENTAL + FIXED_CITYPASS + FIXED_INSURANCE; // 5,023,212
 
     const defaultCustomExpenses = [
-      { id: "def-1", title: "마운틴 레이니어 국립공원 차량 입장료", amount: 30, currency: "USD", category: "activity", note: "차량 1대 7일권", done: false },
-      { id: "def-2", title: "핸즈온 어린이 박물관 (올림피아 4인)", amount: 79.8, currency: "USD", category: "activity", note: "성인2+아이2 ($19.95/인)", done: false },
-      { id: "def-3", title: "시애틀 어린이 박물관 (4인)", amount: 72, currency: "USD", category: "activity", note: "성인2+아이2 ($18/인)", done: false },
-      { id: "def-4", title: "시애틀 그레이트 휠 (대관람차 4인)", amount: 62, currency: "USD", category: "activity", note: "성인2 ($18)+소아2 ($13)", done: false },
-      { id: "def-5", title: "럿레지 호박농장 액티비티 패스", amount: 40, currency: "USD", category: "activity", note: "트랙터 마차 & 미로 체험", done: false },
-      { id: "def-6", title: "베인브리지 페리 도보 왕복 (성인2, 아동무료)", amount: 20, currency: "USD", category: "transit", note: "18세 이하 아동 무료", done: false },
-      { id: "def-7", title: "타코마 코스트코 첫날 장보기", amount: 200, currency: "USD", category: "food", note: "소고기 스테이크, 생수, 간식", done: false },
-      { id: "def-8", title: "렌터카 4일 주유비", amount: 50, currency: "USD", category: "transit", note: "반납 전 주유", done: false },
-      { id: "def-9", title: "귀국일 숙소 ➡️ SEA 공항 UberXL", amount: 65, currency: "USD", category: "transit", note: "대형 짐 & 유모차", done: false }
+      // 09/30 (Day 1 실제 결제 완료)
+      { id: "exp-0930-1", title: "🛒 트레이더 조 첫 장보기 (09/30)", amount: 46.16, currency: "USD", category: "food", note: "과일/간식/식재료", done: true },
+      { id: "exp-0930-2", title: "🍕 레드 로빈 저녁 식사 (09/30)", amount: 31.32, currency: "USD", category: "food", note: "피자 & 프라이 (할인 적용)", done: true },
+      { id: "exp-0930-3", title: "🎯 타깃(Target) 몰 쇼핑 (09/30)", amount: 28.25, currency: "USD", category: "shopping", note: "번개 생필품 쇼핑", done: true },
+
+      // 10/01 (Day 2 실제 결제 완료)
+      { id: "exp-1001-1", title: "🦬 NW TREK WILDLIFE 4인 (10/01)", amount: 108.00, currency: "USD", category: "activity", note: "야생동물원 40분 트램 투어 포함", done: true },
+      { id: "exp-1001-2", title: "🍔 맥도날드 점심 식사 (10/01)", amount: 32.41, currency: "USD", category: "food", note: "치즈버거 & 쿼터파운더 버거 세트", done: true },
+
+      // 10/02 (Day 3 실제 결제 완료)
+      { id: "exp-1002-1", title: "⛽ 쏘나타 하이브리드 휘발유 주유 (10/02)", amount: 39.73, currency: "USD", category: "transit", note: "I-5 South 드라이브 후 주유", done: true },
+      { id: "exp-1002-2", title: "🛍️ POLO Ralph Lauren 오레곤 면세 (10/02)", amount: 477.90, currency: "USD", category: "shopping", note: "우드번 아울렛 (소비세 0%)", done: true },
+      { id: "exp-1002-3", title: "🛍️ GAP 오레곤 면세 (10/02)", amount: 230.26, currency: "USD", category: "shopping", note: "우드번 아울렛 (소비세 0% 키즈/의류)", done: true },
+      { id: "exp-1002-4", title: "🛍️ TOMMY Hilfiger 오레곤 면세 (10/02)", amount: 171.87, currency: "USD", category: "shopping", note: "우드번 아울렛 (소비세 0% 의류)", done: true },
+      { id: "exp-1002-5", title: "🌮 RIGOBERTO'S TACO 점심 (10/02)", amount: 32.95, currency: "USD", category: "food", note: "타코 점심 & 남은 음식 포장", done: true },
+      { id: "exp-1002-6", title: "☕ 스타벅스 포틀랜드 시티 머그 (10/02 - 💵현금)", amount: 17.95, currency: "USD", category: "shopping", note: "💵 현금(Cash) 결제 — 포틀랜드 머그", done: true },
+      { id: "exp-1002-7", title: "📚 POWELL'S City Books 영문책 (10/02 - 💵현금)", amount: 11.54, currency: "USD", category: "shopping", note: "💵 현금(Cash) 결제 — 아이들 영문 그림책 2권", done: true },
+      { id: "exp-1002-8", title: "🛒 Whole Foods Market 장보기 (10/02)", amount: 24.40, currency: "USD", category: "food", note: "로컬 맥주 & 샐러드 (주차비 해결)", done: true },
+
+      // 향후 예정 예산 (Days 4~11)
+      { id: "def-1", title: "🌲 마운틴 레이니어 국립공원 차량 입장료", amount: 30, currency: "USD", category: "activity", note: "차량 1대 7일권", done: false },
+      { id: "def-5", title: "🎃 Carpinito Bros 호박농장 액티비티", amount: 40, currency: "USD", category: "activity", note: "유픽 & 옥수수 미로 체험", done: false },
+      { id: "def-6", title: "🚢 베인브리지 페리 도보 왕복", amount: 20, currency: "USD", category: "transit", note: "18세 이하 아동 무료", done: false },
+      { id: "def-9", title: "🚕 귀국일 숙소 ➡️ SEA 공항 UberXL", amount: 65, currency: "USD", category: "transit", note: "대형 짐 & 유모차", done: false }
     ];
 
     let customExpenses = [];
@@ -3453,9 +3468,8 @@
         "집에 돌아와 전날 장 봐둔 연어 스테이크와 오일 파스타를 요리해 저녁을 먹으며 하루 일정을 마무리하였다. 나초 칩과 맥주를 곁들여 90년대 미국 영화 <신부의 아버지>를 보며, 제법 현지 미국인 같은 일상으로 하루를 매듭지은 여행 둘째 날이었다."
       ],
       quickExpenses: [
-        { name: "맥도날드 점심 (치즈버거 & 쿼터파운더)", amount: 24.50, currency: "USD", cat: "dining", note: "미국 맥도날드 특유의 느끼한 미국의 맛!" },
-        { name: "연어 스테이크 & 파스타 식재료", amount: 22.10, currency: "USD", cat: "dining", note: "숙소 직접 요리 연어 스테이크 & 오일 파스타" },
-        { name: "로컬 맥주 & 나초 칩 (영화 신부의 아버지)", amount: 15.80, currency: "USD", cat: "dining", note: "영화 시청 꿀야식" }
+        { name: "NW TREK WILDLIFE 4인 입장료", amount: 108.00, currency: "USD", cat: "activity", note: "야생동물원 40분 트램 투어 포함" },
+        { name: "맥도날드 점심 (치즈버거 & 쿼터파운더)", amount: 32.41, currency: "USD", cat: "dining", note: "미국 맥도날드 4인 식사" }
       ],
       familyComments: [
         {
@@ -3502,25 +3516,25 @@
       stats: {
         totalHours: "오전 9:40 기상 (기적의 늦잠 사투)",
         driveDistance: "약 380km (올림피아 ➔ 우드번 ➔ 포틀랜드 ➔ 올림피아)",
-        flightInfo: "쏘나타 하이브리드 주유 $39.43",
+        flightInfo: "쏘나타 하이브리드 주유 $39.73",
         napTime: "새벽 2:30 둘째 어택 후 아침 9:40까지 보상 수면"
       },
       highlights: [
         { icon: "😴", title: "수장의 8:30 기절 굴욕", desc: "'밤 9시 전 취침 금지!' 비장 공표 후 로컬 맥주 2캔에 본인이 8시 반 최우선 곯아떨어진 굴욕!" },
         { icon: "👧", title: "새벽 2:30 '아빠, 놀자'", desc: "새벽 2시반 눈뜬 아빠 옆 말똥말똥 둘째의 심쿵 어택! 1시간 토닥임 끝에 9:40 늦잠 아침 맞이." },
-        { icon: "🛍️", title: "오레곤 소비세 0% 대폭발", desc: "우드번 아울렛 직행! 랄프로렌 싹쓸이 & GAP, 타미힐피거 결제 알림 폭발 (기름값 $39.43 완충)." },
-        { icon: "📚", title: "파월스 북스 착한 아빠", desc: "세계 최대 서점에서 둘째 그림책 읽어주며 착한 아빠 빙의 & 영문 책 구매, 스타벅스 포틀랜드 머그 겟!" }
+        { icon: "🛍️", title: "오레곤 소비세 0% 대폭발", desc: "우드번 아울렛 직행! 랄프로렌($477.90), GAP($230.26), TOMMY($171.87) 폭풍 결제 💳" },
+        { icon: "📚", title: "파월스 북스 착한 아빠", desc: "세계 최대 서점에서 둘째 그림책 읽어주며 착한 아빠 빙의 & 영문 책 구매($11.54 현금), 스타벅스 머그($17.95 현금) 겟!" }
       ],
       timelineEvents: [
         { krTime: "10/2 12:30", usTime: "10/1 20:30", place: "올림피아 숙소", desc: "'9시 전 수면 금지' 공표 후 수장 아빠가 맥주 2캔에 8:30 가장 먼저 곯아떨어짐 😴", tag: "시차참패", icon: "🍺" },
         { krTime: "10/2 18:30", usTime: "10/2 02:30", place: "올림피아 숙소 침대", desc: "아빠 눈뜸 ➔ 옆에서 말똥말똥 둘째 '아빠 놀자' ➔ 1시간 토닥임 후 09:40까지 늦잠", tag: "해프닝", icon: "👧" },
         { krTime: "10/3 02:00", usTime: "10/2 10:00", place: "올림피아 숙소 식탁", desc: "빵&계란 흡입 후 이성 되찾아 '바쁜데 왜 아침 차렸어!' 억지 잔소리 ➔ 엄마 부처 인내심 😅", tag: "아침식사", icon: "🍳" },
-        { krTime: "10/3 03:00", usTime: "10/2 11:00", place: "I-5 South 드라이브", desc: "올림피아 출발 (2시간 40분 이동) ➔ 아울렛 직전 쏘나타 하이브리드 $39.43 주유 ⛽", tag: "드라이브", icon: "🚗" },
-        { krTime: "10/3 05:40", usTime: "10/2 13:40", place: "우드번 프리미엄 아울렛", desc: "소비세 0% 오레곤! 랄프로렌 직행 싹쓸이 득템 & GAP, 타미힐피거 카드 결제 알림 폭발 💳", tag: "쇼핑", icon: "🛍️" },
-        { krTime: "10/3 08:00", usTime: "10/2 16:00", place: "RIGOBERTO'S TACO", desc: "잔뜩 주문했으나 극강의 느끼함에 대참사(다 남김) ➔ 내일 아침 핑계 포장 용기행 🌮", tag: "점심식사", icon: "🌮" },
+        { krTime: "10/3 03:00", usTime: "10/2 11:00", place: "I-5 South 드라이브", desc: "올림피아 출발 (2시간 40분 이동) ➔ 아울렛 직전 쏘나타 하이브리드 $39.73 주유 ⛽", tag: "드라이브", icon: "🚗" },
+        { krTime: "10/3 05:40", usTime: "10/2 13:40", place: "우드번 프리미엄 아울렛", desc: "소비세 0% 오레곤! POLO($477.90), GAP($230.26), TOMMY($171.87) 카드 결제 알림 폭발 💳", tag: "쇼핑", icon: "🛍️" },
+        { krTime: "10/3 08:00", usTime: "10/2 16:00", place: "RIGOBERTO'S TACO", desc: "타코 점심($32.95) 주문했으나 느끼함에 다 남김 ➔ 내일 아침 핑계 포장 용기행 🌮", tag: "점심식사", icon: "🌮" },
         { krTime: "10/3 09:30", usTime: "10/2 17:30", place: "포틀랜드 다운타운", desc: "홀푸드 마켓 주차 후 파월스 북스(Powell's Books) 탐방 ➔ 둘째 그림책 읽어주기 📚", tag: "다운타운", icon: "📖" },
-        { krTime: "10/3 10:30", usTime: "10/2 18:30", place: "파월스 북스 & 스타벅스", desc: "아이들 영문 책 2권 구매 & 스타벅스 포틀랜드 시티 머그컵 컬렉션 챙기기 ☕", tag: "서점", icon: "☕" },
-        { krTime: "10/3 11:30", usTime: "10/2 19:30", place: "홀푸드 마켓 (Whole Foods)", desc: "포틀랜드 로컬 맥주, 샐러드드레싱, 참치 샐러드 겟 (주차비 깔끔 해결) 🛒", tag: "장보기", icon: "🛒" },
+        { krTime: "10/3 10:30", usTime: "10/2 18:30", place: "파월스 북스 & 스타벅스", desc: "영문 책($11.54 💵현금) & 스타벅스 시티 머그($17.95 💵현금) 구매 ☕", tag: "서점", icon: "☕" },
+        { krTime: "10/3 11:30", usTime: "10/2 19:30", place: "홀푸드 마켓 (Whole Foods)", desc: "로컬 맥주 & 샐러드 ($24.40) 겟 (주차비 깔끔 해결) 🛒", tag: "장보기", icon: "🛒" },
         { krTime: "10/3 13:50", usTime: "10/2 21:50", place: "올림피아 숙소 도착", desc: "밤 9시 50분 숙소(3339 Cooper Point Rd) 무사 귀환! 길었던 소비욕의 하루 마감 🏡", tag: "귀가", icon: "✍️" }
       ],
       paragraphs: [
@@ -3531,19 +3545,22 @@
         "이 새벽에 놀 수는 없는 노릇. 아빠는 애써 딸의 눈빛을 외면한 채, 1시간가량 기계적인 토닥임을 이어갔다. 그렇게 사투 끝에 다시 겨우 잠이 들었고, 눈을 떠 맞이한 2일의 아침은 바로 오전 9시 40분이었다.",
         "10월 2일 오늘은, 평소 검소하디검소했던 우리 가족의 봉인된 소비욕을 포틀랜드에서 대폭발시키기로 한 날이었다. 시간이 촉박해진 아빠는 분주하게 엄마와 딸들을 깨우며 허겁지겁 나갈 준비를 시켰다. 그런데 그렇게 정신없는 와중에 식탁을 보니 빵과 계란이 버젓이 차려져 있었다. '어라, 뭔가 이상한데?' 싶었지만, 일단 식탁에 둘러앉아 음식을 허겁지겁 흡입했다.",
         "하지만 다 먹고 자리에서 일어서는 순간, 이성이 돌아온 아빠는 엄마를 향해 잔소리를 쏟아냈다. \"생각해보니 이상하잖아! 우리 지금 시간 없는데 뭐 하는 거야, 왜 아침을 차린 거야!\" 다 먹고 나서야 터져 나온 황당한 잔소리에 엄마는 겨우 인내심을 발휘하며 부랴부랴 서둘러 나설 채비를 마쳤다.",
-        "결국 우리는 오전 11시가 되어서야 출발했고, 2시간 40분을 달려 포틀랜드 우드번 아울렛에 도착했다. 아, 아울렛에 도착할 즈음 든든하게 달려준 쏘나타 하이브리드에 39.43달러어치 기름도 배불리 먹여주었다.",
-        "아울렛 입성 후, 가장 먼저 경외심마저 드는 랄프로렌으로 직행해 옷들을 쓸어 담았다. 타이밍과 운이 좋았던 덕에 꽤 만족스럽게 득템할 수 있었다. 그 기세를 이어 GAP과 타미힐피거를 넘나들며 연신 신용카드사의 결제 알람을 울려댔다.",
-        "끝없이 치솟던 쇼핑 욕구를 잠시 식욕으로 전환하기 위해 'RIGOBERTO’S TACO'로 향했다. 그곳에서 잔뜩 음식을 주문했는데…… 딱 한마디만 남기겠다. 결국 다 남겼다. 그리고 그 남긴 것 중 일부는 '10월 3일 내일 아침 식사'라는 그럴듯한 핑계를 대며 포장 용기에 담아왔다. 다짐하건대, 다시는 미국 타코집에 가지 않으리라. ^^",
-        "포틀랜드까지 왔는데 아울렛 쇼핑이라는 물질적 흔적만 달랑 남기고 떠나기는 아쉬워 포틀랜드 다운타운으로 차를 몰았다. 홀푸드 마켓(Whole Foods Market)에 주차를 한 뒤 파월스 북스(Powell's Books)로 향했다. 서점에서 2021년생 5살인 둘째 딸에게 영문 그림책을 읽어주며 잠시 '다정한 착한 아빠'에 빙의하는 시간을 가졌다. 서점까지 와서 빈손으로 가기는 아쉬웠기에, 이곳에서도 소비욕의 흔적을 남기고자 첫째 딸과 둘째 딸에게 영문 책을 한 권씩 사주었다. (아, 맞다! 파월스 북스로 걸어가던 길에 스타벅스를 발견해서, 아빠가 도시를 여행할 때마다 모으는 '포틀랜드 시티 머그컵'도 잊지 않고 챙겼다.)",
+        "결국 우리는 오전 11시가 되어서야 출발했고, 2시간 40분을 달려 포틀랜드 우드번 아울렛에 도착했다. 아, 아울렛에 도착할 즈음 든든하게 달려준 쏘나타 하이브리드에 39.73달러어치 기름도 배불리 먹여주었다.",
+        "아울렛 입성 후, 가장 먼저 경외심마저 드는 랄프로렌($477.90)으로 직행해 옷들을 쓸어 담았다. 타이밍과 운이 좋았던 덕에 꽤 만족스럽게 득템할 수 있었다. 그 기세를 이어 GAP($230.26)과 타미힐피거($171.87)를 넘나들며 연신 신용카드사의 결제 알람을 울려댔다.",
+        "끝없이 치솟던 쇼핑 욕구를 잠시 식욕으로 전환하기 위해 'RIGOBERTO’S TACO'($32.95)로 향했다. 그곳에서 잔뜩 음식을 주문했는데…… 딱 한마디만 남기겠다. 결국 다 남겼다. 그리고 그 남긴 것 중 일부는 '10월 3일 내일 아침 식사'라는 그럴듯한 핑계를 대며 포장 용기에 담아왔다. 다짐하건대, 다시는 미국 타코집에 가지 않으리라. ^^",
+        "포틀랜드까지 왔는데 아울렛 쇼핑이라는 물질적 흔적만 달랑 남기고 떠나기는 아쉬워 포틀랜드 다운타운으로 차를 몰았다. 홀푸드 마켓(Whole Foods Market, $24.40)에 주차를 한 뒤 파월스 북스(Powell's Books, $11.54 현금)로 향했다. 서점에서 2021년생 5살인 둘째 딸에게 영문 그림책을 읽어주며 잠시 '다정한 착한 아빠'에 빙의하는 시간을 가졌다. 서점까지 와서 빈손으로 가기는 아쉬웠기에, 이곳에서도 소비욕의 흔적을 남기고자 첫째 딸과 둘째 딸에게 영문 책을 한 권씩 사주었다. (아, 맞다! 파월스 북스로 걸어가던 길에 스타벅스를 발견해서, 아빠가 도시를 여행할 때마다 모으는 '포틀랜드 시티 머그컵'($17.95 현금)도 잊지 않고 챙겼다.)",
         "다시 홀푸드 마켓으로 돌아와 포틀랜드 로컬 맥주와 샐러드드레싱, 그리고 참치 샐러드를 야무지게 구매하며 주차비를 깔끔하게 해결했다.",
         "그리고 아빠는 다시 운전대를 잡고 힘차게 달려, 밤 9시 50분 올림피아의 숙소(3339 Cooper Point Road NW)에 무사히 도착하며 길고 길었던 하루를 마무리했다."
       ],
       quickExpenses: [
-        { name: "쏘나타 하이브리드 휘발유 주유", amount: 39.43, currency: "USD", cat: "transit", note: "I-5 South 2시간 40분 드라이브 후 주유!" },
-        { name: "Rigoberto's Taco (점심 포장)", amount: 32.50, currency: "USD", cat: "dining", note: "다 남기고 내일 아침용 포장 — 타코 집 재방문 금지!" },
-        { name: "파월스 북스 영문 그림책 2권", amount: 28.00, currency: "USD", cat: "shopping", note: "첫째 & 둘째 영문 책 선물" },
-        { name: "스타벅스 포틀랜드 시티 머그컵", amount: 16.95, currency: "USD", cat: "shopping", note: "아빠의 시티 머그 컬렉션 수집" },
-        { name: "홀푸드 마켓 (로컬 맥주 & 샐러드)", amount: 26.80, currency: "USD", cat: "dining", note: "주차비 감면 겸 야식 구매" }
+        { name: "쏘나타 하이브리드 휘발유 주유 (GAS)", amount: 39.73, currency: "USD", cat: "transit", note: "I-5 South 드라이브 주유" },
+        { name: "POLO Ralph Lauren (우드번 면세)", amount: 477.90, currency: "USD", cat: "shopping", note: "오레곤 소비세 0% 면세 아울렛" },
+        { name: "GAP (우드번 면세)", amount: 230.26, currency: "USD", cat: "shopping", note: "오레곤 소비세 0% 면세 의류" },
+        { name: "TOMMY Hilfiger (우드번 면세)", amount: 171.87, currency: "USD", cat: "shopping", note: "오레곤 소비세 0% 면세 의류" },
+        { name: "Rigoberto's Taco 점심", amount: 32.95, currency: "USD", cat: "dining", note: "타코 점심 & 남은 음식 포장" },
+        { name: "스타벅스 포틀랜드 시티 머그 (💵현금)", amount: 17.95, currency: "USD", cat: "shopping", note: "💵 현금(Cash) 결제 — 포틀랜드 시티 머그" },
+        { name: "파월스 북스 영문 그림책 2권 (💵현금)", amount: 11.54, currency: "USD", cat: "shopping", note: "💵 현금(Cash) 결제 — 아이들 영문 그림책" },
+        { name: "홀푸드 마켓 (Whole Foods Market)", amount: 24.40, currency: "USD", cat: "dining", note: "로컬 맥주 & 샐러드 (주차비 해결)" }
       ],
       familyComments: [
         {
