@@ -1252,7 +1252,7 @@
         </button>
         <button onclick="viewDiaryDay(6)" id="diary-day-btn-6" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 6 (10/05)</span>
-          <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded-full">오늘/작성</span>
+          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(7)" id="diary-day-btn-7" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 7 (10/06)</span>
@@ -1683,33 +1683,60 @@
         day: 6,
         date: "10/05(월)",
         region: "seattle",
-        title: "파이크 마켓 & 시애틀 아쿠아리움 & 아르고시 크루즈 (바다 데이)",
-        summary: "파이크 마켓 생선 쇼, 차우더 점심과 스타벅스 1호점, 오후엔 아쿠아리움 관람 후 1시간 유람선에서 바다 보며 편안히 휴식",
-        transit: "🚊 대중교통 + 바닷가 도보 산책",
+        title: "파이크 마켓 바다뷰 차우더 & 아쿠아리움 & 아르고시 크루즈 & 스타벅스 1호점",
+        summary: "D line 탑승 ➔ 파이크 마켓 바다뷰 크램 차우더 & 앵커헤드 커피 ➔ 타깃 프리즈비 탐색 ➔ 시애틀 아쿠아리움 ➔ 피어 55 아르고시 하버 투어 & 레이니어 맥주 ➔ 스타벅스 1호점 머그 ➔ 가파른 언덕길 어부바 귀가",
+        transit: "🚋 RapidRide D Line 트램/급행버스 + 워터프런트 도보",
+        hasDiary: true,
+        diaryTitle: "바다 향기 없는 청명한 바다, 크루즈 맥주와 15년 만의 스타벅스 머그",
+        diarySummary: "바다뷰 크램차우더 조식 ➔ 타깃 프리즈비 찾기 ➔ 아쿠아리움 대왕문어 ➔ 바다 위 레이니어 맥주 & 스카이라인 ➔ 스타벅스 1호점 머그 ➔ 언덕길 어부바 복귀",
         timeline: [
           { 
-            time: "오전", 
-            text: "파이크 플레이스 마켓 활기찬 구경 (생선 던지기 쇼, 황동 돼지 레이첼, 껌 벽 포토존 산책).", 
-            tag: "마켓산책", 
+            time: "오전 09:00~10:30", 
+            text: "아침 9시 서둘러 준비 재촉 ➔ D line 탑승 ➔ 10:30경 파이크 플레이스 마켓 도착!", 
+            tag: "출발/이동", 
             address: "85 Pike St, Seattle, WA 98101" 
           },
           { 
-            time: "점심", 
-            text: "🍲 파이크 플레이스 차우더 클램 차우더 점심 ➔ 스타벅스 1호점(Original Store) 텀블러/기념품 구경 & 음료 픽업 (Tip: 마켓 오픈 직후 방문 시 대기 최소화).", 
-            tag: "맛집", 
+            time: "오전 10:30~11:30", 
+            text: "🍲 파이크 플레이스 차우더 줄서기 & 온라인 스마트 주문 (Large 1, Small 1 $27.09) ➔ 커피숍 뷰에 취해 빈손으로 온 엄마와 첫째 극적 상봉 ➔ 바다뷰 야외 테이블에서 감동의 조식 ➔ 앵커헤드 커피 16oz 아메리카노($5.24) 흡입 & 껌 벽(Gum Wall) 기념사진 📸", 
+            tag: "맛집/조식", 
             address: "1530 Post Alley, Seattle, WA 98101" 
           },
           { 
-            time: "오후", 
-            text: "Overlook Walk 육교 산책 ➔ 시애틀 아쿠아리움 & 오션 파빌리온 관람 (예약: 13:30) ➔ 15:35경 Pier 55로 천천히 걸어가 아르고시 크루즈 탑승 (출항: 16:05). 1시간 동안 배에 앉아 바다와 스카이라인 감상하며 다리 피로 풀기.", 
-            tag: "수족관/유람선", 
+            time: "정오 12:00~13:00", 
+            text: "🎯 타깃 몰(Target) 프리즈비 원정 (재고 없음 ➔ 15년 전 추억과 아쉬움) ➔ 짠내 없는 청명한 시애틀 바닷가 벤치에서 온 가족 휴식", 
+            tag: "타깃/바다휴식", 
+            address: "1401 2nd Ave, Seattle, WA 98101" 
+          },
+          { 
+            time: "오후 13:00~15:00", 
+            text: "🐠 시애틀 아쿠아리움 관람 (CityPASS) ➔ 3개 동 아메리칸 스케일 대왕 문어와 거대 가오리/상어 ➔ 실내 놀이 공간에서 아이들 에너자이저 & 부부 충전 휴식", 
+            tag: "수족관", 
             address: "1483 Alaskan Way Pier 59, Seattle, WA 98101" 
           },
           { 
+            time: "오후 15:00~15:35", 
+            text: "피어 55 이동 중 바닷가 놀이터 1차 발견! 아이들 30분간 광란의 질주 놀이 🏃‍♀️", 
+            tag: "놀이터", 
+            address: "Pier 55, Seattle, WA 98101" 
+          },
+          { 
+            time: "오후 15:35~17:00", 
+            text: "🚢 피어 55 아르고시 크루즈 하버 투어 (Argosy Cruises) 탑승! 화창한 바다 위에서 팝콘 & 레이니어 맥주($14.50) ➔ 황홀한 시애틀 스카이라인 & 마운트 레이니어 조망 (CityPASS 5개 중 단연 최고 만족도!) 🍺", 
+            tag: "크루즈", 
+            address: "1101 Alaskan Way Pier 55, Seattle, WA 98101" 
+          },
+          { 
+            time: "오후 17:00~18:30", 
+            text: "바닷가 놀이터 2차 (30분 보너스) ➔ 스타벅스 1호점(Original Starbucks) 15년 만의 방문 & 기념 머그컵($23.99) 득템 (상업화 소회)", 
+            tag: "놀이터/스타벅스", 
+            address: "1912 Pike Pl, Seattle, WA 98101" 
+          },
+          { 
             time: "저녁", 
-            text: "하선 후 바로 옆 🐟 아이버스 피어 54(Ivar's) 피시앤칩스 & 연어 디너 외식 후 대중교통으로 숙소 복귀.", 
-            tag: "맛집", 
-            address: "1001 Alaskan Way Pier 54, Seattle, WA 98104" 
+            text: "3rd Ave & Pike St에서 D line 탑승($12.00) ➔ 15th Ave W & W Dravus St 하차 ➔ 가파른 오르막길 둘째 어부바 & 첫째 유모차 밀며 끙끙 투혼 귀가! 따뜻한 밤 🌙", 
+            tag: "귀가/마감", 
+            address: "Seattle Airbnb" 
           }
         ]
       },
@@ -2347,7 +2374,14 @@
       { id: "exp-1004-2", date: "2026.10.04 (일)", title: "🍔 맥도날드 (McDonald)", amount: 36.55, currency: "USD", category: "food", note: "분수대 광장 엄마표 맥도날드", done: true },
       { id: "exp-1004-3", date: "2026.10.04 (일)", title: "☕ 중국인 카페 커피", amount: 6.50, currency: "USD", category: "food", note: "치훌리 근처 커피 한 잔", done: true },
       { id: "exp-1004-4", date: "2026.10.04 (일)", title: "🗼 스페이스 니들 음료", amount: 11.05, currency: "USD", category: "activity", note: "스페이스 니들 전망대 음료", done: true },
-      { id: "exp-1004-5", date: "2026.10.04 (일)", title: "🗼 스페이스 니들 기념품", amount: 9.94, currency: "USD", category: "shopping", note: "야경 방문 기념품", done: true }
+      { id: "exp-1004-5", date: "2026.10.04 (일)", title: "🗼 스페이스 니들 기념품", amount: 9.94, currency: "USD", category: "shopping", note: "야경 방문 기념품", done: true },
+
+      // 10/05 (Day 6 실제 결제 완료)
+      { id: "exp-1005-1", date: "2026.10.05 (월)", title: "🍲 크램 차우더 (온라인 스마트 주문)", amount: 27.09, currency: "USD", category: "food", note: "파이크 플레이스 차우더 (Large 1, Small 1)", done: true },
+      { id: "exp-1005-2", date: "2026.10.05 (월)", title: "☕ Anchorhead Coffee", amount: 5.24, currency: "USD", category: "food", note: "파이크 플레이스 마켓 16oz 아메리카노", done: true },
+      { id: "exp-1005-3", date: "2026.10.05 (월)", title: "🚢 아르고시 크루즈 간식 (Pier 55)", amount: 14.50, currency: "USD", category: "activity", note: "팝콘 & 레이니어 맥주 1캔", done: true },
+      { id: "exp-1005-4", date: "2026.10.05 (월)", title: "☕ 스타벅스 1호점 (머그컵)", amount: 23.99, currency: "USD", category: "shopping", note: "15년 만의 기념 머그컵 1개", done: true },
+      { id: "exp-1005-5", date: "2026.10.05 (월)", title: "🚋 RapidRide D Line 트램/버스", amount: 12.00, currency: "USD", category: "transit", note: "D Line 왕복 대중교통", done: true }
     ];
 
     let customExpenses = [];
@@ -3031,7 +3065,7 @@
       }
 
       // v4 키 우선, 없으면 v3 키에서 로드 후 v4로 마이그레이션 및 공식 지출 항목 스마트 자동 병합
-      const savedExp = localStorage.getItem('seattle_custom_expenses_v4') || localStorage.getItem('seattle_custom_expenses_v3');
+      const savedExp = localStorage.getItem('seattle_custom_expenses_v5') || localStorage.getItem('seattle_custom_expenses_v4') || localStorage.getItem('seattle_custom_expenses_v3');
       if (savedExp) {
         try {
           const parsed = JSON.parse(savedExp);
@@ -3064,7 +3098,7 @@
     }
 
     function saveExpensesToStorage() {
-      localStorage.setItem('seattle_custom_expenses_v4', JSON.stringify(customExpenses));
+      localStorage.setItem('seattle_custom_expenses_v5', JSON.stringify(customExpenses));
       localStorage.setItem('seattle_exchange_rate', exchangeRate);
       renderExpenses();
     }
@@ -3986,6 +4020,91 @@
       ]
     };
 
+    const defaultDiaryDay6 = {
+      day: 6,
+      dateStr: "10월 5일 (월)",
+      title: "바다 향기 없는 청명한 바다, 크루즈 맥주와 15년 만의 스타벅스 머그",
+      subTitle: "파이크 마켓 바다뷰 조식부터 아쿠아리움, 크루즈 유람선, 스타벅스 1호점과 언덕길 어부바까지",
+      mood: "감동과 벅참, 청량한 힐링 🚢🍺",
+      stats: {
+        totalHours: "09:00 기상 ~ 19:30 귀가 (약 10.5시간)",
+        walkingKm: "약 14.2 km (바닷가 & 마켓 도보)",
+        familyMood: "크램차우더 감동 & 크루즈 힐링 100점",
+        napTime: "아쿠아리움 실내 놀이터 & 크루즈 1시간 꿀휴식"
+      },
+      highlights: [
+        { icon: "🍲", title: "바다 뷰 크램 차우더 & 온라인 스마트 주문", desc: "긴 줄 서다 스마트하게 온라인 주문! 빈손으로 온 모녀와 극적 상봉 후 환상적인 바다 뷰 야외 테이블에서 감동의 조식" },
+        { icon: "🎯", title: "타깃 프리즈비 탐색 & 15년 전 추억", desc: "WSU 캠퍼스 잔디밭에서 뛰놀 프리즈비를 찾아 타깃으로 갔으나 품절. 15년 전과 달라진 거리 속에서도 벽화와 하늘에 감동" },
+        { icon: "🐠", title: "아쿠아리움 아메리칸 스케일 & 꿀 충전", desc: "3개 동 어마무시한 대왕 문어와 가오리상어 관람 ➔ 아이들 실내 놀이방 노는 동안 부부 체력 급속 충전" },
+        { icon: "🚢", title: "아르고시 크루즈 하버 투어 & 레이니어 맥주", desc: "시티패스 5개 중 최고의 순간! 청명한 바다 위에서 팝콘과 레이니어 맥주 마시며 시애틀 스카이라인과 만년설 레이니어 산 조망" },
+        { icon: "☕", title: "스타벅스 1호점 머그 & 오르막길 어부바 투혼", desc: "15년 전 잃어버린 텀블러 대신 머그컵 구매 ➔ 가파른 언덕길 둘째는 아빠 등에 어부바, 첫째는 엄마 유모차로 끙끙 귀가!" }
+      ],
+      timelineEvents: [
+        { krTime: "10/6 01:00", usTime: "10/5 09:00", place: "시애틀 숙소", desc: "쏜살같이 흐르는 시간 붙잡고자 9시부터 준비 재촉 ➔ D Line 타고 마켓 이동", tag: "기상/출발", icon: "⏰" },
+        { krTime: "10/6 02:30", usTime: "10/5 10:30", place: "파이크 플레이스 마켓", desc: "크램 차우더 줄서기 & 온라인 스마트 주문 ➔ 빈손으로 온 모녀와 상봉 후 바다 뷰 야외석에서 감동의 조식 ($27.09) 🍲", tag: "크램차우더", icon: "🍲" },
+        { krTime: "10/6 03:30", usTime: "10/5 11:30", place: "Anchorhead Coffee & Gum Wall", desc: "앵커헤드 16oz 아메리카노 폭풍 흡입($5.24) ➔ 엄마와 아이들은 껌 벽(Gum Wall) 기념사진 찰칵 📸", tag: "커피/껌벽", icon: "☕" },
+        { krTime: "10/6 04:00", usTime: "10/5 12:00", place: "Target & 바닷가 벤치", desc: "아이들과 프리즈비 사러 타깃 갔으나 재고 없음 (15년 전 추억 소회) ➔ 짠내 안 나는 신기한 바닷가 벤치에서 휴식", tag: "타깃/바다휴식", icon: "🎯" },
+        { krTime: "10/6 05:00", usTime: "10/5 13:00", place: "시애틀 아쿠아리움", desc: "3개 동 아메리칸 스케일 대왕 문어 & 상어 구경 ➔ 실내 놀이터에서 아이들 놀고 부부 충전 휴식", tag: "아쿠아리움", icon: "🐠" },
+        { krTime: "10/6 07:00", usTime: "10/5 15:00", place: "바닷가 놀이터 1차", desc: "피어 55 이동 중 놀이터 발견! 아이들 30분간 신나게 뛰어놀기", tag: "놀이터", icon: "🛝" },
+        { krTime: "10/6 07:35", usTime: "10/5 15:35", place: "Pier 55 아르고시 크루즈", desc: "완벽히 화창한 날씨! 팝콘 & 레이니어 맥주($14.50)와 함께 스카이라인 & 마운트 레이니어 감상 (CityPASS 최고!) 🚢🍺", tag: "크루즈", icon: "🚢" },
+        { krTime: "10/6 09:00", usTime: "10/5 17:00", place: "놀이터 2차 & 스타벅스 1호점", desc: "놀이터 30분 보너스 ➔ 스타벅스 1호점 머그컵($23.99) 구매 (15년 전보다 상업화된 모습 소회)", tag: "스타벅스", icon: "☕" },
+        { krTime: "10/6 11:00", usTime: "10/5 19:00", place: "D Line & 숙소 오르막길", desc: "D Line 탑승($12.00) 후 하차 ➔ 가파른 오르막길 둘째 어부바, 첫째 유모차 밀며 끙끙 투혼 복귀! 따뜻한 밤", tag: "귀가/어부바", icon: "🌙" }
+      ],
+      paragraphs: [
+        "쏜살같이 흐르는 시간 속에, 오늘 하루를 조금이라도 붙잡아 멈춰보고자 아침 9시부터 부단히 가족들을 재촉해 서둘러 채비를 마쳤다. 그렇게 서둘렀건만, D line 트램(급행버스)을 타고 파이크 플레이스 마켓(Pike Place Market)에 도착하니 어느덧 오전 10시 30분 무렵이었다.",
+        "마켓에 도착하자마자 나와 둘째는 유명한 크램 차우더 가게(Pike Place Chowder)로 달려가 잽싸게 줄을 섰고, 엄마와 첫째 딸은 커피를 사 오겠다며 나섰다. 줄이 줄어들며 우리 차례가 임박했을 즈음, 기다림을 줄이고자 온라인으로 크램 차우더 스프 라지 하나와 스몰 하나를 주문했다. 마침 그 무렵 커피를 사러 갔던 엄마와 첫째 딸이 돌아왔는데, 손에 든 것이 아무것도 없는 빈손이었다. 커피숍 창밖으로 펼쳐진 풍경이 너무나도 환상적이어서, 그곳에서 머물지 않고 그냥 커피만 테이크아웃해 오기에는 너무 아까워 차마 사지 못하고 빈손으로 왔더랬다.",
+        "속으로 할 말은 많았지만 굳이 입 밖으로 내지 않고 꾹 삼켰다. 우리 가족은 갓 나온 따끈따끈한 크램 차우더 스프를 들고 파이크 플레이스 마켓 뒤편, 시애틀 앞바다가 시원하게 내려다보이는 끝내주는 뷰의 야외 테이블에 자리를 잡았다. 그리고 감동적인 아침 식사를 시작했다. 정말이지 감동 그 자체였다. 눈앞에 펼쳐진 푸른 바다도, 입안 가득 퍼지는 고소한 수프도, 그리고 그 순간 마주 앉은 우리 가족들의 마음까지도 더할 나위 없이 완벽했다.",
+        "식사를 기분 좋게 마치고, 나는 근처 앵커헤드 커피(Anchorhead Coffee - Pike Place Market)로 향해 16oz 아메리카노 한 잔을 사서 폭풍 흡입하며 카페인을 채웠다. 그사이에 엄마와 두 딸은 알록달록한 껌 벽(Gum Wall)으로 가 기념사진을 찰칵 남기고 돌아왔다.",
+        "오후 1시 30분 시티패스(CityPASS)로 예약해 둔 시애틀 아쿠아리움 입장까지는 약 1시간 정도 여유가 있었다. 이 틈에 타깃 몰(Target)에 가면 아이들과 날릴 프리즈비(원반)를 살 수 있겠다는 생각이 들어 아이들의 손을 잡고 타깃 몰로 발걸음을 옮겼다. 15년 전 청년 시절에 걸었던 기억과 비교해 보면 유달리 길거리가 더 지저분해지고 냄새도 나서 씁쓸한 아쉬움이 스쳤지만, 건물 외벽에 그려진 멋진 벽화들과 파란 가을 하늘을 잠시 올려다보면 이내 마음이 벅찬 감동으로 바뀌곤 했다.",
+        "그런 감상에 젖으며 도착한 타깃 몰이었지만, 야속하게도 프리즈비는 재고가 없었다. 왜일까? 15년 전에는 어디서나 그렇게 쉽게 구했던 프리즈비가 왜 지금은 이리도 찾기 어려울까. 아이들과 함께 Washington State University 캠퍼스 잔디밭에서 프리즈비를 던지며 신나게 뛰어노는 모습을 상상해 왔는데, 아빠의 숙제가 자꾸만 뒤로 미뤄지고 있다. 한국으로 떠나는 10월 10일 귀국일도 이제 며칠 남지 않았는데 말이다...",
+        "아쉬운 발걸음을 돌려, 우리는 엄마가 기다리고 있는 바닷가 벤치로 돌아왔다. 시애틀 앞바다가 훤히 내려다보이는 벤치에 옹기종기 모여 앉아 여유를 누렸다. 그러다 문득 참 신기하다는 생각이 스쳤다. 미국 시애틀은 분명 드넓은 바닷가인데도 코끝을 스치는 짠내가 전혀 나지 않는다는 점이었다. 그 청량함이 마냥 신기하고 기분 좋았다.",
+        "오후 1시가 조금 넘었을 무렵, 우리는 시애틀 아쿠아리움으로 향했다. 3개 동으로 나누어진 거대한 전시관 속에서 어마무시한 해저 생물들을 마주했다. 대왕 문어도, 거대한 가오리와 상어도 과연 '아메리칸 스케일'다운 압도적인 위용을 자랑했다. 다행히 전시관 한쪽에 편안한 의자가 마련되어 있어, 아이들이 실내 놀이 공간에서 신나게 에너지를 발산하는 동안 아빠와 엄마는 지친 몸을 기대고 충전하는 귀한 쉼의 시간을 가질 수 있었다.",
+        "오후 3시쯤 아쿠아리움에서 나왔다. 다음 행선지인 피어 55(Pier 55)의 아르고시 크루즈 선착장으로 이동하던 중 바닷가 놀이터를 발견했고, 거기서 아이들에게 30분가량 마음껏 뛰어놀 시간을 주었다.",
+        "오후 3시 35분이 넘어서 피어 55 선착장으로 이동해 배를 타기 위한 줄을 섰다. 날씨는 더할 나위 없이 완벽하게 화창했고, 시애틀 앞바다는 그 어느 때보다 청명하고 눈부셨다. 드디어 크루즈선에 탑승해 고소한 팝콘과 시원한 레이니어 맥주(Rainier Beer) 한 캔을 손에 쥐었다. 바다 한가운데에서 바라보는 시애틀 도심의 스카이라인은 그야말로 장관이었다. 게다가 지난 10월 1일 올림피아에서 2시간 반을 운전해 찾아갔던 저 멀리 마운트 레이니어의 웅장한 만년설 자태까지 바다 위에서 선명하게 눈에 들어왔다. 시티패스 5개 관광지 중 단 하나 최고의 순간을 꼽으라면 주저 없이 이 'Argosy Cruises Harbor Tour'를 꼽고 싶다. 몸의 편안한 휴식도, 눈앞에 펼쳐진 감동의 파노라마도 모두 최고였다.",
+        "배에서 내린 후에도 여유 시간이 남아, 방금 들렀던 바닷가 놀이터에서 아이들에게 30분간 더 자유 시간을 준 뒤 스타벅스 1호점으로 발걸음을 옮겼다. 15년 전에 샀던 텀블러 하나를 그동안 잃어버렸던 터라, 이번 여행의 기념으로 머그컵을 하나 더 장만하기로 했다. 하지만 15년 전의 모습과 비교해 보니 한결 더 상업적으로 변했다는 인상을 지울 수 없었다. 외관도 내부도 훨씬 깔끔하게 정돈되고 쾌적해졌지만, 세월의 흔적과 옛 정취를 느낄 수 있었던 클래식하고 오래된 멋스러움은 많이 사라진 듯해 소소한 아쉬움이 남았다.",
+        "그렇게 알차고 벅찼던 하루 일정을 모두 마무리하고, 우리는 3rd Ave & Pike St 정류장에서 D line 버스를 타고 숙소로 향했다. 우리가 내린 곳은 15th Ave W & W Dravus St 정류장. 하지만 정류장에서 숙소로 이어지는 길은 숨이 찰 정도로 가파른 오르막길이었다. 결국 아빠는 지친 둘째를 등에 업고, 엄마는 첫째를 태운 휴대용 유모차를 끙끙 밀며 온 힘을 다해 언덕을 올라 간신히 숙소로 복귀했다. 땀방울 맺힌 언덕길이었지만, 네 식구가 함께 힘을 내어 돌아온 따뜻하고 충만한 밤이었다."
+      ],
+      quickExpenses: [
+        { name: "크램 차우더 (파이크 플레이스 차우더)", amount: 27.09, currency: "USD", cat: "food", note: "온라인 스마트 주문 (Large 1, Small 1)" },
+        { name: "Anchorhead Coffee", amount: 5.24, currency: "USD", cat: "food", note: "16oz 아메리카노" },
+        { name: "피어 55 아르고시 크루즈 간식", amount: 14.50, currency: "USD", cat: "activity", note: "팝콘 & 레이니어 맥주 1캔" },
+        { name: "스타벅스 1호점 머그컵", amount: 23.99, currency: "USD", cat: "shopping", note: "15년 만의 기념 머그컵" },
+        { name: "RapidRide D Line 버스/트램", amount: 12.00, currency: "USD", cat: "transit", note: "왕복 대중교통" }
+      ],
+      familyComments: [
+        {
+          author: "엄마 (지은)",
+          emoji: "👩",
+          color: "rose",
+          comments: [
+            { moment: "바다 뷰 크램 차우더", text: "커피숍 뷰에 넋을 잃고 빈손으로 내려왔지만, 탁 트인 시애틀 바다를 보며 야외 테이블에서 먹은 뜨끈한 크램 차우더는 잊지 못할 최고의 아침이었어요! 눈도 입도 마음도 모두 힐링됐답니다 ✨" },
+            { moment: "아르고시 크루즈", text: "햇살도 완벽했고 바닷바람도 상쾌했어요. 배 위에서 맥주와 팝콘 먹으며 스카이라인과 레이니어 산을 바라보는데, 여행의 피로가 싹 풀리는 기분이었어요 🚢🍺" },
+            { moment: "오르막길 투혼", text: "숙소 올라가는 언덕길에서 유모차 밀며 끙끙거렸지만, 등에 업힌 둘째랑 유모차 탄 첫째를 보며 우리 부부 오늘 하루도 정말 열심히 달렸구나 싶어 웃음이 났어요 ㅋㅋ" }
+          ]
+        },
+        {
+          author: "이안 (첫째)",
+          emoji: "👧",
+          color: "violet",
+          comments: [
+            { moment: "바닷가 놀이터", text: "유람선 타기 전이랑 타고 나서 놀이터에서 두 번이나 놀아서 너무 신났어요! 미끄럼틀 타고 뛰어다니는 게 제일 재밌었어요 🏃‍♀️" },
+            { moment: "수족관 대왕 문어", text: "아쿠아리움에서 본 문어랑 가오리가 진짜 엄청 커서 신기했어요! 아메리칸 스케일이라더니 진짜 만화 영화에 나오는 괴물 문어 같았어요 🐙" },
+            { moment: "크루즈 팝콘", text: "배 타고 가면서 바다 구경하고 팝콘 먹었는데 바삭바삭해서 너무 맛있었어요 🍿" }
+          ]
+        },
+        {
+          author: "이솔 (막내)",
+          emoji: "👧",
+          color: "emerald",
+          comments: [
+            { moment: "크램 차우더 & 바다", text: "야외 테이블에서 바다 보면서 먹은 수프가 따뜻하고 맛있었어요! 짭짤한 바다 냄새도 안 나서 좋았어요 🥣" },
+            { moment: "실내 놀이방 & 물고기", text: "수족관에서 엄청 큰 상어랑 가오리도 보고, 실내 놀이터에서 신나게 놀았어요 🦈" },
+            { moment: "아빠 어부바", text: "집에 갈 때 언덕길이 너무 높았는데 아빠 등에 업혀서 올라오니까 하나도 안 힘들고 포근하고 재밌었어요! 아빠 최고! 👧💖" }
+          ]
+        }
+      ]
+    };
+
     let activeDiaryDay = 1;
 
     function getCustomDiaries() {
@@ -4049,7 +4168,8 @@
         2: defaultDiaryDay2,
         3: defaultDiaryDay3,
         4: defaultDiaryDay4,
-        5: defaultDiaryDay5
+        5: defaultDiaryDay5,
+        6: defaultDiaryDay6
       };
 
       const d = defaultDiaries[dayNum];
@@ -4090,6 +4210,12 @@
             "<strong>냉전 극복엔 따끈한 국물:</strong> 파이크 마켓에서 지치고 화날 땐 긴 줄 대신 엄마표 뜨끈한 크램 차우더 한 그릇이 최고의 평화 유지군!",
             "<strong>스페이스 니들 주야간 2회 관람:</strong> 24시간 내 재입장 혜택을 100% 활용하여 낮의 웅장한 전경과 밤의 황홀한 야경을 모두 담아오는 것이 최고의 이득.",
             "<strong>시내버스 대중교통 전환:</strong> 렌터카 반납 후 32번 버스 등 대중교통과 도보 여행으로도 시애틀의 청량한 공기와 낭만을 충분히 만끽할 수 있음."
+          ],
+          6: [
+            "<strong>파이크 차우더 온라인 주문:</strong> 매장 앞 대기 줄이 길 땐 공식 웹사이트 온라인 픽업 주문을 이용하면 기다림 없이 신속 수령 가능!",
+            "<strong>바다 뷰 야외 테이블 명당:</strong> 차우더를 받아 마켓 뒤편 야외 테이블로 나가면 에메랄드빛 바다를 바라보며 감동의 식사 가능.",
+            "<strong>아르고시 하버 크루즈 꿀팁:</strong> CityPASS 필수 코스! 팝콘과 레이니어 맥주 한 캔을 곁들이면 바다 위에서 스카이라인과 레이니어 산을 동시에 만끽하는 최고의 힐링.",
+            "<strong>시내 언덕길 대비:</strong> 시애틀은 경사가 가파른 언덕길이 많으므로 정류장 위치와 숙소 간 고저차를 미리 파악하고 유모차/체력 분배에 유의할 것."
           ]
         };
 
@@ -4321,7 +4447,8 @@
         2: defaultDiaryDay2,
         3: defaultDiaryDay3,
         4: defaultDiaryDay4,
-        5: defaultDiaryDay5
+        5: defaultDiaryDay5,
+        6: defaultDiaryDay6
       };
 
       if (existing) {
@@ -4362,7 +4489,8 @@
         2: defaultDiaryDay2,
         3: defaultDiaryDay3,
         4: defaultDiaryDay4,
-        5: defaultDiaryDay5
+        5: defaultDiaryDay5,
+        6: defaultDiaryDay6
       };
       const currentDef = defaultDiaries[activeDiaryDay] || defaultDiaryDay1;
       const saved = getFamilyComments(activeDiaryDay) || currentDef.familyComments;
@@ -4433,7 +4561,8 @@
         2: defaultDiaryDay2,
         3: defaultDiaryDay3,
         4: defaultDiaryDay4,
-        5: defaultDiaryDay5
+        5: defaultDiaryDay5,
+        6: defaultDiaryDay6
       };
       if (defaultDiaries[day]) {
         defaultDiaries[day].familyComments = updated;
