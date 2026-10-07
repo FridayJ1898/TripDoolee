@@ -4,3 +4,12 @@
 # OS files
 .DS_Store
 Thumbs.db
+
+# Python & Virtual Env
+.venv/
+__pycache__/
+*.pyc
+
+# Raw Photos (스마트폰 원본 사진 임시 저장 폴더)
+raw_photos/
+

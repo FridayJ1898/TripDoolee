@@ -231,6 +231,7 @@
       <div class="max-w-7xl mx-auto px-4 py-1.5 flex space-x-1 text-xs font-medium">
         <button onclick="switchTab('tab-schedule')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-schedule">📅 마스터 일정</button>
         <button onclick="switchTab('tab-diary')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-diary">📖 여행 일기</button>
+        <button onclick="switchTab('tab-photos')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-photos">📸 포토 앨범</button>
         <button onclick="switchTab('tab-attractions')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-attractions">📍 주요 명소</button>
         <button onclick="switchTab('tab-transit')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-transit">🚘 교통 & 안내</button>
         <button onclick="switchTab('tab-budget')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-budget">💰 예산 & 가계부</button>
@@ -244,6 +245,7 @@
     <div class="lg:hidden flex overflow-x-auto space-x-1.5 px-3 py-1.5 bg-amber-950/50 border-t border-amber-800/50 custom-scrollbar snap-x">
       <button onclick="switchTab('tab-schedule')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-800 text-white font-bold transition snap-start" id="mpill-tab-schedule">📅 일정</button>
       <button onclick="switchTab('tab-diary')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-diary">📖 일기</button>
+      <button onclick="switchTab('tab-photos')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-photos">📸 앨범</button>
       <button onclick="switchTab('tab-attractions')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-attractions">📍 명소</button>
       <button onclick="switchTab('tab-transit')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-transit">🚘 교통</button>
       <button onclick="switchTab('tab-budget')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-budget">💰 예산</button>
@@ -1283,7 +1285,191 @@
 
     </section>
 
+    <!-- Tab 9: Photo Album (📸 포토 앨범 & 일기 연동 갤러리) -->
+    <section id="tab-photos" class="tab-content space-y-4 hidden">
+      
+      <!-- Photos Hero Header Banner -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-amber-900 via-stone-900 to-amber-950 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-lg border border-amber-800/40">
+        <div class="relative z-10 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-800/60 pb-3">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-600/30 text-amber-200 border border-amber-500/30">
+              <span>📸</span>
+              <span>AI 자동 선별 스마트 사진첩</span>
+            </span>
+            <div class="flex items-center gap-2">
+              <button onclick="openPhotoGuideModal()" class="px-2.5 py-1 bg-amber-700/80 hover:bg-amber-600 text-white text-xs font-bold rounded-lg shadow-sm transition flex items-center space-x-1">
+                <span>📲</span>
+                <span>사진 추가 가이드</span>
+              </button>
+            </div>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-amber-50 tracking-tight">
+            둘리 가족 미국 서부 여행 포토 앨범 👨‍👩‍👧‍👧
+          </h2>
+          <p class="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-2xl">
+            수백 장의 스마트폰 사진 중 흔들림과 연사 중복을 AI가 자동으로 걸러내고, 가장 선명하고 아름다운 베스트 순간만을 모았습니다.
+          </p>
+          <div class="flex flex-wrap gap-2 pt-1 text-[11px]" id="photos-summary-badges">
+            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-amber-300 font-mono" id="badge-total-photos">📸 등록된 사진: 0장</span>
+            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-emerald-300 font-mono">🔍 AI 흔들림/중복 필터링 적용</span>
+            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-cyan-300 font-mono">⚡ 고화질 웹 최적화 (1600px)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day Filter Pills -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-2 sm:p-3 shadow-xs">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <span class="text-xs font-bold text-stone-700 flex items-center gap-1">
+            <span>🗓️</span>
+            <span>일차별 사진 모아보기:</span>
+          </span>
+          <span class="text-[11px] text-amber-800 font-semibold" id="current-photos-filter-label">전체 사진 보기</span>
+        </div>
+        <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 custom-scrollbar" id="photos-day-filter-container">
+          <button onclick="filterPhotosDay('all')" id="photo-filter-all" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition shrink-0 bg-amber-800 text-white shadow-sm border border-amber-900">
+            전체 보기 (All)
+          </button>
+          <button onclick="filterPhotosDay(1)" id="photo-filter-1" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 1 (09/30)
+          </button>
+          <button onclick="filterPhotosDay(2)" id="photo-filter-2" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 2 (10/01)
+          </button>
+          <button onclick="filterPhotosDay(3)" id="photo-filter-3" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 3 (10/02)
+          </button>
+          <button onclick="filterPhotosDay(4)" id="photo-filter-4" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 4 (10/03)
+          </button>
+          <button onclick="filterPhotosDay(5)" id="photo-filter-5" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 5 (10/04)
+          </button>
+          <button onclick="filterPhotosDay(6)" id="photo-filter-6" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 6 (10/05)
+          </button>
+          <button onclick="filterPhotosDay(7)" id="photo-filter-7" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 7 (10/06)
+          </button>
+          <button onclick="filterPhotosDay(8)" id="photo-filter-8" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 8 (10/07)
+          </button>
+          <button onclick="filterPhotosDay(9)" id="photo-filter-9" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 9 (10/08)
+          </button>
+          <button onclick="filterPhotosDay(10)" id="photo-filter-10" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 10 (10/09)
+          </button>
+          <button onclick="filterPhotosDay(11)" id="photo-filter-11" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
+            Day 11 (10/10)
+          </button>
+        </div>
+      </div>
+
+      <!-- Photos Gallery Grid View -->
+      <div id="photos-gallery-container" class="min-h-[300px]">
+        <!-- Dynamic Photo Cards Grid rendered via renderPhotosTab() -->
+      </div>
+
+    </section>
+
   </main>
+
+  <!-- Photo Fullscreen Lightbox Modal -->
+  <div id="photo-lightbox-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col justify-between hidden animate-fade-in" onclick="if(event.target === this) closePhotoLightbox()">
+    <!-- Lightbox Top Controls -->
+    <div class="flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/80 to-transparent text-white z-10">
+      <div class="flex items-center space-x-2">
+        <span class="text-xs bg-amber-600 px-2.5 py-0.5 rounded-full font-bold" id="lightbox-badge-day">Day 1</span>
+        <span class="text-xs text-stone-300 font-mono" id="lightbox-time">14:30</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <a id="lightbox-origin-link" href="#" target="_blank" class="px-2.5 py-1 bg-stone-800/80 hover:bg-stone-700 rounded-lg text-xs font-semibold text-stone-200 transition">
+          🔍 원본 보기
+        </a>
+        <button onclick="closePhotoLightbox()" class="text-stone-300 hover:text-white text-2xl font-bold w-8 h-8 rounded-full bg-stone-800/80 flex items-center justify-center transition">
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <!-- Lightbox Main Image & Nav Arrows -->
+    <div class="relative flex-grow flex items-center justify-center p-2 sm:p-6 overflow-hidden">
+      <!-- Previous Button -->
+      <button onclick="navigateLightbox(-1)" class="absolute left-2 sm:left-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center text-xl sm:text-2xl transition border border-white/20 active:scale-95">
+        &#10094;
+      </button>
+
+      <!-- Main Photo -->
+      <img id="lightbox-image" src="" alt="여행 사진" class="max-h-[80vh] max-w-full rounded-lg shadow-2xl object-contain transition-all duration-200 select-none">
+
+      <!-- Next Button -->
+      <button onclick="navigateLightbox(1)" class="absolute right-2 sm:right-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center text-xl sm:text-2xl transition border border-white/20 active:scale-95">
+        &#10095;
+      </button>
+    </div>
+
+    <!-- Lightbox Bottom Caption Bar -->
+    <div class="px-4 py-3 bg-gradient-to-t from-black/90 to-transparent text-center text-white z-10 space-y-1">
+      <p class="text-xs sm:text-sm font-bold text-amber-200" id="lightbox-caption">Day 1 여정의 한 순간</p>
+      <p class="text-[10px] text-stone-400 font-mono" id="lightbox-counter">1 / 10</p>
+    </div>
+  </div>
+
+  <!-- Photo Upload Guide Modal -->
+  <div id="photo-guide-modal" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-stone-200 overflow-hidden space-y-4 p-5 sm:p-6 animate-fade-in">
+      <div class="flex justify-between items-center border-b border-stone-200 pb-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl">📸</span>
+          <h4 class="font-extrabold text-stone-900 text-sm sm:text-base">스마트폰 사진 자동 업로드 방법</h4>
+        </div>
+        <button onclick="closePhotoGuideModal()" class="text-stone-400 hover:text-stone-700 text-xl font-bold p-1">&times;</button>
+      </div>
+
+      <div class="space-y-3 text-xs text-stone-700 leading-relaxed">
+        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 space-y-1.5">
+          <p class="font-bold text-amber-950 flex items-center gap-1.5">
+            <span>1️⃣</span>
+            <span>스마트폰 사진을 컴퓨터 폴더에 복사</span>
+          </p>
+          <p class="text-stone-600 pl-5">
+            스마트폰에서 찍은 사진들을 날짜나 순서 상관없이 통째로 아래 폴더에 넣어주세요:<br>
+            <code class="bg-white px-2 py-0.5 rounded border border-amber-300 font-mono text-[11px] text-amber-900 font-bold">TripDoolee/raw_photos</code>
+          </p>
+        </div>
+
+        <div class="p-3 bg-blue-50 rounded-xl border border-blue-200 space-y-1.5">
+          <p class="font-bold text-blue-950 flex items-center gap-1.5">
+            <span>2️⃣</span>
+            <span>더블클릭 한 번으로 AI 자동 선별 실행</span>
+          </p>
+          <p class="text-stone-600 pl-5">
+            프로젝트 폴더 내 <code class="bg-white px-2 py-0.5 rounded border border-blue-300 font-mono text-[11px] text-blue-900 font-bold">run_photo_processor.bat</code> 파일을 더블클릭합니다.<br>
+            • 흔들린 사진 자동 감지 및 제외<br>
+            • 연속 촬영된 연사 중 가장 예쁜 베스트 컷 자동 선정<br>
+            • 날짜(Day 1~11) 자동 매핑 및 웹 고화질 최적화
+          </p>
+        </div>
+
+        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 space-y-1.5">
+          <p class="font-bold text-emerald-950 flex items-center gap-1.5">
+            <span>3️⃣</span>
+            <span>사이트 확인 & 깃허브 발행</span>
+          </p>
+          <p class="text-stone-600 pl-5">
+            변환이 끝나면 새로고침 시 이 포토 앨범과 일기장 페이지에 사진들이 즉시 반영됩니다! GitHub Pages로 올리면 모바일에서도 가족들과 함께 볼 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-2 text-center">
+        <button onclick="closePhotoGuideModal()" class="px-5 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-xl text-xs font-bold transition shadow-sm">
+          확인 완료 ✨
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Emergency / Embassy Modal -->
   <div id="emergency-modal" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
@@ -1545,6 +1731,8 @@
     </div>
   </footer>
 
+  <!-- Photos Data Script -->
+  <script src="photos_data.js"></script>
   <script>
     // 1. Schedule Data (추천안 A & 스타벅스 1호점 48시간 사전예약 반영 완료)
     const scheduleData = [
@@ -2710,6 +2898,9 @@
 
       if (tabId === 'tab-budget') {
         renderExpenses();
+      }
+      if (tabId === 'tab-photos') {
+        renderPhotosTab();
       }
     }
 
@@ -4246,6 +4437,236 @@
       }
     }
 
+    
+    // ----------------------------------------------------
+    // 📸 포토 앨범 & 일기 연동 사진 갤러리 로직
+    // ----------------------------------------------------
+    let currentPhotoFilter = 'all';
+    let currentLightboxIndex = 0;
+    let currentLightboxList = [];
+
+    // 특정 Day의 사진 목록 반환
+    function getPhotosForDay(dayNum) {
+      var allPhotos = window.TRIP_PHOTOS_DATA || [];
+      if (!allPhotos || allPhotos.length === 0) return [];
+      if (dayNum === 'all' || !dayNum) return allPhotos;
+      return allPhotos.filter(function(p) { return p.day === parseInt(dayNum); });
+    }
+
+    // 포토 앨범 탭 전체 렌더링
+    function renderPhotosTab(dayFilter) {
+      if (dayFilter === undefined) dayFilter = currentPhotoFilter;
+      currentPhotoFilter = dayFilter;
+
+      var container = document.getElementById('photos-gallery-container');
+      if (!container) return;
+
+      var allPhotos = window.TRIP_PHOTOS_DATA || [];
+      var filteredPhotos = getPhotosForDay(dayFilter);
+
+      // 상단 뱃지 갱신
+      var totalBadge = document.getElementById('badge-total-photos');
+      if (totalBadge) totalBadge.innerText = '📸 등록된 사진: ' + allPhotos.length + '장';
+
+      // 필터 버튼 스타일 갱신
+      document.querySelectorAll('.photo-day-filter-btn').forEach(function(btn) {
+        btn.classList.remove('bg-amber-800', 'text-white', 'shadow-sm', 'border-amber-900', 'font-bold');
+        btn.classList.add('bg-stone-100', 'text-stone-700', 'border-stone-200');
+      });
+      var activeBtn = document.getElementById(dayFilter === 'all' ? 'photo-filter-all' : 'photo-filter-' + dayFilter);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-stone-100', 'text-stone-700', 'border-stone-200');
+        activeBtn.classList.add('bg-amber-800', 'text-white', 'shadow-sm', 'border-amber-900', 'font-bold');
+      }
+
+      // 필터 라벨 갱신
+      var filterLabel = document.getElementById('current-photos-filter-label');
+      if (filterLabel) {
+        filterLabel.innerText = dayFilter === 'all' 
+          ? '전체 사진 (' + filteredPhotos.length + '장)' 
+          : 'Day ' + dayFilter + ' 사진 (' + filteredPhotos.length + '장)';
+      }
+
+      if (filteredPhotos.length === 0) {
+        container.innerHTML = '<div class="bg-white rounded-2xl border border-dashed border-stone-300 p-8 sm:p-12 text-center space-y-4 shadow-xs">'
+          + '<div class="w-16 h-16 bg-amber-50 text-amber-800 rounded-full flex items-center justify-center text-3xl mx-auto border border-amber-200">📷</div>'
+          + '<div class="space-y-1.5">'
+          + '<h4 class="font-black text-stone-800 text-sm sm:text-base">'
+          + (dayFilter === 'all' ? '아직 등록된 사진이 없습니다.' : 'Day ' + dayFilter + '의 사진이 아직 등록되지 않았습니다.')
+          + '</h4>'
+          + '<p class="text-xs text-stone-500 max-w-md mx-auto leading-relaxed">'
+          + '스마트폰에서 찍은 사진을 <code class="bg-amber-50 text-amber-900 px-1.5 py-0.5 rounded font-mono font-bold">TripDoolee/raw_photos</code> 폴더에 넣고<br>'
+          + '<code class="bg-stone-100 text-stone-800 px-1.5 py-0.5 rounded font-mono font-bold">run_photo_processor.bat</code> 파일을 실행하면 AI가 흔들림 없이 선명한 사진을 자동으로 쏙 정리해줍니다!'
+          + '</p>'
+          + '</div>'
+          + '<div class="pt-1">'
+          + '<button onclick="openPhotoGuideModal()" class="px-4 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-xl text-xs font-bold transition shadow-xs">'
+          + '📲 사진 간편 추가 가이드 보기'
+          + '</button>'
+          + '</div>'
+          + '</div>';
+        return;
+      }
+
+      // 그리드 렌더링
+      currentLightboxList = filteredPhotos;
+      var cardsHtml = filteredPhotos.map(function(photo) {
+        var thumbSrc = photo.thumb || photo.src;
+        var captionText = photo.caption || ('Day ' + photo.day + '의 순간');
+        var timeBadge = photo.time ? '<span class="px-1.5 py-0.5 rounded-full text-[9px] font-mono font-semibold bg-amber-800/80 text-amber-100 backdrop-blur-xs">' + photo.time + '</span>' : '';
+
+        return '<div class="group relative bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-2xs hover:shadow-md transition cursor-pointer" onclick="openPhotoLightbox(\'' + photo.id + '\')">'
+          + '<div class="aspect-4/3 w-full bg-stone-100 overflow-hidden relative">'
+          + '<img src="' + thumbSrc + '" alt="' + captionText + '" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">'
+          + '<div class="absolute top-2 left-2 flex items-center gap-1">'
+          + '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-black/60 text-white backdrop-blur-xs">Day ' + photo.day + '</span>'
+          + timeBadge
+          + '</div>'
+          + '<div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition flex items-center justify-center opacity-0 group-hover:opacity-100">'
+          + '<span class="bg-white/95 text-stone-900 px-3 py-1 rounded-full text-xs font-bold shadow-md">🔍 크게 보기</span>'
+          + '</div>'
+          + '</div>'
+          + '<div class="p-2.5">'
+          + '<p class="text-xs font-bold text-stone-800 truncate">' + captionText + '</p>'
+          + '<div class="flex items-center justify-between mt-1 text-[10px] text-stone-400 font-mono">'
+          + '<span>' + (photo.date || '') + '</span>'
+          + '<span class="text-amber-700 font-sans font-semibold">베스트 샷 ✨</span>'
+          + '</div>'
+          + '</div>'
+          + '</div>';
+      }).join('');
+
+      container.innerHTML = '<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">' + cardsHtml + '</div>';
+    }
+
+    function filterPhotosDay(day) {
+      renderPhotosTab(day);
+    }
+
+    // 일기 본문 내부 갤러리 섹션 HTML 생성 함수
+    function renderDiaryPhotoSectionHTML(dayNum) {
+      var photos = getPhotosForDay(dayNum);
+      if (!photos || photos.length === 0) {
+        return '<div class="bg-amber-50/50 border border-dashed border-amber-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">'
+          + '<div class="flex items-center space-x-3 text-center sm:text-left">'
+          + '<span class="text-2xl p-2 bg-white rounded-xl border border-amber-200 shrink-0">📸</span>'
+          + '<div>'
+          + '<h5 class="font-bold text-stone-900">Day ' + dayNum + '일차 사진첩이 아직 비어있습니다</h5>'
+          + '<p class="text-[11px] text-stone-500 mt-0.5">스마트폰 사진을 컴퓨터에 옮기면 AI가 베스트 사진을 자동으로 선별해 여기에 띄워줍니다!</p>'
+          + '</div>'
+          + '</div>'
+          + '<button onclick="openPhotoGuideModal()" class="px-3 py-1.5 bg-amber-800 hover:bg-amber-900 text-white font-bold rounded-xl text-xs shrink-0 shadow-2xs transition">'
+          + '📲 사진 넣는 법'
+          + '</button>'
+          + '</div>';
+      }
+
+      var previewPhotos = photos.slice(0, 6);
+      var itemsHtml = previewPhotos.map(function(p) {
+        var thumb = p.thumb || p.src;
+        var timeBadge = p.time ? ('<div class="absolute bottom-1 right-1 px-1.5 py-0.5 bg-black/60 text-white rounded text-[9px] font-mono backdrop-blur-xs">' + p.time + '</div>') : '';
+        return '<div class="relative group aspect-4/3 rounded-xl overflow-hidden border border-stone-200 bg-stone-100 cursor-pointer shadow-2xs hover:shadow-sm transition" onclick="openPhotoLightbox(\'' + p.id + '\')">'
+          + '<img src="' + thumb + '" alt="' + (p.caption || '') + '" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">'
+          + timeBadge
+          + '<div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition flex items-center justify-center opacity-0 group-hover:opacity-100">'
+          + '<span class="bg-white/90 text-stone-900 px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm">확대 🔍</span>'
+          + '</div>'
+          + '</div>';
+      }).join('');
+
+      return '<div class="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 space-y-3 shadow-xs">'
+        + '<div class="flex items-center justify-between border-b border-stone-100 pb-2.5">'
+        + '<div class="flex items-center space-x-2">'
+        + '<span class="text-lg">📸</span>'
+        + '<div>'
+        + '<h4 class="font-extrabold text-stone-900 text-xs sm:text-sm">Day ' + dayNum + '일차 생생 현장 사진첩 (' + photos.length + '장 엄선)</h4>'
+        + '<p class="text-[10px] text-stone-500">AI가 흔들림과 연사를 걸러내고 선정한 베스트 샷입니다. 클릭 시 크게 볼 수 있습니다.</p>'
+        + '</div>'
+        + '</div>'
+        + '<button onclick="filterPhotosDay(' + dayNum + '); switchTab(\'tab-photos\');" class="text-xs text-amber-800 font-bold underline shrink-0 hover:text-amber-950">'
+        + '전체 보기 (' + photos.length + '장) ➡️'
+        + '</button>'
+        + '</div>'
+        + '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">'
+        + itemsHtml
+        + '</div>'
+        + '</div>';
+    }
+
+    // 라이트박스 팝업 뷰어
+    function openPhotoLightbox(photoId) {
+      var allPhotos = window.TRIP_PHOTOS_DATA || [];
+      if (!allPhotos || allPhotos.length === 0) return;
+
+      var listToSearch = (currentLightboxList && currentLightboxList.length > 0) ? currentLightboxList : allPhotos;
+      var idx = listToSearch.findIndex(function(p) { return p.id === photoId; });
+      if (idx !== -1) {
+        currentLightboxList = listToSearch;
+        currentLightboxIndex = idx;
+      } else {
+        currentLightboxList = allPhotos;
+        currentLightboxIndex = allPhotos.findIndex(function(p) { return p.id === photoId; });
+        if (currentLightboxIndex === -1) currentLightboxIndex = 0;
+      }
+
+      showLightboxPhoto(currentLightboxIndex);
+      var modal = document.getElementById('photo-lightbox-modal');
+      if (modal) modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showLightboxPhoto(idx) {
+      if (!currentLightboxList || currentLightboxList.length === 0) return;
+      var photo = currentLightboxList[idx];
+      if (!photo) return;
+
+      var imgEl = document.getElementById('lightbox-image');
+      var captionEl = document.getElementById('lightbox-caption');
+      var counterEl = document.getElementById('lightbox-counter');
+      var dayBadge = document.getElementById('lightbox-badge-day');
+      var timeEl = document.getElementById('lightbox-time');
+      var originLink = document.getElementById('lightbox-origin-link');
+
+      if (imgEl) imgEl.src = photo.src;
+      if (captionEl) captionEl.innerText = photo.caption || ('Day ' + photo.day + '의 순간');
+      if (counterEl) counterEl.innerText = (idx + 1) + ' / ' + currentLightboxList.length;
+      if (dayBadge) dayBadge.innerText = 'Day ' + photo.day;
+      if (timeEl) timeEl.innerText = photo.time || '';
+      if (originLink) originLink.href = photo.src;
+    }
+
+    function navigateLightbox(dir) {
+      if (!currentLightboxList || currentLightboxList.length === 0) return;
+      currentLightboxIndex = (currentLightboxIndex + dir + currentLightboxList.length) % currentLightboxList.length;
+      showLightboxPhoto(currentLightboxIndex);
+    }
+
+    function closePhotoLightbox() {
+      var modal = document.getElementById('photo-lightbox-modal');
+      if (modal) modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function openPhotoGuideModal() {
+      var modal = document.getElementById('photo-guide-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closePhotoGuideModal() {
+      var modal = document.getElementById('photo-guide-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // 키보드 방향키 및 ESC 이벤트 리스너
+    window.addEventListener('keydown', function(e) {
+      var modal = document.getElementById('photo-lightbox-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+        if (e.key === 'Escape') closePhotoLightbox();
+      }
+    });
+
     // 가족 코멘트 HTML 생성 헬퍼 (중첩 템플릿 리터럴 회피)
     function renderFamilyCommentsHTML(members) {
       const colorMap = {
@@ -4456,6 +4877,9 @@
               `).join('')}
             </div>
           </div>
+
+          <!-- Daily Photo Highlights (일기 속 사진첩 연동) -->
+          ${renderDiaryPhotoSectionHTML(dayNum)}
 
           <!-- Essay Full Journal View (Paper Style) -->
           <div class="bg-[#FFFDF9] rounded-2xl border-2 border-amber-200/70 p-4 sm:p-7 shadow-sm space-y-4">
