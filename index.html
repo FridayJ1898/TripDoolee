@@ -1256,7 +1256,7 @@
         </button>
         <button onclick="viewDiaryDay(7)" id="diary-day-btn-7" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 7 (10/06)</span>
-          <span class="text-[10px] text-stone-400">예정</span>
+          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(8)" id="diary-day-btn-8" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 8 (10/07)</span>
@@ -1504,7 +1504,7 @@
             <option value="4">Day 4 (10/03 토) - 올림피아 작별 & 시애틀 입성</option>
             <option value="5">Day 5 (10/04 일) - 렌터카 반납 & 파이크마켓 & 스페이스 니들 야경</option>
             <option value="6">Day 6 (10/05 월) - 파이크 플레이스 & 스타벅스</option>
-            <option value="7">Day 7 (10/06 화) - 벨뷰 & 워싱턴대</option>
+            <option value="7">Day 7 (10/06 화) - UW & 가스웍스 & 트롤</option>
             <option value="8">Day 8 (10/07 수) - 우딘빌 와이너리 & 보잉</option>
             <option value="9">Day 9 (10/08 목) - 시애틀 워터프론트</option>
             <option value="10">Day 10 (10/09 금) - 시애틀 아울렛 & 패킹</option>
@@ -1744,13 +1744,55 @@
         day: 7,
         date: "10/06(화)",
         region: "seattle",
-        title: "대형 페리 타고 떠나는 베인브리지 섬 여행",
-        summary: "피어 52에서 대형 페리 탑승, 베인브리지 섬 윈슬로 웨이 산책, 바닷가 놀이터 및 수제 아이스크림 힐링",
-        transit: "🚢 워싱턴주 대형 페리 (아동 무료 도보 승선)",
+        title: "워싱턴 대학교(UW) 캠퍼스 & 가스웍스 공원 & 프레몬트 트롤",
+        summary: "32번 버스 탑승 ➔ UW 수잘로 도서관(해리포터 도서관) 독서 & 추억의 Nasai Teriyaki 점심 ➔ University Book Store 머그 쇼핑 ➔ 가스웍스 공원 오리떼 & 놀이터 ➔ 프레몬트 트롤 거인 상봉 ➔ PCC 마트 장보기 & 피자 파티",
+        transit: "🚌 32번 시내버스 & 프레몬트 도보 산책",
+        hasDiary: true,
+        diaryTitle: "해리포터 도서관의 낭만과 15년 만의 데리야끼, 가스웍스 오리떼와 프레몬트 트롤",
+        diarySummary: "UW 수잘로 도서관 & 역사책 독서 ➔ 15년 전 추억의 Nasai Teriyaki ➔ 북스토어 머그 2개 ➔ 가스웍스 공원 오리 & 놀이터 ➔ 프레몬트 트롤 상봉 ➔ PCC 장보기 & 피자·아이스크림 행복 충전",
         timeline: [
-          { time: "오전", text: "피어 52에서 워싱턴주 페리 탑승 ➔ 갑판 위 갈매기 구경 & 시애틀 스카이라인 조망", tag: "페리체험", address: "801 Alaskan Way, Seattle, WA 98104" },
-          { time: "점심 & 오후", text: "베인브리지 중심가 브런치 ➔ 바닷가 Waterfront Park 놀이터 그네 타기 & Mora 수제 아이스크림", tag: "산책/놀이터", address: "305 Shannon Dr SE, Bainbridge Island, WA 98110" },
-          { time: "저녁", text: "시애틀행 페리 타고 도심 복귀 후 숙소에서 편안한 휴식", tag: "휴식" }
+          { 
+            time: "오전", 
+            text: "느지막이 기상 후 간단한 아침 ➔ 32번 버스 탑승 ➔ 워싱턴 대학교(UW) 캠퍼스 도착! 싱그러운 가을 캠퍼스와 활기찬 학생들 교정 산책 🎓", 
+            tag: "출발/UW", 
+            address: "University of Washington, Seattle, WA 98195" 
+          },
+          { 
+            time: "오전~낮", 
+            text: "📚 수잘로 도서관(Suzzallo Library) 탐방 ➔ 해리포터 마법학교 연상케 하는 고풍스러운 공간에서 첫째 딸 한국 역사책 독서 & 아빠 회사 팀즈 메시지 회신 및 셀카 📸", 
+            tag: "도서관/명소", 
+            address: "Suzzallo Library, 4000 15th Ave NE, Seattle, WA 98195" 
+          },
+          { 
+            time: "점심", 
+            text: "🍗 Nasai Teriyaki 점심 식사 ($38.26) ➔ 15년 전 추억의 맛 그대로! 따끈한 치킨 데리야끼를 받아 빨간 파라솔 아래 둘러앉아 맛있게 흡입 😋", 
+            tag: "맛집/점심", 
+            address: "Nasai Teriyaki, 4305 University Way NE, Seattle, WA 98105" 
+          },
+          { 
+            time: "오후", 
+            text: "🎓 University Book Store 쇼핑 ($39.68) ➔ 1시간 반 동안 신나게 카트에 담다가 결제대 위엔 소박하고 예쁜 머그컵 2개 최종 득템! ☕", 
+            tag: "기념품/쇼핑", 
+            address: "4326 University Way NE, Seattle, WA 98105" 
+          },
+          { 
+            time: "오후", 
+            text: "🦆 32번 버스로 이동 ('N 35th St & Wallingford Ave N' 하차) ➔ 가스웍스 공원(Gas Works Park) 도착! 눈부신 햇살과 아이 가슴 높이 다가오는 오리 떼 감상 ➔ 아이들의 열렬한 성화로 옆 놀이터에서 신나게 뛰놀기 🛝", 
+            tag: "공원/놀이터", 
+            address: "2101 N 34th St, Seattle, WA 98103" 
+          },
+          { 
+            time: "저녁 18:00경", 
+            text: "🗿 프레몬트 동네 도보 산책 (고급 건물, 브룩스 Brooks 러닝 매장, 러너들) ➔ 경로 이탈 후 재진입! 웅장한 프레몬트 트롤(Fremont Troll)과 상봉해 눈과 머리 만지며 기념사진 찰칵 📸", 
+            tag: "산책/트롤", 
+            address: "Troll Ave N, Seattle, WA 98103" 
+          },
+          { 
+            time: "저녁/밤", 
+            text: "🛒 Fremont PCC 마트에서 저녁거리 장보기 ($39.91) ➔ 복귀행 32번 버스 탑승($6.00) ➔ 2정거장 먼저 내려 아이들 업고 걷는 투혼! 숙소에서 아이스크림과 피자 먹으며 오늘의 행복 최면 완성 🍕🍦🌙", 
+            tag: "귀가/휴식", 
+            address: "600 N 34th St, Seattle, WA 98103" 
+          }
         ]
       },
       {
@@ -2381,7 +2423,14 @@
       { id: "exp-1005-2", date: "2026.10.05 (월)", title: "☕ Anchorhead Coffee", amount: 5.24, currency: "USD", category: "food", note: "파이크 플레이스 마켓 16oz 아메리카노", done: true },
       { id: "exp-1005-3", date: "2026.10.05 (월)", title: "🚢 아르고시 크루즈 간식 (Pier 55)", amount: 14.50, currency: "USD", category: "activity", note: "팝콘 & 레이니어 맥주 1캔", done: true },
       { id: "exp-1005-4", date: "2026.10.05 (월)", title: "☕ 스타벅스 1호점 (머그컵)", amount: 23.99, currency: "USD", category: "shopping", note: "15년 만의 기념 머그컵 1개", done: true },
-      { id: "exp-1005-5", date: "2026.10.05 (월)", title: "🚋 RapidRide D Line 트램/버스", amount: 12.00, currency: "USD", category: "transit", note: "D Line 왕복 대중교통", done: true }
+      { id: "exp-1005-5", date: "2026.10.05 (월)", title: "🚋 RapidRide D Line 트램/버스", amount: 12.00, currency: "USD", category: "transit", note: "D Line 왕복 대중교통", done: true },
+
+      // 10/06 (Day 7 실제 결제 완료)
+      { id: "exp-1006-1", date: "2026.10.06 (화)", title: "🚌 워싱턴대행 32번 버스", amount: 6.00, currency: "USD", category: "transit", note: "32번 버스 대중교통", done: true },
+      { id: "exp-1006-2", date: "2026.10.06 (화)", title: "🍗 Nasai Teriyaki", amount: 38.26, currency: "USD", category: "food", note: "15년 전 추억의 맛집 (치킨 데리야끼)", done: true },
+      { id: "exp-1006-3", date: "2026.10.06 (화)", title: "🎓 University Book Store", amount: 39.68, currency: "USD", category: "shopping", note: "UW 기념 머그컵 2개", done: true },
+      { id: "exp-1006-4", date: "2026.10.06 (화)", title: "🛒 Fremont PCC 마트", amount: 39.91, currency: "USD", category: "food", note: "저녁 먹거리 장보기 (피자, 아이스크림 등)", done: true },
+      { id: "exp-1006-5", date: "2026.10.06 (화)", title: "🚌 복귀행 32번 버스", amount: 6.00, currency: "USD", category: "transit", note: "숙소 복귀 32번 버스", done: true }
     ];
 
     let customExpenses = [];
@@ -4105,6 +4154,84 @@
       ]
     };
 
+    const defaultDiaryDay7 = {
+      day: 7,
+      dateStr: "10월 6일 (화)",
+      title: "해리포터 도서관의 낭만과 15년 만의 데리야끼, 가스웍스 오리떼와 프레몬트 트롤",
+      subTitle: "워싱턴 대학교 수잘로 도서관부터 추억의 맛집, 가스웍스 오리·놀이터, 프레몬트 트롤과 PCC 장보기까지",
+      mood: "낭만과 추억, 충만한 가족 행복 🎓🦆🗿🍕",
+      stats: {
+        totalHours: "느지막한 기상 ~ 20:00 귀가 (약 10시간)",
+        walkingKm: "약 11.5 km (캠퍼스 및 프레몬트 도보)",
+        familyMood: "수잘로 도서관 감동 & 피자·아이스크림 파티 100점",
+        napTime: "가스웍스 벤치 햇살 힐링 & 잔디밭 쉼"
+      },
+      highlights: [
+        { icon: "📚", title: "해리포터풍 수잘로 도서관 & 역사책 독서", desc: "해리포터 마법학교를 연상케 하는 고풍스러운 수잘로 도서관에서 아빠는 팀즈 회신과 셀카, 첫째는 대학생 언니오빠들 기운 받으며 역사책 삼매경!" },
+        { icon: "🍗", title: "15년 만의 추억 소환 'Nasai Teriyaki'", desc: "15년 전 맛보았던 치킨 데리야끼를 찾아 방문! 따끈따끈한 음식을 받아 빨간 파라솔 아래 둘러앉아 맛보는 변함없는 그 시절 그 맛" },
+        { icon: "☕", title: "University Book Store & 소박한 머그 2개", desc: "1시간 반 동안 신나게 카트에 기념품을 쓸어 담았지만 결제대 위엔 결국 가장 마음에 드는 소박한 머그컵 2개만 득템!" },
+        { icon: "🦆", title: "가스웍스 공원 오리 떼 & 꺾이지 않는 놀이터 의지", desc: "눈부신 햇살 아래 아이 가슴 높이까지 다가오는 수십 마리 오리들의 장관! 하지만 어른들 감상 10분 만에 아이들의 놀이터 의지에 항복" },
+        { icon: "🗿", title: "프레몬트 트롤 거인 상봉 & PCC 피자·아이스크림", desc: "러너들의 동네 프레몬트를 걸어 거대한 트롤과 상봉 기념사진 ➔ PCC 마트에서 저녁거리 사서 2정거장 일찍 내려 걸어와 피자와 아이스크림으로 행복 최면!" }
+      ],
+      timelineEvents: [
+        { krTime: "10/7 01:30", usTime: "10/6 09:30", place: "시애틀 숙소", desc: "느지막이 눈을 떠 스치듯 아침을 챙겨 먹고, 32번 버스에 몸을 실어 워싱턴 대학교(UW)로 출발", tag: "기상/출발", icon: "⏰" },
+        { krTime: "10/7 02:30", usTime: "10/6 10:30", place: "UW 수잘로 도서관", desc: "해리포터 마법학교 같은 웅장한 도서관! 아빠는 팀즈 회신과 셀카, 첫째는 한국 역사책 독서 삼매경 📚", tag: "도서관", icon: "📚" },
+        { krTime: "10/7 04:30", usTime: "10/6 12:30", place: "Nasai Teriyaki", desc: "15년 전 추억의 치킨 데리야끼 맛집 방문! 빨간 파라솔 아래 둘러앉아 따끈하고 꿀맛 같은 점심 ($38.26) 🍗", tag: "맛집/점심", icon: "🍗" },
+        { krTime: "10/7 06:00", usTime: "10/6 14:00", place: "University Book Store", desc: "UW 기념품 1시간 반 쇼핑 끝에 소박하고 실속 있는 머그컵 2개 최종 결제 ($39.68) ☕", tag: "기념품", icon: "☕" },
+        { krTime: "10/7 07:30", usTime: "10/6 15:30", place: "가스웍스 공원 (Gas Works)", desc: "32번 버스 타고 이동 ➔ 쏟아지는 햇살, 아이 가슴 높이 다가오는 오리 떼 풍경 ➔ 옆 놀이터에서 신나게 뛰놀기 🦆🛝", tag: "공원/놀이터", icon: "🦆" },
+        { krTime: "10/7 10:00", usTime: "10/6 18:00", place: "프레몬트 트롤 (Fremont)", desc: "러너들과 Brooks 매장이 있는 프레몬트 도보 산책 ➔ 거대한 프레몬트 트롤 상봉해 눈과 머리 만지며 기념사진 찰칵 🗿", tag: "트롤", icon: "🗿" },
+        { krTime: "10/7 11:30", usTime: "10/6 19:30", place: "Fremont PCC & 숙소 귀가", desc: "PCC 마트 저녁 장보기($39.91) ➔ 32번 버스 탑승($6.00) 후 2정거장 먼저 내려 아이들 업고 복귀! 피자와 아이스크림 파티 🍕🍦", tag: "귀가/행복", icon: "🌙" }
+      ],
+      paragraphs: [
+        "느지막이 눈을 떠 스치듯 아침을 챙겨 먹고, 32번 버스에 몸을 실어 워싱턴 대학교로 향했다. 캠퍼스는 여전히 푸르고 아름다웠으며, 평일의 활기 속에 저마다 싱그러운 미소를 띤 학생들로 교정은 꽃처럼 만개해 있었다.",
+        "오늘의 목적지는 수잘로 도서관. 해리포터의 마법학교를 연상케 하는 도서관 특유의 고풍스러운 공기 속에 잠겨 가족과 함께 시간을 보내기로 했다. 나는 틈을 내 노트북으로 회사 팀즈 메시지에 짧게 회신한 뒤, 도서관의 낭만을 눈에 담으며 조용히 셀카를 남겼다. 첫째 딸은 엄마가 챙겨준 한국 역사책 몇 권을 펼쳐 들고 내 뒷자리에 앉아, 멋진 대학생 언니 오빠들의 좋은 기운을 듬뿍 흡수하고 있었다.",
+        "서둘러 챙겨 먹은 아침 탓에 허기가 일찍 찾아왔다. 15년 전 맛보았던 치킨 데리야끼의 좋은 기억을 더듬어 캠퍼스 인근 맛집인 'Nasai Teriyaki'를 찾았다. 따끈한 음식을 받아 들고 나와 빨간 파라솔 아래 둘러앉아 맛보는 데리야끼는 그 시절 기억 그대로 맛있었다.",
+        "식사 후에는 University of Washington의 기념품을 구경하러 'University Book Store'로 향했다. 한 시간 반 남짓 신나게 쇼핑 카트에 온갖 물건을 담아봤지만, 결국 마지막 결제대 위에는 머그컵 두 개만이 소박하게 남았다.",
+        "우리는 다시 32번 버스를 타고 이동해 'N 35th St & Wallingford Ave N' 정류장에 내려 가스웍스 공원(Gas Works Park)을 찾았다. 눈부시게 쏟아지는 햇살, 그리고 아이 가슴 높이까지 다가오는 수십 마리의 오리들이 만들어내는 풍경은 그 자체로 감탄을 자아냈다. 하지만 어른들의 풍경 감상은 10분이면 족했던 걸까, 오직 \"놀이터!\"만을 외치는 아이들의 꺾이지 않는 의지 덕분에 우리는 곧바로 옆 놀이터로 자리를 옮겨야 했다.",
+        "그렇게 저녁 6시가 되었을 즈음, 우리는 아이들을 설득해 프레몬트 트롤로 도보를 시작했다. 가는 길에 프레몬트라는 동네를 조금 알 수 있었다. 꽤나 고급진 건물들이 있었고 건강한 삶을 챙기는 사람들이 부쩍 많아진다는 느낌을 많은 러너들을 보고 짐작할 수 있었다. 더군다나 brooks라는 러너들을 위한 제품을 파는 브랜드가 있었는데, 아주 큰 규모의 매장을 보유하고 있었다. 그렇게 동네 구경하다가 정작 가야 하는 프레몬트 트롤의 경로를 이탈했지만, 곧장 인지하여 경로에 재진입하여 드디어 프레몬트 트롤을 만났다. 녀석의 규모가 생각보다 크고 위압감 있어 아이들이 살짝 무서워했지만 금세 적응해서 트롤의 눈을 만지고 머리를 만지며 기념사진을 남겼다.",
+        "그리곤 우리는 PCC라는 마트에 가서 저녁 먹거리를 사고 집으로 돌아왔다. 돌아올 때 조금 힘들었던 것은, 2정거장 먼저 내려서 집을 걸어오는 길이 조금 힘들었다는 것!^^ 그래도 아이들을 업고 달래고, 그리고 집에서 아이스크림과 피자를 먹여가며 오늘의 행복에 최면을 걸었더랬다."
+      ],
+      quickExpenses: [
+        { name: "워싱턴대행 32번 버스", amount: 6.00, currency: "USD", cat: "transit", note: "32번 버스 대중교통" },
+        { name: "Nasai Teriyaki", amount: 38.26, currency: "USD", cat: "food", note: "15년 전 추억의 맛집 (치킨 데리야끼)" },
+        { name: "University Book Store", amount: 39.68, currency: "USD", cat: "shopping", note: "UW 기념 머그컵 2개" },
+        { name: "Fremont PCC 마트", amount: 39.91, currency: "USD", cat: "food", note: "저녁 먹거리 (피자 & 아이스크림)" },
+        { name: "복귀행 32번 버스", amount: 6.00, currency: "USD", cat: "transit", note: "32번 버스 대중교통" }
+      ],
+      familyComments: [
+        {
+          author: "엄마 (지은)",
+          emoji: "👩",
+          color: "rose",
+          comments: [
+            { moment: "수잘로 도서관", text: "해리포터 마법학교 영화 속에 들어온 것 같은 웅장한 도서관이었어요. 우리 아이들이 멋진 대학생 언니 오빠들의 지적인 기운을 듬뿍 받아가는 것 같아 뿌듯했답니다 📚✨" },
+            { moment: "가스웍스 & 오리떼", text: "탁 트인 유니언 호수와 시애틀 도심 뷰, 눈앞까지 다가오는 수십 마리의 오리들이 그림 같았어요. 물론 아이들은 10분 만에 놀이터로 직행했지만요 ㅋㅋ" },
+            { moment: "프레몬트 동네", text: "동네에 활기찬 러너들도 많고 감각적인 샵들도 많아 걷는 내내 활력이 넘쳤어요. PCC 마트에서 산 맛있는 음식들로 하루를 든든하게 채웠네요 🛒" }
+          ]
+        },
+        {
+          author: "이안 (첫째)",
+          emoji: "👧",
+          color: "violet",
+          comments: [
+            { moment: "도서관에서 역사책 읽기", text: "진짜 해리포터 마법 도서관처럼 엄청 크고 멋졌어요! 아빠 뒤에서 엄마가 챙겨준 한국 역사책을 읽었는데 나도 커서 이런 멋진 대학교에 다니고 싶어졌어요 🎓" },
+            { moment: "추억의 데리야끼", text: "빨간 파라솔 아래에서 먹은 치킨 데리야끼가 달콤 짭조름해서 정말 맛있었어요 🍗" },
+            { moment: "프레몬트 트롤", text: "다리 밑에 진짜 큰 거인 트롤이 있어서 깜짝 놀랐어요! 손이랑 눈을 만지면서 사진 찍었는데 하나도 안 무서웠어요 🗿" }
+          ]
+        },
+        {
+          author: "이솔 (막내)",
+          emoji: "👧",
+          color: "emerald",
+          comments: [
+            { moment: "가스웍스 오리 & 놀이터", text: "오리들이 내 키만큼 가까이 다가와서 신기했어요! 그리고 놀이터에서 그네랑 미끄럼틀 타고 뛰어노는 게 제일 좋았어요 🦆🛝" },
+            { moment: "거대한 트롤", text: "처음엔 조금 무서웠는데 머리 만져보니까 바위 같아서 재밌었어요!" },
+            { moment: "피자 & 아이스크림", text: "집에 올 때 조금 걸어서 다리 아팠지만, 집에서 달콤한 아이스크림이랑 피자 먹으니까 피로가 다 날아갔어요 🍕🍦" }
+          ]
+        }
+      ]
+    };
+
     let activeDiaryDay = 1;
 
     function getCustomDiaries() {
@@ -4169,7 +4296,8 @@
         3: defaultDiaryDay3,
         4: defaultDiaryDay4,
         5: defaultDiaryDay5,
-        6: defaultDiaryDay6
+        6: defaultDiaryDay6,
+        7: defaultDiaryDay7
       };
 
       const d = defaultDiaries[dayNum];
@@ -4216,6 +4344,12 @@
             "<strong>바다 뷰 야외 테이블 명당:</strong> 차우더를 받아 마켓 뒤편 야외 테이블로 나가면 에메랄드빛 바다를 바라보며 감동의 식사 가능.",
             "<strong>아르고시 하버 크루즈 꿀팁:</strong> CityPASS 필수 코스! 팝콘과 레이니어 맥주 한 캔을 곁들이면 바다 위에서 스카이라인과 레이니어 산을 동시에 만끽하는 최고의 힐링.",
             "<strong>시내 언덕길 대비:</strong> 시애틀은 경사가 가파른 언덕길이 많으므로 정류장 위치와 숙소 간 고저차를 미리 파악하고 유모차/체력 분배에 유의할 것."
+          ],
+          7: [
+            "<strong>수잘로 도서관(UW) 에티켓:</strong> 해리포터 마법학교를 닮은 도서관은 조용하고 웅장하여 아이들과 차분히 책을 읽고 낭만을 채우기에 최고의 장소.",
+            "<strong>캠퍼스 추억의 맛집:</strong> 대학가 인근 Nasai Teriyaki 등에서 테이크아웃해 야외 파라솔 아래서 즐기면 가성비와 낭만을 모두 챙김.",
+            "<strong>가스웍스 공원 & 놀이터:</strong> 레이크 유니온 호숫가 오리들과 햇살이 일품이지만, 아이들의 꺾이지 않는 놀이터 의지에 대비해 시간 배분을 넉넉히 할 것.",
+            "<strong>대중교통 하차 주의:</strong> 시애틀 버스 이용 시 정류장을 미리 체크하고, 2정거장 일찍 내릴 경우 오르막길 도보 거리를 감안해 체력 분배에 유의할 것."
           ]
         };
 
@@ -4448,7 +4582,8 @@
         3: defaultDiaryDay3,
         4: defaultDiaryDay4,
         5: defaultDiaryDay5,
-        6: defaultDiaryDay6
+        6: defaultDiaryDay6,
+        7: defaultDiaryDay7
       };
 
       if (existing) {
@@ -4490,7 +4625,8 @@
         3: defaultDiaryDay3,
         4: defaultDiaryDay4,
         5: defaultDiaryDay5,
-        6: defaultDiaryDay6
+        6: defaultDiaryDay6,
+        7: defaultDiaryDay7
       };
       const currentDef = defaultDiaries[activeDiaryDay] || defaultDiaryDay1;
       const saved = getFamilyComments(activeDiaryDay) || currentDef.familyComments;
@@ -4507,7 +4643,7 @@
           <div class="flex justify-between items-center bg-amber-900 text-amber-50 p-3.5 sm:p-4">
             <div class="flex items-center space-x-2">
               <span class="text-xl">👨‍👩‍👧‍👧</span>
-              <h4 class="font-bold text-sm sm:text-base">가족 한마디 수정 — 1일차</h4>
+              <h4 class="font-bold text-sm sm:text-base">가족 한마디 수정 — ${activeDiaryDay || 1}일차</h4>
             </div>
             <button onclick="closeFamilyCommentModal()" class="text-amber-200 hover:text-white text-lg p-1">✕</button>
           </div>
@@ -4562,7 +4698,8 @@
         3: defaultDiaryDay3,
         4: defaultDiaryDay4,
         5: defaultDiaryDay5,
-        6: defaultDiaryDay6
+        6: defaultDiaryDay6,
+        7: defaultDiaryDay7
       };
       if (defaultDiaries[day]) {
         defaultDiaries[day].familyComments = updated;
