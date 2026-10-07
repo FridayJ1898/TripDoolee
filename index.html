@@ -4074,11 +4074,13 @@
       dateStr: "10월 5일 (월)",
       title: "바다 향기 없는 청명한 바다, 크루즈 맥주와 15년 만의 스타벅스 머그",
       subTitle: "파이크 마켓 바다뷰 조식부터 아쿠아리움, 크루즈 유람선, 스타벅스 1호점과 언덕길 어부바까지",
+      author: "아빠 (주아성)",
       mood: "감동과 벅참, 청량한 힐링 🚢🍺",
+      tags: ["파이크플레이스마켓", "바다뷰크램차우더", "온라인주문신의한수", "앵커헤드커피", "타깃프리즈비원정", "시애틀아쿠아리움", "아르고시크루즈", "레이니어맥주", "스타벅스1호점머그", "오르막길어부바귀가"],
       stats: {
         totalHours: "09:00 기상 ~ 19:30 귀가 (약 10.5시간)",
-        walkingKm: "약 14.2 km (바닷가 & 마켓 도보)",
-        familyMood: "크램차우더 감동 & 크루즈 힐링 100점",
+        flightInfo: "RapidRide D Line & 워터프런트 도보",
+        driveDistance: "약 14.2 km (바닷가 & 마켓 도보)",
         napTime: "아쿠아리움 실내 놀이터 & 크루즈 1시간 꿀휴식"
       },
       highlights: [
@@ -4159,11 +4161,13 @@
       dateStr: "10월 6일 (화)",
       title: "해리포터 도서관의 낭만과 15년 만의 데리야끼, 가스웍스 오리떼와 프레몬트 트롤",
       subTitle: "워싱턴 대학교 수잘로 도서관부터 추억의 맛집, 가스웍스 오리·놀이터, 프레몬트 트롤과 PCC 장보기까지",
+      author: "아빠 (주아성)",
       mood: "낭만과 추억, 충만한 가족 행복 🎓🦆🗿🍕",
+      tags: ["워싱턴대학교", "수잘로도서관", "해리포터도서관", "독서와셀카", "NasaiTeriyaki", "추억의치킨데리야끼", "북스토어머그", "가스웍스공원", "오리떼와놀이터", "프레몬트트롤", "브룩스러닝", "PCC장보기", "피자와아이스크림"],
       stats: {
         totalHours: "느지막한 기상 ~ 20:00 귀가 (약 10시간)",
-        walkingKm: "약 11.5 km (캠퍼스 및 프레몬트 도보)",
-        familyMood: "수잘로 도서관 감동 & 피자·아이스크림 파티 100점",
+        flightInfo: "32번 시내버스 & 프레몬트 도보",
+        driveDistance: "약 11.5 km (캠퍼스 및 프레몬트 도보)",
         napTime: "가스웍스 벤치 햇살 힐링 & 잔디밭 쉼"
       },
       highlights: [
@@ -4376,25 +4380,25 @@
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center">
               <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
                 <p class="text-[10px] text-stone-500 font-medium">체감 일과 / 기상</p>
-                <p class="text-xs sm:text-sm font-bold text-amber-900 mt-0.5">${d.stats.totalHours}</p>
+                <p class="text-xs sm:text-sm font-bold text-amber-900 mt-0.5">${(d.stats && d.stats.totalHours) || '-'}</p>
               </div>
               <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
                 <p class="text-[10px] text-stone-500 font-medium">핵심 이동 / 주유</p>
-                <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${d.stats.flightInfo}</p>
+                <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${(d.stats && (d.stats.flightInfo || d.stats.walkingKm)) || '-'}</p>
               </div>
               <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
                 <p class="text-[10px] text-stone-500 font-medium">실제 이동 거리</p>
-                <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${d.stats.driveDistance}</p>
+                <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${(d.stats && (d.stats.driveDistance || d.stats.familyMood)) || '-'}</p>
               </div>
               <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
                 <p class="text-[10px] text-stone-500 font-medium">휴식 & 수면</p>
-                <p class="text-xs sm:text-sm font-bold text-emerald-800 mt-0.5">${d.stats.napTime}</p>
+                <p class="text-xs sm:text-sm font-bold text-emerald-800 mt-0.5">${(d.stats && d.stats.napTime) || '-'}</p>
               </div>
             </div>
 
             <!-- Tags -->
             <div class="flex flex-wrap gap-1.5 pt-1">
-              ${d.tags.map(t => `<span class="bg-white/80 border border-amber-200/90 text-amber-900 px-2 py-0.5 rounded-full text-[10px] font-semibold">#${t}</span>`).join('')}
+              ${(d.tags || []).map(t => `<span class="bg-white/80 border border-amber-200/90 text-amber-900 px-2 py-0.5 rounded-full text-[10px] font-semibold">#${t}</span>`).join('')}
             </div>
           </div>
 
@@ -4405,7 +4409,7 @@
               <span>${dayNum}일차 결정적 순간들 (Key Highlights)</span>
             </h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              ${d.highlights.map(h => `
+              ${(d.highlights || []).map(h => `
                 <div class="bg-white p-3 rounded-xl border border-stone-200 hover:border-amber-300 transition shadow-2xs flex items-start space-x-2.5">
                   <span class="text-2xl p-1.5 bg-amber-50 rounded-lg shrink-0">${h.icon}</span>
                   <div>
@@ -4746,9 +4750,20 @@
     }
 
     function copyDiaryContent() {
+      const day = activeDiaryDay || 1;
       const customDiaries = getCustomDiaries();
-      const text = (customDiaries[1] && customDiaries[1].content) ? customDiaries[1].content : defaultDiaryDay1.paragraphs.join('\n\n');
-      copyToClipboard(text, '1일차 아빠의 여행 일기 전문');
+      const defaultDiaries = {
+        1: defaultDiaryDay1,
+        2: defaultDiaryDay2,
+        3: defaultDiaryDay3,
+        4: defaultDiaryDay4,
+        5: defaultDiaryDay5,
+        6: defaultDiaryDay6,
+        7: defaultDiaryDay7
+      };
+      const def = defaultDiaries[day] || defaultDiaryDay1;
+      const text = (customDiaries[day] && customDiaries[day].content) ? customDiaries[day].content : (def.paragraphs ? def.paragraphs.join('\n\n') : '');
+      copyToClipboard(text, `${day}일차 여행 일기 전문`);
     }
 
     function addDiaryExpenseToBudget(name, amount, currency, category, note) {
