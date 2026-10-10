@@ -6,8 +6,8 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#78350f">
-  <title>시애틀 & 올림피아 가을 가족 여행 마스터 노트</title>
+  <meta name="theme-color" content="#064e3b">
+  <title>The Evergreen State - 둘리 미국 여행 (시애틀 & 올림피아)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -146,11 +146,11 @@
 <body class="min-h-screen flex flex-col antialiased pb-[calc(4.5rem+env(safe-area-inset-bottom))] md:pb-8">
 
   <!-- Dynamic Welcome Intro Splash Screen (Auto Dismiss & Click-to-Skip) -->
-  <div id="splash-screen" onclick="dismissSplash()" class="fixed inset-0 z-[100] bg-gradient-to-br from-amber-950 via-amber-900 to-stone-950 text-amber-50 flex flex-col items-center justify-center p-4 transition-all duration-700 ease-out select-none cursor-pointer overflow-hidden backdrop-blur-md">
+  <div id="splash-screen" onclick="dismissSplash()" class="fixed inset-0 z-[100] bg-gradient-to-br from-emerald-950 via-teal-950 to-stone-950 text-emerald-50 flex flex-col items-center justify-center p-4 transition-all duration-700 ease-out select-none cursor-pointer overflow-hidden backdrop-blur-md">
     
-    <!-- Background Ambient Glow & Floating Leaves -->
-    <div class="absolute -top-24 -left-24 w-72 h-72 bg-amber-600/20 rounded-full blur-3xl pointer-events-none anim-glow"></div>
-    <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none anim-glow" style="animation-delay: 1s;"></div>
+    <!-- Background Ambient Glow & Floating Elements -->
+    <div class="absolute -top-24 -left-24 w-72 h-72 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none anim-glow"></div>
+    <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-teal-600/20 rounded-full blur-3xl pointer-events-none anim-glow" style="animation-delay: 1s;"></div>
     
     <div class="relative z-10 flex flex-col items-center text-center max-w-sm px-4 space-y-4">
       
@@ -163,69 +163,77 @@
           ✈️
         </div>
         <div class="absolute -bottom-1 text-2xl anim-leaf" style="animation-delay: 0.3s;">
-          🍁
+          🌲
         </div>
       </div>
 
       <!-- Main Welcome Title -->
       <div class="space-y-1.5 animate-fade-in">
-        <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-800/80 border border-amber-600/50 text-[11px] font-bold text-amber-200 shadow-sm tracking-wide">
-          <span>🌲 2026.09.30 ~ 10.10</span>
+        <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-900/80 border border-emerald-600/50 text-[11px] font-bold text-emerald-200 shadow-sm tracking-wide">
+          <span>🗼 2026.09.30 ~ 10.10</span>
           <span>•</span>
           <span>10박 11일</span>
         </div>
         <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug drop-shadow-md">
-          시애틀 & 올림피아<br>
-          <span class="text-amber-300">가을 가족 여행</span>
+          The Evergreen State<br>
+          <span class="text-emerald-300">둘리 미국 여행</span>
         </h2>
-        <p class="text-xs sm:text-sm text-amber-200/90 font-medium pt-0.5">
-          주아성 · 김지은 · 주이안 · 주이솔 👨‍👩‍👧‍👧
+        <p class="text-xs sm:text-sm text-emerald-200/90 font-medium pt-0.5">
+          둘리가족 네 식구 👨‍👩‍👧‍👧
         </p>
       </div>
 
       <!-- Landmark Pills -->
-      <div class="flex flex-wrap justify-center gap-1.5 pt-1 text-[11px] font-semibold text-amber-100/90">
-        <span class="bg-amber-900/60 border border-amber-700/50 px-2 py-0.5 rounded-lg">🗼 스페이스 니들</span>
-        <span class="bg-amber-900/60 border border-amber-700/50 px-2 py-0.5 rounded-lg">🐠 수족관</span>
-        <span class="bg-amber-900/60 border border-amber-700/50 px-2 py-0.5 rounded-lg">🏡 올림피아</span>
-        <span class="bg-amber-900/60 border border-amber-700/50 px-2 py-0.5 rounded-lg">🛍️ 오레곤 면세</span>
+      <div class="flex flex-wrap justify-center gap-1.5 pt-1 text-[11px] font-semibold text-emerald-100/90">
+        <span class="bg-emerald-900/70 border border-emerald-700/60 px-2 py-0.5 rounded-lg">🗼 스페이스 니들</span>
+        <span class="bg-emerald-900/70 border border-emerald-700/60 px-2 py-0.5 rounded-lg">🐠 수족관</span>
+        <span class="bg-emerald-900/70 border border-emerald-700/60 px-2 py-0.5 rounded-lg">🏡 올림피아</span>
+        <span class="bg-emerald-900/70 border border-emerald-700/60 px-2 py-0.5 rounded-lg">🛍️ 오레곤 면세</span>
       </div>
 
       <!-- Progress bar / Skip prompt -->
       <div class="w-full max-w-[180px] pt-4 flex flex-col items-center space-y-1.5">
-        <div class="w-full h-1 bg-amber-950/80 rounded-full overflow-hidden border border-amber-700/40">
-          <div id="splash-progress" class="h-full bg-gradient-to-r from-amber-400 to-amber-200 rounded-full transition-all duration-[1600ms] ease-linear w-0"></div>
+        <div class="w-full h-1 bg-emerald-950/80 rounded-full overflow-hidden border border-emerald-700/40">
+          <div id="splash-progress" class="h-full bg-gradient-to-r from-emerald-400 to-teal-200 rounded-full transition-all duration-[1600ms] ease-linear w-0"></div>
         </div>
-        <p class="text-[10px] text-amber-300/70 font-mono">화면을 터치하면 바로 시작합니다 ⚡</p>
+        <p class="text-[10px] text-emerald-300/80 font-mono">화면을 터치하면 바로 시작합니다 ⚡</p>
       </div>
     </div>
   </div>
 
   <!-- Top Header with Dual Clocks (Seattle & Korea) -->
-  <header class="bg-amber-900 text-amber-50 shadow-md sticky top-0 z-40">
+  <header class="bg-emerald-900 text-emerald-50 shadow-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-3 sm:px-4 py-2 flex items-center justify-between">
       
       <!-- Simplified Logo & Title (Click to Return Home) -->
-      <div onclick="goHome()" class="flex items-center space-x-2 cursor-pointer active:scale-95 transition-transform select-none group touch-target" title="홈(마스터 일정)으로 이동">
-        <span class="text-2xl group-hover:scale-110 transition-transform">🌲</span>
+      <div onclick="goHome()" class="flex items-center space-x-2 cursor-pointer active:scale-95 transition-transform select-none group touch-target shrink-0" title="홈(마스터 일정)으로 이동">
+        <svg class="w-6 h-6 sm:w-7 sm:h-7 text-emerald-300 group-hover:scale-110 transition-transform shrink-0 drop-shadow" viewBox="0 0 24 24" fill="currentColor" aria-label="스페이스 니들">
+          <rect x="11.5" y="1" width="1" height="5" rx="0.5" />
+          <path d="M8.5 6h7l-1 1.5h-5z" />
+          <ellipse cx="12" cy="8.2" rx="6.5" ry="1.6" />
+          <ellipse cx="12" cy="9.2" rx="5.5" ry="1" opacity="0.85" />
+          <path d="M9.5 10.2h5l-0.5 1h-4z" />
+          <path d="M10 11.2c0.8 2.5 1 4.5 0.2 9.3l-1.7 2h1.4l1.1-2h2l1.1 2h1.4l-1.7-2c-0.8-4.8-0.6-6.8 0.2-9.3h-1.2c-0.6 2.3-0.8 4.2-0.6 8.3h-0.8c0.2-4.1 0-6-0.6-8.3z" />
+          <rect x="7" y="22.5" width="10" height="1" rx="0.5" />
+        </svg>
         <div>
-          <h1 class="font-extrabold text-base sm:text-lg leading-tight flex items-center gap-1.5">
-            시애틀 여행
-            <span class="text-[10px] bg-amber-700/90 px-1.5 py-0.2 rounded font-semibold text-amber-200" id="header-dday">D-Day</span>
+          <h1 class="font-extrabold text-base sm:text-lg leading-tight flex items-center gap-1.5 whitespace-nowrap">
+            Evergreen
+            <span class="text-[10px] bg-emerald-800 px-1.5 py-0.2 rounded font-semibold text-emerald-200 whitespace-nowrap border border-emerald-700/60" id="header-dday">D-Day</span>
           </h1>
-          <p class="text-[10px] sm:text-xs text-amber-200/90 font-medium">4인 가족 가을 여행 마스터 노트</p>
+          <p class="text-[10px] sm:text-xs text-emerald-200/90 font-medium whitespace-nowrap">둘리 미국 여행</p>
         </div>
       </div>
 
       <!-- Real-time Dual Clock (Seattle & Seoul) & Quick Action Buttons -->
       <div class="flex items-center space-x-1.5 sm:space-x-2">
-        <div class="flex items-center space-x-2 bg-amber-950/70 px-2.5 py-1 rounded-xl border border-amber-800/80 text-[10px] sm:text-xs">
+        <div class="flex items-center space-x-2 bg-emerald-950/70 px-2.5 py-1 rounded-xl border border-emerald-800/80 text-[10px] sm:text-xs">
           <div class="text-right">
-            <p class="text-amber-300 font-semibold leading-none">🇺🇸 시애틀 <span id="clock-sea" class="font-mono font-bold text-white">--:--</span></p>
+            <p class="text-emerald-300 font-semibold leading-none">🇺🇸 시애틀 <span id="clock-sea" class="font-mono font-bold text-white">--:--</span></p>
             <p class="text-stone-400 font-medium mt-0.5 leading-none">🇰🇷 한국 <span id="clock-icn" class="font-mono text-stone-300">--:--</span></p>
           </div>
         </div>
-        <button onclick="openSearchModal()" class="bg-amber-800/90 hover:bg-amber-700 text-amber-100 font-bold p-1.5 sm:px-2 sm:py-1 rounded-lg text-xs border border-amber-600/60 shadow-sm transition active:scale-95 touch-target flex items-center space-x-1" title="통합 검색 (명소/일정/티켓/주소)">
+        <button onclick="openSearchModal()" class="bg-emerald-800/90 hover:bg-emerald-700 text-emerald-100 font-bold p-1.5 sm:px-2 sm:py-1 rounded-lg text-xs border border-emerald-600/60 shadow-sm transition active:scale-95 touch-target flex items-center space-x-1" title="통합 검색 (명소/일정/티켓/주소)">
           <span>🔍</span>
           <span class="hidden sm:inline text-[10px]">검색</span>
         </button>
@@ -237,37 +245,37 @@
     </div>
 
     <!-- Desktop Navigation Links (Large Screen) -->
-    <div class="hidden lg:block border-t border-amber-800/60 bg-amber-950/40">
+    <div class="hidden lg:block border-t border-emerald-800/60 bg-emerald-950/50">
       <div class="max-w-7xl mx-auto px-4 py-1.5 flex space-x-1 text-xs font-medium">
-        <button onclick="switchTab('tab-schedule')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-schedule">📅 마스터 일정</button>
-        <button onclick="switchTab('tab-diary')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-diary">📖 여행 일기</button>
-        <button onclick="switchTab('tab-photos')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-photos">📸 포토 앨범</button>
-        <button onclick="switchTab('tab-attractions')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-attractions">📍 주요 명소</button>
-        <button onclick="switchTab('tab-transit')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-transit">🚘 교통 & 안내</button>
-        <button onclick="switchTab('tab-budget')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-budget">💰 예산 & 가계부</button>
-        <button onclick="switchTab('tab-docs')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-docs">📑 예약·티켓 부록</button>
-        <button onclick="switchTab('tab-dining')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-dining">🍽️ 맛집 & 팁</button>
-        <button onclick="switchTab('tab-checklist')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-amber-800 transition" id="btn-tab-checklist">🎒 준비물</button>
+        <button onclick="switchTab('tab-schedule')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-emerald-800 transition" id="btn-tab-schedule">📅 마스터 일정</button>
+        <button onclick="switchTab('tab-diary')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-emerald-800 transition" id="btn-tab-diary">📖 여행 일기</button>
+        <button onclick="switchTab('tab-photos')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-emerald-800 transition" id="btn-tab-photos">📸 포토 앨범</button>
+        <button onclick="switchTab('tab-attractions')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-emerald-800 transition" id="btn-tab-attractions">📍 주요 명소</button>
+        <button onclick="switchTab('tab-transit')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-emerald-800 transition" id="btn-tab-transit">🚘 교통 & 안내</button>
+        <button onclick="switchTab('tab-budget')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-emerald-800 transition" id="btn-tab-budget">💰 예산 & 가계부</button>
+        <button onclick="switchTab('tab-docs')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-emerald-800 transition" id="btn-tab-docs">📑 예약·티켓 부록</button>
+        <button onclick="switchTab('tab-dining')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-emerald-800 transition" id="btn-tab-dining">🍽️ 맛집 & 팁</button>
+        <button onclick="switchTab('tab-checklist')" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-emerald-800 transition" id="btn-tab-checklist">🎒 준비물</button>
       </div>
     </div>
 
     <!-- Mobile Sub-Header Pill Navigation Bar (Horizontally scrollable for ease of touch) -->
-    <div class="lg:hidden flex overflow-x-auto space-x-1.5 px-3 py-1.5 bg-amber-950/50 border-t border-amber-800/50 custom-scrollbar snap-x">
-      <button onclick="switchTab('tab-schedule')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-800 text-white font-bold transition snap-start" id="mpill-tab-schedule">📅 일정</button>
-      <button onclick="switchTab('tab-diary')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-diary">📖 일기</button>
-      <button onclick="switchTab('tab-photos')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-photos">📸 앨범</button>
-      <button onclick="switchTab('tab-attractions')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-attractions">📍 명소</button>
-      <button onclick="switchTab('tab-transit')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-transit">🚘 교통</button>
-      <button onclick="switchTab('tab-budget')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-budget">💰 예산</button>
-      <button onclick="switchTab('tab-docs')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-docs">📑 부록</button>
-      <button onclick="switchTab('tab-dining')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-dining">🍽️ 맛집/팁</button>
-      <button onclick="switchTab('tab-checklist')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-amber-900/80 text-amber-200 transition snap-start" id="mpill-tab-checklist">🎒 준비물</button>
+    <div class="lg:hidden flex overflow-x-auto space-x-1.5 px-3 py-1.5 bg-emerald-950/60 border-t border-emerald-800/50 custom-scrollbar snap-x">
+      <button onclick="switchTab('tab-schedule')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-emerald-800 text-white font-bold transition snap-start" id="mpill-tab-schedule">📅 일정</button>
+      <button onclick="switchTab('tab-diary')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-emerald-900/80 text-emerald-200 transition snap-start" id="mpill-tab-diary">📖 일기</button>
+      <button onclick="switchTab('tab-photos')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-emerald-900/80 text-emerald-200 transition snap-start" id="mpill-tab-photos">📸 앨범</button>
+      <button onclick="switchTab('tab-attractions')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-emerald-900/80 text-emerald-200 transition snap-start" id="mpill-tab-attractions">📍 명소</button>
+      <button onclick="switchTab('tab-transit')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-emerald-900/80 text-emerald-200 transition snap-start" id="mpill-tab-transit">🚘 교통</button>
+      <button onclick="switchTab('tab-budget')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-emerald-900/80 text-emerald-200 transition snap-start" id="mpill-tab-budget">💰 예산</button>
+      <button onclick="switchTab('tab-docs')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-emerald-900/80 text-emerald-200 transition snap-start" id="mpill-tab-docs">📑 부록</button>
+      <button onclick="switchTab('tab-dining')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-emerald-900/80 text-emerald-200 transition snap-start" id="mpill-tab-dining">🍽️ 맛집/팁</button>
+      <button onclick="switchTab('tab-checklist')" class="mobile-top-pill px-3 py-1 rounded-full text-xs whitespace-nowrap bg-emerald-900/80 text-emerald-200 transition snap-start" id="mpill-tab-checklist">🎒 준비물</button>
     </div>
   </header>
 
   <!-- Mobile Fixed Bottom Navigation Bar (Optimized 5-Core Buttons with comfortable hitboxes) -->
   <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-2xl px-2 pt-1 pb-[calc(0.4rem+env(safe-area-inset-bottom))] flex justify-around items-center">
-    <button onclick="switchTab('tab-schedule')" class="mobile-nav-btn flex flex-col items-center justify-center py-1 text-amber-900 font-bold active:scale-95 transition flex-1 touch-target" id="mbtn-tab-schedule">
+    <button onclick="switchTab('tab-schedule')" class="mobile-nav-btn flex flex-col items-center justify-center py-1 text-emerald-900 font-bold active:scale-95 transition flex-1 touch-target" id="mbtn-tab-schedule">
       <span class="text-lg leading-tight">📅</span>
       <span class="text-[10px] font-semibold mt-0.5">일정</span>
     </button>
@@ -294,33 +302,36 @@
     <!-- Tab 1: Master Schedule (Contains Master Note Hero & Daily Timelines) -->
     <section id="tab-schedule" class="tab-content space-y-3.5">
       
-      <!-- Hero / Summary Banner (Master Travel Note) -->
-      <div id="hero-overview" class="bg-white rounded-2xl shadow-sm border border-stone-200 p-3.5 sm:p-5">
+      <!-- Hero / Summary Banner (Master Travel Note - Evergreen & Space Needle Theme) -->
+      <div id="hero-overview" class="bg-gradient-to-r from-emerald-50 via-teal-50/40 to-stone-50 rounded-2xl shadow-sm border border-emerald-200/60 p-3.5 sm:p-5">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 items-center">
           <div class="md:col-span-2 space-y-2">
             <div class="flex flex-wrap items-center gap-1.5">
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold bg-amber-100 text-amber-900">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold bg-emerald-800 text-emerald-100 shadow-sm">
+                🗼 The Evergreen State
+              </span>
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300/60">
                 🍁 2026.09.30(수) ~ 10.10(토) [10박 11일]
               </span>
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-emerald-100 text-emerald-800">
-                👨‍👩‍👧‍👧 4인 가족 (주아성·김지은·주이안·주이솔)
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-emerald-200/80 text-emerald-950 border border-emerald-300/80">
+                👨‍👩‍👧‍👧 둘리가족 네 식구
               </span>
             </div>
-            <h2 class="text-base sm:text-xl font-extrabold text-stone-800 leading-snug">
-              시애틀 & 올림피아 통합 여행 마스터 노트
+            <h2 class="text-base sm:text-xl font-extrabold text-stone-800 leading-snug flex items-center gap-1.5">
+              <span>🗼</span> The Evergreen State : 시애틀 & 올림피아 둘리 미국 여행
             </h2>
             <p class="text-xs text-stone-600 leading-relaxed">
-              확정 영수증 및 e-티켓 보관소, 실시간 현지 가계부, 주소 기반 1-터치 내비게이션 & 빠른 복사를 지원합니다.
+              상록수의 주(The Evergreen State), 시애틀 스페이스 니들과 올림피아를 누빈 둘리가족 네 식구의 10박 11일 여행 기록 & 마스터 가이드입니다.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center text-xs">
-              <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
+              <div class="p-2 bg-white/80 rounded-xl border border-emerald-100 shadow-2xs">
                 <p class="text-stone-500 text-[10px]">사전 확정 경비</p>
-                <p class="text-xs font-extrabold text-amber-900 mt-0.5">₩5,023,212</p>
+                <p class="text-xs font-extrabold text-emerald-950 mt-0.5">₩5,023,212</p>
                 <p class="text-[9px] text-stone-500">항공+숙소+렌트+패스+보험</p>
               </div>
               <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
                 <p class="text-stone-500 text-[10px]">CityPASS 4인</p>
-                <p class="text-xs font-bold text-amber-800 mt-0.5">5대 명소 패스</p>
+                <p class="text-xs font-bold text-emerald-800 mt-0.5">5대 명소 패스</p>
                 <p class="text-[9px] text-stone-500">₩602,562 (낮/밤 2회)</p>
               </div>
               <div class="p-2 bg-stone-50 rounded-xl border border-stone-100">
@@ -355,7 +366,7 @@
 
         <!-- Filter Buttons -->
         <div class="flex flex-wrap gap-1.5 mb-2.5">
-          <button onclick="filterSchedule('all')" class="sched-filter-btn active bg-amber-800 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition touch-target">전체 (Day 1~11)</button>
+          <button onclick="filterSchedule('all')" class="sched-filter-btn active bg-emerald-800 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition touch-target">전체 (Day 1~11)</button>
           <button onclick="filterSchedule('olympia')" class="sched-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🚗 올림피아 (Day 1~4)</button>
           <button onclick="filterSchedule('seattle')" class="sched-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🚊 시애틀 (Day 5~11)</button>
         </div>
@@ -379,8 +390,8 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
-          <input type="text" id="attract-search" oninput="renderAttractions()" placeholder="명소 명칭/주소 검색 (예: 5th Ave, 동물원, 박물관...)" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target">
-          <select id="attract-category" onchange="renderAttractions()" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 touch-target bg-white font-medium">
+          <input type="text" id="attract-search" oninput="renderAttractions()" placeholder="명소 명칭/주소 검색 (예: 5th Ave, 동물원, 박물관...)" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 touch-target">
+          <select id="attract-category" onchange="renderAttractions()" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 touch-target bg-white font-medium">
             <option value="all">전체 카테고리 (모두 보기)</option>
             <option value="museum">어린이 박물관 / 실내 체험</option>
             <option value="park">공원 & 자연 & 전망대</option>
@@ -401,15 +412,15 @@
         <p class="text-xs text-stone-500 mb-3">아이 무료 탑승 제도 및 네비게이션 주소 입력 가이드입니다.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-          <div class="bg-amber-50/80 rounded-xl p-3.5 border border-amber-200 space-y-2">
+          <div class="bg-emerald-50/70 rounded-xl p-3.5 border border-emerald-200 space-y-2">
             <div class="flex items-center space-x-2">
               <span class="text-xl">👶</span>
-              <h4 class="font-bold text-amber-900 text-xs sm:text-sm">18세 이하 아동 대중교통 무료 탑승</h4>
+              <h4 class="font-bold text-emerald-900 text-xs sm:text-sm">18세 이하 아동 대중교통 무료 탑승</h4>
             </div>
-            <p class="text-xs text-amber-900 leading-relaxed">
+            <p class="text-xs text-emerald-900 leading-relaxed">
               워싱턴주 법(Move Ahead Washington)에 따라 <strong>7세, 4세 두 딸은 경전철, 시내버스, 페리(도보) 모두 요금이 0원</strong>입니다. 단, <strong>시애틀 센터 모노레일은 Youth ORCA 카드를 실물/모바일로 제시해야 무료($0)</strong>이며, 미소지 시 현장 발권기에서 소액 티켓을 구매해야 합니다.
             </p>
-            <div class="bg-white p-2.5 rounded-lg text-xs space-y-1 text-stone-700 border border-amber-100">
+            <div class="bg-white p-2.5 rounded-lg text-xs space-y-1 text-stone-700 border border-emerald-100">
               <p>• <strong>경전철:</strong> 부모 카드 태그 후 아이들과 함께 개찰구 통과</p>
               <p>• <strong>시내버스:</strong> 승차 시 아이들과 함께 동반 탑승</p>
               <p>• <strong>모노레일:</strong> Youth ORCA 카드 소지 필수 (미소지 시 발권기 구매)</p>
@@ -441,7 +452,7 @@
                 <p class="font-semibold text-stone-800">공항 렌터카 센터 (픽업)</p>
                 <button onclick="copyToClipboard('3150 S 160TH ST, STE 507, SeaTac, WA 98188', '공항 렌터카 주소')" class="text-[10px] bg-white border border-stone-300 px-1.5 py-0.5 rounded text-stone-600 hover:bg-stone-100 touch-target">📋 복사</button>
               </div>
-              <p class="text-amber-900 font-mono text-[11px]">3150 S 160TH ST, STE 507, SeaTac, WA 98188</p>
+              <p class="text-emerald-900 font-mono text-[11px]">3150 S 160TH ST, STE 507, SeaTac, WA 98188</p>
               <p class="text-stone-500 text-[10px]">수하물 수취 후 1층 1번/16번 출구 밖 무료 셔틀 탑승 ➔ 5층 카운터 이동 (<a href="tel:8333298465" class="text-blue-600 underline">833-329-8465</a>)</p>
             </div>
             <div class="p-2.5 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
@@ -449,7 +460,7 @@
                 <p class="font-semibold text-stone-800">National 시애틀 다운타운 (반납)</p>
                 <button onclick="copyToClipboard('1601 3RD AVE, Seattle, WA 98101', '렌터카 반납 주소')" class="text-[10px] bg-white border border-stone-300 px-1.5 py-0.5 rounded text-stone-600 hover:bg-stone-100 touch-target">📋 복사</button>
               </div>
-              <p class="text-amber-900 font-mono text-[11px]">1601 3RD AVE, Seattle, WA 98101</p>
+              <p class="text-emerald-900 font-mono text-[11px]">1601 3RD AVE, Seattle, WA 98101</p>
               <p class="text-stone-500 text-[10px]">10/4(일) 11:30 이전 반납 (3rd & Stewart 모퉁이, <a href="tel:8888266890" class="text-blue-600 underline">888-826-6890</a>)</p>
             </div>
             <div class="p-2.5 bg-stone-50 rounded-lg border border-stone-200 space-y-1">
@@ -457,7 +468,7 @@
                 <p class="font-semibold text-stone-800">타코마 코스트코 (1일차 장보기)</p>
                 <button onclick="copyToClipboard('3701 S 37th St, Tacoma, WA 98409', '코스트코 주소')" class="text-[10px] bg-white border border-stone-300 px-1.5 py-0.5 rounded text-stone-600 hover:bg-stone-100 touch-target">📋 복사</button>
               </div>
-              <p class="text-amber-900 font-mono text-[11px]">3701 S 37th St, Tacoma, WA 98409</p>
+              <p class="text-emerald-900 font-mono text-[11px]">3701 S 37th St, Tacoma, WA 98409</p>
               <p class="text-stone-500 text-[10px]">I-5 출구 직결, 소고기/생수/과일/간식 구매</p>
             </div>
           </div>
@@ -474,10 +485,10 @@
             <p class="text-xs text-stone-500 mt-0.5">사전 확정 경비와 현지 추가 지출(입장료, 교통비, 식비 등)을 모바일에서 실시간 관리하세요.</p>
           </div>
           <div class="flex items-center space-x-2 self-start sm:self-auto">
-            <div class="flex items-center space-x-1.5 bg-amber-50 px-2.5 py-1 rounded-xl border border-amber-200 text-xs">
+            <div class="flex items-center space-x-1.5 bg-emerald-50 px-2.5 py-1 rounded-xl border border-emerald-200 text-xs">
               <span class="text-stone-600 font-medium text-[11px]">환율:</span>
-              <span class="font-bold text-amber-900">$1 =</span>
-              <input type="number" id="exchange-rate-input" value="1350" onchange="updateExchangeRate(this.value)" class="w-16 px-1.5 py-0.5 text-xs font-bold border border-amber-300 rounded bg-white text-center focus:ring-1 focus:ring-amber-500">
+              <span class="font-bold text-emerald-900">$1 =</span>
+              <input type="number" id="exchange-rate-input" value="1350" onchange="updateExchangeRate(this.value)" class="w-16 px-1.5 py-0.5 text-xs font-bold border border-emerald-300 rounded bg-white text-center focus:ring-1 focus:ring-emerald-500">
               <span class="text-stone-600 text-[11px]">원</span>
             </div>
             <button onclick="shareBudgetSummary()" class="bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold px-2.5 py-1 rounded-xl text-xs border border-stone-300 transition active:scale-95 touch-target" title="지출 요약 텍스트 복사">
@@ -488,10 +499,10 @@
 
         <!-- Budget Summary Stat Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-3.5">
-          <div class="bg-amber-50/70 p-3 rounded-xl border border-amber-200">
-            <p class="text-[10px] text-amber-800 font-semibold">총 예상/지출액</p>
-            <p class="text-sm sm:text-base font-extrabold text-amber-950 mt-0.5" id="budget-grand-total">₩0</p>
-            <p class="text-[10px] text-amber-700 font-mono" id="budget-grand-usd">($0)</p>
+          <div class="bg-emerald-50/70 p-3 rounded-xl border border-emerald-200">
+            <p class="text-[10px] text-emerald-800 font-semibold">총 예상/지출액</p>
+            <p class="text-sm sm:text-base font-extrabold text-emerald-950 mt-0.5" id="budget-grand-total">₩0</p>
+            <p class="text-[10px] text-emerald-700 font-mono" id="budget-grand-usd">($0)</p>
           </div>
           <div class="bg-stone-50 p-3 rounded-xl border border-stone-200">
             <p class="text-[10px] text-stone-500 font-semibold">사전 확정 결제액</p>
@@ -522,7 +533,7 @@
           <div class="lg:col-span-7 bg-white rounded-xl p-3.5 border border-stone-200 space-y-2">
             <div class="flex justify-between items-center">
               <h4 class="font-bold text-stone-800 text-xs sm:text-sm">🔒 영수증 기반 사전 확정 내역 (고정비)</h4>
-              <button onclick="switchTab('tab-docs')" class="text-[10px] text-amber-800 font-semibold underline">상세 부록 보기 ➡️</button>
+              <button onclick="switchTab('tab-docs')" class="text-[10px] text-emerald-800 font-semibold underline">상세 부록 보기 ➡️</button>
             </div>
             <div class="space-y-1.5 text-xs text-stone-700 max-h-56 overflow-y-auto pr-1">
               <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
@@ -530,35 +541,35 @@
                   <p class="font-semibold text-stone-900">✈️ 대한항공 항공권 (4인 유류세/제세금)</p>
                   <p class="text-[10px] text-stone-500">주아성, 김지은, 주이안, 주이솔 (280,000 마일 차감)</p>
                 </div>
-                <span class="font-bold text-amber-900">₩1,248,700</span>
+                <span class="font-bold text-emerald-900">₩1,248,700</span>
               </div>
               <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
                 <div>
                   <p class="font-semibold text-stone-900">🏡 올림피아 숙소 에어비앤비 (3박)</p>
                   <p class="text-[10px] text-stone-500">Country Cottage Cuteness (09/30~10/03)</p>
                 </div>
-                <span class="font-bold text-amber-900">₩928,592</span>
+                <span class="font-bold text-emerald-900">₩928,592</span>
               </div>
               <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
                 <div>
                   <p class="font-semibold text-stone-900">🏡 시애틀 퀸앤 숙소 에어비앤비 (7박)</p>
                   <p class="text-[10px] text-stone-500">Cozy Queen Anne (10/03~10/10)</p>
                 </div>
-                <span class="font-bold text-amber-900">₩1,929,368</span>
+                <span class="font-bold text-emerald-900">₩1,929,368</span>
               </div>
               <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
                 <div>
                   <p class="font-semibold text-stone-900">🚗 National 렌터카 4일 + 풀커버 보험</p>
                   <p class="text-[10px] text-stone-500">중형 세단 토요타 코롤라급 (09/30~10/04)</p>
                 </div>
-                <span class="font-bold text-amber-900">₩277,300</span>
+                <span class="font-bold text-emerald-900">₩277,300</span>
               </div>
-              <div class="flex justify-between items-center p-2 bg-amber-50/70 rounded-lg border border-amber-200">
+              <div class="flex justify-between items-center p-2 bg-emerald-50/70 rounded-lg border border-emerald-200">
                 <div>
-                  <p class="font-semibold text-amber-950">🎟️ 시애틀 CityPASS (4인 5개 어트랙션 패스)</p>
-                  <p class="text-[10px] text-amber-800">스페이스 니들(낮/밤 2회)+아쿠아리움+동물원/치훌리 등 택3</p>
+                  <p class="font-semibold text-emerald-950">🎟️ 시애틀 CityPASS (4인 5개 어트랙션 패스)</p>
+                  <p class="text-[10px] text-emerald-800">스페이스 니들(낮/밤 2회)+아쿠아리움+동물원/치훌리 등 택3</p>
                 </div>
-                <span class="font-bold text-amber-900">₩602,562</span>
+                <span class="font-bold text-emerald-900">₩602,562</span>
               </div>
               <div class="flex justify-between items-center p-2 bg-emerald-50/70 rounded-lg border border-emerald-200">
                 <div>
@@ -572,7 +583,7 @@
         </div>
 
         <!-- Expense Management Section (Add / Quick Preset / List) -->
-        <div class="bg-amber-50/50 rounded-xl p-3.5 border border-amber-200 space-y-3">
+        <div class="bg-emerald-50/40 rounded-xl p-3.5 border border-emerald-200/80 space-y-3">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
             <h4 class="font-bold text-stone-900 text-xs sm:text-sm">➕ 현지 지출 / 예상 비용 추가 & 수정</h4>
             <div class="flex gap-1.5">
@@ -588,7 +599,7 @@
           <form id="add-expense-form" onsubmit="handleNewExpenseSubmit(event)" class="bg-white p-3 rounded-xl border border-stone-200 grid grid-cols-1 sm:grid-cols-12 gap-2 text-xs">
             <div class="sm:col-span-3">
               <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">항목명</label>
-              <input type="text" id="exp-title" placeholder="예: 스페이스 니들 전망대" required class="w-full px-3 py-2 text-sm sm:text-xs border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+              <input type="text" id="exp-title" placeholder="예: 스페이스 니들 전망대" required class="w-full px-3 py-2 text-sm sm:text-xs border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
             </div>
             <div class="sm:col-span-2">
               <label class="block text-[10px] font-semibold text-stone-600 mb-0.5">카테고리</label>
@@ -632,7 +643,7 @@
               <input type="text" id="exp-note" placeholder="예: 4인 가족 입장료" class="w-full px-3 py-2 text-sm sm:text-xs border border-stone-300 rounded-lg">
             </div>
             <div class="sm:col-span-1 flex items-end">
-              <button type="submit" class="w-full bg-amber-800 hover:bg-amber-900 text-white font-bold py-2 px-3 rounded-lg transition touch-target flex items-center justify-center space-x-1 shadow-sm active:scale-95">
+              <button type="submit" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-3 rounded-lg transition touch-target flex items-center justify-center space-x-1 shadow-sm active:scale-95">
                 <span>➕ 추가</span>
               </button>
             </div>
@@ -643,10 +654,10 @@
             <div class="flex flex-wrap justify-between items-center px-1 gap-2 border-b border-stone-200/60 pb-2">
               <p class="text-xs font-bold text-stone-900 flex items-center gap-1.5">
                 <span>📋</span>
-                <span>현지 지출 목록 (<span id="expense-count" class="text-amber-800">0</span>건)</span>
+                <span>현지 지출 목록 (<span id="expense-count" class="text-emerald-800">0</span>건)</span>
               </p>
               <div class="flex items-center space-x-1 bg-stone-100 p-1 rounded-xl border border-stone-200 text-xs">
-                <button onclick="setExpenseViewMode('date')" id="exp-view-btn-date" class="px-2.5 py-1 rounded-lg font-bold text-[11px] transition bg-amber-800 text-white shadow-2xs">📅 날짜별 보기</button>
+                <button onclick="setExpenseViewMode('date')" id="exp-view-btn-date" class="px-2.5 py-1 rounded-lg font-bold text-[11px] transition bg-emerald-800 text-white shadow-2xs">📅 날짜별 보기</button>
                 <button onclick="setExpenseViewMode('category')" id="exp-view-btn-category" class="px-2.5 py-1 rounded-lg font-bold text-[11px] transition text-stone-600 hover:bg-stone-200">🏷️ 카테고리별 보기</button>
                 <button onclick="setExpenseViewMode('all')" id="exp-view-btn-all" class="px-2.5 py-1 rounded-lg font-bold text-[11px] transition text-stone-600 hover:bg-stone-200">📋 전체 보기</button>
               </div>
@@ -672,11 +683,11 @@
         <!-- Search Bar & Category Filter -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3.5">
           <div class="sm:col-span-2 relative">
-            <input type="text" id="vault-search-input" oninput="filterVaultCards()" placeholder="검색어 입력 (예: 예약번호, 바우처, 보증금, 수하물, 호스트...)" class="w-full pl-8 pr-3 py-2 text-sm border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none touch-target">
+            <input type="text" id="vault-search-input" oninput="filterVaultCards()" placeholder="검색어 입력 (예: 예약번호, 바우처, 보증금, 수하물, 호스트...)" class="w-full pl-8 pr-3 py-2 text-sm border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none touch-target">
             <span class="absolute left-2.5 top-2.5 text-stone-400 text-sm">🔍</span>
           </div>
           <div>
-            <select id="vault-filter-category" onchange="filterVaultCards()" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl bg-white focus:ring-2 focus:ring-amber-500 touch-target font-medium">
+            <select id="vault-filter-category" onchange="filterVaultCards()" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl bg-white focus:ring-2 focus:ring-emerald-500 touch-target font-medium">
               <option value="all">전체 예약 서류 (모두 보기)</option>
               <option value="flight">✈️ 대한항공 항공권 & e-Ticket</option>
               <option value="stay">🏡 에어비앤비 숙소 영수증</option>
@@ -688,24 +699,24 @@
         </div>
 
         <!-- Travel English Phrase Kit -->
-        <div class="mb-4 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-3.5 sm:p-4">
+        <div class="mb-4 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-3.5 sm:p-4">
           <div class="flex items-center justify-between gap-2 mb-3">
             <div>
-              <p class="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-amber-700">Travel English Kit</p>
+              <p class="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-700">Travel English Kit</p>
               <h4 class="text-base sm:text-lg font-extrabold text-stone-900 mt-0.5">🗣️ 현지에서 바로 쓰는 자연스러운 영어</h4>
             </div>
-            <span class="inline-flex items-center rounded-full border border-amber-300 bg-white px-2 py-1 text-[10px] font-semibold text-amber-800">모바일 최적화</span>
+            <span class="inline-flex items-center rounded-full border border-emerald-300 bg-white px-2 py-1 text-[10px] font-semibold text-emerald-800">모바일 최적화</span>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 text-xs sm:text-sm">
             <div class="rounded-xl border border-stone-200 bg-white p-3 shadow-sm">
               <h5 class="mb-2 flex items-center gap-2 font-extrabold text-stone-800"><span>👨</span> 아빠 · Professional, Crisp & Confident</h5>
               <ul class="space-y-2 text-stone-700 leading-relaxed">
-                <li class="phrase-li"><span class="font-semibold text-amber-800">입국심사:</span> "We're on a 10-day family retreat, splitting our time between Seattle and Olympia."</li>
-                <li class="phrase-li"><span class="font-semibold text-amber-800">통관:</span> "Here's our documentation: four passports and our confirmed return itineraries."</li>
-                <li class="phrase-li"><span class="font-semibold text-amber-800">렌터카:</span> "Good morning. I have an advance reservation under Aseong Joo. The confirmation number is ZFY870530."</li>
-                <li class="phrase-li"><span class="font-semibold text-amber-800">주유/체크:</span> "I've just topped off the fuel tank across the street. Could you do a quick walk-around and email me the receipt?"</li>
-                <li class="phrase-li"><span class="font-semibold text-amber-800">팁:</span> "Just making sure—does the total include an automatic gratuity, or should I calculate the tip separately?"</li>
+                <li class="phrase-li"><span class="font-semibold text-emerald-800">입국심사:</span> "We're on a 10-day family retreat, splitting our time between Seattle and Olympia."</li>
+                <li class="phrase-li"><span class="font-semibold text-emerald-800">통관:</span> "Here's our documentation: four passports and our confirmed return itineraries."</li>
+                <li class="phrase-li"><span class="font-semibold text-emerald-800">렌터카:</span> "Good morning. I have an advance reservation under Aseong Joo. The confirmation number is ZFY870530."</li>
+                <li class="phrase-li"><span class="font-semibold text-emerald-800">주유/체크:</span> "I've just topped off the fuel tank across the street. Could you do a quick walk-around and email me the receipt?"</li>
+                <li class="phrase-li"><span class="font-semibold text-emerald-800">팁:</span> "Just making sure—does the total include an automatic gratuity, or should I calculate the tip separately?"</li>
               </ul>
             </div>
 
@@ -755,7 +766,7 @@
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-900">✈️ 항공권 / e-Ticket</span>
                 <h4 class="font-bold text-stone-900 text-xs sm:text-sm">대한항공 ICN ↔ SEA 왕복 (4인 가족)</h4>
               </div>
-              <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩1,248,700 + 280,000 마일</span>
+              <span class="text-xs font-extrabold text-emerald-950 font-mono">총 결제액 ₩1,248,700 + 280,000 마일</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-stone-700">
@@ -799,17 +810,17 @@
           <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2.5" data-category="stay" data-keywords="올림피아 숙소 에어비앤비 airbnb 영수증 cottage 3339 cooper point olympia karl 98502 HMJ8DZNYKN 잔디마당 바베큐 3박">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-stone-200 gap-1">
               <div class="flex items-center space-x-2">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900">🏡 숙소 영수증 1</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">🏡 숙소 영수증 1</span>
                 <h4 class="font-bold text-stone-900 text-xs sm:text-sm">올림피아 잔디 독채 (Country Cottage Cuteness)</h4>
               </div>
-              <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩928,592 (3박)</span>
+              <span class="text-xs font-extrabold text-emerald-950 font-mono">총 결제액 ₩928,592 (3박)</span>
             </div>
 
             <div class="bg-white p-2.5 rounded-lg border border-stone-200 text-xs space-y-1.5">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
                 <p>• <strong>일정:</strong> 2026.09.30(수) 15:00 체크인 ~ 10.03(토) 10:00 체크아웃 (3박)</p>
                 <div class="flex items-center justify-between">
-                  <p>• <strong>확정 코드:</strong> <span class="font-mono font-bold text-amber-900">HMJ8DZNYKN</span></p>
+                  <p>• <strong>확정 코드:</strong> <span class="font-mono font-bold text-emerald-900">HMJ8DZNYKN</span></p>
                   <button onclick="copyToClipboard('HMJ8DZNYKN', '올림피아 예약확정코드')" class="text-[10px] bg-stone-100 px-1.5 py-0.5 rounded border">복사</button>
                 </div>
                 <div class="flex items-center justify-between">
@@ -818,11 +829,11 @@
                 </div>
                 <p>• <strong>게스트:</strong> 4명 (A Seong Joo, Ji Eun Kim, Eean Joo, Eesol Joo)</p>
               </div>
-              <div class="flex items-center justify-between bg-amber-50/60 p-1.5 rounded border border-amber-200 text-[11px]">
+              <div class="flex items-center justify-between bg-emerald-50/70 p-1.5 rounded border border-emerald-200 text-[11px]">
                 <span class="font-mono text-stone-800 truncate mr-1">📍 3339 Cooper Point Road Northwest, Olympia, WA 98502</span>
                 <div class="flex gap-1 shrink-0">
                   <button onclick="copyToClipboard('3339 Cooper Point Road Northwest, Olympia, WA 98502', '올림피아 숙소 주소')" class="px-2 py-0.5 bg-white border border-stone-300 text-stone-700 font-semibold rounded text-[10px] touch-target">복사</button>
-                  <button onclick="openGoogleMap('3339 Cooper Point Road Northwest, Olympia, WA 98502')" class="px-2 py-0.5 bg-amber-800 text-white font-bold rounded text-[10px] whitespace-nowrap hover:bg-amber-900 touch-target">지도</button>
+                  <button onclick="openGoogleMap('3339 Cooper Point Road Northwest, Olympia, WA 98502')" class="px-2 py-0.5 bg-emerald-800 text-white font-bold rounded text-[10px] whitespace-nowrap hover:bg-emerald-900 touch-target">지도</button>
                 </div>
               </div>
             </div>
@@ -835,7 +846,7 @@
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-900">🏡 숙소 영수증 2</span>
                 <h4 class="font-bold text-stone-900 text-xs sm:text-sm">시애틀 퀸앤 독채 (Cozy Queen Anne | Laundry | Private Parking)</h4>
               </div>
-              <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩1,929,368 (7박)</span>
+              <span class="text-xs font-extrabold text-emerald-950 font-mono">총 결제액 ₩1,929,368 (7박)</span>
             </div>
 
             <div class="bg-white p-2.5 rounded-lg border border-stone-200 text-xs space-y-1.5">
@@ -868,7 +879,7 @@
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">🚗 렌터카 바우처</span>
                 <h4 class="font-bold text-stone-900 text-xs sm:text-sm">National Car Rental (클룩 예약 완료)</h4>
               </div>
-              <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩277,300 (4일/96시간)</span>
+              <span class="text-xs font-extrabold text-emerald-950 font-mono">총 결제액 ₩277,300 (4일/96시간)</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-stone-700">
@@ -926,54 +937,54 @@
           </div>
 
           <!-- 5. CityPASS: Seattle CityPASS 5-Attraction Pass (4 Members) -->
-          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-amber-200/80 space-y-2.5" data-category="citypass" data-keywords="시애틀 citypass 시티패스 바우처 voucher 5개 어트랙션 스페이스니들 낮밤 2회 아쿠아리움 치훌리 아르고시 크루즈 mopop 동물원 과학센터 XUF039441 김지은 주아성 주이안 주이솔 3084580203510004079 3084580203510016560 3084580213510020694 3084580213510048620 602562">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-amber-200 gap-1">
+          <div class="vault-card bg-stone-50 rounded-xl p-3.5 border border-emerald-200 space-y-2.5" data-category="citypass" data-keywords="시애틀 citypass 시티패스 바우처 voucher 5개 어트랙션 스페이스니들 낮밤 2회 아쿠아리움 치훌리 아르고시 크루즈 mopop 동물원 과학센터 XUF039441 김지은 주아성 주이안 주이솔 3084580203510004079 3084580203510016560 3084580213510020694 3084580213510048620 602562">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-emerald-200 gap-1">
               <div class="flex items-center space-x-2">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-200 text-amber-900">🎟️ 시애틀 CityPASS®</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">🎟️ 시애틀 CityPASS®</span>
                 <h4 class="font-bold text-stone-900 text-xs sm:text-sm">시애틀 CityPASS® 5개 어트랙션 패스 (4인 가족)</h4>
               </div>
               <div class="flex items-center space-x-2">
-                <span class="text-xs font-extrabold text-amber-900 font-mono">총 결제액 ₩602,562</span>
-                <a href="https://my.citypass.com" target="_blank" class="text-[10px] bg-amber-800 text-white font-bold px-2 py-0.5 rounded hover:bg-amber-900 transition">My CityPASS 앱/예약 ↗</a>
+                <span class="text-xs font-extrabold text-emerald-950 font-mono">총 결제액 ₩602,562</span>
+                <a href="https://my.citypass.com" target="_blank" class="text-[10px] bg-emerald-800 text-white font-bold px-2 py-0.5 rounded hover:bg-emerald-900 transition">My CityPASS 앱/예약 ↗</a>
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-stone-700">
               <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
                 <div class="flex justify-between items-center">
-                  <p class="font-bold text-amber-900 text-[11px]">👥 가족별 바우처 번호 (성인2 + 아동2)</p>
+                  <p class="font-bold text-emerald-900 text-[11px]">👥 가족별 바우처 번호 (성인2 + 아동2)</p>
                   <div class="flex items-center space-x-1">
                     <span class="text-[10px] text-stone-500">예약 ID:</span>
-                    <span class="font-mono font-bold text-amber-900 text-[10px]">XUF039441</span>
+                    <span class="font-mono font-bold text-emerald-900 text-[10px]">XUF039441</span>
                     <button onclick="copyToClipboard('XUF039441', 'CityPASS 예약 ID')" class="text-[9px] bg-stone-100 px-1 py-0.2 rounded border">복사</button>
                   </div>
                 </div>
                 <div class="space-y-1 text-[11px] font-mono">
-                  <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
+                  <div class="flex justify-between items-center bg-emerald-50/50 p-1 rounded border border-emerald-100">
                     <span><strong>주아성</strong> (Adult / 3084580203510004079)</span>
-                    <button onclick="copyToClipboard('3084580203510004079', '주아성 CityPASS 바우처')" class="text-[10px] text-amber-800 font-semibold underline ml-1">복사</button>
+                    <button onclick="copyToClipboard('3084580203510004079', '주아성 CityPASS 바우처')" class="text-[10px] text-emerald-800 font-semibold underline ml-1">복사</button>
                   </div>
-                  <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
+                  <div class="flex justify-between items-center bg-emerald-50/50 p-1 rounded border border-emerald-100">
                     <span><strong>김지은</strong> (Adult·대표 / 3084580203510016560)</span>
-                    <button onclick="copyToClipboard('3084580203510016560', '김지은 CityPASS 바우처')" class="text-[10px] text-amber-800 font-semibold underline ml-1">복사</button>
+                    <button onclick="copyToClipboard('3084580203510016560', '김지은 CityPASS 바우처')" class="text-[10px] text-emerald-800 font-semibold underline ml-1">복사</button>
                   </div>
-                  <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
+                  <div class="flex justify-between items-center bg-emerald-50/50 p-1 rounded border border-emerald-100">
                     <span><strong>주이안</strong> (Child 5-12 / 3084580213510020694)</span>
-                    <button onclick="copyToClipboard('3084580213510020694', '주이안 CityPASS 바우처')" class="text-[10px] text-amber-800 font-semibold underline ml-1">복사</button>
+                    <button onclick="copyToClipboard('3084580213510020694', '주이안 CityPASS 바우처')" class="text-[10px] text-emerald-800 font-semibold underline ml-1">복사</button>
                   </div>
-                  <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
+                  <div class="flex justify-between items-center bg-emerald-50/50 p-1 rounded border border-emerald-100">
                     <span><strong>주이솔</strong> (Child 5-12 / 3084580213510048620)</span>
-                    <button onclick="copyToClipboard('3084580213510048620', '주이솔 CityPASS 바우처')" class="text-[10px] text-amber-800 font-semibold underline ml-1">복사</button>
+                    <button onclick="copyToClipboard('3084580213510048620', '주이솔 CityPASS 바우처')" class="text-[10px] text-emerald-800 font-semibold underline ml-1">복사</button>
                   </div>
                 </div>
                 <p class="text-[10px] text-stone-500 mt-1">※ 첫 어트랙션 입장(바우처 개시) 일로부터 <strong>연속 9일간</strong> 유효합니다.</p>
               </div>
 
               <div class="bg-white p-2.5 rounded-lg border border-stone-200 space-y-1.5">
-                <p class="font-bold text-amber-900 text-[11px]">🎡 이용 가능 5개 어트랙션 (지정 2 + 선택 3)</p>
+                <p class="font-bold text-emerald-900 text-[11px]">🎡 이용 가능 5개 어트랙션 (지정 2 + 선택 3)</p>
                 <div class="space-y-1 text-[11px] text-stone-700">
-                  <p>• <span class="bg-amber-100 text-amber-900 px-1 py-0.2 rounded font-bold text-[10px]">지정 1</span> <strong>스페이스 니들:</strong> 주간 + 야간 <strong>24시간 내 2회 무료 입장 포함!</strong> (사전 예약 필수)</p>
-                  <p>• <span class="bg-amber-100 text-amber-900 px-1 py-0.2 rounded font-bold text-[10px]">지정 2</span> <strong>시애틀 아쿠아리움:</strong> 전관 입장권 (오션 파빌리온 포함, 사전 예약)</p>
+                  <p>• <span class="bg-emerald-100 text-emerald-900 px-1 py-0.2 rounded font-bold text-[10px]">지정 1</span> <strong>스페이스 니들:</strong> 주간 + 야간 <strong>24시간 내 2회 무료 입장 포함!</strong> (사전 예약 필수)</p>
+                  <p>• <span class="bg-emerald-100 text-emerald-900 px-1 py-0.2 rounded font-bold text-[10px]">지정 2</span> <strong>시애틀 아쿠아리움:</strong> 전관 입장권 (오션 파빌리온 포함, 사전 예약)</p>
                   <p>• <span class="bg-stone-100 text-stone-700 px-1 py-0.2 rounded font-bold text-[10px]">선택 3종</span> <strong>다음 중 3곳 선택:</strong></p>
                   <div class="pl-2.5 space-y-0.5 text-[10px] text-stone-600">
                     <p>① <strong>우드랜드 파크 동물원</strong> (추천: 숲속 동물원 & 줌마지움)</p>
@@ -983,7 +994,7 @@
                     <p>⑤ <strong>팝 문화 박물관 (MOPOP)</strong> (음악/영화 전시, 시애틀 센터)</p>
                   </div>
                 </div>
-                <div class="bg-amber-50 p-1.5 rounded text-[10px] text-amber-950 font-medium">
+                <div class="bg-emerald-50/70 p-1.5 rounded text-[10px] text-emerald-950 font-medium">
                   💡 <strong>예약 팁:</strong> <a href="https://my.citypass.com" target="_blank" class="text-blue-700 underline font-bold">my.citypass.com</a> 또는 My CityPASS 앱에서 바우처 번호를 등록하고 방문 시간을 사전 예약하세요.
                 </div>
                 <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-2 text-[11px] text-emerald-950 font-medium space-y-0.5 mt-1.5">
@@ -1085,12 +1096,12 @@
             </h3>
             <p class="text-xs text-stone-500 mt-0.5">시애틀·올림피아·마운틴 레이니어의 검증된 맛집, 4인 추천 메뉴, 예상 비용 및 1-터치 내비게이션</p>
           </div>
-          <span class="text-[10px] bg-amber-100 text-amber-900 font-bold px-2.5 py-1 rounded-full self-start sm:self-auto">2026년 8월 최신 기준</span>
+          <span class="text-[10px] bg-emerald-100 text-emerald-900 font-bold px-2.5 py-1 rounded-full self-start sm:self-auto">2026년 8월 최신 기준</span>
         </div>
 
         <!-- Filter Buttons & Search -->
         <div class="flex flex-wrap gap-1.5">
-          <button onclick="filterRestaurants('all')" class="rest-filter-btn active bg-amber-800 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition touch-target">전체 (11곳)</button>
+          <button onclick="filterRestaurants('all')" class="rest-filter-btn active bg-emerald-800 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition touch-target">전체 (11곳)</button>
           <button onclick="filterRestaurants('counter')" class="rest-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🍔 카운터 주문 (팁 부담 적음)</button>
           <button onclick="filterRestaurants('table')" class="rest-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🍽️ 테이블 다이닝 (패밀리)</button>
           <button onclick="filterRestaurants('dessert')" class="rest-filter-btn bg-stone-100 text-stone-700 hover:bg-stone-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition touch-target">🍦 디저트/베이커리 (Tip-Free)</button>
@@ -1109,14 +1120,14 @@
         <p class="text-xs text-stone-500 mb-3">세금 전 순수 음식값(Subtotal) 기준 팁 금액 및 지역별 소비세를 1초 만에 계산합니다.</p>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          <div class="lg:col-span-5 bg-amber-50/70 rounded-xl p-3.5 border border-amber-200/70 space-y-3">
-            <h4 class="font-bold text-amber-900 text-xs sm:text-sm">🧮 모바일 실시간 팁 계산기</h4>
+          <div class="lg:col-span-5 bg-emerald-50/70 rounded-xl p-3.5 border border-emerald-200/70 space-y-3">
+            <h4 class="font-bold text-emerald-900 text-xs sm:text-sm">🧮 모바일 실시간 팁 계산기</h4>
             
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">식사 주문 금액 (Subtotal, Tax 전)</label>
               <div class="relative mb-1.5">
                 <span class="absolute left-3 top-2 text-stone-400 text-sm font-semibold">$</span>
-                <input type="number" id="calc-subtotal" value="80" inputmode="decimal" oninput="calculateTip()" class="w-full pl-7 pr-3 py-2 text-base border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none font-bold text-stone-800">
+                <input type="number" id="calc-subtotal" value="80" inputmode="decimal" oninput="calculateTip()" class="w-full pl-7 pr-3 py-2 text-base border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none font-bold text-stone-800">
               </div>
               <div class="grid grid-cols-5 gap-1 text-[10px]">
                 <button onclick="quickAmount(20)" class="bg-white border border-stone-300 py-1.5 rounded-lg hover:bg-stone-50 font-semibold touch-target text-stone-700">$20</button>
@@ -1129,7 +1140,7 @@
 
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">식당 유형</label>
-              <select id="calc-type" onchange="calculateTip()" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 bg-white font-medium">
+              <select id="calc-type" onchange="calculateTip()" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-500 bg-white font-medium">
                 <option value="full">풀서비스 레스토랑 (팁 18~20% 권장)</option>
                 <option value="counter">카운터 선불 매장 (팁 $0 또는 $1~$3)</option>
               </select>
@@ -1137,7 +1148,7 @@
 
             <div>
               <label class="block text-xs font-semibold text-stone-700 mb-1">식사 지역 (세율)</label>
-              <select id="calc-region" onchange="calculateTip()" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-xl focus:ring-2 focus:ring-amber-500 bg-white font-medium">
+              <select id="calc-region" onchange="calculateTip()" class="w-full px-2.5 py-2 text-sm sm:text-xs border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-500 bg-white font-medium">
                 <option value="seattle">시애틀 도심 (King County: 10.35%)</option>
                 <option value="olympia">올림피아 (Thurston County: 약 9.5%)</option>
                 <option value="rainier">마운틴 레이니어/애슈퍼드 (Pierce County: 약 8.5%)</option>
@@ -1150,12 +1161,12 @@
               <div class="grid grid-cols-4 gap-1.5 text-xs">
                 <button onclick="setTipPct(15)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">15%</button>
                 <button onclick="setTipPct(18)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">18%</button>
-                <button onclick="setTipPct(20)" class="tip-pct-btn active bg-amber-800 text-white border border-amber-800 py-2 rounded-xl font-bold touch-target">20%</button>
+                <button onclick="setTipPct(20)" class="tip-pct-btn active bg-emerald-800 text-white border border-emerald-800 py-2 rounded-xl font-bold touch-target">20%</button>
                 <button onclick="setTipPct(0)" class="tip-pct-btn bg-white border border-stone-300 py-2 rounded-xl font-bold touch-target">0%</button>
               </div>
             </div>
 
-            <div class="bg-white rounded-xl p-3 border border-amber-200 text-xs space-y-1.5">
+            <div class="bg-white rounded-xl p-3 border border-emerald-200 text-xs space-y-1.5">
               <div class="flex justify-between">
                 <span class="text-stone-500">순수 음식값 (Subtotal):</span>
                 <span id="res-subtotal" class="font-semibold text-stone-800">$80.00</span>
@@ -1166,11 +1177,11 @@
               </div>
               <div class="flex justify-between">
                 <span class="text-stone-500">팁 (Pre-tax 기준):</span>
-                <span id="res-tip" class="font-semibold text-amber-800">$16.00</span>
+                <span id="res-tip" class="font-semibold text-emerald-800">$16.00</span>
               </div>
               <div class="border-t border-stone-200 pt-1.5 flex justify-between text-xs sm:text-sm font-bold text-stone-900">
                 <span>최종 결제 금액:</span>
-                <span id="res-total" class="text-amber-900 text-sm sm:text-base">$104.28</span>
+                <span id="res-total" class="text-emerald-900 text-sm sm:text-base">$104.28</span>
               </div>
             </div>
           </div>
@@ -1207,10 +1218,10 @@
     <section id="tab-diary" class="tab-content hidden space-y-4">
       
       <!-- Diary Hero Banner -->
-      <div class="bg-gradient-to-r from-amber-900 via-stone-800 to-amber-950 text-white rounded-2xl shadow-md p-4 sm:p-6 border border-amber-800/60 relative overflow-hidden">
+      <div class="bg-gradient-to-r from-emerald-950 via-stone-800 to-teal-950 text-white rounded-2xl shadow-md p-4 sm:p-6 border border-emerald-800/60 relative overflow-hidden">
         <div class="relative z-10 space-y-2">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-[11px] font-bold">
+            <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 text-[11px] font-bold">
               <span>📖 아빠의 시선으로 쓴 리얼 여행기</span>
               <span>•</span>
               <span id="diary-status-badge">1~3일차 작성 완료</span>
@@ -1220,20 +1231,20 @@
                 <span>🖨️</span>
                 <span>일기 인쇄/PDF</span>
               </button>
-              <button onclick="openNewDiaryModal()" class="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-lg shadow-sm transition flex items-center space-x-1">
+              <button onclick="openNewDiaryModal()" class="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg shadow-sm transition flex items-center space-x-1">
                 <span>✍️</span>
                 <span>새 일기 작성</span>
               </button>
             </div>
           </div>
-          <h2 class="text-xl sm:text-2xl font-black text-amber-50 tracking-tight">
+          <h2 class="text-xl sm:text-2xl font-black text-emerald-50 tracking-tight">
             아빠의 미국 여행 일기장 👨‍👩‍👧‍👧
           </h2>
           <p class="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-2xl">
             16년 만에 다시 밟은 미국 땅. 설렘과 긴장, 시차와 피로 속에서도 네 식구가 함께 울고 웃은 좌충우돌 생생한 현장 기록입니다.
           </p>
           <div class="flex flex-wrap gap-2 pt-1 text-[11px]">
-            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-amber-300 font-mono">⏱️ 1일차 여정: 34시간 지속</span>
+            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-emerald-300 font-mono">⏱️ 1일차 여정: 34시간 지속</span>
             <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-emerald-300 font-mono">🚗 차량: 쏘나타 하이브리드</span>
             <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-cyan-300 font-mono">📍 위치: 올림피아 숙소</span>
           </div>
@@ -1242,45 +1253,45 @@
 
       <!-- Diary Day Selector Pills -->
       <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 custom-scrollbar">
-        <button onclick="viewDiaryDay(1)" id="diary-day-btn-1" class="diary-day-tab px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shrink-0 bg-amber-800 text-white shadow-sm border border-amber-900">
+        <button onclick="viewDiaryDay(1)" id="diary-day-btn-1" class="diary-day-tab px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shrink-0 bg-emerald-800 text-white shadow-sm border border-emerald-900">
           <span>Day 1 (09/30)</span>
-          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(2)" id="diary-day-btn-2" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 2 (10/01)</span>
-          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(3)" id="diary-day-btn-3" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 3 (10/02)</span>
-          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(4)" id="diary-day-btn-4" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 4 (10/03)</span>
-          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(5)" id="diary-day-btn-5" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 5 (10/04)</span>
-          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(6)" id="diary-day-btn-6" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 6 (10/05)</span>
-          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(7)" id="diary-day-btn-7" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 7 (10/06)</span>
-          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(8)" id="diary-day-btn-8" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 8 (10/07)</span>
-          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(9)" id="diary-day-btn-9" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 9 (10/08)</span>
-          <span class="text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(10)" id="diary-day-btn-10" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 10 (10/09)</span>
-          <span class="text-[10px] text-stone-400">예정</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
         <button onclick="viewDiaryDay(11)" id="diary-day-btn-11" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 11 (10/10)</span>
@@ -1299,28 +1310,28 @@
     <section id="tab-photos" class="tab-content space-y-4 hidden">
       
       <!-- Photos Hero Header Banner -->
-      <div class="relative overflow-hidden bg-gradient-to-br from-amber-900 via-stone-900 to-amber-950 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-lg border border-amber-800/40">
+      <div class="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-stone-900 to-teal-950 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-lg border border-emerald-800/40">
         <div class="relative z-10 space-y-3">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-800/60 pb-3">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-600/30 text-amber-200 border border-amber-500/30">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-800/60 pb-3">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600/30 text-emerald-200 border border-emerald-500/30">
               <span>📸</span>
               <span>AI 자동 선별 스마트 사진첩</span>
             </span>
             <div class="flex items-center gap-2">
-              <button onclick="openPhotoGuideModal()" class="px-2.5 py-1 bg-amber-700/80 hover:bg-amber-600 text-white text-xs font-bold rounded-lg shadow-sm transition flex items-center space-x-1">
+              <button onclick="openPhotoGuideModal()" class="px-2.5 py-1 bg-emerald-700/80 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg shadow-sm transition flex items-center space-x-1">
                 <span>📲</span>
                 <span>사진 추가 가이드</span>
               </button>
             </div>
           </div>
-          <h2 class="text-xl sm:text-2xl font-black text-amber-50 tracking-tight">
+          <h2 class="text-xl sm:text-2xl font-black text-emerald-50 tracking-tight">
             둘리 가족 미국 서부 여행 포토 앨범 👨‍👩‍👧‍👧
           </h2>
           <p class="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-2xl">
             수백 장의 스마트폰 사진 중 흔들림과 연사 중복을 AI가 자동으로 걸러내고, 가장 선명하고 아름다운 베스트 순간만을 모았습니다.
           </p>
           <div class="flex flex-wrap gap-2 pt-1 text-[11px]" id="photos-summary-badges">
-            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-amber-300 font-mono" id="badge-total-photos">📸 등록된 사진: 0장</span>
+            <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-emerald-300 font-mono" id="badge-total-photos">📸 등록된 사진: 0장</span>
             <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-emerald-300 font-mono">🔍 AI 흔들림/중복 필터링 적용</span>
             <span class="bg-stone-900/60 px-2.5 py-1 rounded-lg border border-stone-700 text-cyan-300 font-mono">⚡ 고화질 웹 최적화 (1600px)</span>
           </div>
@@ -1334,10 +1345,10 @@
             <span>🗓️</span>
             <span>일차별 사진 모아보기:</span>
           </span>
-          <span class="text-[11px] text-amber-800 font-semibold" id="current-photos-filter-label">전체 사진 보기</span>
+          <span class="text-[11px] text-emerald-800 font-semibold" id="current-photos-filter-label">전체 사진 보기</span>
         </div>
         <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 custom-scrollbar" id="photos-day-filter-container">
-          <button onclick="filterPhotosDay('all')" id="photo-filter-all" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition shrink-0 bg-amber-800 text-white shadow-sm border border-amber-900">
+          <button onclick="filterPhotosDay('all')" id="photo-filter-all" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold transition shrink-0 bg-emerald-800 text-white shadow-sm border border-emerald-900">
             전체 보기 (All)
           </button>
           <button onclick="filterPhotosDay(1)" id="photo-filter-1" class="photo-day-filter-btn px-3 py-1.5 rounded-xl text-xs font-medium transition shrink-0 bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200">
@@ -1390,7 +1401,7 @@
     <!-- Lightbox Top Controls -->
     <div class="flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/80 to-transparent text-white z-10">
       <div class="flex items-center space-x-2">
-        <span class="text-xs bg-amber-600 px-2.5 py-0.5 rounded-full font-bold" id="lightbox-badge-day">Day 1</span>
+        <span class="text-xs bg-emerald-600 px-2.5 py-0.5 rounded-full font-bold" id="lightbox-badge-day">Day 1</span>
         <span class="text-xs text-stone-300 font-mono" id="lightbox-time">14:30</span>
       </div>
       <div class="flex items-center space-x-2">
@@ -1421,7 +1432,7 @@
 
     <!-- Lightbox Bottom Caption Bar -->
     <div class="px-4 py-3 bg-gradient-to-t from-black/90 to-transparent text-center text-white z-10 space-y-1">
-      <p class="text-xs sm:text-sm font-bold text-amber-200" id="lightbox-caption">Day 1 여정의 한 순간</p>
+      <p class="text-xs sm:text-sm font-bold text-emerald-200" id="lightbox-caption">Day 1 여정의 한 순간</p>
       <p class="text-[10px] text-stone-400 font-mono" id="lightbox-counter">1 / 10</p>
     </div>
   </div>
@@ -1438,14 +1449,14 @@
       </div>
 
       <div class="space-y-3 text-xs text-stone-700 leading-relaxed">
-        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 space-y-1.5">
-          <p class="font-bold text-amber-950 flex items-center gap-1.5">
+        <div class="p-3 bg-emerald-50/70 rounded-xl border border-emerald-200 space-y-1.5">
+          <p class="font-bold text-emerald-950 flex items-center gap-1.5">
             <span>1️⃣</span>
             <span>스마트폰 사진을 컴퓨터 폴더에 복사</span>
           </p>
           <p class="text-stone-600 pl-5">
             스마트폰에서 찍은 사진들을 날짜나 순서 상관없이 통째로 아래 폴더에 넣어주세요:<br>
-            <code class="bg-white px-2 py-0.5 rounded border border-amber-300 font-mono text-[11px] text-amber-900 font-bold">TripDoolee/raw_photos</code>
+            <code class="bg-white px-2 py-0.5 rounded border border-emerald-300 font-mono text-[11px] text-emerald-900 font-bold">TripDoolee/raw_photos</code>
           </p>
         </div>
 
@@ -1474,7 +1485,7 @@
       </div>
 
       <div class="pt-2 text-center">
-        <button onclick="closePhotoGuideModal()" class="px-5 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-xl text-xs font-bold transition shadow-sm">
+        <button onclick="closePhotoGuideModal()" class="px-5 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-bold transition shadow-sm">
           확인 완료 ✨
         </button>
       </div>
@@ -1541,7 +1552,7 @@
   </div>
 
   <!-- Floating Quick Drawer Action Button (FAB) -->
-  <button id="fab-quick-btn" onclick="openQuickDrawer()" class="fixed bottom-20 right-3.5 z-40 lg:bottom-8 lg:right-8 bg-gradient-to-r from-amber-800 to-amber-900 text-white font-extrabold px-3.5 py-2.5 rounded-full shadow-2xl flex items-center space-x-1.5 border border-amber-400/50 hover:scale-105 active:scale-95 transition-all touch-target" title="만능 퀵 서랍 (바우처/보험/숙소/내비)">
+  <button id="fab-quick-btn" onclick="openQuickDrawer()" class="fixed bottom-20 right-3.5 z-40 lg:bottom-8 lg:right-8 bg-gradient-to-r from-emerald-800 to-emerald-950 text-white font-extrabold px-3.5 py-2.5 rounded-full shadow-2xl flex items-center space-x-1.5 border border-emerald-400/50 hover:scale-105 active:scale-95 transition-all touch-target" title="만능 퀵 서랍 (바우처/보험/숙소/내비)">
     <span class="text-lg">⚡</span>
     <span class="text-xs font-bold tracking-tight">퀵패널</span>
   </button>
@@ -1564,27 +1575,27 @@
       <div class="space-y-2.5 text-xs">
         
         <!-- 1. CityPASS 4인 바우처 -->
-        <div class="p-3 bg-amber-50/80 rounded-xl border border-amber-200 space-y-2">
+        <div class="p-3 bg-emerald-50/70 rounded-xl border border-emerald-200 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-amber-950 flex items-center gap-1">🎟️ 시애틀 CityPASS (4인 바우처)</span>
-            <a href="https://my.citypass.com" target="_blank" class="text-[10px] bg-amber-800 text-white font-bold px-2 py-0.5 rounded-md hover:bg-amber-900">예약 사이트 ↗</a>
+            <span class="font-bold text-emerald-950 flex items-center gap-1">🎟️ 시애틀 CityPASS (4인 바우처)</span>
+            <a href="https://my.citypass.com" target="_blank" class="text-[10px] bg-emerald-800 text-white font-bold px-2 py-0.5 rounded-md hover:bg-emerald-900">예약 사이트 ↗</a>
           </div>
           <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
-            <div class="bg-white p-1.5 rounded border border-amber-100 flex justify-between items-center">
+            <div class="bg-white p-1.5 rounded border border-emerald-100 flex justify-between items-center">
               <span>👨 주아성</span>
-              <button onclick="copyToClipboard('3084580203510004079', '주아성 바우처')" class="text-amber-800 font-bold underline">3084...079 📋</button>
+              <button onclick="copyToClipboard('3084580203510004079', '주아성 바우처')" class="text-emerald-800 font-bold underline">3084...079 📋</button>
             </div>
-            <div class="bg-white p-1.5 rounded border border-amber-100 flex justify-between items-center">
+            <div class="bg-white p-1.5 rounded border border-emerald-100 flex justify-between items-center">
               <span>👩 김지은</span>
-              <button onclick="copyToClipboard('3084580203510016560', '김지은 바우처')" class="text-amber-800 font-bold underline">3084...560 📋</button>
+              <button onclick="copyToClipboard('3084580203510016560', '김지은 바우처')" class="text-emerald-800 font-bold underline">3084...560 📋</button>
             </div>
-            <div class="bg-white p-1.5 rounded border border-amber-100 flex justify-between items-center">
+            <div class="bg-white p-1.5 rounded border border-emerald-100 flex justify-between items-center">
               <span>👧 주이안</span>
-              <button onclick="copyToClipboard('3084580213510020694', '주이안 바우처')" class="text-amber-800 font-bold underline">3084...694 📋</button>
+              <button onclick="copyToClipboard('3084580213510020694', '주이안 바우처')" class="text-emerald-800 font-bold underline">3084...694 📋</button>
             </div>
-            <div class="bg-white p-1.5 rounded border border-amber-100 flex justify-between items-center">
+            <div class="bg-white p-1.5 rounded border border-emerald-100 flex justify-between items-center">
               <span>👶 주이솔</span>
-              <button onclick="copyToClipboard('3084580213510048620', '주이솔 바우처')" class="text-amber-800 font-bold underline">3084...620 📋</button>
+              <button onclick="copyToClipboard('3084580213510048620', '주이솔 바우처')" class="text-emerald-800 font-bold underline">3084...620 📋</button>
             </div>
           </div>
         </div>
@@ -1616,7 +1627,7 @@
               </div>
               <div class="flex gap-1">
                 <button onclick="copyToClipboard('3339 Cooper Point Road Northwest, Olympia, WA 98502', '올림피아 숙소 주소')" class="px-1.5 py-0.5 bg-stone-100 text-stone-700 rounded text-[10px]">📋</button>
-                <button onclick="openGoogleMap('3339 Cooper Point Road Northwest, Olympia, WA 98502')" class="px-2 py-0.5 bg-amber-100 text-amber-900 font-bold rounded text-[10px]">📍 내비</button>
+                <button onclick="openGoogleMap('3339 Cooper Point Road Northwest, Olympia, WA 98502')" class="px-2 py-0.5 bg-emerald-100 text-emerald-900 font-bold rounded text-[10px]">📍 내비</button>
               </div>
             </div>
             <div class="flex justify-between items-center bg-white p-1.5 rounded border border-stone-200">
@@ -1626,7 +1637,7 @@
               </div>
               <div class="flex gap-1">
                 <button onclick="copyToClipboard('3252 13th Avenue West, Seattle, WA 98119', '시애틀 숙소 주소')" class="px-1.5 py-0.5 bg-stone-100 text-stone-700 rounded text-[10px]">📋</button>
-                <button onclick="openGoogleMap('3252 13th Avenue West, Seattle, WA 98119')" class="px-2 py-0.5 bg-amber-100 text-amber-900 font-bold rounded text-[10px]">📍 내비</button>
+                <button onclick="openGoogleMap('3252 13th Avenue West, Seattle, WA 98119')" class="px-2 py-0.5 bg-emerald-100 text-emerald-900 font-bold rounded text-[10px]">📍 내비</button>
               </div>
             </div>
           </div>
@@ -1638,7 +1649,7 @@
             <span class="font-bold text-stone-900">🚗 National 렌터카 반납지</span>
             <p class="text-[10px] text-stone-500 font-mono">1601 3RD AVE, Seattle (10/04 11:30 전)</p>
           </div>
-          <button onclick="openGoogleMap('1601 3RD AVE, Seattle, WA 98101')" class="px-2.5 py-1 bg-amber-800 text-white font-bold rounded-lg text-[10px]">📍 내비</button>
+          <button onclick="openGoogleMap('1601 3RD AVE, Seattle, WA 98101')" class="px-2.5 py-1 bg-emerald-800 text-white font-bold rounded-lg text-[10px]">📍 내비</button>
         </div>
       </div>
 
@@ -1658,19 +1669,19 @@
       </div>
 
       <div class="relative">
-        <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="일정, 명소, 주차, 바우처, 코스트코, 항공권..." class="w-full pl-9 pr-4 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 font-medium touch-target">
+        <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="일정, 명소, 주차, 바우처, 코스트코, 항공권..." class="w-full pl-9 pr-4 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium touch-target">
         <span class="absolute left-3 top-3 text-stone-400 text-xs">🔍</span>
       </div>
 
       <!-- Quick Suggestion Tags -->
       <div class="flex flex-wrap gap-1 text-[11px] text-stone-600">
         <span class="text-stone-400 self-center mr-0.5 text-[10px]">추천:</span>
-        <button onclick="fillSearchKeyword('스페이스 니들')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🗼 스페이스 니들</button>
-        <button onclick="fillSearchKeyword('CityPASS')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🎟️ CityPASS</button>
-        <button onclick="fillSearchKeyword('아쿠아리움')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🐠 아쿠아리움</button>
-        <button onclick="fillSearchKeyword('코스트코')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🛒 코스트코</button>
-        <button onclick="fillSearchKeyword('주차')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🅿️ 주차</button>
-        <button onclick="fillSearchKeyword('보험')" class="px-2 py-0.5 bg-stone-100 hover:bg-amber-100 rounded-md">🛡️ 보험</button>
+        <button onclick="fillSearchKeyword('스페이스 니들')" class="px-2 py-0.5 bg-stone-100 hover:bg-emerald-100 rounded-md">🗼 스페이스 니들</button>
+        <button onclick="fillSearchKeyword('CityPASS')" class="px-2 py-0.5 bg-stone-100 hover:bg-emerald-100 rounded-md">🎟️ CityPASS</button>
+        <button onclick="fillSearchKeyword('아쿠아리움')" class="px-2 py-0.5 bg-stone-100 hover:bg-emerald-100 rounded-md">🐠 아쿠아리움</button>
+        <button onclick="fillSearchKeyword('코스트코')" class="px-2 py-0.5 bg-stone-100 hover:bg-emerald-100 rounded-md">🛒 코스트코</button>
+        <button onclick="fillSearchKeyword('주차')" class="px-2 py-0.5 bg-stone-100 hover:bg-emerald-100 rounded-md">🅿️ 주차</button>
+        <button onclick="fillSearchKeyword('보험')" class="px-2 py-0.5 bg-stone-100 hover:bg-emerald-100 rounded-md">🛡️ 보험</button>
       </div>
 
       <!-- Search Results List -->
@@ -1683,12 +1694,12 @@
   <!-- New Travel Diary Modal (작성 및 편집 모달) -->
   <div id="new-diary-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
     <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[90vh] animate-fade-in">
-      <div class="flex justify-between items-center bg-amber-900 text-amber-50 p-3.5 sm:p-4">
+      <div class="flex justify-between items-center bg-emerald-900 text-emerald-50 p-3.5 sm:p-4">
         <div class="flex items-center space-x-2">
           <span class="text-xl">✍️</span>
           <h4 class="font-bold text-sm sm:text-base" id="diary-modal-title">여행 일기 작성 / 수정</h4>
         </div>
-        <button onclick="closeNewDiaryModal()" class="text-amber-200 hover:text-white text-lg p-1">✕</button>
+        <button onclick="closeNewDiaryModal()" class="text-emerald-200 hover:text-white text-lg p-1">✕</button>
       </div>
       <div class="p-4 overflow-y-auto space-y-3 text-xs flex-grow custom-scrollbar">
         <div>
@@ -1723,7 +1734,7 @@
       </div>
       <div class="p-3 bg-stone-100 border-t border-stone-200 flex justify-end space-x-2">
         <button onclick="closeNewDiaryModal()" class="px-3 py-1.5 rounded-lg border border-stone-300 text-stone-700 hover:bg-stone-200 text-xs font-semibold">취소</button>
-        <button onclick="saveCustomDiary()" class="px-4 py-1.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold shadow">저장하기</button>
+        <button onclick="saveCustomDiary()" class="px-4 py-1.5 rounded-lg bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold shadow">저장하기</button>
       </div>
     </div>
   </div>
@@ -1736,7 +1747,7 @@
 
   <footer class="hidden lg:block bg-stone-800 text-stone-400 text-xs py-5 mt-6 border-t border-stone-700">
     <div class="max-w-7xl mx-auto px-4 text-center space-y-1">
-      <p>시애틀 & 올림피아 가을 가족 여행 마스터 노트 • 2026.09.30 ~ 10.10</p>
+      <p>🌲 The Evergreen State • 둘리 미국 여행 (시애틀 & 올림피아) • 2026.09.30 ~ 10.10</p>
       <p class="text-stone-500">Designed for family harmony, kids' delight, and seamless navigation.</p>
     </div>
   </footer>
@@ -2094,13 +2105,19 @@
         day: 10,
         date: "10/09(금)",
         region: "seattle",
-        title: "그린 레이크 호수 & 케리 공원 노을 & 마지막 밤 디너",
-        summary: "그린 레이크 호숫가 산책, 퀸앤 숙소 짐 정리, 케리 공원 노을 촬영 및 툴루즈 쁘띠/딕스 마지막 밤 디너",
-        transit: "🚌 시내버스 / 도보",
+        title: "시애틀의 마지막 밤, 노드스트롬 쇼핑과 비 내리는 감성",
+        summary: "늦잠으로 시작된 마지막 여행일, 한인 식당의 따스함과 도서관 휴식, 비 오는 바닷가의 추억",
+        transit: "🚌 시내버스 (D Line) / 도보",
+        hasDiary: true,
+        diaryTitle: "시애틀의 마지막 밤, 노드스트롬 쇼핑과 비 내리는 감성",
+        diarySummary: "한인 식당의 훈훈한 정과 도서관 휴식, 그리고 비 오는 바닷가 놀이터의 추억!",
         timeline: [
-          { time: "오전", text: "그린 레이크 공원 (Green Lake) 평지 산책로 산책, 호수 오리 구경 & 대형 키즈 놀이터", tag: "공원", address: "7201 East Green Lake Dr N, Seattle, WA 98115" },
-          { time: "오후", text: "숙소 복귀해 아이들 낮잠 및 귀국 짐(면세 쇼핑품) 미리 여유롭게 패킹하기", tag: "휴식" },
-          { time: "저녁", text: "케리 공원 (Kerry Park)에서 가을 노을 스페이스 니들 가족 인생샷 촬영 ➔ 🥐 툴루즈 쁘띠 또는 딕스 버거 마지막 만찬", tag: "명소/맛집", address: "211 W Highland Dr, Seattle, WA 98119" }
+          { time: "10/09 오전", text: "유달리 무거운 몸으로 늦잠 기상, 흐린 날씨 확인 후 100분간 밀린 한국 업무 처리", tag: "휴식/업무", address: "시애틀 숙소" },
+          { time: "10/09 낮", text: "Nordstrom 백화점으로 이동해 아이쇼핑 및 둘째 딸 나이키 운동화 구매", tag: "쇼핑", address: "Nordstrom 백화점" },
+          { time: "10/09 오후", text: "3rd Ave Cafe 한인 데리야키 식당에서 푸짐한 점심과 감동적인 대화", tag: "맛집/감동", address: "3rd Ave Cafe" },
+          { time: "10/09 15:30", text: "비를 맞으며 웅장한 시애틀 공공도서관 이동, 아동 구역에서 독서 및 휴식", tag: "명소/휴식", address: "시애틀 공공도서관" },
+          { time: "10/09 저녁", text: "아쉬운 마지막 날 Pier 55 놀이터에서 놀고 Piroshky 빵 포장", tag: "바다/간식", address: "Pier 55" },
+          { time: "10/09 밤", text: "D Line 버스 타러 가는 길 거대 맹견 위기를 넘기고 무사히 귀가, 라면 만찬", tag: "귀가/만찬", address: "시애틀 숙소" }
         ]
       },
       {
@@ -2716,7 +2733,14 @@
       { id: "exp-1008-4", date: "2026.10.08 (목)", title: "🚌 Northgate 67번 버스", amount: 6.00, currency: "USD", category: "transit", note: "그린 레이크 ➔ 노스게이트 쇼핑몰 이동", done: true },
       { id: "exp-1008-5", date: "2026.10.08 (목)", title: "🎯 Target Northgate", amount: 109.82, currency: "USD", category: "shopping", note: "회사 동료 선물용 시애틀 간식 쇼핑", done: true },
       { id: "exp-1008-6", date: "2026.10.08 (목)", title: "🥏 프리즈비 (Target 스포츠)", amount: 12.15, currency: "USD", category: "shopping", note: "여행 내내 벼르던 야외 놀이용 원반", done: true },
-      { id: "exp-1008-7", date: "2026.10.08 (목)", title: "🚌 숙소 복귀 32번 버스", amount: 6.00, currency: "USD", category: "transit", note: "노스게이트 ➔ 숙소 복귀 대중교통", done: true }
+      { id: "exp-1008-7", date: "2026.10.08 (목)", title: "🚌 숙소 복귀 32번 버스", amount: 6.00, currency: "USD", category: "transit", note: "노스게이트 ➔ 숙소 복귀 대중교통", done: true },
+
+      // 10/09 (Day 10 실제 결제 완료)
+      { id: "exp-1009-1", date: "2026.10.09 (금)", title: "🚌 시내버스 (Nordstrom 이동)", amount: 6.00, currency: "USD", category: "transit", note: "D line 버스 탑승", done: true },
+      { id: "exp-1009-1-1", date: "2026.10.09 (금)", title: "🛍️ 노드스트롬 (둘째 나이키 운동화)", amount: 47.50, currency: "USD", category: "shopping", note: "현금 결제", done: true },
+      { id: "exp-1009-2", date: "2026.10.09 (금)", title: "🍱 3rd Ave Cafe", amount: 39.39, currency: "USD", category: "food", note: "한인 운영 식당에서 데리야키와 콜라", done: true },
+      { id: "exp-1009-3", date: "2026.10.09 (금)", title: "🥐 Piroshky Piroshky", amount: 14.43, currency: "USD", category: "food", note: "바닷가 인근에서 빵 2개 포장", done: true },
+      { id: "exp-1009-4", date: "2026.10.09 (금)", title: "🚌 시내버스 (숙소 복귀)", amount: 6.00, currency: "USD", category: "transit", note: "D line 버스 탑승", done: true }
     ];
 
     let customExpenses = [];
@@ -2904,15 +2928,15 @@
       }
 
       resultsContainer.innerHTML = matches.map((m, idx) => `
-        <div onclick="window.searchResultsActions[${idx}]()" class="p-2.5 bg-stone-50 hover:bg-amber-50 rounded-xl border border-stone-200 cursor-pointer transition flex items-center justify-between group">
+        <div onclick="window.searchResultsActions[${idx}]()" class="p-2.5 bg-stone-50 hover:bg-emerald-50/70 rounded-xl border border-stone-200 cursor-pointer transition flex items-center justify-between group">
           <div class="min-w-0 pr-2">
             <div class="flex items-center space-x-1.5">
               <span class="text-[10px] bg-white border border-stone-200 text-stone-700 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">${m.type}</span>
-              <p class="font-bold text-xs text-stone-900 group-hover:text-amber-900 truncate">${m.title}</p>
+              <p class="font-bold text-xs text-stone-900 group-hover:text-emerald-900 truncate">${m.title}</p>
             </div>
             <p class="text-[11px] text-stone-500 truncate mt-0.5">${m.desc}</p>
           </div>
-          <span class="text-xs text-amber-800 font-bold shrink-0">이동 ➔</span>
+          <span class="text-xs text-emerald-800 font-bold shrink-0">이동 ➔</span>
         </div>
       `).join('');
 
@@ -2963,31 +2987,31 @@
 
       // Desktop Nav Buttons
       document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-amber-800', 'text-white');
+        btn.classList.remove('bg-emerald-800', 'text-white');
       });
       const activeNav = document.getElementById('btn-' + tabId);
-      if (activeNav) activeNav.classList.add('bg-amber-800', 'text-white');
+      if (activeNav) activeNav.classList.add('bg-emerald-800', 'text-white');
 
       // Mobile Bottom Nav Buttons
       document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
-        btn.classList.remove('text-amber-900', 'font-bold');
+        btn.classList.remove('text-emerald-900', 'font-bold');
         btn.classList.add('text-stone-600');
       });
       const activeMobileNav = document.getElementById('mbtn-' + tabId);
       if (activeMobileNav) {
         activeMobileNav.classList.remove('text-stone-600');
-        activeMobileNav.classList.add('text-amber-900', 'font-bold');
+        activeMobileNav.classList.add('text-emerald-900', 'font-bold');
       }
 
       // Mobile Top Pill Buttons
       document.querySelectorAll('.mobile-top-pill').forEach(pill => {
-        pill.classList.remove('bg-amber-800', 'text-white', 'font-bold');
-        pill.classList.add('bg-amber-900/80', 'text-amber-200');
+        pill.classList.remove('bg-emerald-800', 'text-white', 'font-bold');
+        pill.classList.add('bg-emerald-900/80', 'text-emerald-200');
       });
       const activePill = document.getElementById('mpill-' + tabId);
       if (activePill) {
-        activePill.classList.remove('bg-amber-900/80', 'text-amber-200');
-        activePill.classList.add('bg-amber-800', 'text-white', 'font-bold');
+        activePill.classList.remove('bg-emerald-900/80', 'text-emerald-200');
+        activePill.classList.add('bg-emerald-800', 'text-white', 'font-bold');
         activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
 
@@ -3027,7 +3051,7 @@
     function renderDaySelector() {
       const container = document.getElementById('day-selector-container');
       container.innerHTML = scheduleData.map(d => `
-        <button onclick="selectDay(${d.day})" id="day-btn-${d.day}" class="snap-start flex-shrink-0 px-3 py-1.5 rounded-xl border text-center transition touch-target ${d.day === currentSelectedDay ? 'bg-amber-800 text-white border-amber-800 font-bold shadow-md' : 'bg-white text-stone-700 border-stone-200 hover:bg-amber-50'}">
+        <button onclick="selectDay(${d.day})" id="day-btn-${d.day}" class="snap-start flex-shrink-0 px-3 py-1.5 rounded-xl border text-center transition touch-target ${d.day === currentSelectedDay ? 'bg-emerald-800 text-white border-emerald-800 font-bold shadow-md' : 'bg-white text-stone-700 border-stone-200 hover:bg-emerald-50'}">
           <div class="flex items-center justify-center space-x-1">
             <p class="text-[9px] opacity-80 uppercase tracking-wider">Day ${d.day}</p>
             ${d.hasDiary ? `<span class="text-[8px] bg-emerald-500 text-white font-black px-1 rounded-full">완료</span>` : ''}
@@ -3059,7 +3083,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 pb-2.5 mb-2.5 gap-1.5">
           <div>
             <div class="flex items-center space-x-2">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${dayData.region === 'olympia' ? 'bg-amber-200 text-amber-900' : 'bg-indigo-100 text-indigo-900'}">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${dayData.region === 'olympia' ? 'bg-emerald-100 text-emerald-900 border border-emerald-200' : 'bg-indigo-100 text-indigo-900'}">
                 ${dayData.region === 'olympia' ? '🚗 전반전: 올림피아/오레곤' : '🚊 후반전: 시애틀 도심'}
               </span>
               <span class="text-xs font-semibold text-stone-500">Day ${dayData.day} (${dayData.date})</span>
@@ -3077,15 +3101,15 @@
 
         <!-- Real Diary Quick Access Banner -->
         ${dayData.hasDiary ? `
-          <div class="mb-3 p-3 bg-gradient-to-r from-amber-900 via-amber-800 to-stone-900 rounded-xl text-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-amber-700/60">
+          <div class="mb-3 p-3 bg-gradient-to-r from-emerald-950 via-emerald-900 to-stone-900 rounded-xl text-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-emerald-700/60">
             <div class="space-y-0.5">
               <div class="flex items-center space-x-1.5">
-                <span class="text-[10px] bg-amber-400 text-stone-900 font-black px-1.5 py-0.2 rounded">실제 여행 일기 완료 ✨</span>
-                <span class="text-xs font-bold text-amber-200">${dayData.diaryTitle || dayData.title}</span>
+                <span class="text-[10px] bg-emerald-400 text-stone-950 font-black px-1.5 py-0.2 rounded">실제 여행 일기 완료 ✨</span>
+                <span class="text-xs font-bold text-emerald-200">${dayData.diaryTitle || dayData.title}</span>
               </div>
               <p class="text-[11px] text-stone-300">${dayData.diarySummary || dayData.summary}</p>
             </div>
-            <button onclick="viewDiaryDay(${dayData.day}); switchTab('tab-diary');" class="shrink-0 bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs px-3 py-1.5 rounded-lg shadow transition active:scale-95 flex items-center justify-center space-x-1">
+            <button onclick="viewDiaryDay(${dayData.day}); switchTab('tab-diary');" class="shrink-0 bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow transition active:scale-95 flex items-center justify-center space-x-1">
               <span>📖 일기 읽기 & 타임라인</span>
               <span>➔</span>
             </button>
@@ -3094,18 +3118,18 @@
 
         <!-- Today Quick Navigator Action Bar (Top Focus) -->
         ${destItems.length > 0 ? `
-          <div class="mb-3 p-2.5 bg-amber-50/80 rounded-xl border border-amber-200/90 space-y-1.5">
-            <div class="flex items-center justify-between text-[11px] font-bold text-amber-950">
+          <div class="mb-3 p-2.5 bg-emerald-50/70 rounded-xl border border-emerald-200/80 space-y-1.5">
+            <div class="flex items-center justify-between text-[11px] font-bold text-emerald-950">
               <span>🧭 오늘의 주요 목적지 1-터치 내비</span>
-              <span class="text-[10px] font-normal text-amber-800">구글맵 즉시 연결</span>
+              <span class="text-[10px] font-normal text-emerald-800">구글맵 즉시 연결</span>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
               ${destItems.slice(0, 3).map(di => `
-                <div class="flex items-center justify-between bg-white p-2 rounded-lg border border-amber-100 text-xs">
+                <div class="flex items-center justify-between bg-white p-2 rounded-lg border border-emerald-100 text-xs">
                   <span class="font-bold text-stone-800 truncate mr-1.5 text-[11px]">${(di.text.includes('—') ? di.text.split('—')[0] : di.text.split('(')[0]).replace(/^[💡🎟️🍔🥐🐟☕🌮]\s*/, '').trim()}</span>
                   <div class="flex gap-1 shrink-0">
                     <button onclick="copyToClipboard('${di.address}', '주소')" class="px-1.5 py-0.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded text-[10px] font-mono">📋</button>
-                    <button onclick="openGoogleMap('${di.address}')" class="px-2 py-0.5 bg-amber-800 hover:bg-amber-900 text-white font-bold rounded text-[10px] flex items-center gap-0.5">
+                    <button onclick="openGoogleMap('${di.address}')" class="px-2 py-0.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded text-[10px] flex items-center gap-0.5">
                       <span>📍 길찾기</span>
                     </button>
                   </div>
@@ -3123,12 +3147,12 @@
         <!-- Dynamic Timeline Accordion Cards -->
         <div class="space-y-1.5">
           ${dayData.timeline.map((t, tIdx) => `
-            <div class="flex flex-col text-xs bg-white rounded-xl border border-stone-200 hover:border-amber-400 transition overflow-hidden shadow-xs">
+            <div class="flex flex-col text-xs bg-white rounded-xl border border-stone-200 hover:border-emerald-400 transition overflow-hidden shadow-xs">
               
               <!-- 1-Step: Header (Time, Tag, Place, Quick Buttons) -->
               <div onclick="toggleTimelineItem(${tIdx})" class="flex items-center justify-between p-2.5 cursor-pointer bg-white hover:bg-stone-50 select-none">
                 <div class="flex items-center space-x-2 min-w-0 pr-2">
-                  <span class="font-mono text-amber-900 font-bold text-[11px] sm:text-xs shrink-0">${t.time}</span>
+                  <span class="font-mono text-emerald-900 font-bold text-[11px] sm:text-xs shrink-0">${t.time}</span>
                   <span class="px-1.5 py-0.2 rounded text-[9px] font-semibold bg-stone-100 text-stone-600 border border-stone-200 shrink-0">${t.tag}</span>
                   <p class="font-bold text-stone-900 truncate text-xs sm:text-[13px]">${t.text.split('(')[0]}</p>
                 </div>
@@ -3138,7 +3162,7 @@
                     <button onclick="copyToClipboard('${t.address}', '주소')" class="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-[10px] rounded-md transition" title="주소 복사">
                       <span>📋</span>
                     </button>
-                    <button onclick="openGoogleMap('${t.address}')" class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-[10px] rounded-md transition flex items-center space-x-0.5" title="구글 맵 내비게이션">
+                    <button onclick="openGoogleMap('${t.address}')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-bold text-[10px] rounded-md transition flex items-center space-x-0.5" title="구글 맵 내비게이션">
                       <span>📍 내비</span>
                     </button>
                   ` : ''}
@@ -3154,7 +3178,7 @@
                 ${t.address ? `
                   <div class="flex items-center justify-between bg-white p-1.5 rounded-lg border border-stone-200 text-[10px] font-mono text-stone-600">
                     <span class="truncate mr-1">🏠 ${t.address}</span>
-                    <button onclick="copyToClipboard('${t.address}', '주소')" class="text-amber-800 font-bold underline shrink-0">복사</button>
+                    <button onclick="copyToClipboard('${t.address}', '주소')" class="text-emerald-800 font-bold underline shrink-0">복사</button>
                   </div>
                 ` : ''}
               </div>
@@ -3166,12 +3190,12 @@
 
     function filterSchedule(filterType) {
       document.querySelectorAll('.sched-filter-btn').forEach(b => {
-        b.classList.remove('bg-amber-800', 'text-white');
+        b.classList.remove('bg-emerald-800', 'text-white');
         b.classList.add('bg-stone-100', 'text-stone-700');
       });
       if (window.event && window.event.currentTarget) {
         window.event.currentTarget.classList.remove('bg-stone-100', 'text-stone-700');
-        window.event.currentTarget.classList.add('bg-amber-800', 'text-white');
+        window.event.currentTarget.classList.add('bg-emerald-800', 'text-white');
       }
 
       if (filterType === 'olympia') {
@@ -3208,15 +3232,15 @@
           <div>
             <div class="flex justify-between items-start mb-1">
               <h4 class="font-bold text-stone-900 text-xs sm:text-sm">${item.name}</h4>
-              <span class="text-[9px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold whitespace-nowrap ml-1">${item.loc}</span>
+              <span class="text-[9px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold whitespace-nowrap ml-1">${item.loc}</span>
             </div>
             
             <div class="bg-white p-2 rounded-lg border border-stone-200 text-[11px] space-y-1 text-stone-700 mb-1.5">
-              <div class="flex justify-between items-center bg-amber-50/50 p-1 rounded border border-amber-100">
-                <p class="font-mono text-[10px] text-amber-950 font-medium truncate mr-1">📍 ${item.address}</p>
+              <div class="flex justify-between items-center bg-emerald-50/50 p-1 rounded border border-emerald-100">
+                <p class="font-mono text-[10px] text-emerald-950 font-medium truncate mr-1">📍 ${item.address}</p>
                 <div class="flex gap-1 shrink-0">
                   <button onclick="copyToClipboard('${item.address}', '${item.name} 주소')" class="px-1.5 py-0.5 bg-white border border-stone-300 text-stone-700 font-semibold text-[9px] rounded touch-target">복사</button>
-                  <button onclick="openGoogleMap('${item.address}')" class="px-2 py-0.5 bg-amber-800 text-white font-bold text-[9px] rounded whitespace-nowrap shadow-sm hover:bg-amber-900 touch-target">지도</button>
+                  <button onclick="openGoogleMap('${item.address}')" class="px-2 py-0.5 bg-emerald-800 text-white font-bold text-[9px] rounded whitespace-nowrap shadow-sm hover:bg-emerald-900 touch-target">지도</button>
                 </div>
               </div>
               <p>🅿️ <strong>주차:</strong> ${item.parking}</p>
@@ -3228,7 +3252,7 @@
             <p class="text-xs text-stone-600 mb-1.5 leading-relaxed">${item.summary}</p>
           </div>
 
-          <div class="text-[10px] sm:text-[11px] bg-amber-50/80 p-1.5 rounded-lg border border-amber-200/60 text-amber-900">
+          <div class="text-[10px] sm:text-[11px] bg-emerald-50/70 p-1.5 rounded-lg border border-emerald-200/60 text-emerald-900">
             ✨ <strong>아이 맞춤:</strong> ${item.highlights}
           </div>
         </div>
@@ -3241,12 +3265,12 @@
     function filterRestaurants(filterType) {
       currentRestaurantFilter = filterType;
       document.querySelectorAll('.rest-filter-btn').forEach(b => {
-        b.classList.remove('bg-amber-800', 'text-white', 'active');
+        b.classList.remove('bg-emerald-800', 'text-white', 'active');
         b.classList.add('bg-stone-100', 'text-stone-700');
       });
       if (window.event && window.event.currentTarget) {
         window.event.currentTarget.classList.remove('bg-stone-100', 'text-stone-700');
-        window.event.currentTarget.classList.add('bg-amber-800', 'text-white', 'active');
+        window.event.currentTarget.classList.add('bg-emerald-800', 'text-white', 'active');
       }
       renderRestaurants(filterType);
     }
@@ -3275,7 +3299,7 @@
             <!-- Card Header: Title & Badges -->
             <div class="flex justify-between items-start gap-1">
               <div>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.category === 'counter' ? 'bg-emerald-100 text-emerald-800' : (item.category === 'dessert' ? 'bg-pink-100 text-pink-800' : 'bg-amber-100 text-amber-900')}">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.category === 'counter' ? 'bg-emerald-100 text-emerald-800' : (item.category === 'dessert' ? 'bg-pink-100 text-pink-800' : 'bg-teal-100 text-teal-800')}">
                   ${item.badge}
                 </span>
                 <h4 class="font-extrabold text-stone-900 text-sm sm:text-base mt-1 leading-snug">${item.name}</h4>
@@ -3288,7 +3312,7 @@
               <p class="font-mono text-[10px] sm:text-[11px] text-stone-800 truncate mr-1">📍 ${item.address}</p>
               <div class="flex gap-1 shrink-0">
                 <button onclick="copyToClipboard('${item.address}', '${item.name} 주소')" class="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-[10px] rounded-lg transition touch-target">📋 복사</button>
-                <button onclick="openGoogleMap('${item.address}')" class="px-2.5 py-1 bg-amber-800 hover:bg-amber-900 text-white font-bold text-[10px] rounded-lg transition flex items-center gap-0.5 touch-target">📍 길찾기</button>
+                <button onclick="openGoogleMap('${item.address}')" class="px-2.5 py-1 bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-[10px] rounded-lg transition flex items-center gap-0.5 touch-target">📍 길찾기</button>
               </div>
             </div>
 
@@ -3298,13 +3322,13 @@
                 <p>⏱️ <strong>운영:</strong> ${item.hours}</p>
                 <p>🚫 <strong>휴무:</strong> ${item.closed}</p>
                 <p>🎯 <strong>추천시간:</strong> ${item.bestTime}</p>
-                <p>💵 <strong>4인예상:</strong> <span class="font-bold text-amber-900">${item.cost}</span></p>
+                <p>💵 <strong>4인예상:</strong> <span class="font-bold text-emerald-900">${item.cost}</span></p>
               </div>
             </div>
 
             <!-- 4-Person Recommended Menu -->
-            <div class="bg-amber-50/70 p-2.5 rounded-xl border border-amber-200/70 text-[11px] space-y-1 text-stone-800">
-              <p class="font-bold text-amber-950 text-xs">👨‍👩‍👧‍👧 4인 가족 추천 주문 가이드</p>
+            <div class="bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-200/70 text-[11px] space-y-1 text-stone-800">
+              <p class="font-bold text-emerald-950 text-xs">👨‍👩‍👧‍👧 4인 가족 추천 주문 가이드</p>
               <p>• <strong>어른 (2인):</strong> ${item.menuAdult}</p>
               <p>• <strong>아이 (2인):</strong> ${item.menuKids}</p>
               <p>• <strong>음료/디저트:</strong> ${item.menuDrink}</p>
@@ -3351,11 +3375,11 @@
     function setTipPct(pct) {
       currentTipPct = pct;
       document.querySelectorAll('.tip-pct-btn').forEach(btn => {
-        btn.classList.remove('bg-amber-800', 'text-white', 'active');
+        btn.classList.remove('bg-emerald-800', 'text-white', 'active');
         btn.classList.add('bg-white', 'text-stone-800');
       });
       if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add('bg-amber-800', 'text-white', 'active');
+        window.event.currentTarget.classList.add('bg-emerald-800', 'text-white', 'active');
       }
       calculateTip();
     }
@@ -3372,7 +3396,7 @@
               const checked = localStorage.getItem(key) === 'true';
               return `
               <label class="flex items-center space-x-2 text-xs text-stone-700 cursor-pointer hover:bg-white p-1.5 rounded-lg transition touch-target">
-                <input type="checkbox" onchange="toggleCheck(this, '${key}')" ${checked ? 'checked' : ''} class="w-4 h-4 rounded text-amber-800 focus:ring-amber-500">
+                <input type="checkbox" onchange="toggleCheck(this, '${key}')" ${checked ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-800 focus:ring-emerald-500">
                 <span class="leading-tight ${checked ? 'line-through text-stone-400' : ''}">${item}</span>
               </label>
               `;
@@ -3403,7 +3427,7 @@
       }
 
       // v4 키 우선, 없으면 v3 키에서 로드 후 v4로 마이그레이션 및 공식 지출 항목 스마트 자동 병합
-      const savedExp = localStorage.getItem('seattle_custom_expenses_v5') || localStorage.getItem('seattle_custom_expenses_v4') || localStorage.getItem('seattle_custom_expenses_v3');
+      const savedExp = localStorage.getItem('seattle_custom_expenses_v6') || localStorage.getItem('seattle_custom_expenses_v5') || localStorage.getItem('seattle_custom_expenses_v4') || localStorage.getItem('seattle_custom_expenses_v3');
       if (savedExp) {
         try {
           const parsed = JSON.parse(savedExp);
@@ -3436,7 +3460,7 @@
     }
 
     function saveExpensesToStorage() {
-      localStorage.setItem('seattle_custom_expenses_v5', JSON.stringify(customExpenses));
+      localStorage.setItem('seattle_custom_expenses_v6', JSON.stringify(customExpenses));
       localStorage.setItem('seattle_exchange_rate', exchangeRate);
       renderExpenses();
     }
@@ -3565,7 +3589,7 @@
         const btn = document.getElementById('exp-view-btn-' + m);
         if (btn) {
           if (m === mode) {
-            btn.className = 'px-2.5 py-1 rounded-lg font-bold text-[11px] transition bg-amber-800 text-white shadow-2xs';
+            btn.className = 'px-2.5 py-1 rounded-lg font-bold text-[11px] transition bg-emerald-800 text-white shadow-2xs';
           } else {
             btn.className = 'px-2.5 py-1 rounded-lg font-bold text-[11px] transition text-stone-600 hover:bg-stone-200';
           }
@@ -3662,12 +3686,12 @@
           html += `
             <div class="bg-stone-50/90 rounded-2xl border border-stone-200/90 p-3 sm:p-3.5 space-y-2 shadow-2xs">
               <div class="flex items-center justify-between border-b border-stone-200 pb-2 px-1">
-                <span class="text-xs sm:text-sm font-black text-amber-950 flex items-center gap-1.5">
+                <span class="text-xs sm:text-sm font-black text-emerald-950 flex items-center gap-1.5">
                   <span>📅</span>
                   <span>${dateKey} 결제 내역 (${items.length}건)</span>
                 </span>
-                <span class="text-[11px] sm:text-xs font-bold text-amber-900 font-mono">
-                  일일 소계: <span class="text-amber-950 font-black">$${groupUSD.toFixed(2)}</span> <span class="text-stone-500 font-normal text-[10px]">(≈ ₩${Math.round(groupKRW).toLocaleString()})</span>
+                <span class="text-[11px] sm:text-xs font-bold text-emerald-900 font-mono">
+                  일일 소계: <span class="text-emerald-950 font-black">$${groupUSD.toFixed(2)}</span> <span class="text-stone-500 font-normal text-[10px]">(≈ ₩${Math.round(groupKRW).toLocaleString()})</span>
                 </span>
               </div>
               <div class="space-y-1.5">
@@ -3709,8 +3733,8 @@
                   <span>${getCategoryName(catKey)}</span>
                   <span class="text-[10px] bg-stone-200 text-stone-700 px-1.5 py-0.2 rounded font-bold">${items.length}건</span>
                 </span>
-                <span class="text-[11px] sm:text-xs font-bold text-amber-900 font-mono">
-                  항목 소계: <span class="text-amber-950 font-black">$${groupUSD.toFixed(2)}</span> <span class="text-stone-500 font-normal text-[10px]">(≈ ₩${Math.round(groupKRW).toLocaleString()})</span>
+                <span class="text-[11px] sm:text-xs font-bold text-emerald-900 font-mono">
+                  항목 소계: <span class="text-emerald-950 font-black">$${groupUSD.toFixed(2)}</span> <span class="text-stone-500 font-normal text-[10px]">(≈ ₩${Math.round(groupKRW).toLocaleString()})</span>
                 </span>
               </div>
               <div class="space-y-1.5">
@@ -3740,14 +3764,14 @@
       const subDisplay = isUSD ? `≈ ₩${krwEquivalent.toLocaleString()}` : `≈ $${(exp.amount / exchangeRate).toFixed(2)}`;
 
       return `
-        <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border ${exp.done ? 'border-emerald-200 bg-emerald-50/30' : 'border-stone-200'} transition hover:border-amber-300">
+        <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border ${exp.done ? 'border-emerald-200 bg-emerald-50/30' : 'border-stone-200'} transition hover:border-emerald-300">
           <div class="flex items-center space-x-2.5 flex-1 min-w-0 pr-2">
             <input type="checkbox" onchange="toggleExpenseDone('${exp.id}')" ${exp.done ? 'checked' : ''} class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer">
             <div class="min-w-0">
               <div class="flex flex-wrap items-center gap-1.5">
                 <span class="text-xs">${getCategoryEmoji(exp.category)}</span>
                 <p class="font-bold text-xs text-stone-900 truncate ${exp.done ? 'line-through text-stone-400' : ''}">${exp.title}</p>
-                ${exp.date ? `<span class="text-[9px] bg-amber-100 text-amber-900 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">${exp.date}</span>` : ''}
+                ${exp.date ? `<span class="text-[9px] bg-emerald-100 text-emerald-900 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">${exp.date}</span>` : ''}
                 ${exp.done ? '<span class="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-semibold whitespace-nowrap">확정</span>' : ''}
               </div>
               ${exp.note ? `<p class="text-[10px] text-stone-500 truncate mt-0.5">${exp.note}</p>` : ''}
@@ -3756,7 +3780,7 @@
 
           <div class="flex items-center space-x-2.5">
             <div class="text-right whitespace-nowrap">
-              <p class="font-bold text-xs text-amber-900 font-mono">${displayAmount}</p>
+              <p class="font-bold text-xs text-emerald-900 font-mono">${displayAmount}</p>
               <p class="text-[10px] text-stone-400 font-mono">${subDisplay}</p>
             </div>
             <button onclick="deleteExpense('${exp.id}')" class="text-stone-400 hover:text-rose-600 p-1 text-xs touch-target" title="삭제">🗑️</button>
@@ -4680,6 +4704,85 @@
         ]
       };
 
+      const defaultDiaryDay10 = {
+        day: 10,
+        dateStr: "10월 9일 (금)",
+        title: "시애틀의 마지막 밤, 노드스트롬 쇼핑과 비 내리는 감성",
+        subTitle: "늦잠으로 시작된 시애틀 마지막 날, 한인 식당의 훈훈한 정과 도서관 휴식, 그리고 비 오는 바닷가의 추억",
+        author: "아빠 (주아성)",
+        mood: "비 내리는 시애틀의 낭만, 따스한 정, 아쉬운 마지막 밤 🌧️🍱🏛️🍜",
+        tags: ["노드스트롬", "둘째운동화", "3rdAveCafe", "한인데리야키", "따뜻한정", "파라마운트극장", "시애틀공공도서관", "아동구역독서", "Pier55놀이터", "피로시키빵", "거대맹견위기", "치킨스톡라면", "마지막밤만찬"],
+        stats: {
+          totalHours: "오전 09:00 기상 ~ 19:30 복귀 (약 10.5시간)",
+          flightInfo: "D line 버스",
+          driveDistance: "약 8.5 km (대중교통 및 도보 산책)",
+          napTime: "시애틀 공공도서관 어린이 구역 휴식"
+        },
+        highlights: [
+          { icon: "🛍️", title: "노드스트롬 운동화 득템", desc: "100분간의 밀린 업무 처리 후, 늘 쇼핑 뒷전이던 둘째를 위한 나이키 운동화 한 켤레 구매 성공!" },
+          { icon: "🍱", title: "3rd Ave Cafe의 따스함", desc: "한인 아저씨가 운영하시는 데리야키 식당에서 푸짐한 식사와 함께 타국에서 느끼는 뭉클한 정을 경험." },
+          { icon: "🏛️", title: "비 내리는 시애틀과 도서관", desc: "비를 맞으며 파라마운트 극장을 지나 시애틀 공공도서관에 도착해 아이들과 평화로운 독서 휴식." },
+          { icon: "🌊", title: "Pier 55 놀이터와 피로시키", desc: "아쉬운 마지막 날 오후, 빗줄기가 굵어지는 바닷가 놀이터에서 추억을 남기고 피로시키 빵을 포장." },
+          { icon: "🍜", title: "숙소에서의 마지막 만찬", desc: "거대한 맹견을 간신히 피한 뒤 무사히 숙소 복귀, 얼큰한 치킨스톡 고추장 라면과 빵으로 여행 마무리." }
+        ],
+        timelineEvents: [
+          { krTime: "10/10 오전", usTime: "10/9 오전", place: "시애틀 숙소", desc: "유달리 무거운 몸으로 늦잠 기상, 날씨 흐림 확인 후 아빠는 100분간 한국 업무 처리", tag: "아침/업무", icon: "💻" },
+          { krTime: "10/10 정오", usTime: "10/9 정오", place: "Nordstrom 백화점", desc: "가족 아이쇼핑을 즐긴 후 오직 둘째 딸을 위한 나이키 운동화 결제", tag: "쇼핑", icon: "🛍️" },
+          { krTime: "10/10 오후", usTime: "10/9 14:00", place: "3rd Ave Cafe", desc: "우연히 찾은 한인 데리야키 식당, 푸짐한 식사와 아이들 간식 선물에 감동하며 71세 주인아저씨와 대화", tag: "점심/감동", icon: "🍱" },
+          { krTime: "10/10 오후", usTime: "10/9 15:30", place: "시애틀 공공도서관", desc: "파라마운트 극장에서 사진을 남기고 웅장한 도서관 아동 구역으로 이동하여 1시간 30분 휴식", tag: "휴식", icon: "🏛️" },
+          { krTime: "10/10 저녁", usTime: "10/9 17:30", place: "Pier 55 & PiroshkyLove", desc: "시애틀 바다를 보며 놀이터에서 마지막 여흥을 즐기고, 비가 거세져 Piroshky 빵 포장", tag: "바다/간식", icon: "🌊" },
+          { krTime: "10/10 밤", usTime: "10/9 18:30", place: "시애틀 숙소", desc: "D Line 버스를 타러 가는 길 맹견을 마주한 해프닝 후, 숙소에서 얼큰한 고추장 라면과 빵으로 식사", tag: "만찬", icon: "🍜" }
+        ],
+        paragraphs: [
+          "지난밤에는 숙소 창문의 블라인드를 모두 내리고 잠자리에 들었다. 오늘은 아빠가 일찍 일어나 가족들을 모두 깨우려 다짐했건만, 유달리 몸이 무거워 결국 오전 9시가 넘어서야 간신히 자리에서 일어날 수 있었다. 블라인드를 걷어보니 왜 그리 몸이 무거웠는지 단번에 알 수 있었다. 9일 내내 우리와 함께했던 화창한 '여행의 신'이 할 일을 다 마치고 떠난 듯, 바깥은 잔뜩 흐려 있었다. 날씨 탓에 당장 마땅한 이동 계획을 세우기 어려웠기에, 가족들에게 씻고 외출 준비를 하라고 일러두었다. 그사이 아빠는 밀린 이메일을 확인하며 약 100분 동안 한국의 업무를 처리했다.",
+          "업무를 마치고 채비를 마친 가족과 함께 Nordstrom 백화점으로 향했다. 매번 쇼핑 때마다 뒷전이었던 둘째 딸에게 이번만큼은 꼭 예쁜 운동화를 사주기 위해서였다. 그래도 아쉬운 마음에 아빠와 엄마는 남성복과 여성복, 신발 매장을 둘러보았다. 현지의 가격과 디자인에 감탄하며 1시간가량 아이쇼핑을 즐겼지만, 결국 계산대에 올린 것은 둘째 딸의 나이키 운동화 한 켤레뿐이었다. 우리 가족다운 알뜰한 쇼핑이었다.^^ 이후 허기를 달래기 위해 엄마가 찾아낸 '3rd Ave Cafe'라는 한인 데리야키 식당으로 향했다. 높은 평점에 확신을 안고 가게 문을 열어 카운터에 다가가자, 주인아저씨께서 먼저 \"Korean?\" 하고 물어보셨다. 우리는 반갑고 공손하게 \"예, 안녕하세요.\"라고 인사를 건넸다.",
+          "우리는 데리야키와 매운 데리야키, 그리고 다이어트 콜라를 주문했다. 주인아저씨께서는 두 딸에게 과자 한 봉지씩과 초콜릿을 선물로 건네주셨다. 타국에서 느끼는 따스한 정에 우리 아이들의 얼굴에 웃음꽃이 피었다. 잠시 후 나온 음식은 높은 평점만큼이나 푸짐하고 맛깔스러워 우리에게 큰 감동을 주었다. 한창 맛있게 식사를 하던 중, 아저씨께서 문을 닫고 매장 정리를 시작하셨다. 알고 보니 오후 2시 30분이 식당 마감 시간이었던 것이다. 우리가 서둘러 식사를 마치려 하자, 아저씨께서는 괜찮다며 탄산음료 2개를 더 내어주시고 편안히 먹으라고 배려해 주셨다. 아빠는 부럽고도 존경스러운 눈빛으로 아저씨께 언제부터 미국에서 생활하셨는지 여쭈었다. 온 가족이 미국에 살았었고, 25살 군 전역 후부터 71세인 지금까지 줄곧 미국에 거주하셨다고 했다. 그러면서 아저씨는 \"힘들게 한국에서 살지 말고 미국에 와서 여유로운 마음으로 살라\"며 덕담을 건네셨다. 식사를 마치고 예의 바르게 인사를 드리고 나설 때, 아저씨께서 남겨주신 \"어디서든 잘 살면 돼요\"라는 말씀이 귓가에 맴돌았다.",
+          "밖에는 여전히 비가 띄엄띄엄 내렸지만, 우산 없이 걷는 시애틀 사람들을 보며 우리도 비를 맞으며 Paramount Theater로 향했다. 첫째와 둘째를 번갈아 안고 걸어 도착했는데, 알고 보니 엄마의 목적은 멋진 극장 외관을 배경으로 사진을 몇 장 남기는 것이었다. 놀란 아빠는 묵묵히 대각선 도로 건너편으로 자리를 옮겨 휴대폰 카메라로 열심히 셔터를 눌렀다. 다음 목적지는 Seattle Public Library (시애틀 공공도서관)였다. '어떻게 도서관 건물이 이리 화려할 수 있을까?' 아빠는 15년 전에도 와본 곳이지만, 다시 마주한 웅장한 외관에 새삼 감탄했다. 다만 1층에는 꽤 많은 노숙자가 있어 특유의 냄새가 훅 끼쳐왔다. 우리는 서둘러 아동 구역(Children's Section)으로 이동해 아이들이 편히 책을 볼 수 있게 했다. 그곳에서 1시간 30분가량 머물며, 엄마 아빠는 휴식을 취하고 두 딸은 장난감과 책을 즐겼다. 자연스레 시애틀 어린이들과 어울려 놀기를 내심 기대했지만, 역시나 그건 무리였다.",
+          "원래는 Dick's Drive-In에서 햄버거를 포장해 숙소로 돌아가려 했다. 하지만 여행 마지막 날 오후 5시에 이대로 일정을 마무리하기엔 너무 아쉬워, Pier 55로 향했다. 그곳 놀이터에서 아이들을 조금 더 놀게 하고, 시애틀의 바다 풍경을 눈에 담기로 했다. 그런데 20~30분쯤 놀다 보니 빗줄기가 다시 굵어지기 시작했다. 우리는 아쉬움을 뒤로하고 근처 Piroshky Piroshky (PiroshkyLove)에 들러 빵 2개를 산 뒤 숙소에서 가볍게 하루를 마무리하기로 했다. 돌아가는 D Line 버스를 타러 Pine St를 걷던 중, 엄청나게 큰 개를 데리고 있는 두 노숙자를 지나치게 되었다. 개가 우리를 잡아먹을 듯이 맹렬하게 짖어대어 온 가족이 소스라치게 놀랐다. 다행히 노숙자들이 개의 목줄을 강하게 잡아당겨 준 덕분에 무사히 상황을 모면할 수 있었다. 우리는 서둘러 그곳을 벗어나 정류장에 도착했고, D Line에 올라 무사히 숙소로 돌아왔다. 숙소에 돌아와서는 미국 치킨스톡 베이스 라면에 고추장을 풀어 얼큰하게 끓인 뒤, 아까 사 온 Piroshky 빵을 곁들여 먹으며 다사다난했던 시애틀에서의 마지막 밤을 정리했다."
+        ],
+        quickExpenses: [
+          { name: "교통 (Nordstrom 이동)", amount: 6.00, currency: "USD", cat: "transit", note: "D line 버스 탑승" },
+          { name: "노드스트롬 (둘째 나이키 운동화)", amount: 47.50, currency: "USD", cat: "shopping", note: "현금 결제" },
+          { name: "3rd Ave Cafe", amount: 39.39, currency: "USD", cat: "food", note: "데리야키와 콜라" },
+          { name: "Piroshky Piroshky", amount: 14.43, currency: "USD", cat: "food", note: "바닷가에서 빵 포장" },
+          { name: "교통 (숙소 복귀)", amount: 6.00, currency: "USD", cat: "transit", note: "D line 버스 탑승" }
+        ],
+        familyComments: [
+          {
+            author: "아빠 (아성)",
+            emoji: "👨",
+            color: "blue",
+            comments: [
+              { moment: "밀린 업무와 따뜻한 정", text: "아침부터 밀린 업무에 무거운 몸으로 시작했지만, 한인 식당 아저씨의 따뜻한 정 덕분에 피로가 모두 가시는 기분이었어요. 어디서든 잘 살면 된다는 그 말씀 잊지 않겠습니다." }
+            ]
+          },
+          {
+            author: "엄마 (지은)",
+            emoji: "👩",
+            color: "rose",
+            comments: [
+              { moment: "비 내리는 낭만과 라면 만찬", text: "파라마운트 극장 앞에서 비 맞으며 고생해서 사진 찍어준 남편에게 고마워요. 무서운 개 때문에 놀랐지만 마지막 라면 국물 한 모금에 모든 긴장이 사르르 녹아내렸답니다." }
+            ]
+          },
+          {
+            author: "이안 (첫째)",
+            emoji: "👧",
+            color: "violet",
+            comments: [
+              { moment: "초콜릿 선물과 도서관 휴식", text: "한인 식당 할아버지께서 선물로 주신 초콜릿이 너무 달콤했어요! 🍫 도서관에서 책도 보고 푹 쉬어서 좋았어요." }
+            ]
+          },
+          {
+            author: "이솔 (막내)",
+            emoji: "👧",
+            color: "emerald",
+            comments: [
+              { moment: "새 운동화와 바닷가 놀이터", text: "마침내 제 예쁜 새 나이키 운동화가 생겨서 날아갈 것 같아요! 👟✨ 맹견은 무서웠지만 바닷가 놀이터는 재미있었어요!" }
+            ]
+          }
+        ]
+      };
+
 
 
     let activeDiaryDay = 1;
@@ -4725,13 +4828,13 @@
 
       // 필터 버튼 스타일 갱신
       document.querySelectorAll('.photo-day-filter-btn').forEach(function(btn) {
-        btn.classList.remove('bg-amber-800', 'text-white', 'shadow-sm', 'border-amber-900', 'font-bold');
+        btn.classList.remove('bg-emerald-800', 'text-white', 'shadow-sm', 'border-emerald-900', 'font-bold');
         btn.classList.add('bg-stone-100', 'text-stone-700', 'border-stone-200');
       });
       var activeBtn = document.getElementById(dayFilter === 'all' ? 'photo-filter-all' : 'photo-filter-' + dayFilter);
       if (activeBtn) {
         activeBtn.classList.remove('bg-stone-100', 'text-stone-700', 'border-stone-200');
-        activeBtn.classList.add('bg-amber-800', 'text-white', 'shadow-sm', 'border-amber-900', 'font-bold');
+        activeBtn.classList.add('bg-emerald-800', 'text-white', 'shadow-sm', 'border-emerald-900', 'font-bold');
       }
 
       // 필터 라벨 갱신
@@ -4744,18 +4847,18 @@
 
       if (filteredPhotos.length === 0) {
         container.innerHTML = '<div class="bg-white rounded-2xl border border-dashed border-stone-300 p-8 sm:p-12 text-center space-y-4 shadow-xs">'
-          + '<div class="w-16 h-16 bg-amber-50 text-amber-800 rounded-full flex items-center justify-center text-3xl mx-auto border border-amber-200">📷</div>'
+          + '<div class="w-16 h-16 bg-emerald-50 text-emerald-800 rounded-full flex items-center justify-center text-3xl mx-auto border border-emerald-200">📷</div>'
           + '<div class="space-y-1.5">'
           + '<h4 class="font-black text-stone-800 text-sm sm:text-base">'
           + (dayFilter === 'all' ? '아직 등록된 사진이 없습니다.' : 'Day ' + dayFilter + '의 사진이 아직 등록되지 않았습니다.')
           + '</h4>'
           + '<p class="text-xs text-stone-500 max-w-md mx-auto leading-relaxed">'
-          + '스마트폰에서 찍은 사진을 <code class="bg-amber-50 text-amber-900 px-1.5 py-0.5 rounded font-mono font-bold">TripDoolee/raw_photos</code> 폴더에 넣고<br>'
+          + '스마트폰에서 찍은 사진을 <code class="bg-emerald-50 text-emerald-900 px-1.5 py-0.5 rounded font-mono font-bold">TripDoolee/raw_photos</code> 폴더에 넣고<br>'
           + '<code class="bg-stone-100 text-stone-800 px-1.5 py-0.5 rounded font-mono font-bold">run_photo_processor.bat</code> 파일을 실행하면 AI가 흔들림 없이 선명한 사진을 자동으로 쏙 정리해줍니다!'
           + '</p>'
           + '</div>'
           + '<div class="pt-1">'
-          + '<button onclick="openPhotoGuideModal()" class="px-4 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-xl text-xs font-bold transition shadow-xs">'
+          + '<button onclick="openPhotoGuideModal()" class="px-4 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-bold transition shadow-xs">'
           + '📲 사진 간편 추가 가이드 보기'
           + '</button>'
           + '</div>'
@@ -4768,7 +4871,7 @@
       var cardsHtml = filteredPhotos.map(function(photo) {
         var thumbSrc = photo.thumb || photo.src;
         var captionText = photo.caption || ('Day ' + photo.day + '의 순간');
-        var timeBadge = photo.time ? '<span class="px-1.5 py-0.5 rounded-full text-[9px] font-mono font-semibold bg-amber-800/80 text-amber-100 backdrop-blur-xs">' + photo.time + '</span>' : '';
+        var timeBadge = photo.time ? '<span class="px-1.5 py-0.5 rounded-full text-[9px] font-mono font-semibold bg-emerald-800/80 text-emerald-100 backdrop-blur-xs">' + photo.time + '</span>' : '';
 
         return '<div class="group relative bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-2xs hover:shadow-md transition cursor-pointer" onclick="openPhotoLightbox(\'' + photo.id + '\')">'
           + '<div class="aspect-4/3 w-full bg-stone-100 overflow-hidden relative">'
@@ -4785,7 +4888,7 @@
           + '<p class="text-xs font-bold text-stone-800 truncate">' + captionText + '</p>'
           + '<div class="flex items-center justify-between mt-1 text-[10px] text-stone-400 font-mono">'
           + '<span>' + (photo.date || '') + '</span>'
-          + '<span class="text-amber-700 font-sans font-semibold">베스트 샷 ✨</span>'
+          + '<span class="text-emerald-700 font-sans font-semibold">베스트 샷 ✨</span>'
           + '</div>'
           + '</div>'
           + '</div>';
@@ -4802,15 +4905,15 @@
     function renderDiaryPhotoSectionHTML(dayNum) {
       var photos = getPhotosForDay(dayNum);
       if (!photos || photos.length === 0) {
-        return '<div class="bg-amber-50/50 border border-dashed border-amber-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">'
+        return '<div class="bg-emerald-50/40 border border-dashed border-emerald-200/80 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">'
           + '<div class="flex items-center space-x-3 text-center sm:text-left">'
-          + '<span class="text-2xl p-2 bg-white rounded-xl border border-amber-200 shrink-0">📸</span>'
+          + '<span class="text-2xl p-2 bg-white rounded-xl border border-emerald-200 shrink-0">📸</span>'
           + '<div>'
           + '<h5 class="font-bold text-stone-900">Day ' + dayNum + '일차 사진첩이 아직 비어있습니다</h5>'
           + '<p class="text-[11px] text-stone-500 mt-0.5">스마트폰 사진을 컴퓨터에 옮기면 AI가 베스트 사진을 자동으로 선별해 여기에 띄워줍니다!</p>'
           + '</div>'
           + '</div>'
-          + '<button onclick="openPhotoGuideModal()" class="px-3 py-1.5 bg-amber-800 hover:bg-amber-900 text-white font-bold rounded-xl text-xs shrink-0 shadow-2xs transition">'
+          + '<button onclick="openPhotoGuideModal()" class="px-3 py-1.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-xl text-xs shrink-0 shadow-2xs transition">'
           + '📲 사진 넣는 법'
           + '</button>'
           + '</div>';
@@ -4838,7 +4941,7 @@
         + '<p class="text-[10px] text-stone-500">AI가 흔들림과 연사를 걸러내고 선정한 베스트 샷입니다. 클릭 시 크게 볼 수 있습니다.</p>'
         + '</div>'
         + '</div>'
-        + '<button onclick="filterPhotosDay(' + dayNum + '); switchTab(\'tab-photos\');" class="text-xs text-amber-800 font-bold underline shrink-0 hover:text-amber-950">'
+        + '<button onclick="filterPhotosDay(' + dayNum + '); switchTab(\'tab-photos\');" class="text-xs text-emerald-800 font-bold underline shrink-0 hover:text-emerald-950">'
         + '전체 보기 (' + photos.length + '장) ➡️'
         + '</button>'
         + '</div>'
@@ -4954,9 +5057,9 @@
         const d = idx + 1;
         if (d === dayNum) {
           btn.classList.remove('bg-white', 'text-stone-600', 'border-stone-200');
-          btn.classList.add('bg-amber-800', 'text-white', 'shadow-sm', 'border-amber-900', 'font-bold');
+          btn.classList.add('bg-emerald-800', 'text-white', 'shadow-sm', 'border-emerald-900', 'font-bold');
         } else {
-          btn.classList.remove('bg-amber-800', 'text-white', 'shadow-sm', 'border-amber-900', 'font-bold');
+          btn.classList.remove('bg-emerald-800', 'text-white', 'shadow-sm', 'border-emerald-900', 'font-bold');
           btn.classList.add('bg-white', 'text-stone-600', 'border-stone-200');
         }
       });
@@ -4980,7 +5083,8 @@
         6: defaultDiaryDay6,
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
-        9: defaultDiaryDay9
+        9: defaultDiaryDay9,
+        10: defaultDiaryDay10
       };
 
       const d = defaultDiaries[dayNum];
@@ -5047,42 +5151,48 @@
             "<strong>노스게이트(Northgate) 쇼핑 팁:</strong> 그린 레이크에서 67번 버스로 노스게이트 대형 Target에 가서 동료 선물과 간식을 쇼핑하기 좋지만, 장바구니 들고 숙소 오르막 계단 오를 체력 안배 필수!",
             "<strong>미국 10월 할로윈 주택가 산책:</strong> 10월 초~중순 미국의 주택가 정원들은 개성 넘치는 호박, 유령, 해골 장식으로 꾸며져 있어 저녁 식사 후 밤 산책 코스로 안성맞춤."
           ],
+          10: [
+            "<strong>Nordstrom 및 다운타운 쇼핑:</strong> 다운타운 백화점과 로컬 숍들은 구경만으로도 즐거우나, 가족 각자의 쇼핑 우선순위(아이 운동화 등)를 정해두면 알뜰하고 만족스러운 쇼핑이 됨.",
+            "<strong>한인 식당(3rd Ave Cafe):</strong> 시애틀 다운타운에서 따스한 한국의 정과 푸짐한 데리야키를 맛볼 수 있는 보석 같은 쉼터! 마감 시간(오후 2:30 등)을 사전 확인 필수.",
+            "<strong>시애틀 공공도서관(SPL):</strong> 독특하고 웅장한 건축미와 조용한 어린이 구역은 비 오는 날 가족 휴식에 최고! 단, 1층 입구 주변 분위기를 감안해 어린이 구역으로 바로 이동 추천.",
+            "<strong>비 오는 시애틀과 마지막 밤:</strong> 우산 대신 가벼운 방수 겉옷을 입고 걷는 현지 감성을 느껴보고, 비 내리는 부둣가(Pier 55) 산책 후 숙소에서 따뜻한 라면 한 그릇으로 여정을 마무리하면 최고의 감동."
+          ]
         };
 
         const currentRetro = retroTips[dayNum] || retroTips[1];
 
         container.innerHTML = `
           <!-- Diary Title & Header Box -->
-          <div class="bg-amber-50/60 border border-amber-200/80 rounded-2xl p-4 sm:p-6 space-y-3">
-            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-200/60 pb-3">
+          <div class="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4 sm:p-6 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-200/60 pb-3">
               <div>
-                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-200 text-amber-900 uppercase">Day ${d.day} • ${d.dateStr}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-100 text-emerald-900 uppercase">Day ${d.day} • ${d.dateStr}</span>
                 <h3 class="text-base sm:text-xl font-black text-stone-900 mt-1 leading-snug">${titleToUse}</h3>
-                <p class="text-xs text-amber-800 font-medium">${d.subTitle}</p>
+                <p class="text-xs text-emerald-800 font-medium">${d.subTitle}</p>
               </div>
               <div class="text-right">
-                <span class="inline-block px-2.5 py-1 bg-white rounded-lg border border-amber-200 text-xs font-semibold text-stone-700 shadow-2xs">
-                  오늘의 기분: <span class="font-bold text-amber-900">${moodToUse}</span>
+                <span class="inline-block px-2.5 py-1 bg-white rounded-lg border border-emerald-200 text-xs font-semibold text-stone-700 shadow-2xs">
+                  오늘의 기분: <span class="font-bold text-emerald-900">${moodToUse}</span>
                 </span>
-                <button onclick="openNewDiaryModal(${dayNum})" class="ml-1 text-[11px] text-amber-800 underline font-semibold">✏️ 수정</button>
+                <button onclick="openNewDiaryModal(${dayNum})" class="ml-1 text-[11px] text-emerald-800 underline font-semibold">✏️ 수정</button>
               </div>
             </div>
 
             <!-- 4 Quick Stats -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center">
-              <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
+              <div class="bg-white p-2 rounded-xl border border-emerald-100 shadow-2xs">
                 <p class="text-[10px] text-stone-500 font-medium">체감 일과 / 기상</p>
-                <p class="text-xs sm:text-sm font-bold text-amber-900 mt-0.5">${(d.stats && d.stats.totalHours) || '-'}</p>
+                <p class="text-xs sm:text-sm font-bold text-emerald-900 mt-0.5">${(d.stats && d.stats.totalHours) || '-'}</p>
               </div>
-              <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
+              <div class="bg-white p-2 rounded-xl border border-emerald-100 shadow-2xs">
                 <p class="text-[10px] text-stone-500 font-medium">핵심 이동 / 주유</p>
                 <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${(d.stats && (d.stats.flightInfo || d.stats.walkingKm)) || '-'}</p>
               </div>
-              <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
+              <div class="bg-white p-2 rounded-xl border border-emerald-100 shadow-2xs">
                 <p class="text-[10px] text-stone-500 font-medium">실제 이동 거리</p>
                 <p class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5">${(d.stats && (d.stats.driveDistance || d.stats.familyMood)) || '-'}</p>
               </div>
-              <div class="bg-white p-2 rounded-xl border border-amber-100 shadow-2xs">
+              <div class="bg-white p-2 rounded-xl border border-emerald-100 shadow-2xs">
                 <p class="text-[10px] text-stone-500 font-medium">휴식 & 수면</p>
                 <p class="text-xs sm:text-sm font-bold text-emerald-800 mt-0.5">${(d.stats && d.stats.napTime) || '-'}</p>
               </div>
@@ -5090,7 +5200,7 @@
 
             <!-- Tags -->
             <div class="flex flex-wrap gap-1.5 pt-1">
-              ${(d.tags || []).map(t => `<span class="bg-white/80 border border-amber-200/90 text-amber-900 px-2 py-0.5 rounded-full text-[10px] font-semibold">#${t}</span>`).join('')}
+              ${(d.tags || []).map(t => `<span class="bg-white/80 border border-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full text-[10px] font-semibold">#${t}</span>`).join('')}
             </div>
           </div>
 
@@ -5102,8 +5212,8 @@
             </h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               ${(d.highlights || []).map(h => `
-                <div class="bg-white p-3 rounded-xl border border-stone-200 hover:border-amber-300 transition shadow-2xs flex items-start space-x-2.5">
-                  <span class="text-2xl p-1.5 bg-amber-50 rounded-lg shrink-0">${h.icon}</span>
+                <div class="bg-white p-3 rounded-xl border border-stone-200 hover:border-emerald-300 transition shadow-2xs flex items-start space-x-2.5">
+                  <span class="text-2xl p-1.5 bg-emerald-50 rounded-lg shrink-0">${h.icon}</span>
                   <div>
                     <h5 class="font-extrabold text-stone-900 text-xs">${h.title}</h5>
                     <p class="text-[11px] text-stone-600 mt-0.5 leading-relaxed">${h.desc}</p>
@@ -5123,22 +5233,22 @@
               <span class="text-[10px] text-stone-500 font-mono">시차 -16시간 대조</span>
             </div>
 
-            <div class="space-y-2 relative before:absolute before:inset-0 before:left-5 before:w-0.5 before:bg-amber-100 before:z-0">
+            <div class="space-y-2 relative before:absolute before:inset-0 before:left-5 before:w-0.5 before:bg-emerald-100 before:z-0">
               ${(d.timelineEvents || []).map((evt, idx) => `
-                <div class="relative z-10 flex items-start space-x-3 text-xs bg-stone-50/70 hover:bg-amber-50/50 p-2.5 rounded-xl border border-stone-200/80 transition">
-                  <div class="w-8 h-8 rounded-full bg-white border-2 border-amber-600 flex items-center justify-center shrink-0 shadow-2xs text-sm">
+                <div class="relative z-10 flex items-start space-x-3 text-xs bg-stone-50/70 hover:bg-emerald-50/50 p-2.5 rounded-xl border border-stone-200/80 transition">
+                  <div class="w-8 h-8 rounded-full bg-white border-2 border-emerald-600 flex items-center justify-center shrink-0 shadow-2xs text-sm">
                     ${evt.icon}
                   </div>
                   <div class="flex-grow min-w-0">
                     <div class="flex flex-wrap items-center justify-between gap-1 mb-0.5">
                       <div class="flex items-center space-x-1.5">
                         <span class="font-bold text-stone-900 text-xs">${evt.place}</span>
-                        <span class="px-1.5 py-0.2 rounded text-[9px] font-semibold bg-amber-200 text-amber-900">${evt.tag}</span>
+                        <span class="px-1.5 py-0.2 rounded text-[9px] font-semibold bg-emerald-100 text-emerald-900">${evt.tag}</span>
                       </div>
                       <div class="flex items-center space-x-2 font-mono text-[10px]">
                         <span class="text-blue-700 font-semibold">🇰🇷 ${evt.krTime}</span>
                         <span class="text-stone-300">|</span>
-                        <span class="text-amber-800 font-bold">🇺🇸 ${evt.usTime}</span>
+                        <span class="text-emerald-800 font-bold">🇺🇸 ${evt.usTime}</span>
                       </div>
                     </div>
                     <p class="text-stone-700 text-[11px] leading-relaxed">${evt.desc}</p>
@@ -5152,16 +5262,16 @@
           ${renderDiaryPhotoSectionHTML(dayNum)}
 
           <!-- Essay Full Journal View (Paper Style) -->
-          <div class="bg-[#FFFDF9] rounded-2xl border-2 border-amber-200/70 p-4 sm:p-7 shadow-sm space-y-4">
-            <div class="border-b-2 border-amber-900/10 pb-3 flex items-center justify-between">
+          <div class="bg-[#FFFDF9] rounded-2xl border-2 border-emerald-200/70 p-4 sm:p-7 shadow-sm space-y-4">
+            <div class="border-b-2 border-emerald-900/10 pb-3 flex items-center justify-between">
               <div>
-                <h4 class="font-black text-amber-950 text-sm sm:text-base tracking-tight flex items-center gap-1.5">
+                <h4 class="font-black text-emerald-950 text-sm sm:text-base tracking-tight flex items-center gap-1.5">
                   <span>📝</span>
                   <span>${d.author}의 여행 일기 본문 (Full Essay)</span>
                 </h4>
                 <p class="text-[11px] text-stone-500 mt-0.5">${d.dateStr} 일기 기록</p>
               </div>
-              <button onclick="copyDiaryContent()" class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg text-xs font-bold transition flex items-center gap-1">
+              <button onclick="copyDiaryContent()" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 rounded-lg text-xs font-bold transition flex items-center gap-1">
                 <span>📋</span>
                 <span>일기 복사</span>
               </button>
@@ -5218,7 +5328,7 @@
                 <span class="text-base">👨‍👩‍👧‍👧</span>
                 <span>우리 가족 각자의 한마디 (Family's Voice)</span>
               </h4>
-              <button onclick="openFamilyCommentModal()" class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 text-[11px] font-bold rounded-lg border border-amber-200 transition flex items-center gap-1">
+              <button onclick="openFamilyCommentModal()" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 text-[11px] font-bold rounded-lg border border-emerald-200 transition flex items-center gap-1">
                 <span>✏️</span>
                 <span>코멘트 수정</span>
               </button>
@@ -5236,28 +5346,28 @@
 
         container.innerHTML = `
           <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 text-center space-y-4 shadow-sm">
-            <div class="w-16 h-16 bg-amber-100 text-amber-800 rounded-full flex items-center justify-center text-3xl mx-auto">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center text-3xl mx-auto">
               ${saved ? '📖' : '✏️'}
             </div>
             <div class="space-y-1">
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900">Day ${dayNum} • ${plan ? plan.date : ''}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900">Day ${dayNum} • ${plan ? plan.date : ''}</span>
               <h3 class="text-base sm:text-lg font-black text-stone-900 mt-1">${saved ? saved.title : (plan ? plan.title : '여행 일기')}</h3>
               <p class="text-xs text-stone-500 max-w-md mx-auto">${saved ? saved.mood : (plan ? plan.summary : '')}</p>
             </div>
 
             ${saved ? `
-              <div class="bg-amber-50/60 p-4 rounded-xl text-left border border-amber-200 text-xs leading-relaxed space-y-2 max-w-xl mx-auto">
+              <div class="bg-emerald-50/60 p-4 rounded-xl text-left border border-emerald-200 text-xs leading-relaxed space-y-2 max-w-xl mx-auto">
                 <p class="whitespace-pre-line text-stone-800">${saved.content}</p>
               </div>
               <div class="flex justify-center gap-2">
-                <button onclick="openNewDiaryModal(${dayNum})" class="px-3.5 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-xl text-xs font-bold transition">
+                <button onclick="openNewDiaryModal(${dayNum})" class="px-3.5 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-bold transition">
                   ✏️ 일기 수정하기
                 </button>
               </div>
             ` : `
               <p class="text-xs text-stone-400">아직 ${dayNum}일차 일기가 작성되지 않았습니다.<br>오늘 여행을 마치고 아빠의 생생한 감상을 기록해보세요!</p>
               <div class="pt-2">
-                <button onclick="openNewDiaryModal(${dayNum})" class="px-4 py-2.5 bg-amber-800 hover:bg-amber-900 text-white rounded-xl text-xs font-bold shadow-md transition active:scale-95 inline-flex items-center gap-1.5">
+                <button onclick="openNewDiaryModal(${dayNum})" class="px-4 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-bold shadow-md transition active:scale-95 inline-flex items-center gap-1.5">
                   <span>✍️</span>
                   <span>${dayNum}일차 일기 쓰기</span>
                 </button>
@@ -5284,7 +5394,8 @@
         6: defaultDiaryDay6,
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
-        9: defaultDiaryDay9
+        9: defaultDiaryDay9,
+        10: defaultDiaryDay10
       };
 
       if (existing) {
@@ -5329,7 +5440,8 @@
         6: defaultDiaryDay6,
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
-        9: defaultDiaryDay9
+        9: defaultDiaryDay9,
+        10: defaultDiaryDay10
       };
       const currentDef = defaultDiaries[activeDiaryDay] || defaultDiaryDay1;
       const saved = getFamilyComments(activeDiaryDay) || currentDef.familyComments;
@@ -5343,12 +5455,12 @@
       }
       modal.innerHTML = `
         <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[92vh]">
-          <div class="flex justify-between items-center bg-amber-900 text-amber-50 p-3.5 sm:p-4">
+          <div class="flex justify-between items-center bg-emerald-900 text-emerald-50 p-3.5 sm:p-4">
             <div class="flex items-center space-x-2">
               <span class="text-xl">👨‍👩‍👧‍👧</span>
               <h4 class="font-bold text-sm sm:text-base">가족 한마디 수정 — ${activeDiaryDay || 1}일차</h4>
             </div>
-            <button onclick="closeFamilyCommentModal()" class="text-amber-200 hover:text-white text-lg p-1">✕</button>
+            <button onclick="closeFamilyCommentModal()" class="text-emerald-200 hover:text-white text-lg p-1">✕</button>
           </div>
           <div class="p-4 overflow-y-auto flex-grow space-y-4 text-xs custom-scrollbar">
             ${saved.map((member, mIdx) => `
@@ -5373,7 +5485,7 @@
           </div>
           <div class="p-3 bg-stone-100 border-t border-stone-200 flex justify-end space-x-2">
             <button onclick="closeFamilyCommentModal()" class="px-3 py-1.5 rounded-lg border border-stone-300 text-stone-700 hover:bg-stone-200 text-xs font-semibold">취소</button>
-            <button onclick="saveFamilyComments(${JSON.stringify(saved).replace(/"/g, '&quot;')})" class="px-4 py-1.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold shadow">저장하기</button>
+            <button onclick="saveFamilyComments(${JSON.stringify(saved).replace(/"/g, '&quot;')})" class="px-4 py-1.5 rounded-lg bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold shadow">저장하기</button>
           </div>
         </div>
       `;
@@ -5404,7 +5516,8 @@
         6: defaultDiaryDay6,
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
-        9: defaultDiaryDay9
+        9: defaultDiaryDay9,
+        10: defaultDiaryDay10
       };
       if (defaultDiaries[day]) {
         defaultDiaries[day].familyComments = updated;
@@ -5441,7 +5554,7 @@
         const badge = dayBtn.querySelector('span:last-child');
         if (badge) {
           badge.textContent = '완료 ✨';
-          badge.className = 'text-[10px] bg-amber-600 text-amber-100 px-1.5 py-0.2 rounded-full';
+          badge.className = 'text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full';
         }
       }
 
@@ -5462,7 +5575,8 @@
         6: defaultDiaryDay6,
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
-        9: defaultDiaryDay9
+        9: defaultDiaryDay9,
+        10: defaultDiaryDay10
       };
       const def = defaultDiaries[day] || defaultDiaryDay1;
       const text = (customDiaries[day] && customDiaries[day].content) ? customDiaries[day].content : (def.paragraphs ? def.paragraphs.join('\n\n') : '');
