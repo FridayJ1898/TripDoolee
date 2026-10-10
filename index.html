@@ -506,8 +506,8 @@
           </div>
           <div class="bg-stone-50 p-3 rounded-xl border border-stone-200">
             <p class="text-[10px] text-stone-500 font-semibold">사전 확정 결제액</p>
-            <p class="text-sm sm:text-base font-bold text-stone-800 mt-0.5">₩5,023,212</p>
-            <p class="text-[10px] text-stone-500 font-mono">항공+숙소+렌트+패스+보험</p>
+            <p class="text-sm sm:text-base font-bold text-stone-800 mt-0.5">₩5,078,312</p>
+            <p class="text-[10px] text-stone-500 font-mono">항공+숙소+렌트+패스+보험+로밍</p>
           </div>
           <div class="bg-indigo-50/70 p-3 rounded-xl border border-indigo-200">
             <p class="text-[10px] text-indigo-700 font-semibold">현지 추가 지출액</p>
@@ -577,6 +577,13 @@
                   <p class="text-[10px] text-emerald-800">해외의료비 5천만, 배상책임 3천만, 휴대품 100만 등</p>
                 </div>
                 <span class="font-bold text-emerald-900">₩36,690</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-emerald-50/70 rounded-lg border border-emerald-200">
+                <div>
+                  <p class="font-semibold text-emerald-950">📱 도깨비 해외 데이터 로밍 (11일 무제한 플랜)</p>
+                  <p class="text-[10px] text-emerald-800">2026.09.29 (화) 한국 출발 전날 사전 결제 완료 (11일 무제한)</p>
+                </div>
+                <span class="font-bold text-emerald-900">₩55,100</span>
               </div>
             </div>
           </div>
@@ -1295,7 +1302,7 @@
         </button>
         <button onclick="viewDiaryDay(11)" id="diary-day-btn-11" class="diary-day-tab px-3 py-2 rounded-xl text-xs font-medium transition flex items-center space-x-1.5 shrink-0 bg-white text-stone-600 border border-stone-200 hover:bg-stone-50">
           <span>Day 11 (10/10)</span>
-          <span class="text-[10px] text-stone-400">예정</span>
+          <span class="text-[10px] bg-emerald-600 text-emerald-100 px-1.5 py-0.2 rounded-full">완료 ✨</span>
         </button>
       </div>
 
@@ -2128,8 +2135,9 @@
         summary: "숙소 체크아웃 후 대형 우버(UberXL)로 공항 이동, 키즈존 대기 후 12:50 대한항공 인천행 귀국",
         transit: "🚕 UberXL (대형 수하물 및 유모차 수용)",
         timeline: [
-          { time: "오전", text: "시애틀 숙소 최종 체크아웃 ➔ UberXL 탑승해 시택 공항 이동 (오전 9시 45분 전후 도착)", tag: "공항이동", address: "17801 International Blvd, SeaTac, WA 98158" },
-          { time: "낮", text: "대한항공 카운터 수하물 위탁 및 보안 검색 통과 ➔ 공항 키즈존 대기 후 12:50 인천행 탑승", tag: "출국" }
+          { time: "06:30", text: "아빠 홀로 새벽 로스터리 카페(Caffe Appassionato) 탐색, 바닷가에서 Jason Mraz 노래 감상 및 15년 만의 여유", tag: "새벽산책", address: "Caffe Appassionato" },
+          { time: "09:00", text: "시애틀 숙소 최종 체크아웃 ➔ Lyft 픽업 택시 탑승해 시택 공항 이동", tag: "공항이동", address: "17801 International Blvd, SeaTac, WA 98158" },
+          { time: "낮", text: "대한항공 카운터 수하물 위탁 및 보안 검색 통과 ➔ 인천행 탑승 및 귀국", tag: "출국" }
         ]
       }
     ];
@@ -2667,7 +2675,8 @@
     const FIXED_RENTAL = 277300;
     const FIXED_CITYPASS = 602562;
     const FIXED_INSURANCE = 36690;
-    const FIXED_TOTAL_KRW = FIXED_FLIGHT + FIXED_STAY1 + FIXED_STAY2 + FIXED_RENTAL + FIXED_CITYPASS + FIXED_INSURANCE; // 5,023,212
+    const FIXED_ROAMING = 55100; // 📱 도깨비 데이터 로밍 (해외 통신)
+    const FIXED_TOTAL_KRW = FIXED_FLIGHT + FIXED_STAY1 + FIXED_STAY2 + FIXED_RENTAL + FIXED_CITYPASS + FIXED_INSURANCE + FIXED_ROAMING; // 5,078,312
 
     const defaultCustomExpenses = [
       // 09/30 (Day 1 실제 결제 완료)
@@ -2740,7 +2749,11 @@
       { id: "exp-1009-1-1", date: "2026.10.09 (금)", title: "🛍️ 노드스트롬 (둘째 나이키 운동화)", amount: 47.50, currency: "USD", category: "shopping", note: "현금 결제", done: true },
       { id: "exp-1009-2", date: "2026.10.09 (금)", title: "🍱 3rd Ave Cafe", amount: 39.39, currency: "USD", category: "food", note: "한인 운영 식당에서 데리야키와 콜라", done: true },
       { id: "exp-1009-3", date: "2026.10.09 (금)", title: "🥐 Piroshky Piroshky", amount: 14.43, currency: "USD", category: "food", note: "바닷가 인근에서 빵 2개 포장", done: true },
-      { id: "exp-1009-4", date: "2026.10.09 (금)", title: "🚌 시내버스 (숙소 복귀)", amount: 6.00, currency: "USD", category: "transit", note: "D line 버스 탑승", done: true }
+      { id: "exp-1009-4", date: "2026.10.09 (금)", title: "🚌 시내버스 (숙소 복귀)", amount: 6.00, currency: "USD", category: "transit", note: "D line 버스 탑승", done: true },
+
+      // 10/10 (Day 11 실제 결제 완료)
+      { id: "exp-1010-1", date: "2026.10.10 (토)", title: "☕ Caffe Appassionato (바닐라 라떼)", amount: 7.44, currency: "USD", category: "food", note: "새벽 로스터리 카페 모닝커피 1잔", done: true },
+      { id: "exp-1010-2", date: "2026.10.10 (토)", title: "🚕 Lyft 공항 이동 택시", amount: 75.97, currency: "USD", category: "transit", note: "퀸앤 숙소 ➔ SeaTac 공항 픽업 이동", done: true }
     ];
 
     let customExpenses = [];
@@ -4783,6 +4796,83 @@
         ]
       };
 
+    // Day 11 (10/10 토) 일기 데이터 (수준 개선 완료본)
+    const defaultDiaryDay11 = {
+      day: 11,
+      dateStr: "10월 10일 (토)",
+      title: "안녕 시애틀, 새벽 바다의 찬 바람과 커피 향에 실어 보낸 15년의 추억",
+      subTitle: "어둠을 뚫고 찾아간 새벽 로스터리 카페, 제이슨 므라즈의 노래와 세 언덕의 파노라마 뷰, 그리고 아쉬움 속 따뜻한 작별",
+      author: "아빠 (주아성)",
+      mood: "가슴 벅찬 새벽의 여유, 15년 만의 회상, 따스한 가족애와 아름다운 작별 ☕🌊🎵🚕",
+      tags: ["CaffeAppassionato", "로스터리카페", "바닐라라떼", "새벽바다찬바람", "JasonMraz", "ImYours", "발라드언덕", "매그놀리아", "퀸앤", "15년만의여유", "Lyft택시", "SeaTac공항", "귀국길", "시애틀안녕"],
+      stats: {
+        totalHours: "새벽 06:00 기상 ~ 09:30 공항 이동 (약 3.5시간)",
+        flightInfo: "시애틀-타코마 국제공항(SeaTac) ➔ 인천 (KE042)",
+        driveDistance: "약 26 km (Lyft 택시 공항 이동 및 새벽 도보)",
+        napTime: "귀국 비행기 숙면 예정"
+      },
+      highlights: [
+        { icon: "☕", title: "새벽 어둠을 뚫고 찾은 카페", desc: "칠흑 같은 어둠의 공포를 이겨내고 도착한 Caffe Appassionato에서 마신 따뜻하고 달콤한 바닐라 라떼 한 잔." },
+        { icon: "🎵", title: "새벽 바다와 'I'm Yours'", desc: "새벽 바다의 차가운 바람을 맞으며 울려 퍼진 Jason Mraz의 노래, 15년 전 추억과 오버랩되는 온전한 여유." },
+        { icon: "🏡", title: "세 언덕의 파노라마 뷰", desc: "서서히 밝아오는 하늘과 바다를 배경으로 한 발라드, 매그놀리아, 퀸앤 주택가의 눈부시게 아름다운 전경." },
+        { icon: "🎒", title: "정갈한 짐 정리와 작별 인사", desc: "11일간 정들었던 숙소를 정돈하고, 숙소 방방마다 아쉬움과 고마움을 담아 전한 가족들의 작별 인사." },
+        { icon: "🚕", title: "Lyft 택시 타고 공항으로", desc: "오전 9시 도착한 Lyft 택시에 몸을 싣고, 창밖으로 멀어지는 시애틀을 눈에 담으며 귀국길 출발." }
+      ],
+      timelineEvents: [
+        { krTime: "10/11 새벽", usTime: "10/10 06:00", place: "시애틀 숙소", desc: "마지막 날 아침 기상, 가족들의 꿀잠을 배려해 아빠 홀로 조용히 새벽 탐색 출발", tag: "새벽기상", icon: "⏰" },
+        { krTime: "10/11 아침", usTime: "10/10 06:30", place: "퀸앤 주택가", desc: "칠흑 같은 어둠 속 긴장감과 공포를 빠른 걸음으로 견디며 25분 도보 이동", tag: "새벽산책", icon: "🚶‍♂️" },
+        { krTime: "10/11 아침", usTime: "10/10 06:55", place: "Caffe Appassionato", desc: "로컬 어르신들의 정겨운 담소 속에서 따뜻한 바닐라 라떼($7.44) 주문", tag: "카페", icon: "☕" },
+        { krTime: "10/11 아침", usTime: "10/10 07:15", place: "매그놀리아/발라드 해변", desc: "새벽 바다 바람 속에서 Jason Mraz 노래를 들으며 15년 만의 여유와 언덕 뷰 감상", tag: "감상/음악", icon: "🎵" },
+        { krTime: "10/11 오전", usTime: "10/10 07:30", place: "시애틀 숙소", desc: "숙소 복귀 후 가족 기상, 짐 정리 및 숙소와의 아쉬운 작별 인사", tag: "숙소복귀", icon: "🏡" },
+        { krTime: "10/11 오전", usTime: "10/10 09:00", place: "시애틀-타코마 공항행", desc: "Lyft 픽업 택시($75.97) 탑승, 공항으로 이동하며 미국 여행 마무리", tag: "공항이동", icon: "🚕" }
+      ],
+      paragraphs: [
+        "시애틀에서의 마지막 날 아침, 눈을 뜬 시간은 새벽 6시였다. 오늘 아침엔 아내와 함께 숙소 근처의 명성 높은 로스터리 카페 'Caffe Appassionato Coffee Roastery and Tasting Bar'에 들러 마지막 모닝커피를 마시기로 어젯밤 약속했었다. 하지만 피로에 지쳐 곤히 잠든 가족들의 숨소리를 들으니 도저히 깨울 수가 없었다. 결국 늘 그래왔듯, 6시 30분 아빠 홀로 조용히 문을 열고 새벽 공기 속으로 나섰다.",
+        "밖은 칠흑 같은 어둠뿐이었다. 가로등 불빛마저 드문드문 비추는 낯선 시애틀의 새벽길. 감상이나 낭만을 느낄 틈도 없이, 으스스한 긴장감과 공포에 짓눌려 발걸음을 재촉했다. 주택가 골목길의 서늘한 적막을 뚫고 빠른 걸음으로 25분을 걸어 마침내 은은한 노란 불빛을 밝히고 있는 카페 앞에 닿았다. 문을 열고 들어서자 짙고 구수한 로스팅 커피 향이 온몸의 긴장을 사르르 녹여주었다. 카운터에서 따뜻한 바닐라 라떼($7.44) 한 잔을 주문하고 카페 안을 조용히 둘러보았다. 이른 새벽인데도 매장 안에는 백발의 미국 할아버지들이 삼삼오오 자리를 잡고 앉아 계셨다. 저마다의 머그잔과 달콤한 쿠키를 앞에 두고 낮은 목소리로 정답게 담소를 나누는 그들의 모습은, 관광객의 시선이 닿지 않는 진짜 시애틀 사람들의 평온한 일상 그 자체였다. 하지만 이곳에 마냥 머물러서는 15년 전 청년 시절에 가슴에 품었던 그 시애틀의 진짜 감정을 온전히 길어 올릴 수 없을 것만 같았다. 카페 안의 아늑한 분위기도 좋았지만, 나는 따뜻한 라떼를 손에 쥐고 밖으로 걸어 나왔다. 그리고 코끝을 찡하게 스치는 새벽 바다의 서늘한 찬 바람을 온몸으로 마주했다.",
+        "스마트폰을 꺼내 Jason Mraz의 'I\'m Yours'를 재생했다. 새벽녘 잔잔한 파도 소리와 귓가에 맴도는 어쿠스틱 선율, 그리고 손안의 따뜻한 바닐라 라떼가 하나로 어우러졌다. 비록 15년 전 혈기 왕성했던 그 시절의 감정과는 사뭇 달랐지만, 두 딸의 아빠이자 한 가정의 가장이 되어 마주한 지금의 여유와 벅찬 감동은 그 어떤 순간보다 깊고 포근했다. 시선을 들어 멀리 바다 건너를 바라보았다. 언덕 위로 층층이 늘어선 발라드(Ballard) 구역의 집들, 고요한 매그놀리아(Magnolia)의 마을, 그리고 우리가 머물렀던 퀸앤(Queen Anne)의 고즈넉한 주택들이 서서히 밝아오는 새벽 하늘과 푸른 바다를 배경으로 한 폭의 수채화처럼 펼쳐졌다. 숨이 멎을 만큼 아름다운 풍경이었다. '다음 시애틀 여행에는 잊지 말고 꼭 이어폰을 챙겨오리라!' 그렇게 마음에 벅찬 감동과 다짐을 가득 채운 채, 오전 7시 30분 우리가 머물던 숙소(3252 13th Ave W)로 복귀했다.",
+        "이제 지난 열하루 동안 네 식구의 온기가 머물렀던 짐들을 정갈하게 정리하고, 오전 9시 예약해 둔 Lyft 픽업 택시($75.97)를 타고 시애틀-타코마 공항으로 향할 준비를 해야겠다. 참 많이 걷고, 때로는 지치고 짜증도 났지만, 결국엔 서로의 손을 꼭 쥐며 웃음으로 가득 채웠던 우리들의 첫 미국 서부 여행. 즐거웠어 시애틀! 그리고 올림피아!^^"
+      ],
+      quickExpenses: [
+        { name: "Caffe Appassionato (바닐라 라떼)", amount: 7.44, currency: "USD", cat: "food", note: "새벽 로스터리 카페 모닝커피 1잔" },
+        { name: "Lyft 공항 택시", amount: 75.97, currency: "USD", cat: "transit", note: "퀸앤 숙소 ➔ SeaTac 공항 픽업 이동" }
+      ],
+      familyComments: [
+        {
+          author: "아빠 (아성)",
+          emoji: "👨",
+          color: "blue",
+          comments: [
+            { moment: "새벽 바다와 15년의 추억", text: "칠흑 같은 새벽길의 두려움을 뚫고 마신 따뜻한 바닐라 라떼, 바닷바람과 함께 들은 'I\'m Yours'는 15년 전 추억을 넘어 평생 잊지 못할 여운을 남겼습니다. 네 식구 모두 다친 데 없이 행복하게 여정을 완주해 준 것만으로도 최고의 가장이 된 기분입니다. ☕🌊" }
+          ]
+        },
+        {
+          author: "엄마 (지은)",
+          emoji: "👩",
+          color: "rose",
+          comments: [
+            { moment: "온전한 여유와 감사의 마음", text: "새벽에 홀로 다녀오며 남편이 느꼈을 그 평화와 낭만을 온전히 공감해요. 짐을 싸면서 지난 11일이 한 편의 영화처럼 스쳐 지나갔어요. 아이들과 함께 웃고 울며 쌓은 이 소중한 기억들이 앞으로 우리 가족의 일상에 따뜻한 응원이 되어줄 거라 믿어요. 💖" }
+          ]
+        },
+        {
+          author: "이안 (첫째)",
+          emoji: "👧",
+          color: "violet",
+          comments: [
+            { moment: "시애틀과의 작별", text: "아침에 일어나 방 창밖을 바라보는데 시애틀을 떠난다는 게 너무 아쉬웠어요. 짐 정리하면서 숙소 방방마다 '시애틀아 안녕, 꼭 다시 올게!' 하고 인사했어요. 잊지 못할 여행이었어요! ✈️" }
+          ]
+        },
+        {
+          author: "이솔 (막내)",
+          emoji: "👧",
+          color: "emerald",
+          comments: [
+            { moment: "공항 가는 길 손 흔들기", text: "새 운동화 신고 캐리어도 씩씩하게 끌었어요! 공항으로 가는 택시 안에서 창밖 풍경을 보면서 계속 손을 흔들었어요. 미국 여행 너무너무 재미있었어요! 🎈" }
+          ]
+        }
+      ]
+    };
+
+
 
 
     let activeDiaryDay = 1;
@@ -5028,6 +5118,7 @@
     // 가족 코멘트 HTML 생성 헬퍼 (중첩 템플릿 리터럴 회피)
     function renderFamilyCommentsHTML(members) {
       const colorMap = {
+        blue:    { bg: 'bg-blue-50',    border: 'border-blue-200',    badge: 'bg-blue-100 text-blue-900',       bubbleBg: 'bg-white', bubbleBorder: 'border-blue-100',    tag: 'text-blue-600',    line: 'border-blue-200'    },
         rose:    { bg: 'bg-rose-50',    border: 'border-rose-200',    badge: 'bg-rose-100 text-rose-900',       bubbleBg: 'bg-white', bubbleBorder: 'border-rose-100',    tag: 'text-rose-600',    line: 'border-rose-200'    },
         violet:  { bg: 'bg-violet-50',  border: 'border-violet-200',  badge: 'bg-violet-100 text-violet-900',   bubbleBg: 'bg-white', bubbleBorder: 'border-violet-100',  tag: 'text-violet-600',  line: 'border-violet-200'  },
         emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', badge: 'bg-emerald-100 text-emerald-900', bubbleBg: 'bg-white', bubbleBorder: 'border-emerald-100', tag: 'text-emerald-600', line: 'border-emerald-200' }
@@ -5084,7 +5175,8 @@
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
         9: defaultDiaryDay9,
-        10: defaultDiaryDay10
+        10: defaultDiaryDay10,
+        11: defaultDiaryDay11
       };
 
       const d = defaultDiaries[dayNum];
@@ -5395,7 +5487,8 @@
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
         9: defaultDiaryDay9,
-        10: defaultDiaryDay10
+        10: defaultDiaryDay10,
+        11: defaultDiaryDay11
       };
 
       if (existing) {
@@ -5441,7 +5534,8 @@
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
         9: defaultDiaryDay9,
-        10: defaultDiaryDay10
+        10: defaultDiaryDay10,
+        11: defaultDiaryDay11
       };
       const currentDef = defaultDiaries[activeDiaryDay] || defaultDiaryDay1;
       const saved = getFamilyComments(activeDiaryDay) || currentDef.familyComments;
@@ -5517,7 +5611,8 @@
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
         9: defaultDiaryDay9,
-        10: defaultDiaryDay10
+        10: defaultDiaryDay10,
+        11: defaultDiaryDay11
       };
       if (defaultDiaries[day]) {
         defaultDiaries[day].familyComments = updated;
@@ -5576,7 +5671,8 @@
         7: defaultDiaryDay7,
         8: defaultDiaryDay8,
         9: defaultDiaryDay9,
-        10: defaultDiaryDay10
+        10: defaultDiaryDay10,
+        11: defaultDiaryDay11
       };
       const def = defaultDiaries[day] || defaultDiaryDay1;
       const text = (customDiaries[day] && customDiaries[day].content) ? customDiaries[day].content : (def.paragraphs ? def.paragraphs.join('\n\n') : '');
